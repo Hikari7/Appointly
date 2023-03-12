@@ -1,13 +1,22 @@
 const express = require('express')
 const cors = require('cors')
-
 require('./utils/mongodb')
+
+const authRoute = require('./routes/auth.route')
+
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:5173"
+  }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", (req, res) => res.json({message: "Health check"}))
+app.use('/auth', authRoute)
+
 
 app.use((req, res, next) => {
     const err = new Error("Route not found")
