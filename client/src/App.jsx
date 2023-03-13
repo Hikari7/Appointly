@@ -1,12 +1,7 @@
-import "./App.css";
+import AppRoute from "./routes";
 
-function App() {
-  return (
-    <div className="App">
-      Hello Daisy UI!
-      <button class="btn">Button</button>
-    </div>
-  );
-}
+const App = () => {
+  return <AppRoute />;
+};
 
 export default App;
