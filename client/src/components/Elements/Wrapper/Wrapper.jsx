@@ -1,7 +1,7 @@
-const Wrapper = ({ children }) => {
+const MobileWrapper = ({ children }) => {
   return (
     <div
-      className=" px-6  pt-14 lg:pb-0 xl:max-w-7xl xl:mx-auto"
+      className="pt-14 mx-auto w-10/12 sm:container justify-cente"
       style={{ minHeight: "90vh" }}
     >
       {children}
@@ -9,4 +9,4 @@ const Wrapper = ({ children }) => {
   );
 };
 
-export default Wrapper;
+export default MobileWrapper;

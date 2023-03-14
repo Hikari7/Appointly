@@ -15,6 +15,7 @@ const AppRoute = () => {
     route = PublicRoutes;
   }
 
+  //✅確認
   const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
 
   function Loading() {
