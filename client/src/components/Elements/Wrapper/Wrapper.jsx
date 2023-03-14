@@ -1,4 +1,4 @@
-const MobileWrapper = ({ children }) => {
+const Wrapper = ({ children }) => {
   return (
     <div
       className="pt-14 mx-auto w-10/12 sm:container justify-cente"
@@ -9,4 +9,4 @@ const MobileWrapper = ({ children }) => {
   );
 };
 
-export default MobileWrapper;
+export default Wrapper;

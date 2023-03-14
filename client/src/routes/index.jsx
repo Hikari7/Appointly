@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AdminRoutes } from "./AdminRouter";
+import { UserRoutes } from "./UserRouter";
 import { PublicRoutes } from "./PublicRoutes";
 
 const AppRoute = () => {
@@ -9,13 +9,12 @@ const AppRoute = () => {
 
   let route;
 
-  if (user.role === "admin") {
-    route = AdminRoutes;
-  } else if (user.role === null) {
+  if (user) {
+    route = UserRoutes;
+  } else {
     route = PublicRoutes;
   }
 
-  //✅確認
   const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
 
   function Loading() {

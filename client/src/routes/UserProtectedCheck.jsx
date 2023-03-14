@@ -3,21 +3,21 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const AdminProtectCheck = () => {
+const UserProtectCheck = () => {
   const [redirectPath, setRedirectPath] = useState("");
   const user = useSelector((state) => state.userInfo.user);
 
   useEffect(() => {
-    if (user.role !== "admin") {
+    if (user == null) {
       setRedirectPath("/");
     }
   }, []);
 
-  if (user.role === "admin") {
-    return <Navigate to={"admin/mypage"} />;
+  if (user) {
+    return <Navigate to={"mypage"} />;
   } else {
     return <Navigate to={"login"} />;
   }
 };
 
-export default AdminProtectCheck;
+export default UserProtectCheck;
