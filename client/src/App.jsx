@@ -1,12 +1,11 @@
-import "./App.css";
+import AppRoute from "./routes";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      Hello Daisy UI!
-      <button class="btn">Button</button>
+    <div className="text-textBase capitalize break-words">
+      <AppRoute />
     </div>
   );
-}
+};
 
 export default App;
