@@ -24,5 +24,8 @@
   "homepage": "https://github.com/Hikari7/MTG-Scheduling-app#readme",
   "dependencies": {
     "concurrently": "^7.6.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
   }
 }
