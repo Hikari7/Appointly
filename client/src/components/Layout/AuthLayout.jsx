@@ -13,6 +13,7 @@ const AdminLayout = () => {
     };
     checkAuth();
   }, [navigate]); */}
+  
     </div>
   );
 };

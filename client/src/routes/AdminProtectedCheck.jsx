@@ -16,7 +16,7 @@ const AdminProtectCheck = () => {
   if (user.role === "admin") {
     return <Navigate to={"admin/mypage"} />;
   } else {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"login"} />;
   }
 };
 

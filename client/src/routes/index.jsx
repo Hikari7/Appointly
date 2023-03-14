@@ -5,8 +5,6 @@ import { AdminRoutes } from "./AdminRouter";
 import { PublicRoutes } from "./PublicRoutes";
 
 const AppRoute = () => {
-  //ここでAdminかUserかConditionalする
-
   const user = useSelector((state) => state.userInfo.user);
 
   let route;
@@ -24,7 +22,7 @@ const AppRoute = () => {
   }
 
   return (
-    <Suspense fallback={Loading}>
+    <Suspense fallback={Loading()}>
       <RouterProvider router={routeElem} />
     </Suspense>
   );

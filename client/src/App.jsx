@@ -1,7 +1,11 @@
 import AppRoute from "./routes";
 
 const App = () => {
-  return <AppRoute />;
+  return (
+    <div className="text-textBase ">
+      <AppRoute />
+    </div>
+  );
 };
 
 export default App;

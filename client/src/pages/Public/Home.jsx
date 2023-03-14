@@ -1,7 +1,12 @@
 import React from "react";
+import PublicLayout from "../../components/Layout/PublicLayout";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <PublicLayout />
+    </>
+  );
 };
 
 export default Home;
