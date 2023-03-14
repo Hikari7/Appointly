@@ -11,7 +11,9 @@ exports.signUp = async (username, email, password) => {
 
         // Check user existing
         if(user){
-            return {errorMessage: "Email already exists."};
+            const errorObj = new Error("Email already exists");
+            errorObj.status = 404
+            throw errorObj
         }
         
         // Create new user
@@ -26,9 +28,9 @@ exports.signUp = async (username, email, password) => {
         })
         
     } catch (error) {
-        return {errorMessage: "Something went wrong. Please try again."};
+        const errorObj = new Error("Failed sign up.");
+        throw errorObj    
     }
-
 }
 
 exports.login = async (email, password) => {
@@ -37,7 +39,9 @@ exports.login = async (email, password) => {
     
         // Check user existing
         if(!user){
-            return {errorMessage: "User does not exists."};
+            const errorObj = new Error("User does not exists.");
+            errorObj.status = 404
+            throw errorObj 
         }
 
         const isValid = await bcrypt.compare(password, user.password)
@@ -48,15 +52,18 @@ exports.login = async (email, password) => {
             return (data = {
                 userId: user._id,
                 username: user.username,
+                email: user.email,
                 token
             })
     
         }else{
-            return {errorMessage: "Incorrect credentials."};
+            const errorObj = new Error("Incorrect credentials.");
+            throw errorObj 
         }
         
     } catch (error) {
-        return {errorMessage: "Something went wrong. Please try again."};
+        const errorObj = new Error("Something went wrong. Please try again.");
+        throw errorObj 
     }
 }
 
