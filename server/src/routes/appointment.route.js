@@ -1,8 +1,8 @@
 const router = require("express").Router();
 
-const { guestFormMtg } = require('../controllers/appointment.controller')
+const { guestFormMtgController } = require('../controllers/appointment.controller')
 
-router.post("/guestFormMtg", guestFormMtg);
+router.post("/guestFormMtg", guestFormMtgController);
 
 
 module.exports = router
