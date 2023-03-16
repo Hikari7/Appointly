@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TimeSelector = () => {
+const TimeSelector = ({ timeArr }) => {
 
 
   return (

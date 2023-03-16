@@ -28,3 +28,12 @@ export const customiseDefaultTime = (startTime, endTime) => {
 
     return defaultTimes
 }
+
+
+const availability = [
+    {mon: {number: 1, time: ["09:00", "09:30", "10:00", "10:30", "11:00"]}},
+    {tue: {number: 2, time: ["09:00", "09:30", "10:00", "10:30", "11:00"]}},
+    {wed: {number: 3, time: ["09:00", "09:30", "10:00", "10:30", "11:00"]}},
+    {thu: {number: 4, time: ["09:00", "09:30", "10:00", "10:30", "11:00"]}},
+    {fri: {number: 5, time: ["09:00", "09:30", "10:00", "10:30", "11:00"]}},
+  ]
