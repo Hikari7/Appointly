@@ -5,7 +5,7 @@ import { UserRoutes } from "./UserRoutes";
 import { PublicRoutes } from "./PublicRoutes";
 
 const AppRoute = () => {
-  const user = useSelector((state) => state.userInfo.user);
+  const user = useSelector((state) => state.user.user);
 
   let route;
 
@@ -18,7 +18,9 @@ const AppRoute = () => {
   const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
 
   function Loading() {
-    return <p>Loading...</p>;
+    return (
+      <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
+    );
   }
 
   return (

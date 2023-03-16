@@ -1,7 +1,173 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import SignupImg from "../../assets/LoginImg.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  validateUsername,
+  validatePassword,
+  validateConfirmPassword,
+} from "../../utils/validators";
+import axios from "axios";
 
 const Signup = () => {
-  return <div>Signup</div>;
+  const navigate = useNavigate();
+  const userInput = useRef(null);
+  const passwordInput = useRef(null);
+  const confirmPasswordInput = useRef(null);
+
+  const [usernameErr, setUsernameErr] = useState(null);
+  const [passwordErr, setPasswordErr] = useState(null);
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
+
+  const BASE_URL = "http://localhost:8000";
+
+  const axiosClient = axios.create({
+    baseURL: BASE_URL,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUsernameErr("");
+    setPasswordErr("");
+    setConfirmPasswordErr("");
+
+    const username = userInput.current.value;
+    const password = passwordInput.current.value;
+    const confirmPassword = confirmPasswordInput.current.value;
+
+    const userNameHintValidate = validateUsername(username);
+    setUsernameErr(
+      userNameHintValidate
+        ? "Username requires minimum length of 8 characters"
+        : ""
+    );
+
+    const passwordHintValidate = validatePassword(password);
+    setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
+
+    const confirmPasswordHintValidate = validateConfirmPassword(
+      confirmPassword,
+      password
+    );
+
+    setConfirmPasswordErr(
+      confirmPasswordHintValidate ? confirmPasswordHintValidate : ""
+    );
+
+    // try {
+    //   console.log("send");
+
+    //   navigate("/login");
+    // } catch (err) {
+    //   const errors = err.data.errors;
+    //   setError(errors.response.data.error);
+    //   console.log(errors);
+    // }
+
+    // axios
+    //   .post(
+    //     "api/user/signup",
+    //     {
+    //       username,
+    //       password,
+    //     },
+    //     { headers: { "Content-Type": "application/json" } }
+    //   )
+    //   .then(function (response) {
+    //     localStorage.setItem("user", JSON.stringify(response.data));
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+  };
+
+  return (
+    <>
+      <section className="flex flex-col md:flex-row h-screen items-center">
+        <div className="bg-blue hidden md:block w-full md:w-2/3 h-screen ">
+          <img src={SignupImg} alt="" className="w-full h-full object-cover" />
+        </div>
+
+        <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
+          <div className="w-full h-100">
+            {/* <div className="justify-center ml-auto flex mb-3">
+              <img src={Logo} alt="CICCC_Logo" className="w-20 h-20 " />
+            </div> */}
+            <div className="text-2xl font-extrabold text-center text-blue font-second">
+              Meeting Scheduling App
+            </div>
+            <h3 className="text-md font-bold leading-tight mt-6 text-center font-second">
+              Sign up
+            </h3>
+
+            <form className="mt-6" onSubmit={handleSubmit}>
+              <label className="block text-gray-700">Username</label>
+
+              <input
+                ref={userInput}
+                type="username"
+                name="password"
+                placeholder="Enter Username"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
+
+              {usernameErr !== "" ? (
+                <p className="text-xs text-red-600">{usernameErr}</p>
+              ) : (
+                ""
+              )}
+
+              <div className="mt-4">
+                <label className="block text-gray-700">Password</label>
+                <input
+                  ref={passwordInput}
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+              </div>
+              {passwordErr !== "" ? (
+                <p className="text-xs text-red-600">{passwordErr}</p>
+              ) : (
+                ""
+              )}
+              <div className="mt-4">
+                <label className="block text-gray-700">Confirm Password</label>
+                <input
+                  ref={confirmPasswordInput}
+                  type="password"
+                  name="confirm password"
+                  placeholder="Enter Confirm password"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+              </div>
+              {confirmPasswordErr !== "" ? (
+                <p className="text-xs text-red-600">{confirmPasswordErr}</p>
+              ) : (
+                ""
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto"
+              >
+                Signup
+              </button>
+            </form>
+            <p className="mt-8"> Already have an account?</p>
+            <Link
+              to="/"
+              href="#"
+              className="text-blue-500 hover:opacity-70 border-b border-blue"
+            >
+              Login
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default Signup;
