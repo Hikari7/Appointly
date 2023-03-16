@@ -4,6 +4,12 @@ export const validateUsername = (username) => {
   }
 };
 
+export const validateEmail = (email) => {
+  if (!email.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    return "Please enter valid email address";
+  }
+};
+
 export const validatePassword = (password) => {
   //validate lower case
   if (!password.trim().match(/[a-z]/g)) {

@@ -8,9 +8,11 @@ const Login = () => {
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const userInput = useRef(null);
+  const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
   const [usernameErr, setUsernameErr] = useState(null);
+  const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
 
   // useEffect(() => {
@@ -22,9 +24,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsernameErr("");
+    setEmailErr("");
     setPasswordErr("");
 
     const username = userInput.current.value;
+    const email = passwordInput.current.value;
     const password = passwordInput.current.value;
 
     //validation
@@ -32,6 +36,10 @@ const Login = () => {
     if (username === "") {
       error = true;
       setUsernameErr("Please enter your name");
+    }
+    if (email === "") {
+      error = true;
+      setEmailErr("Please enter your email");
     }
     if (password === "") {
       error = true;
@@ -80,6 +88,22 @@ const Login = () => {
               </div>
               {usernameErr !== "" ? (
                 <p className="text-xs text-red-600">{usernameErr}</p>
+              ) : (
+                ""
+              )}
+              <div className="mt-4">
+                <label className="block text-gray-700">Email</label>
+                <input
+                  ref={emailInput}
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  minLength="6"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                />
+              </div>
+              {emailErr !== "" ? (
+                <p className="text-xs text-red-600">{emailErr}</p>
               ) : (
                 ""
               )}

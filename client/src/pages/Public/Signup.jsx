@@ -3,6 +3,7 @@ import SignupImg from "../../assets/LoginImg.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
   validateUsername,
+  validateEmail,
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validators";
@@ -11,10 +12,12 @@ import axios from "axios";
 const Signup = () => {
   const navigate = useNavigate();
   const userInput = useRef(null);
+  const emailInput = useRef(null);
   const passwordInput = useRef(null);
   const confirmPasswordInput = useRef(null);
 
   const [usernameErr, setUsernameErr] = useState(null);
+  const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
 
@@ -27,10 +30,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameErr("");
+    setEmailErr("");
     setPasswordErr("");
     setConfirmPasswordErr("");
 
     const username = userInput.current.value;
+    const email = emailInput.current.value;
     const password = passwordInput.current.value;
     const confirmPassword = confirmPasswordInput.current.value;
 
@@ -40,6 +45,9 @@ const Signup = () => {
         ? "Username requires minimum length of 8 characters"
         : ""
     );
+
+    const emailHintValidate = validateEmail(email);
+    setEmailErr(emailHintValidate ? "Please enter valid email address" : "");
 
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
@@ -102,7 +110,6 @@ const Signup = () => {
 
             <form className="mt-6" onSubmit={handleSubmit}>
               <label className="block text-gray-700">Username</label>
-
               <input
                 ref={userInput}
                 type="username"
@@ -113,6 +120,21 @@ const Signup = () => {
 
               {usernameErr !== "" ? (
                 <p className="text-xs text-red-600">{usernameErr}</p>
+              ) : (
+                ""
+              )}
+
+              <label className="block text-gray-700">Email</label>
+              <input
+                ref={emailInput}
+                type="password"
+                name="email"
+                placeholder="Enter Email"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
+
+              {emailErr !== "" ? (
+                <p className="text-xs text-red-600">{emailErr}</p>
               ) : (
                 ""
               )}
