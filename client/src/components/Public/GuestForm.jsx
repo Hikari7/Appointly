@@ -10,28 +10,30 @@ const GuestForm = () => {
   return (
     <>
       <div className="md:flex">
-        <div className="md:w-1/3 md:border-r">
-          <div className="my-3">
-            <h1 className="text-3xl font-second">Test</h1>
-            <h2 className="my-3">30 Minute Meeting</h2>
-          </div>
-          <div className="justify-between mx-auto my-3">
-            <div className="flex items-center">
-              <div>
-                <h2 className="mx-1">
-                  <FaRegCalendarAlt />
-                </h2>
-              </div>
-              <div className="mx-1">
-                <h2>Friday, Mar 10 2023</h2>
-                <h2>10:00 - 10:30</h2>
-              </div>
+        <div className="md:border-r">
+          <div className=" md:mt-32">
+            <div className="my-3">
+              <h1 className="text-3xl font-second">Test</h1>
+              <h2 className="my-3">30 Minute Meeting</h2>
             </div>
-            <div className="flex items-center my-3 border-b md:border-b-0">
-              <h2 className="mx-1 my-3">
-                <BsGlobeAmericas />
-              </h2>
-              <h2 className="mx-1">Pacific Time - US / Canada</h2>
+            <div className="justify-between mx-auto my-3">
+              <div className="flex items-center">
+                <div>
+                  <h2 className="mx-1">
+                    <FaRegCalendarAlt />
+                  </h2>
+                </div>
+                <div className="mx-1">
+                  <h2>Friday, Mar 10 2023</h2>
+                  <h2>10:00 - 10:30</h2>
+                </div>
+              </div>
+              <div className="flex items-center my-3 border-b md:border-b-0">
+                <h2 className="mx-1 my-3">
+                  <BsGlobeAmericas />
+                </h2>
+                <h2 className="mx-1">Pacific Time - US / Canada</h2>
+              </div>
             </div>
           </div>
         </div>
