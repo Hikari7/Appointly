@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-
 const getStartDate = (currentDate) => {
     const today = moment(currentDate);
     today.startOf("month");
