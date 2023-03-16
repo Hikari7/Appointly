@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { UserRoutes } from "./UserRouter";
+import { UserRoutes } from "./UserRoutes";
 import { PublicRoutes } from "./PublicRoutes";
 
 const AppRoute = () => {
