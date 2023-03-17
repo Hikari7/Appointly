@@ -61,7 +61,7 @@ const Signup = () => {
 
       console.log(res);
       console.log("success!");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       console.log(err, err.message);
     }
@@ -76,9 +76,6 @@ const Signup = () => {
 
         <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
-            {/* <div className="justify-center ml-auto flex mb-3">
-              <img src={Logo} alt="CICCC_Logo" className="w-20 h-20 " />
-            </div> */}
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
