@@ -1,7 +1,10 @@
 const Appointment = require("../models/Appointment");
+const Availability = require("../models/Availability")
 
 exports.rescheduleMtg = async (mtgId) => {
     try {
+        const avail = await Availability.find({})
+        console.log(avail);
         return await Appointment.find({ _id: mtgId })
         // Code for update appointment
 

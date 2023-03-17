@@ -1,12 +1,15 @@
-import { getStartDate, getEndDate } from "../../utils/calenderHelpers";
+import BaseCalendar from "./BaseCalendar";
 
 const Calendar = () => {
-  console.log(getStartDate());
-  console.log(getEndDate());
+  
 
-  return <div>Calendar</div>;
+  return (
+    <BaseCalendar />
+  )
 };
 
 export default Calendar;
+
+
 
 
