@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import SignupImg from "../../assets/LoginImg.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -34,14 +34,10 @@ const Signup = () => {
     // const confirmPassword = confirmPasswordInput.current.value;
 
     const userNameHintValidate = validateUsername(username);
-    setUsernameErr(
-      userNameHintValidate
-        ? "Username requires minimum length of 8 characters"
-        : ""
-    );
+    setUsernameErr(userNameHintValidate ? userNameHintValidate : "");
 
     const emailHintValidate = validateEmail(email);
-    setEmailErr(emailHintValidate ? "Please enter valid email address" : "");
+    setEmailErr(emailHintValidate ? emailHintValidate : "");
 
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
@@ -64,27 +60,10 @@ const Signup = () => {
       });
 
       console.log(res);
-      // localStorage.setItem("token", res.token);
       console.log("success!");
       navigate("/");
     } catch (err) {
-      console.log(err);
-      // const errors = err?.data.errors;
-      // console.log(errors);
-      // errors?.forEach((err) => {
-      //   if (err.param === "username") {
-      //     setUsernameErr(err.msg);
-      //   }
-      //   if (err.param === "email") {
-      //     setEmailErr(err.msg);
-      //   }
-      //   if (err.param === "password") {
-      //     setPasswordErr(err.msg);
-      //   }
-      //   // if (err.param === "confirmPassword") {
-      //   //   setConfirmErrText(err.msg);
-      //   // }
-      // });
+      console.log(err, err.message);
     }
   };
 
@@ -103,7 +82,7 @@ const Signup = () => {
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-md font-bold leading-tight mt-6 text-center font-second text-accent">
+            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
               Sign up
             </h3>
 
@@ -123,7 +102,7 @@ const Signup = () => {
                 ""
               )}
 
-              <label className="block text-gray-700">Email</label>
+              <label className="block text-gray-700 mt-2">Email</label>
               <input
                 ref={emailInput}
                 type="username"
@@ -171,11 +150,12 @@ const Signup = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto"
+                className="btn btn-primary normal-case font-bold w-full py-2 my-7"
               >
                 Signup
               </button>
             </form>
+
             <p className="mt-8"> Already have an account?</p>
             <Link
               to="/login"

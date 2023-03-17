@@ -1,12 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // import ConfirmedModal from "../Elements/Modal/ConfirmedModal";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsGlobeAmericas } from "react-icons/bs";
 import comfirmed from "../../assets/confirmed.svg";
+import authApi from "../../api/authAPI";
 
 const GuestInputForm = () => {
-  const handleSubmit = () => {
-    console.log("caascasc");
+  const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
+  const nameInput = useRef(null);
+  const emailInput = useRef(null);
+
+  const [nameErr, setNameErr] = useState(null);
+  const [emailErr, setEmailErr] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEmailErr("");
+    setNameErr("");
+
+    const name = nameInput.current.value;
+    const email = emailInput.current.value;
+
+    let error = false;
+    if (name === "") {
+      error = true;
+      setNameErr("Please enter your name");
+    }
+    if (email === "") {
+      error = true;
+      setEmailErr("Please enter your email");
+    }
+
+    // try {
+    //   const res = await bookApi.form({
+    //     name,
+    //     email,
+    //     comment
+    //   })
+    // } catch(err) {
+    //   console.log(err);
+    // }
   };
 
   return (
@@ -17,18 +53,31 @@ const GuestInputForm = () => {
           <span className="label-text text-textBase">Name</span>
         </label>
         <input
+          ref={nameInput}
           type="text"
+          name="name"
           placeholder="Name"
           className="input input-bordered w-full max-w-xs input-primary "
         />
+        {nameErr !== "" ? (
+          <p className="text-xs text-red-600 pt-1">{nameErr}</p>
+        ) : (
+          ""
+        )}
         <label className="label">
           <span className="label-text text-textBase">Email</span>
         </label>
         <input
+          ref={emailInput}
           type="text"
           placeholder="Email"
           className="input input-bordered w-full max-w-xs input-primary "
         />
+        {emailErr !== "" ? (
+          <p className="text-xs text-red-600 pt-1">{emailErr}</p>
+        ) : (
+          ""
+        )}
         <div className="form-control mt-3 my-5">
           <label className="label">
             <span className="label-text normal-case text-textBase">

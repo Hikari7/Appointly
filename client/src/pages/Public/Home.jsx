@@ -14,7 +14,7 @@ const Home = () => {
                 Stay connected anytime, anywhere.
               </h1>
               <h3 className="mt-6 md:text-lg">
-                The app makes scheduling online chats with ease. <br />
+                This app makes scheduling online chats with ease. <br />
                 Rather than spending time on scheduling, focus on connecting
                 more.
               </h3>

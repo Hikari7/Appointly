@@ -8,11 +8,9 @@ import authApi from "../../api/authAPI";
 const Login = () => {
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
-  const userInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
-  const [usernameErr, setUsernameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
 
@@ -24,20 +22,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUsernameErr("");
     setEmailErr("");
     setPasswordErr("");
 
-    const username = userInput.current.value;
     const email = passwordInput.current.value;
     const password = passwordInput.current.value;
 
     //validation
     let error = false;
-    if (username === "") {
-      error = true;
-      setUsernameErr("Please enter your name");
-    }
     if (email === "") {
       error = true;
       setEmailErr("Please enter your email");
@@ -51,13 +43,13 @@ const Login = () => {
 
     try {
       const res = await authApi.login({
-        username,
         email,
         password,
       });
       console.log(res);
       console.log("success to login!");
-      // navigate("/:uid/appointment");
+      // navigate("/:uid/mypage");
+      navigate("/");
     } catch (err) {
       console.log(err);
 
@@ -92,26 +84,11 @@ const Login = () => {
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-md font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
+            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
             </h3>
 
             <form className="mt-6" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-gray-700">Username</label>
-                <input
-                  ref={userInput}
-                  type="username"
-                  name="username"
-                  placeholder="Enter Username"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                />
-              </div>
-              {usernameErr !== "" ? (
-                <p className="text-xs text-red-600">{usernameErr}</p>
-              ) : (
-                ""
-              )}
               <div className="mt-4">
                 <label className="block text-gray-700">Email</label>
                 <input

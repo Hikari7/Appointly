@@ -6,7 +6,6 @@ import GuestInputForm from "./GuestInputForm";
 
 const GuestForm = () => {
   // const user = useSelector((state) => state.user);
-
   return (
     <>
       <div className="md:flex">
