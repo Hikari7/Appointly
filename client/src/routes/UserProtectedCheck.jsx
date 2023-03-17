@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const UserProtectCheck = () => {
   const [redirectPath, setRedirectPath] = useState("");
-  const user = useSelector((state) => state.userInfo.user);
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (user == null) {

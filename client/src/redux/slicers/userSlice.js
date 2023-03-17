@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const useInfoSlice = createSlice({
-  name: "userInfo",
+export const useSlice = createSlice({
+  name: "user",
   initialState: { user: null },
 
   reducers: {
@@ -11,9 +11,9 @@ export const useInfoSlice = createSlice({
   },
 });
 
-export const { setUser } = useInfoSlice.actions;
+export const { setUser } = useSlice.actions;
 
-export default useInfoSlice.reducer;
+export default useSlice.reducer;
 
 //loginした時にDispatchでUserを書き換える
 //(email, uid, uername)をストアする
