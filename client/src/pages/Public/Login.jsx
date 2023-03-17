@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PrimaryBtn from "../../components/Elements/Button/PrimaryBtn";
 import LoginImg from "../../assets/LoginImg.jpg";
+import authApi from "../../api/authAPI";
 
 const Login = () => {
   const user = useSelector((state) => state.user.user);
@@ -21,7 +22,7 @@ const Login = () => {
   //   }
   // }, [usernameErr, passwordErr]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameErr("");
     setEmailErr("");
@@ -49,10 +50,30 @@ const Login = () => {
     //userなのかを判断するロジックも書かなきゃいけない
 
     try {
-      // navigate("/home");
+      const res = await authApi.login({
+        username,
+        email,
+        password,
+      });
+      console.log(res);
+      console.log("success to login!");
+      // navigate("/:uid/appointment");
     } catch (err) {
-      const errors = err.data.errors;
-      console.log(errors);
+      console.log(err);
+
+      // const errors = err?.data.errors;
+
+      // errors?.forEach((err) => {
+      //   if (err.param === "username") {
+      //     setUsernameErr(err.msg);
+      //   }
+      //   if (err.param === "email") {
+      //     setUsernameErr(err.msg);
+      //   }
+      //   if (err.param === "password") {
+      //     setUsernameErr(err.msg);
+      //   }
+      // });
     }
   };
 

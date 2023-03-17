@@ -5,39 +5,33 @@ import {
   validateUsername,
   validateEmail,
   validatePassword,
-  validateConfirmPassword,
+  // validateConfirmPassword,
 } from "../../utils/validators";
-import axios from "axios";
+import authApi from "../../api/authAPI";
 
 const Signup = () => {
   const navigate = useNavigate();
   const userInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-  const confirmPasswordInput = useRef(null);
+  // const confirmPasswordInput = useRef(null);
 
   const [usernameErr, setUsernameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
-
-  const BASE_URL = "http://localhost:8000";
-
-  const axiosClient = axios.create({
-    baseURL: BASE_URL,
-  });
+  // const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameErr("");
     setEmailErr("");
     setPasswordErr("");
-    setConfirmPasswordErr("");
+    // setConfirmPasswordErr("");
 
     const username = userInput.current.value;
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
-    const confirmPassword = confirmPasswordInput.current.value;
+    // const confirmPassword = confirmPasswordInput.current.value;
 
     const userNameHintValidate = validateUsername(username);
     setUsernameErr(
@@ -52,41 +46,46 @@ const Signup = () => {
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
 
-    const confirmPasswordHintValidate = validateConfirmPassword(
-      confirmPassword,
-      password
-    );
+    // const confirmPasswordHintValidate = validateConfirmPassword(
+    //   confirmPassword,
+    //   password
+    // );
 
-    setConfirmPasswordErr(
-      confirmPasswordHintValidate ? confirmPasswordHintValidate : ""
-    );
+    // setConfirmPasswordErr(
+    //   confirmPasswordHintValidate ? confirmPasswordHintValidate : ""
+    // );
 
-    // try {
-    //   console.log("send");
+    try {
+      const res = await authApi.signup({
+        username,
+        email,
+        password,
+        // confirmPassword,
+      });
 
-    //   navigate("/login");
-    // } catch (err) {
-    //   const errors = err.data.errors;
-    //   setError(errors.response.data.error);
-    //   console.log(errors);
-    // }
-
-    // axios
-    //   .post(
-    //     "api/user/signup",
-    //     {
-    //       username,
-    //       password,
-    //     },
-    //     { headers: { "Content-Type": "application/json" } }
-    //   )
-    //   .then(function (response) {
-    //     localStorage.setItem("user", JSON.stringify(response.data));
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+      console.log(res);
+      // localStorage.setItem("token", res.token);
+      console.log("success!");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      const errors = err?.data.errors;
+      // console.log(errors);
+      errors?.forEach((err) => {
+        if (err.param === "username") {
+          setUsernameErr(err.msg);
+        }
+        if (err.param === "email") {
+          setEmailErr(err.msg);
+        }
+        if (err.param === "password") {
+          setPasswordErr(err.msg);
+        }
+        // if (err.param === "confirmPassword") {
+        //   setConfirmErrText(err.msg);
+        // }
+      });
+    }
   };
 
   return (
@@ -127,7 +126,7 @@ const Signup = () => {
               <label className="block text-gray-700">Email</label>
               <input
                 ref={emailInput}
-                type="password"
+                type="username"
                 name="email"
                 placeholder="Enter Email"
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
@@ -154,7 +153,7 @@ const Signup = () => {
               ) : (
                 ""
               )}
-              <div className="mt-4">
+              {/* <div className="mt-4">
                 <label className="block text-gray-700">Confirm Password</label>
                 <input
                   ref={confirmPasswordInput}
@@ -168,7 +167,7 @@ const Signup = () => {
                 <p className="text-xs text-red-600">{confirmPasswordErr}</p>
               ) : (
                 ""
-              )}
+              )} */}
 
               <button
                 type="submit"
