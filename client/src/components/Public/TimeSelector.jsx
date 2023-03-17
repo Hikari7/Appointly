@@ -11,21 +11,26 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   }, [selectDate])
 
   return (
-    <div id='timeSelect' className='flex flex-col justify-center w-1/2 md:w-1/3 mx-auto my-5'>
-      <div className="flex flex-col justify-content items-center">
-        <div className="flex items-center mb-2">
-          <div className="w-[30%] mr-2">Date:</div>
-          <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded">{selectedDate}</div>
+    <div id='timeSelect' className='flex flex-col justify-center md:w-[40%] my-5 md:text-lg'>
+      <div className="flex justify-center items-center gap-5">
+        <div className="flex flex-col md:w-1/2 justify-content items-baseline">
+          <div className="flex w-full items-center mb-2">
+            <div className="w-[33%]">Date:</div>
+            <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded">{selectedDate}</div>
+          </div>
+          <div className="flex w-full items-center">
+            <div className="w-[33%]">Time:</div>
+            <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded">{selectedTime}</div>
+          </div>
         </div>
-        <div className="flex items-center">
-          <div className="w-[30%] mr-2">Time:</div>
-          <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded">{selectedTime}</div>
-        </div>
+        <button className="md:text-2xl bg-green-400 text-white rounded-lg px-4 py-1 md:h-[2.5rem]">
+          Next
+        </button>
       </div>
-      <div id='timeSelect' className='flex flex-col justify-center my-8 gap-5'>
+      <div id='timeSelect' className='flex flex-col justify-center items-center my-8 gap-5'>
         {timeArray && 
           timeArray.map((eachTime, index) => (
-            <button onClick={() => setSlectedTime(eachTime)} key={index} className='py-1 px-3 border-2 border-green-400 rounded hover:bg-green-400 hover:text-white'>
+            <button onClick={() => setSlectedTime(eachTime)} key={index} className='py-1 w-[70%] md:w-[60%] border-2 border-green-400 rounded hover:bg-green-400 hover:text-white'>
               {eachTime}
             </button>
           ))        
