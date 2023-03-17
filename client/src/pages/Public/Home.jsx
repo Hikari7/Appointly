@@ -7,13 +7,27 @@ const Home = () => {
   return (
     <>
       <PublicLayout>
-        <div className="container text-center">
-          <h1 className="text-4xl justify-center font-second">
-            Schedule online chats with ease.<br></br> Stay connected anytime,
-            anywhere.
-          </h1>
-          <img src={top} alt="" className="w-full h-full object-cover my-7" />
-          <PrimaryBtn props={"My Account"} />
+        <div className="container ">
+          <div className="md:flex">
+            <div className="w-full">
+              <h1 className="text-4xl font-second md:text-5xl">
+                Stay connected anytime, anywhere.
+              </h1>
+              <h3 className="mt-6 md:text-lg">
+                This app makes scheduling online chats with ease. <br />
+                Rather than spending time on scheduling, focus on connecting
+                more.
+              </h3>
+              <button className="btn btn-primary normal-case  w-42 py-2 mt-8 text-xl font-second">
+                My Account
+              </button>
+            </div>
+            <img
+              src={top}
+              alt=""
+              className="w-full h-full max-h-80 min-h-full mt-8 md:m-0 md:my-auto"
+            />
+          </div>
         </div>
       </PublicLayout>
     </>
