@@ -3,6 +3,8 @@ const cors = require('cors')
 require('express-async-errors');
 require('./utils/mongodb')
 
+const Availability = require("./models/Availability")
+
 const authRoute = require('./routes/auth.route')
 const appointmentRoute = require('./routes/appointment.route')
 const userRoute = require('./routes/user.route')
