@@ -89,10 +89,10 @@ const Login = () => {
             {/* <div className="justify-center ml-auto flex mb-3">
               <img src={Logo} alt="CICCC_Logo" className="w-20 h-20 " />
             </div> */}
-            <div className="text-2xl font-extrabold text-center text-blue font-second">
+            <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-md font-bold leading-tight mt-6 text-center font-5xl font-second">
+            <h3 className="text-md font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
             </h3>
 

@@ -69,22 +69,22 @@ const Signup = () => {
       navigate("/");
     } catch (err) {
       console.log(err);
-      const errors = err?.data.errors;
+      // const errors = err?.data.errors;
       // console.log(errors);
-      errors?.forEach((err) => {
-        if (err.param === "username") {
-          setUsernameErr(err.msg);
-        }
-        if (err.param === "email") {
-          setEmailErr(err.msg);
-        }
-        if (err.param === "password") {
-          setPasswordErr(err.msg);
-        }
-        // if (err.param === "confirmPassword") {
-        //   setConfirmErrText(err.msg);
-        // }
-      });
+      // errors?.forEach((err) => {
+      //   if (err.param === "username") {
+      //     setUsernameErr(err.msg);
+      //   }
+      //   if (err.param === "email") {
+      //     setEmailErr(err.msg);
+      //   }
+      //   if (err.param === "password") {
+      //     setPasswordErr(err.msg);
+      //   }
+      //   // if (err.param === "confirmPassword") {
+      //   //   setConfirmErrText(err.msg);
+      //   // }
+      // });
     }
   };
 
@@ -100,10 +100,10 @@ const Signup = () => {
             {/* <div className="justify-center ml-auto flex mb-3">
               <img src={Logo} alt="CICCC_Logo" className="w-20 h-20 " />
             </div> */}
-            <div className="text-2xl font-extrabold text-center text-blue font-second">
+            <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-md font-bold leading-tight mt-6 text-center font-second">
+            <h3 className="text-md font-bold leading-tight mt-6 text-center font-second text-accent">
               Sign up
             </h3>
 
@@ -178,7 +178,7 @@ const Signup = () => {
             </form>
             <p className="mt-8"> Already have an account?</p>
             <Link
-              to="/"
+              to="/login"
               href="#"
               className="text-blue-500 hover:opacity-70 border-b border-blue"
             >

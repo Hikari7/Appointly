@@ -20,14 +20,14 @@ const MobileNav = () => {
 
         <ul className="menu-horizontal px-1">
           <li
-            className="normal-case text-lg hover:cursor-pointer hover:text-primary transition duration-200"
+            className="normal-case text-lg hover:cursor-pointer hover:text-primary transition duration-200 text-accent"
             onClick={() => handleNavigatePage(0)}
           >
             {navPublicLabels[0]}
           </li>
 
           <li
-            className="normal-case text-lg ml-6 hover:cursor-pointer  hover:text-primary transition duration-200"
+            className="normal-case text-lg ml-6 hover:cursor-pointer  hover:text-primary transition duration-200 text-accent"
             onClick={() => handleNavigatePage(1)}
           >
             {navPublicLabels[1]}

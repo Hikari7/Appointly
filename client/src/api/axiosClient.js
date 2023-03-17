@@ -6,11 +6,16 @@ console.log(BASE_URL);
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
+  // headers: {
+  //   "Content-Type": "application/json",
+  //   "X-Requested-With": "XMLHttpRequest",
+  //   Accept: "application/json",
+  //   "Access-Control-Allow-Origin": "*",
+  // },
+  // responseType: "json",
 });
 
-
 export default axiosClient;
-
 
 // import axios from "axios";
 //
