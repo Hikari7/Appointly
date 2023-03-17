@@ -22,10 +22,6 @@ const BaseCalendar = () => {
       {dow: "5", time: ["11:00", "09:30", "10:00", "10:30"]},
     ]
 
-    const appointment = [
-      {bookedDateTime: {date: "2023-3-20", time: "10:00"}}
-    ]
-
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))
     // console.log(availableDow);
@@ -57,7 +53,7 @@ const BaseCalendar = () => {
 
     return (
       <div className='flex flex-col md:flex-row md:justify-center'>
-        <div className='md:w-1/2 p-10'>
+        <div className='md:w-1/3 p-10'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -72,7 +68,7 @@ const BaseCalendar = () => {
           </div>
           {calendarData && 
             calendarData.map((week, index) => (
-              <div key={index} className="flex h-12 md:text-lg">
+              <div key={index} className="flex h-12 md:text-xl">
                 {week.map((day, index) => {
                   if(currentMonth !== day.month){              
                     return (
