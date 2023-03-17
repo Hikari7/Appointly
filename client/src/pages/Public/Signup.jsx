@@ -7,7 +7,7 @@ import {
   validatePassword,
   // validateConfirmPassword,
 } from "../../utils/validators";
-import authApi from "../../api/authAPI";
+import authApi from "../../api/authApi";
 
 const Signup = () => {
   const navigate = useNavigate();

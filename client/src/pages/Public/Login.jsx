@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginImg from "../../assets/LoginImg.jpg";
-import authApi from "../../api/authAPI";
+import authApi from "../../api/authApi";
 
 const Login = () => {
   //Reduxを更新する

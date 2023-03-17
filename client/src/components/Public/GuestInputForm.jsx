@@ -1,14 +1,14 @@
 import React, { useState, useRef } from "react";
-// import ConfirmedModal from "../Elements/Modal/ConfirmedModal";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsGlobeAmericas } from "react-icons/bs";
 import comfirmed from "../../assets/confirmed.svg";
-import authApi from "../../api/authAPI";
+import appointmentApi from "../../api/appointmentApi";
 
 const GuestInputForm = () => {
   const user = useSelector((state) => state.user.user);
+  const appointment = useSelector((state) => state.appointment);
   const navigate = useNavigate();
   const nameInput = useRef(null);
   const emailInput = useRef(null);
@@ -16,7 +16,7 @@ const GuestInputForm = () => {
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");
     setNameErr("");
@@ -24,25 +24,33 @@ const GuestInputForm = () => {
     const name = nameInput.current.value;
     const email = emailInput.current.value;
 
+    console.log(name);
+    console.log(email);
+
     let error = false;
     if (name === "") {
       error = true;
       setNameErr("Please enter your name");
     }
-    if (email === "") {
+
+    if (email === "" || !email.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       error = true;
-      setEmailErr("Please enter your email");
+      setEmailErr("Please enter an invalid email");
     }
 
-    // try {
-    //   const res = await bookApi.form({
-    //     name,
-    //     email,
-    //     comment
-    //   })
-    // } catch(err) {
-    //   console.log(err);
-    // }
+    try {
+      const res = await appointmentApi({
+        name,
+        email,
+        message,
+      });
+
+      console.log(res);
+      console.log("success!");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -86,13 +94,16 @@ const GuestInputForm = () => {
           </label>
           <textarea className="textarea textarea-bordered h-24 textarea-primary"></textarea>
         </div>
-        <label
+
+        <button
           htmlFor="my-modal-4"
           className="btn btn-primary normal-case font-bold w-2/8 ml-auto"
           onClick={handleSubmit}
+          // disabled
         >
           Schedule Event
-        </label>
+        </button>
+
         <input type="checkbox" id="my-modal-4" className="modal-toggle" />
         <label htmlFor="my-modal-4" className="modal cursor-pointer">
           <label className="modal-box relative" htmlFor="">
