@@ -7,8 +7,9 @@ import authApi from "../../api/authApi";
 const Login = () => {
   //Reduxを更新する
 
-  const user = useSelector((state) => state.user.user);
+  // const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
@@ -40,10 +41,8 @@ const Login = () => {
         email,
         password,
       });
-      console.log(res);
       console.log("success to login!");
       // navigate("/:uid/mypage");
-      navigate("/");
     } catch (err) {
       console.log(err);
     }

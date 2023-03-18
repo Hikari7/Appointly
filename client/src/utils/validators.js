@@ -1,11 +1,11 @@
-export const validateUsername = (username) => {
+export const validateUsername = (username, error) => {
   if (username.trim().length < 8) {
     return "Username requires minimum length of 8 characters";
   }
 };
 
 export const validateEmail = (email) => {
-  if (!email.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+  if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
     return "Please enter valid email address";
   }
 };

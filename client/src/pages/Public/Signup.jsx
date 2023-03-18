@@ -5,59 +5,82 @@ import {
   validateUsername,
   validateEmail,
   validatePassword,
-  // validateConfirmPassword,
+  validateConfirmPassword,
 } from "../../utils/validators";
 import authApi from "../../api/authApi";
+import { setUser } from "../../redux/slicers/userSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-  // const confirmPasswordInput = useRef(null);
+  const confirmPasswordInput = useRef(null);
 
   const [usernameErr, setUsernameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
-  // const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameErr("");
     setEmailErr("");
     setPasswordErr("");
-    // setConfirmPasswordErr("");
+    setConfirmPasswordErr("");
+
+    let error = false;
 
     const username = userInput.current.value;
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
-    // const confirmPassword = confirmPasswordInput.current.value;
+    const confirmPassword = confirmPasswordInput.current.value;
 
     const userNameHintValidate = validateUsername(username);
     setUsernameErr(userNameHintValidate ? userNameHintValidate : "");
+    if (userNameHintValidate) {
+      error = true;
+    }
 
     const emailHintValidate = validateEmail(email);
     setEmailErr(emailHintValidate ? emailHintValidate : "");
+    if (emailHintValidate) {
+      error = true;
+    }
 
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
+    if (passwordHintValidate) {
+      error = true;
+    }
 
-    // const confirmPasswordHintValidate = validateConfirmPassword(
-    //   confirmPassword,
-    //   password
-    // );
+    const confirmPasswordHintValidate = validateConfirmPassword(
+      confirmPassword,
+      password
+    );
 
-    // setConfirmPasswordErr(
-    //   confirmPasswordHintValidate ? confirmPasswordHintValidate : ""
-    // );
+    setConfirmPasswordErr(
+      confirmPasswordHintValidate ? confirmPasswordHintValidate : ""
+    );
+    if (confirmPasswordHintValidate) {
+      error = true;
+    }
+
+    if (error) return;
 
     try {
       const res = await authApi.signup({
         username,
         email,
         password,
-        // confirmPassword,
       });
+
+      //ユーザーを保存する
+      dispatch(setUser(user));
 
       console.log(res);
       console.log("success!");
@@ -129,7 +152,7 @@ const Signup = () => {
               ) : (
                 ""
               )}
-              {/* <div className="mt-4">
+              <div className="mt-4">
                 <label className="block text-gray-700">Confirm Password</label>
                 <input
                   ref={confirmPasswordInput}
@@ -143,7 +166,7 @@ const Signup = () => {
                 <p className="text-xs text-red-600">{confirmPasswordErr}</p>
               ) : (
                 ""
-              )} */}
+              )}
 
               <button
                 type="submit"
