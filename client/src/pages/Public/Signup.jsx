@@ -9,8 +9,7 @@ import {
 } from "../../utils/validators";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Signup = () => {
   const user = useSelector((state) => state.user.user);
@@ -80,6 +79,7 @@ const Signup = () => {
       });
 
       //ユーザーを保存する
+      //✅usernameをここで保存するからここでdispatchでOK?
       dispatch(setUser(user));
 
       console.log(res);

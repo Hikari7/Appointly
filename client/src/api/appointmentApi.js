@@ -4,4 +4,4 @@ const appointmentApi = (params) => axiosClient.post("/registermtg", params);
 
 export default appointmentApi;
 
-//data: name, email, date, hostAdmin
+//datas: name, email, date, hostAdmin

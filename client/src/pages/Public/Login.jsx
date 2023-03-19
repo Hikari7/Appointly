@@ -7,7 +7,7 @@ import authApi from "../../api/authApi";
 const Login = () => {
   //Reduxを更新する
 
-  // const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   const emailInput = useRef(null);
@@ -34,7 +34,7 @@ const Login = () => {
       setPasswordErr("Please enter your password");
     }
 
-    //userなのかを判断するロジックも書かなきゃいけない
+    //✅userなのかを判断するロジックも書かなきゃいけない
 
     try {
       const res = await authApi.login({
@@ -43,6 +43,7 @@ const Login = () => {
       });
       console.log("success to login!");
       // navigate("/:uid/mypage");
+      navigate(`/${res._id}/mypage`);
     } catch (err) {
       console.log(err);
     }
