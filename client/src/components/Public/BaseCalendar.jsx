@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import { createCalendar, getNextMonth, getPrevMonth } from "../../utils/calenderHelpers";
 import TimeSelector from './TimeSelector';
+import axios from 'axios';
 
 const BaseCalendar = () => {
     const [currentDate, setCurrentDate] = useState(moment());
@@ -17,9 +18,9 @@ const BaseCalendar = () => {
     const newAvailability = [
       {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
       {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
-      // {dow: "3", time: ["10:00", "09:30", "10:30", "11:00"]},
+      {dow: "3", time: ["10:00", "09:30", "10:30", "11:00"]},
       {dow: "4", time: ["10:30", "09:30", "10:00", "11:00"]},
-      {dow: "5", time: ["11:00", "09:30", "10:00", "10:30"]},
+      {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
 
     const availableDowArr = []
@@ -53,7 +54,7 @@ const BaseCalendar = () => {
 
     return (
       <div className='flex flex-col md:flex-row md:justify-center'>
-        <div className='md:w-1/3 p-10'>
+        <div className='md:w-1/3 p-5'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -100,9 +101,9 @@ const BaseCalendar = () => {
                     }else{
                       return (
                         <div key={index} className='flex-1 flex justify-center items-center relative group'>
-                          <div className='flex justify-center items-center w-[2rem] h-[2rem] md:w-10 md:h-10 bg-green-200 rounded-full group-hover:bg-green-400'>
-                            <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} className="text-center z-50">{day.date}</HashLink>
-                          </div>
+                          <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} className='flex justify-center items-center w-[1.7rem] h-[1.7rem] md:w-8 md:h-8 bg-green-200 rounded-full group-hover:bg-green-400'>
+                            <div className="text-center z-50">{day.date}</div>
+                          </HashLink>
                         </div>
                       )
                     }

@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", (_, res) => res.json({ message: "Health check" }));
 app.use("/auth", authRoute);
-app.use("/appointmentRoute", appointmentRoute);
+app.use("/appointment", appointmentRoute);
 app.use("/user", userRoute);
 // app.use('/user', checkToken, userRoute)
 
