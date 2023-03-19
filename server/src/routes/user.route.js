@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
-const { fetchAppointmentController, setAvailabilityController } = require('../controllers/user.controller')
+const { fetchAppointmentController, setAvailabilityController, rescheduleMtgController } = require('../controllers/user.controller')
 
-router.get("/getappointments", fetchAppointmentController);
+router.get("/getappointment", fetchAppointmentController);
 router.post("/setavailability", setAvailabilityController)
-// router.put("/reschedulemtg", rescheduleMtgController);
+router.post("/reschedulemtg", rescheduleMtgController);
 // router.delete("/deletemtg", deleteMtgController);
 
 module.exports = router

@@ -15,6 +15,7 @@ const BaseCalendar = () => {
     const [displayTime, setDisplayTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
 
+
     const newAvailability = [
       {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
       {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
@@ -22,6 +23,14 @@ const BaseCalendar = () => {
       {dow: "4", time: ["10:30", "09:30", "10:00", "11:00"]},
       {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
+
+    const postreschedule = async () => {
+      const result = await axios.post(`${import.meta.env.VITE_SERVER_PORT}/user/reschedulemtg`, {
+          appointmentDateTime: { date: "2023-3-20", time: "16:00" }
+      })
+      console.log(result.data);
+    }
+    postreschedule()
 
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))

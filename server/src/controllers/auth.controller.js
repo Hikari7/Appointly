@@ -55,3 +55,10 @@ exports.checkToken = async (req, res, next) => {
       .send({ errorMessage: "Something went wrong. Please try again." });
   }
 };
+
+
+exports.resetPassword = async () => {
+  
+}
+
+// https://github.com/A-0522/NodeJS-W4-D3/blob/main/src/middlewares/auth.service.js
