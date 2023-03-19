@@ -24,13 +24,11 @@ const BaseCalendar = () => {
       {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
 
-    const postreschedule = async () => {
-      const result = await axios.post(`${import.meta.env.VITE_SERVER_PORT}/user/reschedulemtg`, {
-          appointmentDateTime: { date: "2023-3-20", time: "16:00" }
-      })
+    const deleteSchedule = async () => {
+      const result = await axios.delete(`${import.meta.env.VITE_SERVER_PORT}/user/deleteappointment`)
       console.log(result.data);
     }
-    postreschedule()
+    deleteSchedule()
 
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))

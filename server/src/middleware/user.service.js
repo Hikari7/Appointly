@@ -48,8 +48,10 @@ exports.rescheduleMtg = async (data) => {
     }
 }
 
-exports.deleteMtg = async (mtgId) => {
-    return await Appointment.find({ _id: mtgId })
+exports.deleteAppointment = async () => {
+    const MTGId = new ObjectId("64177539a2f0b954a1a32322")
+
+    return await Appointment.findOneAndDelete({ _id: MTGId })
 
     // try {
     //     // Code for update appointment
