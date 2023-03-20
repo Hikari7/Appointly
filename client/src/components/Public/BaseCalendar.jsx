@@ -27,6 +27,16 @@ const BaseCalendar = () => {
       {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
 
+
+    const putAppointment = async () => {
+      const result = await axios.post(`${import.meta.env.VITE_SERVER_PORT}/user/64163374a2409176fff88fc2/setavailability`, {
+        weekly: [{ dow: "0", time: ["09:00", "09:30"]}],
+        daily: [{ date: "2023-03-20", time: ["15:00", "15:30"] }]
+      })
+      console.log(result.data);
+    }
+    // putAppointment()
+
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))
     // console.log(availableDow); 

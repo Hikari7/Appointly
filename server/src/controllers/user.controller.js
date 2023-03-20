@@ -17,7 +17,8 @@ exports.fetchAppointmentController = async (req, res) => {
 
 exports.setAvailabilityController = async (req, res) => {
     try {
-        const newAvailability = await setAvailability(req.body)
+        const { uid } = req.params
+        const newAvailability = await setAvailability(uid, req.body)
         return res.json(newAvailability)
     } catch (error) {
         console.log(error);

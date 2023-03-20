@@ -16,13 +16,14 @@ exports.fetchAppointment = async (uid) => {
     // }
 }
 
-exports.setAvailability = async (data) => {
+exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId("64163374a2409176fff88fc2")
     try {
-        const targetAvailability = await Availability.findOneAndUpdate({hostUser: data.userId}, {
+        const targetAvailability = await Availability.findOneAndUpdate({userId}, {
             $set: { "weekly": data.weekly, "daily": data.daily }
         })
 
+        //If the availability document does not exist, create new document
         if(!targetAvailability){
             data.userId = userId
             const newAvailability = new Availability(data)
@@ -50,7 +51,6 @@ exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
 }
 
 exports.deleteAppointment = async (appointmentid) => {
-    console.log(appointmentid);
     const appointmentId = new ObjectId(appointmentid)
     return await Appointment.findOneAndDelete({ _id: appointmentId })
 }
