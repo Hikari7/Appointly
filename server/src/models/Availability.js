@@ -2,10 +2,13 @@ const mongoose = require('mongoose')
 const { Schema, model, SchemaTypes } = mongoose
 
 const AvailabilitySchema = new Schema({
-    hostUser: { type: SchemaTypes.ObjectId, ref: "User" },
-    weekly: [],
-    daily: [{
+    userId: { type: SchemaTypes.ObjectId, ref: "User" },
+    weekly: [{
         dow: String,
+        time: [String]
+    }],
+    daily: [{
+        date: String,
         time: [String]
     }],
 }, {

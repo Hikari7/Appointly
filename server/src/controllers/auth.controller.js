@@ -1,6 +1,22 @@
 const { signUp, login } = require("../middleware/auth.service");
 
 exports.signUpController = async (req, res) => {
+<<<<<<< HEAD
+  const { username, email, password } = req.body;
+  const signUpService = await signUp(username, email, password);
+  return res.json(signUpService);
+
+  // try {
+  //   const { username, email, password } = req.body;
+  //   const signUpService = await signUp(username, email, password);
+  //   signUpService.message && res.status(signUpService.status || 400).send({ errorMessage: signUpService.message });
+  //   return res.json(signUpService);
+  // } catch (error) {
+  //   return res
+  //     .status(400)
+  //     .send({ errorMessage: error.message || "Something went wrong. Please try again." });
+  // }
+=======
   try {
     const { username, email, password } = req.body;
     const signUpService = await signUp(username, email, password);
@@ -17,6 +33,7 @@ exports.signUpController = async (req, res) => {
           error.message || "Something went wrong. Please try again.",
       });
   }
+>>>>>>> a40912b2ae5e55271a952ef2cfcb36c2b58d930f
 };
 
 exports.loginController = async (req, res) => {
@@ -58,3 +75,10 @@ exports.checkToken = async (req, res, next) => {
       .send({ errorMessage: "Something went wrong. Please try again." });
   }
 };
+
+
+exports.resetPassword = async () => {
+  
+}
+
+// https://github.com/A-0522/NodeJS-W4-D3/blob/main/src/middlewares/auth.service.js
