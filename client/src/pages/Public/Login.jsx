@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginImg from "../../assets/LoginImg.jpg";
-import authApi from "../../api/authAPI";
+import authApi from "../../api/authApi";
+import { setUser } from "../../redux/slicers/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
-  //Reduxを更新する
 
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
@@ -33,17 +35,29 @@ const Login = () => {
       setPasswordErr("Please enter your password");
     }
 
-    //userなのかを判断するロジックも書かなきゃいけない
 
     try {
       const res = await authApi.login({
         email,
         password,
       });
-      console.log(res);
       console.log("success to login!");
-      // navigate("/:uid/mypage");
-      navigate("/");
+      console.log(res);
+
+
+      const newObj = {}
+      newObj.userId = res.data.userId
+      newObj.username = res.data.username
+      newObj.email = res.data.email
+      dispatchEvent(setUser(newObj))
+      dispatch(setUser(res));
+
+
+
+      // navigate(`/${res.}/mypage`);
+      // navigate("/");
+
+
     } catch (err) {
       console.log(err);
     }

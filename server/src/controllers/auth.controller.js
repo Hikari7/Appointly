@@ -4,12 +4,18 @@ exports.signUpController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const signUpService = await signUp(username, email, password);
-    signUpService.message && res.status(signUpService.status || 400).send({ errorMessage: signUpService.message });
+    signUpService.message &&
+      res
+        .status(signUpService.status || 400)
+        .send({ errorMessage: signUpService.message });
     return res.json(signUpService);
   } catch (error) {
     return res
       .status(400)
-      .send({ errorMessage: error.message || "Something went wrong. Please try again." });
+      .send({
+        errorMessage:
+          error.message || "Something went wrong. Please try again.",
+      });
   }
 };
 
@@ -17,6 +23,7 @@ exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const loginService = await login(email, password);
+    console.log(req.body);
     loginService.errorMessage && res.status(400).send({ errorMessage });
     return res
       .cookie("token", loginService.token, { httpOnly: true })
