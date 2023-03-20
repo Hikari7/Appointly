@@ -22,5 +22,5 @@ export const appointmentlice = createSlice({
 
 export const { setAppointment } = appointmentlice.actions;
 
-export default useSlice.reducer;
+export default appointmentlice.reducer;
 

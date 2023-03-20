@@ -31,8 +31,7 @@ const GuestForm = () => {
                 </div>
                 <div className="mx-1">
                   {/* <h2>{appointment.date}</h2> */}
-                  {/* ✅時間もいい感じに表示させる */}
-                  {/* <h2>10:00 - 10:30</h2> */}
+                  {/* <h2>{appointment.time}</h2> */}
                 </div>
               </div>
               <div className="flex items-center my-3 border-b md:border-b-0">
@@ -55,7 +54,7 @@ const GuestForm = () => {
 
 export default GuestForm;
 
-//ただのメモ:DBも含んだCRUD操作はこんな感じか
+//ただのメモ:DBも含んだCRUD操作はこんな感じ
 
 // useEffect(() => {
 // const getUserInfo = async () => {
