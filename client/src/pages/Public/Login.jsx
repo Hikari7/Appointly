@@ -1,14 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-
-  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailInput = useRef(null);
@@ -16,13 +13,12 @@ const Login = () => {
 
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");
     setPasswordErr("");
 
-    const email = passwordInput.current.value;
+    const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
     let error = false;
@@ -35,7 +31,6 @@ const Login = () => {
       setPasswordErr("Please enter your password");
     }
 
-
     try {
       const res = await authApi.login({
         email,
@@ -44,20 +39,13 @@ const Login = () => {
       console.log("success to login!");
       console.log(res);
 
+      const newObj = {};
+      newObj.userId = res.data.userId;
+      newObj.username = res.data.username;
+      newObj.email = res.data.email;
+      dispatch(setUser(newObj));
 
-      const newObj = {}
-      newObj.userId = res.data.userId
-      newObj.username = res.data.username
-      newObj.email = res.data.email
-      dispatchEvent(setUser(newObj))
-      dispatch(setUser(res));
-
-
-
-      // navigate(`/${res.}/mypage`);
-      // navigate("/");
-
-
+      navigate(`/${newObj.userId}/mypage`);
     } catch (err) {
       console.log(err);
     }
