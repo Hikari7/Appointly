@@ -27,12 +27,6 @@ const BaseCalendar = () => {
       {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
 
-    // const deleteSchedule = async () => {
-    //   const result = await axios.delete(`${import.meta.env.VITE_SERVER_PORT}/user/deleteappointment`)
-    //   console.log(result.data);
-    // }
-    // deleteSchedule()
-
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))
     // console.log(availableDow); 

@@ -22,7 +22,7 @@ const Login = () => {
     setEmailErr("");
     setPasswordErr("");
 
-    const email = passwordInput.current.value;
+    const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
     let error = false;
@@ -44,12 +44,6 @@ const Login = () => {
       console.log("success to login!");
       console.log(res);
 
-
-      const newObj = {}
-      newObj.userId = res.data.userId
-      newObj.username = res.data.username
-      newObj.email = res.data.email
-      dispatchEvent(setUser(newObj))
       dispatch(setUser(res));
 
 

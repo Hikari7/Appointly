@@ -18,10 +18,9 @@ router.post("/setavailability", setAvailabilityController)
     }
 */ 
 
-router.post("/:appointmentid/reschedule", rescheduleMtgController);
+router.put("/:appointmentid/reschedule", rescheduleMtgController);
 /* Request param example
     { 
-        appointmentId: "",
         changedDateTime: { date: "2023-03-20", time: "10:00"}
     }
 */ 
