@@ -1,7 +1,8 @@
 import React from "react";
 import PublicLayout from "../../components/Layout/PublicLayout";
 import top from "../../assets/top.svg";
-import PrimaryBtn from "../../components/Elements/Button/PrimaryBtn";
+import { Link } from "react-router-dom";
+// import PrimaryBtn from "../../components/Elements/Button/PrimaryBtn";
 
 const Home = () => {
   return (
@@ -18,9 +19,11 @@ const Home = () => {
                 Rather than spending time on scheduling, focus on connecting
                 more.
               </h3>
-              <button className="btn btn-primary normal-case  w-42 py-2 mt-8 text-xl font-second">
-                My Account
-              </button>
+              <Link to="/login">
+                <button className="btn btn-primary normal-case  w-42 py-2 mt-8 text-xl font-second">
+                  My Account
+                </button>
+              </Link>
             </div>
             <img
               src={top}

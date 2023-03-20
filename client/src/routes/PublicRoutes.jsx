@@ -15,13 +15,13 @@ export const PublicRoutes = [
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
-      // { path: "/:uid/calendar", element: <Appointment /> },
-      // { path: "/:uid/guestform", element: <Guestform/> },
       //↓✅仮です
       {
         path: "/appointment",
         element: <Appointment />,
         children: [
+          // { path: "calendar/:uid/, element: <Appointment /> },
+          // { path: "guestform/:uid", element: <Guestform/> },
           { path: "guestcalendar", element: <GuestCalendar /> },
           { path: "guestform", element: <Guestform /> },
         ],

@@ -29,28 +29,33 @@ exports.signUp = async (username, email, password) => {
 };
 
 exports.login = async (email, password) => {
-  let user = await User.findOne({ email }).lean();
+  try {
+    let user = await User.findOne({ email }).lean();
+    // Check user existing
+    if (!user) {
+      console.log("user");
+      const errorObj = new Error("User does not exists.");
+      errorObj.status = 404;
+      throw errorObj;
+    }
 
-  // Check user existing
-  if (!user) {
-    const errorObj = new Error("User does not exists.");
-    errorObj.status = 404;
-    throw errorObj;
-  }
+    const isValid = await bcrypt.compare(password, user.password);
 
-  const isValid = await bcrypt.compare(password, user.password);
+    if (isValid) {
+      const token = JWT.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
 
-  if (isValid) {
-    const token = JWT.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
-
-    return (data = {
-      userId: user._id,
-      username: user.username,
-      email: user.email,
-      token,
-    });
-  } else {
-    const errorObj = new Error("Incorrect credentials.");
+      return (data = {
+        userId: user._id,
+        username: user.username,
+        email: user.email,
+        token,
+      });
+    } else {
+      const errorObj = new Error("Incorrect credentials.");
+      throw errorObj;
+    }
+  } catch (error) {
+    const errorObj = new Error("Something went wrong. Please try again.");
     throw errorObj;
   }
   
