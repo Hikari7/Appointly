@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const { fetchAppointmentController, setAvailabilityController, rescheduleMtgController, deleteMtgController } = require('../controllers/user.controller')
 
-router.get("/getappointment", fetchAppointmentController);
+router.get("/:uid/getappointment", fetchAppointmentController);
 /* Request param example
     { 
         userId: ""
@@ -18,7 +18,7 @@ router.post("/setavailability", setAvailabilityController)
     }
 */ 
 
-router.post("/reschedule", rescheduleMtgController);
+router.post("/:appointmentid/reschedule", rescheduleMtgController);
 /* Request param example
     { 
         appointmentId: "",
@@ -26,7 +26,7 @@ router.post("/reschedule", rescheduleMtgController);
     }
 */ 
 
-router.delete("/deleteappointment", deleteMtgController);
+router.delete("/:appointmentid/deleteappointment", deleteMtgController);
 /* Request param example
     { 
         appointmentId: ""

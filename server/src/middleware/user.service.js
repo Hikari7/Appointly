@@ -48,18 +48,7 @@ exports.rescheduleMtg = async (data) => {
     }
 }
 
-exports.deleteAppointment = async () => {
-    const MTGId = new ObjectId("64177539a2f0b954a1a32322")
-
-    return await Appointment.findOneAndDelete({ _id: MTGId })
-
-    // try {
-    //     // Code for update appointment
-        
-    // } catch (error) {
-    //     const errorObj = new Error("Failed to fetch the appointment data.");
-    //     errorObj.status = 404
-    //     throw errorObj
-    // }
+exports.deleteAppointment = async (appointmentId) => {
+    return await Appointment.findOneAndDelete({ _id: appointmentId })
 }
 

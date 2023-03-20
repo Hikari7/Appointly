@@ -6,8 +6,8 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   const [selectedTime, setSlectedTime] = useState("")
 
   const appointment = [
-    {bookedDateTime: {date: "2023-03-20", time: "10:00"}},
-    {bookedDateTime: {date: "2023-03-21", time: "11:00"}}
+    {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
+    {bookedDateTime: {date: "2023-03-28", time: "11:00"}}
   ]
 
   useEffect(() => {
@@ -16,14 +16,14 @@ const TimeSelector = ({ timeArray, selectDate }) => {
     appointment.forEach(eachAppointment => {
       if(eachAppointment.bookedDateTime.date === selectDate){
         const filteredTimeArray = timeList.filter(eachTime => {
-          // console.log(eachTime);
-          // console.log(eachAppointment.bookedDateTime.time);
           return eachTime !== eachAppointment.bookedDateTime.time 
         })
         setTimeList(filteredTimeArray)
+      }else{
+        setTimeList(timeList)
       }
     })
-  }, [selectDate])
+  }, [date])
 
   return (
     <div id='timeSelect' className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>

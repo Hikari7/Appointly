@@ -15,6 +15,9 @@ const BaseCalendar = () => {
     const [displayTime, setDisplayTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
 
+    useEffect(() => {
+      setCalendarDate(createCalendar(currentDate))
+    }, [currentDate])
 
     const newAvailability = [
       {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
@@ -24,19 +27,15 @@ const BaseCalendar = () => {
       {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
     ]
 
-    const deleteSchedule = async () => {
-      const result = await axios.delete(`${import.meta.env.VITE_SERVER_PORT}/user/deleteappointment`)
-      console.log(result.data);
-    }
-    deleteSchedule()
+    // const deleteSchedule = async () => {
+    //   const result = await axios.delete(`${import.meta.env.VITE_SERVER_PORT}/user/deleteappointment`)
+    //   console.log(result.data);
+    // }
+    // deleteSchedule()
 
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))
-    // console.log(availableDow);
-
-    useEffect(() => {
-      setCalendarDate(createCalendar(currentDate))
-    }, [currentDate])
+    // console.log(availableDow); 
 
     const today = moment()
     const year = currentDate.get('year')
