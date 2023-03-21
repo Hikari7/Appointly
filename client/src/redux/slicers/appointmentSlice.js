@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const appointmentlice = createSlice({
   name: "appointment",
-
   initialState: {
     appointment: {
       userId: "",

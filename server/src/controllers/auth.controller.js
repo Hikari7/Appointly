@@ -1,4 +1,4 @@
-const { signUp, login } = require("../middleware/auth.service");
+const { signUp, login, userCheck } = require("../middleware/auth.service");
 
 exports.signUpController = async (req, res) => {
   const { username, email, password } = req.body;
@@ -14,14 +14,12 @@ exports.signUpController = async (req, res) => {
   //   return res
   //     .status(400)
   //     .send({ errorMessage: error.message || "Something went wrong. Please try again." });
-  //
 };
 
 exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const loginService = await login(email, password);
-    console.log(req.body);
     loginService.errorMessage && res.status(400).send({ errorMessage });
     return res
       .cookie("token", loginService.token, { httpOnly: true })
@@ -59,4 +57,12 @@ exports.checkToken = async (req, res, next) => {
 
 exports.resetPassword = async () => {};
 
+// <<<<<<< HEAD
 // https://github.com/A-0522/NodeJS-W4-D3/blob/main/src/middlewares/auth.service.js
+// =======
+// exports.passwordResetController = async () => {
+
+// }
+
+// https://github.com/A-0522/NodeJS-W4-D3/blob/main/src/middlewares/auth.service.js
+// >>>>>>> 7de5a23521a3d18efb5f98a3427fa102a15be2a1
