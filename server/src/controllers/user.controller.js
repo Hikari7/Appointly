@@ -6,7 +6,7 @@ exports.fetchAppointmentController = async (req, res) => {
     return res.json(allAppointments);
     
     try {
-        const { _id } = req.body
+        const { uid } = req.params
         const allAppointments = await fetchAppointment(_id)
         return res.json(allAppointments);
     } catch (error) {

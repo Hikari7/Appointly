@@ -20,26 +20,15 @@ const BaseCalendar = () => {
     }, [currentDate])
 
     const newAvailability = [
-      {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
-      {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
-      {dow: "3", time: ["10:00", "09:30", "10:30", "11:00"]},
-      {dow: "4", time: ["10:30", "09:30", "10:00", "11:00"]},
-      {dow: "5", time: ["11:00", "09:30", "10:00", "11:00"]},
+      {dow: "1", time: ["Mon", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
+      {dow: "2", time: ["Tue", "09:30", "10:00", "10:30", "11:00"]},
+      {dow: "3", time: ["Wed", "09:30", "10:00", "10:30", "12:00"]},
+      {dow: "4", time: ["Thu", "09:30", "10:00", "10:30", "11:00"]},
+      {dow: "5", time: ["Fri", "09:00", "09:30", "10:00", "11:00"]},
     ]
-
-
-    const putAppointment = async () => {
-      const result = await axios.post(`${import.meta.env.VITE_SERVER_PORT}/user/64163374a2409176fff88fc2/setavailability`, {
-        weekly: [{ dow: "0", time: ["09:00", "09:30"]}],
-        daily: [{ date: "2023-03-20", time: ["15:00", "15:30"] }]
-      })
-      console.log(result.data);
-    }
-    // putAppointment()
 
     const availableDowArr = []
     newAvailability.map(e => availableDowArr.push(e.dow))
-    // console.log(availableDow); 
 
     const today = moment()
     const year = currentDate.get('year')

@@ -1,4 +1,4 @@
-const { signUp, login } = require("../middleware/auth.service");
+const { signUp, login, userCheck } = require("../middleware/auth.service");
 
 exports.signUpController = async (req, res) => {
   const { username, email, password } = req.body;
@@ -57,7 +57,7 @@ exports.checkToken = async (req, res, next) => {
 };
 
 
-exports.resetPassword = async () => {
+exports.passwordResetController = async () => {
   
 }
 
