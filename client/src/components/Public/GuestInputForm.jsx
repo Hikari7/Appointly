@@ -6,12 +6,16 @@ import comfirmed from "../../assets/confirmed.svg";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useDispatch, useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
+import {
+  setFromCalendar,
+  setFromForm,
+} from "../../redux/slicers/appointmentSlice";
 
 const GuestInputForm = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   // console.log(user);
-  const appointment = useSelector((state) => state.appointment);
+  const appointment = useSelector((state) => state.appointment.appointment);
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const messageInput = useRef(null);
@@ -49,14 +53,23 @@ const GuestInputForm = () => {
 
     setShowModal(true);
     console.log(showModal);
-    try {
-      const res = await appointmentApi({
-        name,
-        email,
-        message,
-      });
 
-      dispatch(setAppointment(appointment));
+    const newObj = {
+      name,
+      email,
+      message,
+    };
+
+    console.log(appointment);
+    console.log(appointment.appointment);
+    
+    try {
+      console.log(newObj);
+      dispatch(setFromForm(newObj));
+      console.log(appointment);
+      const res = await appointmentApi({
+        data: appointment.appointment,
+      });
 
       console.log(res);
       console.log("success!");
