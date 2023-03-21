@@ -2,9 +2,9 @@ import React from "react";
 import UserDesktopNav from "../Elements/Nav/DesktopNav";
 import MobileNav from "../Elements/Nav/MobileNav";
 import { Outlet } from "react-router";
-import WrapperUserHome from "../Elements/Wrapper/WrapperUserHome";
+import UserHomeWrapper from "../Elements/Wrapper/UserHomeWrapper.jsx";
 
-const UserLayout = ({ children }) => {
+const UserLayout = () => {
   return (
     <>
       <div className="hidden md:block">
@@ -13,9 +13,9 @@ const UserLayout = ({ children }) => {
       <div className="md:hidden">
         <MobileNav />
       </div>
-      <WrapperUserHome>
+      <UserHomeWrapper>
         <Outlet />
-      </WrapperUserHome>
+      </UserHomeWrapper>
     </>
   );
 };

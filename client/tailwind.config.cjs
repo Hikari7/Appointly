@@ -7,6 +7,9 @@ module.exports = {
         textBase: "#333",
         // textSecondary: "#786A78",
       },
+      height: {
+        93: "93vh",
+      },
     },
     letterSpacing: { normal: ".02" },
     fontFamily: {
