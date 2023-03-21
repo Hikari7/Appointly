@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const DesktopNav = () => {
+const UserDesktopNav = () => {
   const navigate = useNavigate();
-  const navPublicLabels = ["Login", "Signup"];
+  const navUserLabels = "testman";
 
   const handleNavigatePage = (index) => {
-    navigate(`/${navPublicLabels[index].toLowerCase()}`);
+    navigate(`/${navUserLabels[index].toLowerCase()}`);
   };
 
   return (
@@ -23,17 +23,10 @@ const DesktopNav = () => {
 
         <ul className="menu-horizontal px-1">
           <li
-            className="normal-case text-lg hover:cursor-pointer hover:text-accent transition duration-200 text-accent"
+            className="normal-case text-lg hover:cursor-pointer hover:text-accent transition duration-200 text-primary"
             onClick={() => handleNavigatePage(0)}
           >
             {navPublicLabels[0]}
-          </li>
-
-          <li
-            className="normal-case text-lg ml-6 hover:cursor-pointer hover:text-accent transition duration-200 text-accent"
-            onClick={() => handleNavigatePage(1)}
-          >
-            {navPublicLabels[1]}
           </li>
         </ul>
       </div>
@@ -41,4 +34,4 @@ const DesktopNav = () => {
   );
 };
 
-export default DesktopNav;
+export default UserDesktopNav;

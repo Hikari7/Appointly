@@ -2,8 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const AppointmentNav = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="navbar border-b border-neutral border-thin h-1/6 font-second">
       <div className=" w-10/12 flex mx-auto">

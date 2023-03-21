@@ -7,7 +7,9 @@ const Availability = lazy(() => import("../pages/User/Availability"));
 
 export const UserRoutes = [
   {
-    path: "/:uid",
+    // path: "/:uid",
+    //✅仮です
+    path:"/",
     element: <UserLayout />,
     children: [
       { path: "mypage", element: <MyPage /> },

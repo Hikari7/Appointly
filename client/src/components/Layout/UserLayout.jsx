@@ -1,20 +1,21 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import UserDesktopNav from "../Elements/Nav/DesktopNav";
+import MobileNav from "../Elements/Nav/MobileNav";
+import { Outlet } from "react-router";
+import WrapperUserHome from "../Elements/Wrapper/WrapperUserHome";
 
-const UserLayout = () => {
+const UserLayout = ({ children }) => {
   return (
     <>
-      {/* <div className="md:hidden">
-        <HamburgerMenu>
-          <Outlet />
-        </HamburgerMenu>
-      </div> */}
-      {/* <div className="hidden md:block"> */}
-      <div>
-        {/* <SideNav> */}
-        <Outlet />
-        {/* </SideNav> */}
+      <div className="hidden md:block">
+        <UserDesktopNav />
       </div>
+      <div className="md:hidden">
+        <MobileNav />
+      </div>
+      <WrapperUserHome>
+        <Outlet />
+      </WrapperUserHome>
     </>
   );
 };
