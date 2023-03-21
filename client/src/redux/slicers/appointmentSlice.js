@@ -5,6 +5,7 @@ export const appointmentlice = createSlice({
 
   initialState: {
     appointment: {
+      userId: "",
       name: "",
       email: "",
       message: "",
