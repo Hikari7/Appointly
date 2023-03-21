@@ -5,10 +5,12 @@ const WrapperUserHome = ({ children }) => {
   return (
     <>
       <div className="md:flex">
-        <div className="hidden md:block md:h-screen">
+        <div className="hidden md:block" >
           <SideWrapper />
         </div>
-        <div className="my-14 mx-auto w-5/6 h-screen">{children}</div>
+        <div className="my-14 mx-auto w-5/6 "  >
+          {children}
+        </div>
       </div>
     </>
   );

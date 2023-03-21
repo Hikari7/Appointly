@@ -5,8 +5,7 @@ import SideMenu from "../../User/SideMenu";
 const SideWrapper = () => {
   return (
     <>
-
-      <div className="flex h-screen">
+      <div className="flex" style={{ minHeight: "93vh" }}>
         <div>
           <SideMenu />
         </div>
