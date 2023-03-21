@@ -9,19 +9,17 @@ router.get("/:uid/getappointment", fetchAppointmentController);
     }
 */ 
 
-router.post("/setavailability", setAvailabilityController)
+router.post("/:uid/setavailability", setAvailabilityController)
 /* Request param example
     { 
-        userId: "",
         weekly: [{ dow: "0", time: ["09:00", "09:30"]}],
         daily: [{ date: "2023-03-20", time: ["09:00", "09:30"] }]
     }
 */ 
 
-router.post("/:appointmentid/reschedule", rescheduleMtgController);
+router.put("/:appointmentid/reschedule", rescheduleMtgController);
 /* Request param example
     { 
-        appointmentId: "",
         changedDateTime: { date: "2023-03-20", time: "10:00"}
     }
 */ 

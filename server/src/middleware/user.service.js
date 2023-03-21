@@ -3,8 +3,9 @@ const { ObjectId } = require('mongodb')
 const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
 
-exports.fetchAppointment = async (id) => {
-    return await Appointment.find({ hostUser: id })
+exports.fetchAppointment = async (uid) => {
+    const userId = new ObjectId(uid)
+    return await Appointment.find({ hostUser: userId })
 
     // try {
     //     return await Appointment.find({ hostUser: id })
@@ -15,13 +16,14 @@ exports.fetchAppointment = async (id) => {
     // }
 }
 
-exports.setAvailability = async (data) => {
+exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId("64163374a2409176fff88fc2")
     try {
-        const targetAvailability = await Availability.findOneAndUpdate({hostUser: data.userId}, {
+        const targetAvailability = await Availability.findOneAndUpdate({userId}, {
             $set: { "weekly": data.weekly, "daily": data.daily }
         })
 
+        //If the availability document does not exist, create new document
         if(!targetAvailability){
             data.userId = userId
             const newAvailability = new Availability(data)
@@ -35,20 +37,21 @@ exports.setAvailability = async (data) => {
     }
 }
 
-exports.rescheduleMtg = async (data) => {
-    const MTGId = new ObjectId("64177539a2f0b954a1a32322")
+exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
+    const appointmentId = new ObjectId(appointmentid)
 
     try {
-        await Appointment.findOneAndUpdate({ _id: data.mtgID }, {
-            $set: { "appointmentDateTime":  data.appointmentDateTime }
+        await Appointment.findOneAndUpdate({ _id: appointmentId }, {
+            $set: { "appointmentDateTime":  changedDateTime }
         })
-        return await Appointment.findOne(MTGId)
+        return await Appointment.findOne(appointmentId)
     } catch (error) {
         console.log(error);
     }
 }
 
-exports.deleteAppointment = async (appointmentId) => {
+exports.deleteAppointment = async (appointmentid) => {
+    const appointmentId = new ObjectId(appointmentid)
     return await Appointment.findOneAndDelete({ _id: appointmentId })
 }
 

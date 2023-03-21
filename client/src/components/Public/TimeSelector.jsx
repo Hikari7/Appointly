@@ -2,12 +2,13 @@ import moment from "moment"
 import { useState, useEffect } from "react"
 
 const TimeSelector = ({ timeArray, selectDate }) => {
-  const [timeList, setTimeList] = useState(timeArray)
+  const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
 
   const appointment = [
     {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
-    {bookedDateTime: {date: "2023-03-28", time: "11:00"}}
+    {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
+    {bookedDateTime: {date: "2023-03-29", time: "10:00"}}
   ]
 
   useEffect(() => {
@@ -15,15 +16,15 @@ const TimeSelector = ({ timeArray, selectDate }) => {
     setTimeList(timeArray)
     appointment.forEach(eachAppointment => {
       if(eachAppointment.bookedDateTime.date === selectDate){
-        const filteredTimeArray = timeList.filter(eachTime => {
+        const filteredTimeArray = timeArray.filter(eachTime => {
           return eachTime !== eachAppointment.bookedDateTime.time 
         })
         setTimeList(filteredTimeArray)
       }else{
-        setTimeList(timeList)
+        return true
       }
     })
-  }, [date])
+  }, [selectDate])
 
   return (
     <div id='timeSelect' className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>
