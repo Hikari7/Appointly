@@ -1,4 +1,4 @@
-const Wrapper = ({ children }) => {
+const AppointmentWrapper = ({ children }) => {
   return (
     <div
       className="py-14 mx-auto w-9/12 container justify-center md:w-4/5"
@@ -11,4 +11,4 @@ const Wrapper = ({ children }) => {
   );
 };
 
-export default Wrapper;
+export default AppointmentWrapper;

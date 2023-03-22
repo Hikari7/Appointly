@@ -11,6 +11,7 @@ const GuestForm = () => {
   //user・appointmentの情報を取り出す
   const user = useSelector((state) => state.user.user);
   const appointment = useSelector((state) => state.appointment);
+  console.log(appointment);
 
   return (
     <>
@@ -53,31 +54,3 @@ const GuestForm = () => {
 };
 
 export default GuestForm;
-
-//ただのメモ:DBも含んだCRUD操作はこんな感じ
-
-// useEffect(() => {
-// const getUserInfo = async () => {
-//   try {
-//userの情報を取ってくる
-//     const res = await authApi.getOne(userId);
-//res.username
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// getUserInfo();
-//   useSelector;
-// }, []);
-
-// useEffect(() => {
-// const getAppintmentInfo = async () => {
-//   try {
-//appointmentの情報を取ってくる
-//     const res = await appointmentApi.getOne();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-//   getAppintmentInfo();
-// }, [appointmentID]);
