@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
+import emailjs from "@emailjs/browser";
 
 const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment);
@@ -11,7 +12,6 @@ const GuestInputForm = () => {
 
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
-
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -22,10 +22,6 @@ const GuestInputForm = () => {
     const name = nameInput.current.value;
     const email = emailInput.current.value;
     const message = messageInput.current.value;
-
-    console.log(name);
-    console.log(email);
-    console.log(message);
 
     let error = false;
     if (name === "") {
@@ -60,7 +56,39 @@ const GuestInputForm = () => {
     } catch (err) {
       console.log(err);
     }
+
+    // emailjs
+    //   .send(
+    //     import.meta.env.VITE_APP_SERVICE_ID,
+    //     import.meta.env.VITE_APP_TEMPLATE_ID,
+    //     templateParams
+    //   )
+    //   .then(
+    //     function (response) {
+    //       console.log("SUCCESS!", response.status, response.text);
+    //     },
+    //     function (error) {
+    //       console.log("FAILED...", error);
+    //     }
+    //   );
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_APP_SERVICE_ID,
+        import.meta.env.VITE_APP_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_APP_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
+  // console.log(import.meta.env.VITE_APP_PUBLIC_KEY);
 
   return (
     <>
@@ -73,7 +101,7 @@ const GuestInputForm = () => {
           <input
             ref={nameInput}
             type="text"
-            name="name"
+            name="user_name"
             placeholder="Name"
             className="input input-bordered w-full max-w-xs input-primary "
           />
@@ -89,6 +117,7 @@ const GuestInputForm = () => {
             ref={emailInput}
             type="text"
             placeholder="Email"
+            name="user_email"
             className="input input-bordered w-full max-w-xs input-primary "
           />
           {emailErr !== "" ? (
@@ -105,6 +134,7 @@ const GuestInputForm = () => {
             <textarea
               ref={messageInput}
               type="text"
+              name="message"
               className="textarea textarea-bordered h-24 textarea-primary"
             ></textarea>
           </div>

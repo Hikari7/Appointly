@@ -15,12 +15,12 @@ export const appointmentSlice = createSlice({
       state.appointment.appointmentDateTime = action.payload;
     },
 
-    setFromForm: (state, action) => {
-      console.log(action.payload.name);
-      state.appointment.name = action.payload.name;
-      state.appointment.email = action.payload.email;
-      state.appointment.message = action.payload.message;
-    },
+    // setFromForm: (state, action) => {
+    //   console.log(action.payload.name);
+    //   state.appointment.name = action.payload.name;
+    //   state.appointment.email = action.payload.email;
+    //   state.appointment.message = action.payload.message;
+    // },
   },
 });
 
