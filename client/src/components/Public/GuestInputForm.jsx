@@ -1,21 +1,10 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { BsGlobeAmericas } from "react-icons/bs";
-import comfirmed from "../../assets/confirmed.svg";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useDispatch, useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
-import {
-  setFromCalendar,
-  setFromForm,
-} from "../../redux/slicers/appointmentSlice";
 
 const GuestInputForm = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  // console.log(user);
-  const appointment = useSelector((state) => state.appointment.appointment);
+  const appointment = useSelector((state) => state.appointment);
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const messageInput = useRef(null);
@@ -52,7 +41,6 @@ const GuestInputForm = () => {
     if (error) return;
 
     setShowModal(true);
-    console.log(showModal);
 
     const newObj = {
       name,
@@ -60,19 +48,15 @@ const GuestInputForm = () => {
       message,
     };
 
-    console.log(appointment);
-    console.log(appointment.appointment);
-    
+    newObj.appointmentDateTime = appointment.appointmentDateTime;
+    newObj.hostUser = appointment.hostUser;
+
     try {
-      console.log(newObj);
-      dispatch(setFromForm(newObj));
-      console.log(appointment);
       const res = await appointmentApi({
-        data: appointment.appointment,
+        newObj,
       });
 
       console.log(res);
-      console.log("success!");
     } catch (err) {
       console.log(err);
     }

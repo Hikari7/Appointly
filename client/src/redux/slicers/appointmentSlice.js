@@ -1,25 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const appointmentlice = createSlice({
+export const appointmentSlice = createSlice({
   name: "appointment",
   initialState: {
     appointment: {
       hostUser: "64163374a2409176fff88fc2",
-      name: "",
-      email: "",
-      message: "",
       appointmentDateTime: { date: "", time: "" },
     },
   },
 
   //appointment.dateとかオブジェクトに入れて、それをaxiosを発動させるときにこのSliceを使っていくよ
   reducers: {
-    // setAppointment: (state, action) => {
-    //   // state.appointment = action.payload;
-    //   state.appointment = action.payload;
-    //   state.appointment = action.payload;
-    // },
-
     setFromCalendar: (state, action) => {
       state.appointment.appointmentDateTime = action.payload;
     },
@@ -33,6 +24,6 @@ export const appointmentlice = createSlice({
   },
 });
 
-export const { setFromCalendar, setFromForm } = appointmentlice.actions;
+export const { setFromCalendar, setFromForm } = appointmentSlice.actions;
 
-export default appointmentlice.reducer;
+export default appointmentSlice.reducer;

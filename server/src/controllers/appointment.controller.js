@@ -3,7 +3,7 @@ const { bookMtg } = require("../middleware/appointment.service");
 exports.registerMtgController = async (req, res) => {
   try {
     console.log(req.body);
-    await bookMtg(req.body.data);
+    await bookMtg(req.body);
   } catch (error) {
     console.log(error);
     return res

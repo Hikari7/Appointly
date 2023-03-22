@@ -2,9 +2,10 @@ const { ObjectId } = require("mongodb");
 const Appointment = require("../models/Appointment");
 
 exports.bookMtg = async (bookData) => {
-  const userId = new ObjectId(bookData.hostUser);
-  bookData.hostUser = userId;
-  const newMtg = new Appointment(bookData);
+  const userId = new ObjectId(bookData.newObj.hostUser);
+  bookData.newObj.hostUser = userId;
+  console.log(bookData);
+  const newMtg = new Appointment(bookData.newObj);
   await newMtg.save();
 
   // try {
