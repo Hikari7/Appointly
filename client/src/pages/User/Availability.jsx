@@ -6,7 +6,7 @@ const Availability = () => {
     <>
       <div className="md:flex w-full">
         <TitleWrapper>Availability</TitleWrapper>
-        <div className="mt-14 mx-auto w-full">Availability</div>
+        <div className="mt-14 mx-auto w-full">ここds亜ds愛だしds味</div>
       </div>
     </>
   );
