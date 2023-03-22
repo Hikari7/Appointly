@@ -24,6 +24,7 @@ const TimeSelector = ({ timeArray, selectDate }) => {
         return true
       }
     })
+    console.log(timeList);
   }, [selectDate])
 
   return (

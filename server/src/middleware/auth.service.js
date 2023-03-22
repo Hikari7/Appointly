@@ -71,7 +71,7 @@ exports.userCheck = async (email) => {
       errorObj.status = 404;
       throw errorObj;
     }
-    
+
     
   } catch (error) {
     const errorObj = new Error("Something went wrong. Please try again.");
