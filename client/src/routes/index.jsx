@@ -15,7 +15,7 @@ const AppRoute = () => {
     route = PublicRoutes;
   }
 
-  const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
+   const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
 
   function Loading() {
     return (

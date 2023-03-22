@@ -78,8 +78,6 @@ const Signup = () => {
         password,
       });
 
-      //ユーザーを保存する
-      //✅usernameをここで保存するからここでdispatchでOKか
       dispatch(setUser(user));
 
       console.log(res);
