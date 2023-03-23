@@ -11,6 +11,8 @@ const GuestInputForm = () => {
   const { userId } = useParams();
 
   const appointment = useSelector((state) => state.appointment);
+  const date = appointment.appointment.appointmentDateTime.date;
+  const time = appointment.appointment.appointmentDateTime.time;
 
   const formRef = useRef();
 
@@ -157,8 +159,8 @@ const GuestInputForm = () => {
           {{ recipient_name }} */}
           {/* <input type="hidden" value={date} name={date}></input>
           {{ date }} */}
-          {/* <input type="hidden" value={time} name={time}></input>
-          {{ name }} */}
+          <input type="hidden" value={time} name={time}></input>
+          <input type="hidden" value={date} name={date}></input>
         </form>
         {showModal ? <GuestInputModal showModal={true} /> : null}
       </div>

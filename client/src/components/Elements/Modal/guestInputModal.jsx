@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsGlobeAmericas } from "react-icons/bs";
 import comfirmed from "../../../assets/confirmed.svg";
+import { useSelector } from "react-redux";
 
 const guestInputModal = (props) => {
   const [showModal, setShowModal] = useState(props.showModal);
+
+  const appointment = useSelector((state) => state.appointment);
+  const date = appointment.appointment.appointmentDateTime.date;
+  const time = appointment.appointment.appointmentDateTime.time;
 
   return (
     <>
@@ -31,7 +36,7 @@ const guestInputModal = (props) => {
                     src={comfirmed}
                     className="w-1/2 h-1/2 object-cover my-7 mx-auto md:max-h-56 md:max-w-fit"
                   />
-                  <div className="md:flex md:justify-between md:w-11/12 mx-auto">
+                  <div className="md:flex md:justify-evenly md:w-11/12 mx-auto">
                     <div className="flex items-center my-3  md:text-xl">
                       <div>
                         <h2 className="mx-1 my-2">
@@ -39,9 +44,8 @@ const guestInputModal = (props) => {
                         </h2>
                       </div>
                       <div className="mx-1 my-2">
-                        <h2>Friday, Mar 10 2023</h2>
-                        <h2>10:00 - 10:30</h2>
-                        {/* <h2>{appointment.date}</h2> */}
+                        <h2>{date}</h2>
+                        <h2>{time}</h2>
                       </div>
                     </div>
                     <div className="flex items-center my-3 md:border-b-0 md:text-xl">
