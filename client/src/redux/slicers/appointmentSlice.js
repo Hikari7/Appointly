@@ -13,7 +13,18 @@ export const appointmentSlice = createSlice({
   reducers: {
     setFromCalendar: (state, action) => {
       state.appointment.appointmentDateTime = action.payload;
+<<<<<<< HEAD
+    },
+
+    // setFromForm: (state, action) => {
+    //   console.log(action.payload.name);
+    //   state.appointment.name = action.payload.name;
+    //   state.appointment.email = action.payload.email;
+    //   state.appointment.message = action.payload.message;
+    // },
+=======
     }
+>>>>>>> f15e0c4de67201a3198d57285779cd2bf2f1ce64
   },
 });
 
