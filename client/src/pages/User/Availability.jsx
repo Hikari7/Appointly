@@ -1,5 +1,6 @@
 import React from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
+import WeeklyAvailability from "../../components/User/WeeklyAvailability"
 
 const Availability = () => {
   return (
@@ -15,7 +16,9 @@ const Availability = () => {
           <h3>Select dates and times for your available scheduled events</h3>
         </TitleWrapper>
 
-        <div className="mt-14 mx-auto w-full">Availability</div>
+        <div className="mt-14 mx-auto w-full">
+          <WeeklyAvailability />
+        </div>
       </div>
     </>
   );

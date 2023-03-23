@@ -5,7 +5,7 @@ const { registerMtgController } = require('../controllers/appointment.controller
 router.post("/registermtg", registerMtgController);
 /* Request param example
     { 
-        userId: "",
+        hostUser: "",
         name: "",
         email: "",
         message: "",

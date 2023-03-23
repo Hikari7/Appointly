@@ -1,9 +1,13 @@
 import moment from "moment" 
 import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import { setFromCalendar } from '../../redux/slicers/appointmentSlice'
 
 const TimeSelector = ({ timeArray, selectDate }) => {
   const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
+  const dispatch = useDispatch()
 
   const appointment = [
     {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
@@ -26,6 +30,11 @@ const TimeSelector = ({ timeArray, selectDate }) => {
     })
   }, [selectDate])
 
+  const handleNext = () => {
+    dispatch(setFromCalendar({date: selectDate, time: selectedTime}))
+    setSlectedTime("")
+  }
+
   return (
     <div id='timeSelect' className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>
       <div className="flex justify-center items-center gap-5">
@@ -39,9 +48,17 @@ const TimeSelector = ({ timeArray, selectDate }) => {
             <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded md:text-xl">{selectedTime}</div>
           </div>
         </div>
-        <button className="md:text-2xl bg-green-400 text-white rounded-lg px-4 py-1 md:h-[2.5rem]">
-          Next
-        </button>
+        <Link to={"../guestform"}>
+          <button 
+            
+            onClick={handleNext}
+            className="md:text-2xl bg-green-400 text-white rounded-lg px-4 py-1 md:h-[2.5rem] disabled:opacity-30"
+            disabled={!(selectDate && selectedTime)}
+          >
+            Next
+          </button>
+
+        </Link>
       </div>
       <div id='timeSelect' className='flex flex-col justify-center items-center my-8 gap-5'>
         {timeList && 

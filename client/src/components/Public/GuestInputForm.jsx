@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 
 const GuestInputForm = () => {
-  const appointment = useSelector((state) => state.appointment);
+  const appointment = useSelector((state) => state.appointment.appointment);
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const messageInput = useRef(null);
