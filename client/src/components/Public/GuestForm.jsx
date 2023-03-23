@@ -11,7 +11,6 @@ const GuestForm = () => {
   //user・appointmentの情報を取り出す
   const user = useSelector((state) => state.user.user);
   const appointment = useSelector((state) => state.appointment);
-  console.log(appointment);
 
   return (
     <>
