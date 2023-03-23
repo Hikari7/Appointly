@@ -1,14 +1,25 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
+import userAppointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
 import { useParams } from "react-router-dom";
 
-//CopyLinkから取得した名前を入れないかん
-
 const GuestInputForm = () => {
-  const { userId } = useParams();
+  const { username } = useParams();
+
+  // useEffect(() => {
+  //   const getAvail = async () => {
+  //     try {
+  //       const res = await userAppointmentApi.getAvail();
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getAvail(username);
+  // }, []);
 
   const appointment = useSelector((state) => state.appointment);
   const date = appointment.appointment.appointmentDateTime.date;

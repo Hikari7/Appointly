@@ -6,6 +6,9 @@ import GuestInputForm from "./GuestInputForm";
 import { useNavigate, useParams } from "react-router-dom";
 
 const GuestForm = () => {
+
+
+
   const { userId } = useParams();
 
   //user・appointmentの情報を取り出す
