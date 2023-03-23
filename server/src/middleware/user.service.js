@@ -6,14 +6,6 @@ const Availability = require("../models/Availability");
 exports.fetchAppointment = async (uid) => {
     const userId = new ObjectId(uid)
     return await Appointment.find({ hostUser: userId })
-
-    // try {
-    //     return await Appointment.find({ hostUser: id })
-    // } catch (error) {
-    //     const errorObj = new Error("Failed to fetch the appointment data.");
-    //     errorObj.status = 404
-    //     throw errorObj
-    // }
 }
 
 exports.setAvailability = async (uid, data) => {
