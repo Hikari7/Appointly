@@ -14,6 +14,13 @@ const GuestInputForm = () => {
   const [emailErr, setEmailErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  // ----------------------------------------------------------
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  // console.log(emailValue);
+  //----------------------------------------------------------
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");
@@ -22,6 +29,9 @@ const GuestInputForm = () => {
     const name = nameInput.current.value;
     const email = emailInput.current.value;
     const message = messageInput.current.value;
+    // setName(nameInput.current.value);
+    // setEmail(emailInput.current.value);
+    // setMessage(messageInput.current.value);
 
     let error = false;
     if (name === "") {
@@ -87,6 +97,11 @@ const GuestInputForm = () => {
           console.log(error.text);
         }
       );
+
+    //✅消えない
+    setName("");
+    setEmail("");
+    setMessage("");
   };
   // console.log(import.meta.env.VITE_APP_PUBLIC_KEY);
 
@@ -102,9 +117,10 @@ const GuestInputForm = () => {
             ref={nameInput}
             type="text"
             name="user_name"
-            placeholder="Name"
+            // placeholder={nameValue}
             className="input input-bordered w-full max-w-xs input-primary "
           />
+
           {nameErr !== "" ? (
             <p className="text-xs text-red-600 pt-1">{nameErr}</p>
           ) : (
@@ -116,10 +132,11 @@ const GuestInputForm = () => {
           <input
             ref={emailInput}
             type="text"
-            placeholder="Email"
+            // placeholder={emailValue}
             name="user_email"
             className="input input-bordered w-full max-w-xs input-primary "
           />
+
           {emailErr !== "" ? (
             <p className="text-xs text-red-600 pt-1">{emailErr}</p>
           ) : (
@@ -136,7 +153,9 @@ const GuestInputForm = () => {
               type="text"
               name="message"
               className="textarea textarea-bordered h-24 textarea-primary"
-            ></textarea>
+            >
+              {/* {messageValue} */}
+            </textarea>
           </div>
 
           <button

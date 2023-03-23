@@ -6,14 +6,13 @@ import { Outlet } from "react-router";
 const UserHomeWrapper = () => {
   return (
     <>
-      <div className="md:flex">
+      <div className="md:flex ">
         <div className="hidden md:block h-93">
           <SideMenu />
         </div>
-        <div>
-          <div className="w-screen h-93">
-            <Outlet />
-          </div>
+
+        <div className="h-93 ">
+          <Outlet />
         </div>
       </div>
     </>

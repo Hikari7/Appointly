@@ -10,6 +10,9 @@ module.exports = {
       height: {
         93: "93vh",
       },
+      width: {
+        93: "93vw",
+      },
     },
     letterSpacing: { normal: ".02" },
     fontFamily: {

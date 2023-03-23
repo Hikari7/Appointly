@@ -4,7 +4,7 @@ import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 const Settings = () => {
   return (
     <>
-      <div className="md:flex w-full">
+      <div className="md:flex md:w-93 ">
         <TitleWrapper>
           <h1 className="text-3xl font-second">Account settings</h1>
           <img
@@ -15,7 +15,7 @@ const Settings = () => {
           <h3>Check your account information</h3>
         </TitleWrapper>
 
-        <div className="mt-14 mx-auto w-full">Account settings</div>
+        <div className="mt-14 md:w-5/6 w-full">settings</div>
       </div>
     </>
   );
