@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 const GuestInputForm = () => {
   const { userId } = useParams();
 
-  const appointment = useSelector((state) => state.appointment);
+  const appointment = useSelector((state) => state.appointment.appointment);
 
   const formRef = useRef();
 
@@ -55,10 +55,10 @@ const GuestInputForm = () => {
     try {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
       newObj.hostUser = appointment.hostUser;
-      appointmentApi({
+      const res = await appointmentApi({
         newObj,
       });
-      console.log(name);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
