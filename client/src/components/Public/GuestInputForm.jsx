@@ -63,21 +63,26 @@ const GuestInputForm = () => {
       console.log(err);
     }
 
-    const templateParams = {
-      // recipient_name: userId,
-      // date: date,
-      // name: name,
-      from_name: name,
-      from_email: email,
-      message: message,
-    };
-
-    console.log(templateParams);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_APP_SERVICE_ID,
+        import.meta.env.VITE_APP_USER_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_APP_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
 
     emailjs
       .sendForm(
         import.meta.env.VITE_APP_SERVICE_ID,
-        import.meta.env.VITE_APP_TEMPLATE_ID,
+        import.meta.env.VITE_APP_GUEST_TEMPLATE_ID,
         formRef.current,
         import.meta.env.VITE_APP_PUBLIC_KEY
       )
@@ -102,7 +107,7 @@ const GuestInputForm = () => {
           <input
             ref={nameInput}
             type="text"
-            name="from_name"
+            name="guest_name"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
@@ -117,7 +122,7 @@ const GuestInputForm = () => {
           <input
             ref={emailInput}
             type="text"
-            name="email"
+            name="guest_email"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
