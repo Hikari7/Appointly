@@ -3,9 +3,17 @@ import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
+import { useParams } from "react-router-dom";
+
+//CopyLinkから取得した名前を入れないかん
 
 const GuestInputForm = () => {
+  const { userId } = useParams();
+
   const appointment = useSelector((state) => state.appointment);
+
+  const formRef = useRef();
+
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const messageInput = useRef(null);
@@ -13,13 +21,6 @@ const GuestInputForm = () => {
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
-  // ----------------------------------------------------------
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  // console.log(emailValue);
-  //----------------------------------------------------------
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,9 +30,6 @@ const GuestInputForm = () => {
     const name = nameInput.current.value;
     const email = emailInput.current.value;
     const message = messageInput.current.value;
-    // setName(nameInput.current.value);
-    // setEmail(emailInput.current.value);
-    // setMessage(messageInput.current.value);
 
     let error = false;
     if (name === "") {
@@ -54,39 +52,33 @@ const GuestInputForm = () => {
       message,
     };
 
-    newObj.appointmentDateTime = appointment.appointmentDateTime;
-    newObj.hostUser = appointment.hostUser;
-
     try {
-      const res = await appointmentApi({
+      newObj.appointmentDateTime = appointment.appointmentDateTime;
+      newObj.hostUser = appointment.hostUser;
+      appointmentApi({
         newObj,
       });
-
-      console.log(res);
+      console.log(name);
     } catch (err) {
       console.log(err);
     }
 
-    // emailjs
-    //   .send(
-    //     import.meta.env.VITE_APP_SERVICE_ID,
-    //     import.meta.env.VITE_APP_TEMPLATE_ID,
-    //     templateParams
-    //   )
-    //   .then(
-    //     function (response) {
-    //       console.log("SUCCESS!", response.status, response.text);
-    //     },
-    //     function (error) {
-    //       console.log("FAILED...", error);
-    //     }
-    //   );
+    const templateParams = {
+      // recipient_name: userId,
+      // date: date,
+      // name: name,
+      from_name: name,
+      from_email: email,
+      message: message,
+    };
+
+    console.log(templateParams);
 
     emailjs
       .sendForm(
         import.meta.env.VITE_APP_SERVICE_ID,
         import.meta.env.VITE_APP_TEMPLATE_ID,
-        form.current,
+        formRef.current,
         import.meta.env.VITE_APP_PUBLIC_KEY
       )
       .then(
@@ -97,18 +89,12 @@ const GuestInputForm = () => {
           console.log(error.text);
         }
       );
-
-    //✅消えない
-    setName("");
-    setEmail("");
-    setMessage("");
   };
-  // console.log(import.meta.env.VITE_APP_PUBLIC_KEY);
 
   return (
     <>
       <div className="form-control w-full md:w-10/12 md:justify-center md:mx-auto mt-6">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} ref={formRef}>
           <h1 className="text-3xl font-second my-3">Enter Details</h1>
           <label className="label">
             <span className="label-text text-textBase">Name</span>
@@ -116,8 +102,7 @@ const GuestInputForm = () => {
           <input
             ref={nameInput}
             type="text"
-            name="user_name"
-            // placeholder={nameValue}
+            name="from_name"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
@@ -132,8 +117,7 @@ const GuestInputForm = () => {
           <input
             ref={emailInput}
             type="text"
-            // placeholder={emailValue}
-            name="user_email"
+            name="email"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
@@ -153,9 +137,7 @@ const GuestInputForm = () => {
               type="text"
               name="message"
               className="textarea textarea-bordered h-24 textarea-primary"
-            >
-              {/* {messageValue} */}
-            </textarea>
+            ></textarea>
           </div>
 
           <button
@@ -165,6 +147,13 @@ const GuestInputForm = () => {
           >
             Schedule Event
           </button>
+          {/* this is how to make a recipent valuable */}
+          {/* <input type="hidden" value={recipient_name} name={recipient_name}></input>
+          {{ recipient_name }} */}
+          {/* <input type="hidden" value={date} name={date}></input>
+          {{ date }} */}
+          {/* <input type="hidden" value={time} name={time}></input>
+          {{ name }} */}
         </form>
         {showModal ? <GuestInputModal showModal={true} /> : null}
       </div>
