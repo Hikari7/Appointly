@@ -6,14 +6,11 @@ import GuestInputForm from "./GuestInputForm";
 import { useNavigate, useParams } from "react-router-dom";
 
 const GuestForm = () => {
-
-
-
   const { userId } = useParams();
 
   //user・appointmentの情報を取り出す
   const user = useSelector((state) => state.user.user);
-  const appointment = useSelector((state) => state.appointment);
+  const appointment = useSelector((state) => state.appointment.appointment);
 
   return (
     <>
@@ -23,9 +20,7 @@ const GuestForm = () => {
             <div className="my-3">
               {/* ✅useSelectorで取ってくる */}
               {/* <h1 className="text-3xl font-second">{user.username}</h1> */}
-              <h2 className="my-3 text-left font-second">
-                30 Minute Meeting
-              </h2>
+              <h2 className="my-3 text-left font-second">30 Minute Meeting</h2>
             </div>
             <div className="justify-between mx-auto my-3">
               <div className="flex  items-center">
@@ -35,8 +30,8 @@ const GuestForm = () => {
                   </h2>
                 </div>
                 <div className="mx-1 text-primary">
-                  <h2>{appointment.appointment.appointmentDateTime.date}</h2>
-                  <h2>{appointment.appointment.appointmentDateTime.time}</h2>
+                  <h2>{appointment.appointmentDateTime.date}</h2>
+                  <h2>{appointment.appointmentDateTime.time}</h2>
                 </div>
               </div>
               <div className="flex items-center my-3 border-b md:border-b-0">

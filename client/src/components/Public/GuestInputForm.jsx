@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
 import userAppointmentApi from "../../api/guestAppointmentApi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
 import { useParams } from "react-router-dom";
+import { setUser } from "../../redux/slicers/userSlice";
 
 const GuestInputForm = () => {
+  const user = useSelector((state) => state.user.user);
   const { username } = useParams();
 
   // useEffect(() => {
@@ -21,9 +23,9 @@ const GuestInputForm = () => {
   //   getAvail(username);
   // }, []);
 
-  const appointment = useSelector((state) => state.appointment);
-  const date = appointment.appointment.appointmentDateTime.date;
-  const time = appointment.appointment.appointmentDateTime.time;
+  const appointment = useSelector((state) => state.appointment.appointment);
+  const date = appointment.appointmentDateTime.date;
+  const time = appointment.appointmentDateTime.time;
 
   const formRef = useRef();
 
@@ -34,6 +36,13 @@ const GuestInputForm = () => {
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  //useStateを使って保存してみる
+  const [hostEmail, setHostEmail] = useState(null);
+  const [hostName, setHostName] = useState(null);
+
+  // let hostEmail = "";
+  // let hostName = "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,10 +77,13 @@ const GuestInputForm = () => {
     try {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
       newObj.hostUser = appointment.hostUser;
-      appointmentApi({
+      const res = await appointmentApi({
         newObj,
       });
-      console.log(name);
+      console.log(res.data);
+
+      setHostName(res.data.username);
+      setHostEmail(res.data.useremail);
     } catch (err) {
       console.log(err);
     }
@@ -108,6 +120,8 @@ const GuestInputForm = () => {
         }
       );
   };
+
+  console.log(hostName);
 
   return (
     <>
@@ -165,15 +179,22 @@ const GuestInputForm = () => {
           >
             Schedule Event
           </button>
+
           {/* this is how to make a recipent valuable */}
-          {/* <input type="hidden" value={recipient_name} name={recipient_name}></input>
-          {{ recipient_name }} */}
-          {/* <input type="hidden" value={date} name={date}></input>
-          {{ date }} */}
+          {/* <input type="hidden" value={hostName} name={hostName}></input>
+           <input type="hidden" value={date} name={date}></input> */}
+          {/* {{ date }} */}
+          {/* 
           <input type="hidden" value={time} name={time}></input>
-          <input type="hidden" value={date} name={date}></input>
+          <input type="hidden" value={date} name={date}></input> */}
         </form>
-        {showModal ? <GuestInputModal showModal={true} /> : null}
+        {showModal ? (
+          <GuestInputModal
+            showModal={true}
+            hostName={hostName}
+            hostEmail={hostEmail}
+          />
+        ) : null}
       </div>
     </>
   );

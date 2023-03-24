@@ -4,8 +4,8 @@ import { BsGlobeAmericas } from "react-icons/bs";
 import comfirmed from "../../../assets/confirmed.svg";
 import { useSelector } from "react-redux";
 
-const guestInputModal = (props) => {
-  const [showModal, setShowModal] = useState(props.showModal);
+const guestInputModal = ({ hostName, hostEmail, showModal }) => {
+  const [displayModal, setDisplayModal] = useState(showModal);
 
   const appointment = useSelector((state) => state.appointment);
   const date = appointment.appointment.appointmentDateTime.date;
@@ -13,7 +13,7 @@ const guestInputModal = (props) => {
 
   return (
     <>
-      {showModal ? (
+      {displayModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-1/2 justify-center">
@@ -22,14 +22,20 @@ const guestInputModal = (props) => {
                 <div className="relative px-6 pb-5 flex-auto">
                   <div className="block justify-center font-second text-center">
                     <h2 className="text-4xl font-bold justify-center my-4 md:text-5xl">
-                      Confirmed
+                      Confirmed!
                     </h2>
-                    <h3 className="text-sm font-bold my-2 md:text-xl">
-                      {/* You are scheduled with <span>{user.username}</span> */}
-                      You are scheduled with Test!
+                    <h3 className="font-bold my-2 md:text-xl">
+                      You are scheduled with{" "}
+                      <span className="text-primary">{hostName}</span>
                     </h3>
-                    <h2 className="text-xs font-bold md:text-lg">
-                      You're host will contact you shortly.
+                    <h2>
+                      The host will be in touch soon, <br></br>but feel free to
+                      reach out to us if you have any urgent questions.
+                      <br></br>
+                      <h2>
+                        you can reach out:
+                        <span className="text-primary"> {hostEmail}</span>
+                      </h2>
                     </h2>
                   </div>
                   <img
