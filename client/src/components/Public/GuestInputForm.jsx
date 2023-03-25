@@ -8,26 +8,18 @@ import { useParams } from "react-router-dom";
 import { setUser } from "../../redux/slicers/userSlice";
 
 const GuestInputForm = () => {
-  const user = useSelector((state) => state.user.user);
-  const { username } = useParams();
-
-  // useEffect(() => {
-  //   const getAvail = async () => {
-  //     try {
-  //       const res = await userAppointmentApi.getAvail();
-  //       console.log(res);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getAvail(username);
-  // }, []);
+  // const user = useSelector((state) => state.user.user);
+  // const { username } = useParams();
 
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
 
-  const formRef = useRef();
+  const formRef = useRef(null);
+  const hostNameRef = useRef(null);
+  const hostEmailRef = useRef(null);
+  const timeRef = useRef(null);
+  const dateRef = useRef(null);
 
   const nameInput = useRef(null);
   const emailInput = useRef(null);
@@ -35,19 +27,18 @@ const GuestInputForm = () => {
 
   const [nameErr, setNameErr] = useState(null);
   const [emailErr, setEmailErr] = useState(null);
+  const [messageErr, setMessageErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  //useStateを使って保存してみる
-  const [hostEmail, setHostEmail] = useState(null);
-  const [hostName, setHostName] = useState(null);
-
-  // let hostEmail = "";
-  // let hostName = "";
+  const [hostEmail, setHostEmail] = useState("");
+  const [hostName, setHostName] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.dir(e.target);
     setEmailErr("");
     setNameErr("");
+    setMessageErr("");
 
     const name = nameInput.current.value;
     const email = emailInput.current.value;
@@ -64,6 +55,11 @@ const GuestInputForm = () => {
       setEmailErr("Please enter an invalid email");
     }
 
+    if (message === "") {
+      error = true;
+      setMessageErr("Please fill message");
+    }
+
     if (error) return;
 
     setShowModal(true);
@@ -77,51 +73,67 @@ const GuestInputForm = () => {
     try {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
       newObj.hostUser = appointment.hostUser;
-      const res = await appointmentApi({
+
+      //resを分解してるよ
+      const {
+        data: { username, email },
+      } = await appointmentApi({
         newObj,
       });
-      console.log(res.data);
 
-      setHostName(res.data.username);
-      setHostEmail(res.data.useremail);
+      // setHostEmail(email);
+      // setHostName(username);
+
+      const params = {
+        ...newObj,
+        hostEmail: email,
+        hostName: username,
+        time,
+        date,
+      };
+
+      emailjs
+        .send(
+          import.meta.env.VITE_APP_SERVICE_ID,
+          import.meta.env.VITE_APP_USER_TEMPLATE_ID,
+          params,
+          import.meta.env.VITE_APP_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+
+      emailjs
+        .send(
+          import.meta.env.VITE_APP_SERVICE_ID,
+          import.meta.env.VITE_APP_GUEST_TEMPLATE_ID,
+          params,
+          import.meta.env.VITE_APP_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
     } catch (err) {
       console.log(err);
     }
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_APP_SERVICE_ID,
-        import.meta.env.VITE_APP_USER_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_APP_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_APP_SERVICE_ID,
-        import.meta.env.VITE_APP_GUEST_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_APP_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    // console.log(hostEmail);
   };
 
-  console.log(hostName);
+  console.log({ hostEmail });
+  console.log({ hostName });
+  console.log({ time });
+  console.log({ date });
 
   return (
     <>
@@ -170,6 +182,11 @@ const GuestInputForm = () => {
               name="message"
               className="textarea textarea-bordered h-24 textarea-primary"
             ></textarea>
+            {messageErr !== "" ? (
+              <p className="text-xs text-red-600 pt-1">{messageErr}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <button
@@ -180,13 +197,26 @@ const GuestInputForm = () => {
             Schedule Event
           </button>
 
-          {/* this is how to make a recipent valuable */}
-          {/* <input type="hidden" value={hostName} name={hostName}></input>
-           <input type="hidden" value={date} name={date}></input> */}
-          {/* {{ date }} */}
-          {/* 
+          {/* ✅変数の中身自体は渡せているけど、Email.jsには渡せていない */}
+          {/* <input
+            type="hidden"
+            value={hostName}
+            name={hostName}
+            ref={hostNameRef}
+          ></input>
+          <input
+            type="hidden"
+            value={hostEmail}
+            name={hostEmail}
+            ref={hostEmailRef}
+          ></input> */}
+          {/* <input type="hidden" value={time} name={time} ref={timeRef}></input>
+          <input type="hidden" value={date} name={date} ref={dateRef}></input> */}
+
+          <input type="text" defaultValue={hostName} name="host_name"></input>
+          <input type="hidden" value={hostEmail} name={hostEmail}></input>
           <input type="hidden" value={time} name={time}></input>
-          <input type="hidden" value={date} name={date}></input> */}
+          <input type="hidden" value={date} name={date}></input>
         </form>
         {showModal ? (
           <GuestInputModal

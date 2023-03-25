@@ -37,6 +37,8 @@ const MyPage = () => {
               className="flex justify-center mt-3 hover:cursor-pointer hover:text-accent transition duration-200"
               onClick={handleCopyLink}
             >
+
+              {/* リンクはuserSlideのReduxからuidを取ってくる */}
               {copyLink ? (
                 <>
                   <span className="my-auto">
@@ -53,6 +55,7 @@ const MyPage = () => {
                 </>
               )}
             </div>
+            <div></div>
           </div>
         </div>
       </div>

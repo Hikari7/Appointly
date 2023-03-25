@@ -28,15 +28,15 @@ const guestInputModal = ({ hostName, hostEmail, showModal }) => {
                       You are scheduled with{" "}
                       <span className="text-primary">{hostName}</span>
                     </h3>
-                    <h2>
+                    <div>
                       The host will be in touch soon, <br></br>but feel free to
-                      reach out to us if you have any urgent questions.
+                      reach out to us if you have any questions.
                       <br></br>
                       <h2>
                         you can reach out:
                         <span className="text-primary"> {hostEmail}</span>
                       </h2>
-                    </h2>
+                    </div>
                   </div>
                   <img
                     src={comfirmed}
