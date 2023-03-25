@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
@@ -22,10 +22,17 @@ const GuestInputForm = () => {
   const [emailErr, setEmailErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const [recipient_name, setRecipient_name] = useState("")
+  
+  useEffect(() => {
+    console.log(formRef.current);
+  }, [formRef.current])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");
     setNameErr("");
+
 
     const name = nameInput.current.value;
     const email = emailInput.current.value;
@@ -153,12 +160,9 @@ const GuestInputForm = () => {
             Schedule Event
           </button>
           {/* this is how to make a recipent valuable */}
-          {/* <input type="hidden" value={recipient_name} name={recipient_name}></input>
-          {{ recipient_name }} */}
+          <input type="hidden" value={recipient_name} name={recipient_name}></input>
           {/* <input type="hidden" value={date} name={date}></input>
-          {{ date }} */}
-          {/* <input type="hidden" value={time} name={time}></input>
-          {{ name }} */}
+          <input type="hidden" value={time} name={time}></input> */}
         </form>
         {showModal ? <GuestInputModal showModal={true} /> : null}
       </div>

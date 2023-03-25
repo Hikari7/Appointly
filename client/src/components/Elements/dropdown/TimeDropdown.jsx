@@ -1,7 +1,12 @@
-import { useState } from "react"
 import moment from 'moment';
+import { useDispatch } from "react-redux";
 
-const TimeDropdown = ({ left }) => {
+import { setTimeValue } from '../../../redux/slicers/availbilitySlice'
+
+
+const TimeDropdown = ({  selectedItem, timeIndex, position }) => {
+    const dispatch = useDispatch()
+
     //Create selectable time array
     const timeArr = []
     let baseTime = moment('2023-03-20 00:00')
@@ -14,10 +19,17 @@ const TimeDropdown = ({ left }) => {
         }
     }
 
+    const handleSetTime = (time) => {
+        dispatch(setTimeValue({selectedItem, timeIndex, time}))
+    }
+
+    const startTimeStyle = "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-10%] z-50"
+    const endTimeStyle = "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[46%] z-50"
+
   return (
-    <div className={`flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[${left}%] z-50`}>
+    <div className={position === "start"? startTimeStyle: endTimeStyle}>
     {timeArr && timeArr.map((eachTime, index) => (
-        <div key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
+        <div onClick={() => handleSetTime(eachTime)} key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
             {eachTime}
         </div>
     ))}

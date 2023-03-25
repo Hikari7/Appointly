@@ -14,7 +14,8 @@ router.get("/:uid/getappointment", fetchAppointmentController);
     }
 */
 
-router.post("/:uid/setavailability", setAvailabilityController);
+router.post("/setavailability", setAvailabilityController);
+// router.post("/:uid/setavailability", setAvailabilityController);
 /* Request param example
     { 
         weekly: [{ dow: "0", time: ["09:00", "09:30"]}],

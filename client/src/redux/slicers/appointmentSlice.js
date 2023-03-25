@@ -4,7 +4,7 @@ export const appointmentSlice = createSlice({
   name: "appointment",
   initialState: {
     appointment: {
-      hostUser: "64163374a2409176fff88fc2",
+      hostUser: "641e13400eec447fa1cd2aee",
       appointmentDateTime: { date: "", time: "" },
     },
   },
