@@ -1,25 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
-import userAppointmentApi from "../../api/guestAppointmentApi";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
-import { useParams } from "react-router-dom";
-import { setUser } from "../../redux/slicers/userSlice";
 
 const GuestInputForm = () => {
-  // const user = useSelector((state) => state.user.user);
-  // const { username } = useParams();
-
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
 
   const formRef = useRef(null);
-  const hostNameRef = useRef(null);
-  const hostEmailRef = useRef(null);
-  const timeRef = useRef(null);
-  const dateRef = useRef(null);
 
   const nameInput = useRef(null);
   const emailInput = useRef(null);
@@ -74,15 +64,15 @@ const GuestInputForm = () => {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
       newObj.hostUser = appointment.hostUser;
 
-      //resを分解してるよ
+      //resを分解
       const {
         data: { username, email },
       } = await appointmentApi({
         newObj,
       });
 
-      // setHostEmail(email);
-      // setHostName(username);
+      setHostEmail(email);
+      setHostName(username);
 
       const params = {
         ...newObj,
@@ -91,6 +81,8 @@ const GuestInputForm = () => {
         time,
         date,
       };
+
+      console.log(params);
 
       emailjs
         .send(
@@ -126,14 +118,7 @@ const GuestInputForm = () => {
     } catch (err) {
       console.log(err);
     }
-
-    // console.log(hostEmail);
   };
-
-  console.log({ hostEmail });
-  console.log({ hostName });
-  console.log({ time });
-  console.log({ date });
 
   return (
     <>
@@ -146,7 +131,7 @@ const GuestInputForm = () => {
           <input
             ref={nameInput}
             type="text"
-            name="guest_name"
+            name="name"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
@@ -161,7 +146,7 @@ const GuestInputForm = () => {
           <input
             ref={emailInput}
             type="text"
-            name="guest_email"
+            name="email"
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
@@ -197,23 +182,7 @@ const GuestInputForm = () => {
             Schedule Event
           </button>
 
-          {/* ✅変数の中身自体は渡せているけど、Email.jsには渡せていない */}
-          {/* <input
-            type="hidden"
-            value={hostName}
-            name={hostName}
-            ref={hostNameRef}
-          ></input>
-          <input
-            type="hidden"
-            value={hostEmail}
-            name={hostEmail}
-            ref={hostEmailRef}
-          ></input> */}
-          {/* <input type="hidden" value={time} name={time} ref={timeRef}></input>
-          <input type="hidden" value={date} name={date} ref={dateRef}></input> */}
-
-          <input type="text" defaultValue={hostName} name="host_name"></input>
+          <input type="hidden" value={hostName} name={hostName}></input>
           <input type="hidden" value={hostEmail} name={hostEmail}></input>
           <input type="hidden" value={time} name={time}></input>
           <input type="hidden" value={date} name={date}></input>
