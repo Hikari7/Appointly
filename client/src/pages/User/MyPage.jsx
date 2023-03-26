@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
-import UserMainWrapper from "../../components/Elements/Wrapper/UserMainWrapper";
+// import UserMainWrapper from "../../components/Elements/Wrapper/UserMainWrapper";
 import mypageImg from "../../assets/mypage.svg";
 import { useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
@@ -8,7 +8,7 @@ import { FiCopy, FiCheck } from "react-icons/fi";
 //✅UserMainWrapperでコンポーネント分けると{children}が表示されなくなる
 
 const MyPage = () => {
-  const appointment = useSelector((state) => state.appointment);
+  const appointment = useSelector((state) => state.appointment.appointment);
   const user = useSelector((state) => state.user);
 
   const [copyLink, setCopyLink] = useState(false);
@@ -18,7 +18,10 @@ const MyPage = () => {
     //ここでrouter呼び出す
   };
 
-  console.log(copyLink);
+  console.log(appointment);
+
+  console.log(appointment.appointmentDateTime.date);
+
   return (
     <>
       <div className="md:flex md:w-93 ">
@@ -37,7 +40,6 @@ const MyPage = () => {
               className="flex justify-center mt-3 hover:cursor-pointer hover:text-accent transition duration-200"
               onClick={handleCopyLink}
             >
-
               {/* リンクはuserSlideのReduxからuidを取ってくる */}
               {copyLink ? (
                 <>
@@ -55,8 +57,25 @@ const MyPage = () => {
                 </>
               )}
             </div>
-            <div></div>
           </div>
+          {!appointment.appointmentDateTime.date ? (
+            "no appointment yet"
+          ) : (
+            <div className="mt-12">
+              <div
+                tabIndex={0}
+                className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box w-4/6 mx-auto "
+              >
+                <div className="collapse-title text-xl font-medium flex  w-4/6  mx-auto justify-evenly">
+                  <p className="mr-3">{appointment.appointmentDateTime.date}</p>
+                  <p>{appointment.appointmentDateTime.time}</p>
+                </div>
+                <div className="collapse-content">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
