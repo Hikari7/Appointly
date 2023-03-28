@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         textBase: "#333",
+        bgColor: "F7EDD6",
         // textSecondary: "#786A78",
       },
       height: {
@@ -17,6 +18,10 @@ module.exports = {
     letterSpacing: { normal: ".02" },
     fontFamily: {
       second: ["Albert Sans", "sans-serif"],
+    },
+    backgroundColor: {
+      // primary: "#FFFDFE",
+      secondary: "#F7EDD6",
     },
   },
   daisyui: {
