@@ -1,6 +1,7 @@
 import React from "react";
 import PublicLayout from "../../components/Layout/PublicLayout";
 import top from "../../assets/top.svg";
+import top2 from "../../assets/top2.jpg";
 import { Link } from "react-router-dom";
 // import PrimaryBtn from "../../components/Elements/Button/PrimaryBtn";
 import set from "../../assets/set.svg";
@@ -17,7 +18,7 @@ const Home = () => {
               <h1 className="text-4xl font-second md:text-5xl">
                 Stay connected anytime, anywhere.
               </h1>
-              <h3 className="mt-6 md:text-lg">
+              <h3 className="mt-6 md:text-lg text-info">
                 This app makes scheduling online chats with ease. <br />
                 Rather than spending time on scheduling, focus on connecting
                 more.
@@ -28,11 +29,17 @@ const Home = () => {
                 </button>
               </Link>
             </div>
-            <img
+            {/* <img
               src={top}
               alt=""
               className="w-full h-full max-h-80 min-h-full mt-8 md:m-0 md:my-auto"
-            />
+            /> */}
+            <div className="md:m-0 md:my-auto mt-8 w-full h-full">
+              <div className="bg-secondary p-4 rounded-md ">
+                <img src={top2} className="max-h-80 mx-auto" />
+              </div>
+            </div>
+            {/* <div className="w-full h-full max-h-80 min-h-full mt-8 md:m-0 md:my-auto rounded-md bg-secondary"></div> */}
           </div>
           <div className="my-8 md:my-20">
             <h2 className="text-center font-second text-xl">
@@ -40,60 +47,61 @@ const Home = () => {
                 How to use
               </span>
             </h2>
-            <div className="container md:flex">
-              <div className="card w-80 bg-base-100 shadow-xl mt-5 mx-auto  ">
-                <figure className="px-10 pt-10">
-                  <img src={set} className="rounded-xl" />
+            <div className="container lg:flex mt-8">
+              <div className="card w-72 bg-base-100 shadow-xl mt-5 mx-auto ">
+                <figure className="px-10 pt-10 ">
+                  <img src={set} className="rounded-xl max-h-36" />
                 </figure>
-                <div className="blcok flex m-7 items-center text-center card-body ">
-                  <div className="w-3/6">
-                    <span className="block text-8xl">1</span>
+                <div className="md:flex m-7 items-center text-center min-h-16 my-auto">
+                  <div className="w-3/6 mx-auto">
+                    <span className="block text-8xl text-primary mx-2">1</span>
                   </div>
                   <div>
                     <h2 className="card-title block font-second">
                       Set your schedules
                     </h2>
-                    <p className="block">
-                      You can set a schedule for online chat meetings with a
-                      time table every 30 minutes.
+                    <p className="block my-2 text-info">
+                      Set your availability slots on your personal page, and get
+                      a unique URL to share with your guests (Your guests do not
+                      need to create an account).
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="card w-80 bg-base-100 shadow-xl mt-5 mx-auto ">
-                <figure className="px-10 pt-10">
-                  <img src={receiveInfo} className="rounded-xl" />
+              <div className="card w-72 bg-base-100 shadow-xl mt-5 mx-auto ">
+                <figure className="px-10 pt-10 ">
+                  <img src={receiveInfo} className="rounded-xl max-h-36" />
                 </figure>
-                <div className="blcok flex m-7 items-center text-center card-body ">
-                  <div className="w-3/6">
-                    <span className="block text-8xl">2</span>
+                <div className="md:flex m-7 items-center text-center ">
+                  <div className="w-3/6 mx-auto">
+                    <span className="block text-8xl text-primary mx-2">2</span>
                   </div>
                   <div>
-                    <h2 className="card-title block font-second">
-                     Contact
-                    </h2>
-                    <p className="block">
-                      You can set a schedule for online chat meetings with a
-                      time table every 30 minutes.
+                    <h2 className="card-title block font-second">Contact</h2>
+                    <p className="block my-2 text-info">
+                      Once your guest books a meeting, both you and your guest
+                      will receive relevant details such as name, email, and
+                      message.
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="card w-80 bg-base-100 shadow-xl mt-5 mx-auto ">
+              <div className="card w-72 bg-base-100 shadow-xl mt-5 mx-auto">
                 <figure className="px-10 pt-10">
-                  <img src={niceMeeting} className="rounded-xl" />
+                  <img src={niceMeeting} className="rounded-xl max-h-36" />
                 </figure>
-                <div className="blcok flex m-7 items-center text-center card-body ">
-                  <div className="w-3/6">
-                    <span className="block text-8xl">3</span>
+                <div className="md:flex m-7 items-center text-center my-auto ">
+                  <div className="w-3/6 mx-auto">
+                    <span className="block text-8xl text-primary mx-2">3</span>
                   </div>
                   <div>
                     <h2 className="card-title block font-second">
-                      Set your schedules
+                      Have a meeting
                     </h2>
-                    <p className="block">
-                      There you go! You can now have a nice chat with the guest
-                      at the scheduled time.
+                    <p className="block my-2 text-info">
+                      You can now contact the guest directly via email to set
+                      the meeting details and have a nice chat at the scheduled
+                      time!
                     </p>
                   </div>
                 </div>
