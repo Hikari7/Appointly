@@ -20,7 +20,7 @@ export const PublicRoutes = [
         path: "/appointment",
         element: <Appointment />,
         children: [
-          // { path: "calendar/:uid/, element: <Appointment /> },
+          // { path: "guestcalendar/:uid/, element: <GuestCalendar /> },
           // { path: "guestform/:uid", element: <Guestform/> },
           { path: "guestcalendar", element: <GuestCalendar /> },
           { path: "guestform", element: <Guestform /> },
