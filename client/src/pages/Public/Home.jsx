@@ -28,6 +28,7 @@ const Home = () => {
                   My Account
                 </button>
               </Link>
+              {/* ✅デザイン考え中 */}
             </div>
             {/* <img
               src={top}
@@ -39,11 +40,11 @@ const Home = () => {
                 <img src={top2} className="max-h-80 mx-auto" />
               </div>
             </div>
-            {/* <div className="w-full h-full max-h-80 min-h-full mt-8 md:m-0 md:my-auto rounded-md bg-secondary"></div> */}
+            
           </div>
           <div className="my-8 md:my-20">
             <h2 className="text-center font-second text-xl">
-              <span className="border-b border-thin border-neutral">
+              <span className="border-b border-thin border-neutral font-bold">
                 How to use
               </span>
             </h2>
@@ -54,7 +55,9 @@ const Home = () => {
                 </figure>
                 <div className="md:flex m-7 items-center text-center min-h-16 my-auto">
                   <div className="w-3/6 mx-auto">
-                    <span className="block text-8xl text-primary mx-2">1</span>
+                    <span className="block text-6xl md:text-8xl text-primary mx-2">
+                      1
+                    </span>
                   </div>
                   <div>
                     <h2 className="card-title block font-second">
@@ -74,7 +77,9 @@ const Home = () => {
                 </figure>
                 <div className="md:flex m-7 items-center text-center ">
                   <div className="w-3/6 mx-auto">
-                    <span className="block text-8xl text-primary mx-2">2</span>
+                    <span className="block text-6xl md:text-8xl text-primary mx-2">
+                      2
+                    </span>
                   </div>
                   <div>
                     <h2 className="card-title block font-second">Contact</h2>
@@ -92,7 +97,9 @@ const Home = () => {
                 </figure>
                 <div className="md:flex m-7 items-center text-center my-auto ">
                   <div className="w-3/6 mx-auto">
-                    <span className="block text-8xl text-primary mx-2">3</span>
+                    <span className="block text-6xl md:text-8xl text-primary mx-2">
+                      3
+                    </span>
                   </div>
                   <div>
                     <h2 className="card-title block font-second">
@@ -105,6 +112,41 @@ const Home = () => {
                     </p>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="my-8 md:my-20">
+          <h2 className="text-center font-second text-xl">
+            <span className="border-b border-thin border-neutral font-bold">
+              Q&A
+            </span>
+          </h2>
+          <div className="mt-5">
+            <div
+              tabIndex={0}
+              className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+            >
+              <div className="collapse-title text-xl font-medium">
+                Q: Is this app free?
+              </div>
+              <div className="collapse-content">
+                <p>A: Yes, it is totally free.</p>
+              </div>
+            </div>
+            <div
+              tabIndex={0}
+              className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+            >
+              <div className="collapse-title text-xl font-medium">
+                Q: How can the guest cancel the reservation?
+              </div>
+              <div className="collapse-content">
+                <p>
+                  A: To cancel a reservation, guests can directly contact the
+                  host via email. The host's email information is provided to
+                  guests once the booking is confirmed.
+                </p>
               </div>
             </div>
           </div>

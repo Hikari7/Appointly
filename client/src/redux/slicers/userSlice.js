@@ -16,11 +16,11 @@ export const useSlice = createSlice({
   //   },
   // },
 
-  reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
-  },
+  // reducers: {
+  //   setUser: (state, action) => {
+  //     state.user = action.payload;
+  //   },
+  // },
 });
 
 export const { setUser } = useSlice.actions;

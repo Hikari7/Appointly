@@ -14,7 +14,7 @@ const MobileNav = () => {
       <div className=" w-10/12 flex mx-auto font-second">
         <div className="flex-1">
           <Link className="normal-case text-lg font-bold text-primary " to="/">
-            Calendaly
+            Scheduling App
           </Link>
         </div>
 
