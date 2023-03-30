@@ -30,13 +30,8 @@ const Home = () => {
                     My Account
                   </button>
                 </Link>
-                {/* ✅デザイン考え中 */}
               </div>
-              {/* <img
-              src={top}
-              alt=""
-              className="w-full h-full max-h-80 min-h-full mt-8 md:m-0 md:my-auto"
-            /> */}
+
               <div className="md:m-0 md:my-auto mt-8 w-full h-full drop-shadow-xl">
                 <img
                   src={top2}
@@ -55,7 +50,7 @@ const Home = () => {
             </AnimateInView>
             <AnimateInView>
               <div className="lg:flex mt-12 container md:max-w-full">
-                <div className="card w-9/12 shadow-xl mt-12 mx-auto ">
+                <div className="card w-9/12 shadow-xl mt-12 mx-auto lg:mr-8 ">
                   <figure className="px-10 pt-10 ">
                     <img src={set} className="rounded-xl max-h-36" />
                   </figure>
@@ -77,7 +72,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-9/12 bg-base-100 shadow-xl mt-12 mx-auto ">
+                <div className="card w-9/12 bg-base-100 shadow-xl mt-12 mx-auto lg:mr-8">
                   <figure className="px-10 pt-10 ">
                     <img src={receiveInfo} className="rounded-xl max-h-36" />
                   </figure>
@@ -124,10 +119,12 @@ const Home = () => {
           </div>
 
           <AnimateInView>
-            {/* <div className="my-14 md:mt-28 md:mb-28"> */}
             <div className="md:flex md:min-h-[50%]  md:my-40">
               <div className="md:m-0  mt-8 w-full h-full">
-                <img src={top} className="max-h-90 mx-auto w-full rounded-lg mt-16" />
+                <img
+                  src={top}
+                  className="max-h-90 mx-auto w-full rounded-lg mt-16"
+                />
               </div>
               <div className="w-full md:mx-8 my-16">
                 <h2 className="text-center font-second text-2xl">
@@ -179,7 +176,6 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            {/* </div> */}
           </AnimateInView>
         </div>
       </PublicLayout>
