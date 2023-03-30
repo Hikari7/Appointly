@@ -125,4 +125,3 @@ const BaseCalendar = () => {
 
 export default BaseCalendar
 
-// https://reffect.co.jp/vue/javascript-vue-js-create-calendar

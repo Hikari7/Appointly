@@ -23,10 +23,10 @@ const UserDesktopNav = () => {
 
         <ul className="menu-horizontal px-1">
           <li
-            className="normal-case text-lg hover:cursor-pointer hover:text-accent transition duration-200 text-primary"
+            className="normal-case text-lg hover:cursor-pointer hover:text-accent transition duration-200 text-accent"
             onClick={() => handleNavigatePage(0)}
           >
-            {navPublicLabels[0]}
+            {!userStatus ? <span>{user}</span> : ""}
           </li>
         </ul>
       </div>

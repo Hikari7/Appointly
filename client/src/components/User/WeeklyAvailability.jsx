@@ -85,7 +85,7 @@ const WeeklyAvailability = () => {
                   availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time.map((startEndObj, timeIndex) => {
                     return (
                     <div key={timeIndex} className='flex items-center gap-3 w-[80%] ml-4 relative'>
-                      <div className='relativ'>
+                      <div className='relative'>
                         <input
                           type="text"
                           id={`${Object.keys(eachObj)[0]}+start+${timeIndex}`}
@@ -103,7 +103,7 @@ const WeeklyAvailability = () => {
                         {selectedItem === `${Object.keys(eachObj)[0]}+start+${timeIndex}` && <TimeDropdown position={"start"} selectedItem={selectedItem} timeIndex={timeIndex} from={"weekly"} />}
                       </div>
                       -
-                      <div className='relativ'>
+                      <div className='relative'>
                         <input 
                           type="text"
                           value={

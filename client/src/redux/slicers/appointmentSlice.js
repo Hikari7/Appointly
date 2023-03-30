@@ -9,14 +9,16 @@ export const appointmentSlice = createSlice({
     },
   },
 
-  //appointment.dateとかオブジェクトに入れて、それをaxiosを発動させるときにこのSliceを使っていくよ
   reducers: {
     setFromCalendar: (state, action) => {
       state.appointment.appointmentDateTime = action.payload;
-    }
+    },
   },
 });
 
-export const { setFromCalendar, setFromForm } = appointmentSlice.actions;
+export const {
+  setFromCalendar,
+  // setFromForm
+} = appointmentSlice.actions;
 
 export default appointmentSlice.reducer;

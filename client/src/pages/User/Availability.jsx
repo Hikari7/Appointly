@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
-import WeeklyAvailability from "../../components/User/WeeklyAvailability"
+import WeeklyAvailability from "../../components/User/weeklyAvailability";
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1)
@@ -16,20 +16,23 @@ const Availability = () => {
             className="w-1/3 h-1/3 mx-auto my-7 md:w-11/12 md:h-60"
           />
 
-          <h3>Select dates and times for 
-            <br></br>your available scheduled events</h3>
+          <h3>
+            Select dates and times for
+            <br></br>your available scheduled events
+          </h3>
         </TitleWrapper>
+
+        {/* <div className="mt-14 md:w-5/6 w-full">Availability</div> */}
 
         <div className="mt-14 mx-auto w-full">
           <div className="flex justify-center">
             <ul className="flex gap-2 list-none">
               <li className="w-[6rem]">
                 <a 
-                  className={"px-5 py-2 shadow rounded block text-center" +
-                    (openTab === 1
-                      ? "text-white bg-green-300"
-                      : "text-green-500 bg-white"
-                    )
+                  className={
+                    openTab === 1
+                      ? "px-5 py-2 shadow rounded block text-center text-green-500 bg-green-400"
+                      : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(1); }}
                 >
@@ -38,11 +41,10 @@ const Availability = () => {
               </li> 
               <li className="w-[6rem]">
                 <a 
-                  className={"px-5 py-2 pl-8 shadow rounded block text-center" +
-                    (openTab === 2
-                      ? "text-white bg-green-300"
-                      : "text-green-500 bg-white"
-                    )
+                  className={
+                    openTab === 2
+                      ? "px-5 py-2 shadow rounded block text-center text-green-500 bg-green-400"
+                      : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(2); }}
                 >

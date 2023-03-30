@@ -36,8 +36,7 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
         if(from === "weekly"){
             dispatch(setTimeValue({selectedItem, timeIndex, time}))
         }else{
-            console.log("set time");
-            dispatch(setDailyAvailabilityTime({position, time, date}))
+            dispatch(setDailyAvailabilityTime({position, time, date, timeIndex}))
         }
     }
 

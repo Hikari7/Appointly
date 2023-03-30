@@ -51,7 +51,6 @@ const DailyAvailability = () => {
       setSlectedDate(date)
       setCurrentAvailbleTime(timeArray)
       setSelectedItem(date)
-      // setClickState("text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full")
     }
 
   return (
