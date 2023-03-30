@@ -12,10 +12,11 @@ export const availabilitySlice = createSlice({
       {Fri: false, time: [{start: "", end: ""}]},
       {Sat: false, time: [{start: "", end: ""}]},
     ],
-    daily: []
+    daily: [{date: "", time: [{start: "", end: ""}]}]
   },
 
   reducers: {
+    // After get user availability from db.
     setAvailability: (state, action) => {
       const prevAvailability = action.payload.weekly
       const prevAvailabilityDows = prevAvailability.map(eachObj => Object.keys(eachObj)[0])
@@ -64,14 +65,19 @@ export const availabilitySlice = createSlice({
       const targetTimePosition = selectedItem.split('+')[1]
       const targetDowObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === targetDow)
       if(targetTimePosition === "start"){
-          state.weekly[targetDowObjIndex].time[timeIndex].start = time
+        state.weekly[targetDowObjIndex].time[timeIndex].start = time
       }else{
-          state.weekly[targetDowObjIndex].time[timeIndex].end = time
+        state.weekly[targetDowObjIndex].time[timeIndex].end = time
       }
+    },
+    setDailyAvailabilityTime: (state, action) => {
+      const { position, time, date } = action.payload
+      const targetDate = state.daily.find(eachObj => eachObj.date === date)
+      console.log(targetDate);
     }
   },
 });
 
-export const { setCheckBox, addNewTimeObj, deleteTimeObj, setTimeValue } = availabilitySlice.actions;
+export const { setCheckBox, addNewTimeObj, deleteTimeObj, setTimeValue, setDailyAvailabilityTime } = availabilitySlice.actions;
 
 export default availabilitySlice.reducer;

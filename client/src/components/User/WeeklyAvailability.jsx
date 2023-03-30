@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import userAppointmentApi from "../../api/userAppointmentApi"
 import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availbilitySlice'
-import TimeDropdown from '../Elements/dropdown/TimeDropdown'
+import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
@@ -37,9 +37,9 @@ const WeeklyAvailability = () => {
     dispatch(setCheckBox(targetDow))
   }
 
-  const handleMethod = (e, meyhod, dow, data) => {
+  const handleMethod = (e, method, dow, data) => {
     e.preventDefault()
-    if(meyhod === "delete"){
+    if(method === "delete"){
       const targetDowObj = availability.find(eachObj => Object.keys(eachObj)[0] === dow)
       const filterdTimeArr = targetDowObj.time.filter(timeObj => timeObj !== data)
       dispatch(deleteTimeObj({dow, filterdTimeArr}))   
@@ -47,14 +47,16 @@ const WeeklyAvailability = () => {
     }else if('add'){
       dispatch(addNewTimeObj(dow))
     }else{
+      // Copy availability time logic will be here
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      alert("Successfully vailability was changed!")
+      alert("Successfully availability was changed!")
       const res = await userAppointmentApi.set({weekly: availability, daily: []})
+      console.log(res.data);
     } catch (error) {
       console.log(error); 
     }
@@ -88,7 +90,7 @@ const WeeklyAvailability = () => {
                           type="text"
                           id={`${Object.keys(eachObj)[0]}+start+${timeIndex}`}
                           value={
-                            // If time array is initial state (which means no elem in time array) set the value manually.
+                            // If time array is initial state (which means no elem in time array), set the value manually.
                             availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time[0].start === ""
                             ? "09:00"
                             : startEndObj.start
@@ -98,7 +100,7 @@ const WeeklyAvailability = () => {
                           className='border border-gray-700 rounded-lg w-16 h-7 text-center focus:border-green-400'
                         />
                         {/* If selectedItem state is same as clicked input id, render a TimeDropdown component. */}
-                        {selectedItem === `${Object.keys(eachObj)[0]}+start+${timeIndex}` && <TimeDropdown position={"start"} selectedItem={selectedItem} timeIndex={timeIndex} />}
+                        {selectedItem === `${Object.keys(eachObj)[0]}+start+${timeIndex}` && <TimeDropdown position={"start"} selectedItem={selectedItem} timeIndex={timeIndex} from={"weekly"} />}
                       </div>
                       -
                       <div className='relativ'>
@@ -114,7 +116,7 @@ const WeeklyAvailability = () => {
                           onChange={(e) => e.target.value}
                           className='border border-gray-700 rounded-lg w-16 h-7 text-center'
                         />
-                        {selectedItem === `${Object.keys(eachObj)[0]}+end+${timeIndex}` && <TimeDropdown selectedItem={selectedItem} timeIndex={timeIndex} />}
+                        {selectedItem === `${Object.keys(eachObj)[0]}+end+${timeIndex}` && <TimeDropdown selectedItem={selectedItem} timeIndex={timeIndex} from={"weekly"} />}
                       </div>
                       <div className='flex justify-center items-center w-7 h-7 hover:bg-gray-200 hover:rounded-full'>
                         <svg onClick={(e) => handleMethod(e, "delete", Object.keys(eachObj)[0], startEndObj)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

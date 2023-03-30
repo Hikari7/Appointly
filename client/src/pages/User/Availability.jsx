@@ -1,8 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
+import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/WeeklyAvailability"
 
 const Availability = () => {
+  const [openTab, setOpenTab] = useState(1)
+
   return (
     <>
       <div className="md:flex md:w-93">
@@ -18,7 +21,38 @@ const Availability = () => {
         </TitleWrapper>
 
         <div className="mt-14 mx-auto w-full">
-          <WeeklyAvailability />
+          <div className="flex justify-center">
+            <ul className="flex gap-2 list-none">
+              <li className="w-[6rem]">
+                <a 
+                  className={"px-5 py-2 shadow rounded block text-center" +
+                    (openTab === 1
+                      ? "text-white bg-green-300"
+                      : "text-green-500 bg-white"
+                    )
+                  }
+                  onClick={e => { e.preventDefault(); setOpenTab(1); }}
+                >
+                  Weekly
+                </a>
+              </li> 
+              <li className="w-[6rem]">
+                <a 
+                  className={"px-5 py-2 pl-8 shadow rounded block text-center" +
+                    (openTab === 2
+                      ? "text-white bg-green-300"
+                      : "text-green-500 bg-white"
+                    )
+                  }
+                  onClick={e => { e.preventDefault(); setOpenTab(2); }}
+                >
+                  Daily
+                </a>
+              </li>
+            </ul>
+          </div>
+          {openTab === 1 && <WeeklyAvailability />}
+          {openTab === 2 && <DailyAvailability />}          
         </div>
       </div>
     </>
@@ -26,3 +60,5 @@ const Availability = () => {
 };
 
 export default Availability;
+
+// https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/tabs/text

@@ -1,11 +1,24 @@
-import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 
-import { setTimeValue } from '../../../redux/slicers/availbilitySlice'
+import moment from 'moment';
 
+import { setTimeValue, setDailyAvailabilityTime } from '../../../redux/slicers/availbilitySlice'
 
-const TimeDropdown = ({  selectedItem, timeIndex, position }) => {
+const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
     const dispatch = useDispatch()
+    const [startTimeStyle, setStartTimeStyle] = useState("")
+    const [endTimeStyle, setEndTimeStyle] = useState("")
+
+    useEffect(() => {
+        if(from === "daily"){
+            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-6.5%] z-50")
+            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[31%] z-50")
+        }else{
+            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-10%] z-50")
+            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[46%] z-50")
+        }
+    }, [])
 
     //Create selectable time array
     const timeArr = []
@@ -20,11 +33,13 @@ const TimeDropdown = ({  selectedItem, timeIndex, position }) => {
     }
 
     const handleSetTime = (time) => {
-        dispatch(setTimeValue({selectedItem, timeIndex, time}))
+        if(from === "weekly"){
+            dispatch(setTimeValue({selectedItem, timeIndex, time}))
+        }else{
+            console.log("set time");
+            dispatch(setDailyAvailabilityTime({position, time, date}))
+        }
     }
-
-    const startTimeStyle = "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-10%] z-50"
-    const endTimeStyle = "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[46%] z-50"
 
   return (
     <div className={position === "start"? startTimeStyle: endTimeStyle}>

@@ -1,24 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react'
 import { HashLink } from "react-router-hash-link"
 
 import moment from 'moment';
 
 import { createCalendar, getNextMonth, getPrevMonth } from "../../utils/calenderHelpers";
-import TimeSelector from '../Elements/Selector/TimeSelector';
+import TimeAvailability from './TimeAvailability';
 
-const BaseCalendar = () => {
+const DailyAvailability = () => {
     const [currentDate, setCurrentDate] = useState(moment());
     const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM")) 
     const [calendarData, setCalendarDate] = useState(createCalendar(currentDate));
     const [selectedDate, setSlectedDate] = useState(new Date())
-    const [displayTime, setDisplayTime] = useState([])
+    const [currentAvailbleTime, setCurrentAvailbleTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const [selectedItem, setSelectedItem] = useState("")
 
     useEffect(() => {
       setCalendarDate(createCalendar(currentDate))
     }, [currentDate])
 
-    const newAvailability = [
+
+    const today = moment()
+    const year = currentDate.get('year')
+    const month = currentDate.format('MMM')
+    const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+    const weeklyAvailability = [
       {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
       {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
       {dow: "3", time: ["09:30", "10:00", "10:30", "12:00"]},
@@ -27,12 +34,7 @@ const BaseCalendar = () => {
     ]
 
     const availableDowArr = []
-    newAvailability.map(e => availableDowArr.push(e.dow))
-
-    const today = moment()
-    const year = currentDate.get('year')
-    const month = currentDate.format('MMM')
-    const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    weeklyAvailability.map(e => availableDowArr.push(e.dow))
     
     const handleChangeMonth = (direction) => {
       if(direction === "next"){
@@ -47,11 +49,13 @@ const BaseCalendar = () => {
     const handleClickDate = (date, timeArray) => {
       setIsOpen(true)
       setSlectedDate(date)
-      setDisplayTime(timeArray)
+      setCurrentAvailbleTime(timeArray)
+      setSelectedItem(date)
+      // setClickState("text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full")
     }
 
-    return (
-      <div className='flex flex-col md:flex-row md:justify-center'>
+  return (
+    <div className='flex flex-col m-10 md:flex-row md:justify-center'>
         <div className='md:w-1/3 p-5'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -68,61 +72,49 @@ const BaseCalendar = () => {
           {calendarData && 
             calendarData.map((week, index) => (
               <div key={index} className="flex h-12 md:text-xl">
-                {week.map((day, index) => {
-                  if(currentMonth !== day.month){              
+                {week.map((day, weekIndex) => {
+                  if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD")) | currentMonth !== day.month){              
                     return (
-                      <div key={index} className='flex-1 flex justify-center items-center'>
+                      <div key={weekIndex} className='flex-1 flex justify-center items-center'>
                         <div className="text-center text-gray-300">{day.date}</div>
                       </div>
                     )
                   }else if(moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-DD")){
                     return (
-                      <div key={index} className='flex-1 flex justify-center items-center'>
+                      <div key={weekIndex} className='flex-1 flex justify-center items-center'>
                         <div className="text-center font-bold text-green-400 rounded-full">{day.date}</div>
                       </div>
                     ) 
                   }else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
-                    // Get target available time
-                    const timeArray = newAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
-                    if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD"))){
-                      return (
-                        <div key={index} className='flex-1 flex justify-center items-center'>
-                          <div className="text-center">{day.date}</div>
-                        </div>
-                      )
-                    }else if(moment(`${day.month}-${day.date}`).diff(today, "day") > 30){
-                      return (
-                        <div key={index} className='flex-1 flex justify-center items-center'>
-                          <div className="text-center">{day.date}</div>
-                        </div>
-                      )
-                    }else{
-                      return (
-                        <div key={index} className='flex-1 flex justify-center items-center relative group'>
-                          <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} className='flex justify-center items-center w-[1.7rem] h-[1.7rem] md:w-8 md:h-8 bg-green-200 rounded-full group-hover:bg-green-400'>
-                            <div className="text-center z-50">{day.date}</div>
-                          </HashLink>
-                        </div>
-                      )
-                    }
+                    const timeArray = weeklyAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
+                    return (
+                      selectedItem === `${day.month}-${day.date}`
+                        ? (<div onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div className="text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full">{day.date}</div>
+                          </div>)
+                        : (<div onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div className="text-center">{day.date}</div>
+                          </div>)  
+                    )
                   }else{
                     return (
-                      <div key={index} className='flex-1 flex justify-center items-center'>
-                        <div className="text-center">{day.date}</div>
-                      </div>
-                    )  
-                  }
+                      selectedItem === `${day.month}-${day.date}`
+                        ? (<div onClick={() => handleClickDate(`${day.month}-${day.date}`)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div className="text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full">{day.date}</div>
+                          </div>)
+                        : (<div onClick={() => handleClickDate(`${day.month}-${day.date}`)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div className="text-center">{day.date}</div>
+                          </div>)  
+                  )}
                 })}
               </div>
             ))
           }
           <hr className='mt-5 md:hidden'/>
         </div>
-        {isOpen && <TimeSelector timeArray={displayTime} selectDate={selectedDate} /> }
+        {isOpen && <TimeAvailability timeArray={currentAvailbleTime} selectDate={selectedDate} /> }
       </div>
-    )
+  )
 }
 
-export default BaseCalendar
-
-// https://reffect.co.jp/vue/javascript-vue-js-create-calendar
+export default DailyAvailability
