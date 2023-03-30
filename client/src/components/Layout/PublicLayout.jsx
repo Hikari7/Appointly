@@ -7,11 +7,8 @@ import Footer from "../Elements/Footer/Footer";
 const PublicLayout = ({ children }) => {
   return (
     <>
-      <div className="hidden md:block">
+      <div >
         <DesktopNav />
-      </div>
-      <div className="md:hidden">
-        <MobileNav />
       </div>
       <HomeWrapper>{children}</HomeWrapper>
       <Footer />

@@ -45,7 +45,7 @@ const Home = () => {
               </div>
             </div>
           </AnimateInView>
-          <div className="mt-14 md:mt-28">
+          <div className="mt-20 md:mt-28">
             <AnimateInView>
               <h2 className="text-center font-second text-2xl">
                 <span className="border-b border-thin border-neutral font-bold">
@@ -55,7 +55,7 @@ const Home = () => {
             </AnimateInView>
             <AnimateInView>
               <div className="lg:flex mt-12 container md:max-w-full">
-                <div className="card w-9/12 shadow-xl mt-8 mx-auto ">
+                <div className="card w-9/12 shadow-xl mt-12 mx-auto ">
                   <figure className="px-10 pt-10 ">
                     <img src={set} className="rounded-xl max-h-36" />
                   </figure>
@@ -77,7 +77,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-9/12 bg-base-100 shadow-xl mt-8 mx-auto ">
+                <div className="card w-9/12 bg-base-100 shadow-xl mt-12 mx-auto ">
                   <figure className="px-10 pt-10 ">
                     <img src={receiveInfo} className="rounded-xl max-h-36" />
                   </figure>
@@ -97,7 +97,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-9/12 bg-base-100 shadow-xl mt-8 mx-auto">
+                <div className="card w-9/12 bg-base-100 shadow-xl mt-12 mx-auto">
                   <figure className="px-10 pt-10">
                     <img src={niceMeeting} className="rounded-xl max-h-36" />
                   </figure>

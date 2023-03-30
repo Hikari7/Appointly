@@ -30,4 +30,4 @@ export default useSlice.reducer;
 
 //mypageのpath
 //http://localhost:5173/641cd31d7868facf7acd2998/mypage
-
+//test4@gmail.com

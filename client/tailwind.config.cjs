@@ -20,7 +20,7 @@ module.exports = {
       second: ["Albert Sans", "sans-serif"],
     },
     backgroundColor: {
-      // primary: "#FFFDFE",
+      primary: "#FFFDFE",
       secondary: "#F7EDD6",
     },
   },

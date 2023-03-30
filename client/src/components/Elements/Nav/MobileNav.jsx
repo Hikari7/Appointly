@@ -1,36 +1,84 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserHomeWrapper from "../Wrapper/UserHomeWrapper";
+import { Outlet } from "react-router";
+import { CiLogout } from "react-icons/ci";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../../redux/slicers/userSlice";
 
 const MobileNav = () => {
   const navigate = useNavigate();
-  const navPublicLabels = ["Login", "Signup"];
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const userId = user.userId;
 
-  const handleNavigatePage = (index) => {
-    navigate(`/${navPublicLabels[index].toLowerCase()}`);
+  const myPage = () => {
+    navigate(`/${userId}/mypage`);
+  };
+
+  const availability = () => {
+    navigate(`/${userId}/availability`);
+  };
+  const settings = () => {
+    navigate(`/${userId}/settings`);
+  };
+
+  const logout = () => {
+    dispatch(setUser(null));
+    navigate("/");
   };
 
   return (
-    <div className="navbar border-b border-neutral border-thin h-1/6 ">
-      <div className=" w-10/12 flex mx-auto font-second">
-        <div className="flex-1">
-          <Link className="normal-case text-lg font-bold text-primary " to="/">
+    <div className="drawer">
+      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col">
+        <div className="w-full navbar bg-base-300">
+          <div className="flex-none lg:hidden">
+            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block w-6 h-6 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </label>
+          </div>
+
+          <div className="flex-1 px-2 mx-2  normal-case text-lg font-bold text-primary font-second">
             Scheduling App
-          </Link>
+          </div>
         </div>
 
-        <ul className="menu-horizontal px-1">
-          <li
-            className="normal-case text-lg hover:cursor-pointer hover:text-primary transition duration-200 text-accent"
-            onClick={() => handleNavigatePage(0)}
-          >
-            {navPublicLabels[0]}
+        <UserHomeWrapper>
+          <Outlet />
+        </UserHomeWrapper>
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
+        <ul className="menu p-8 pt-16 w-80 text-2xl bg-primary">
+          <li onClick={myPage} className="mt-12">
+            <a>My page</a>
           </li>
-
+          <li onClick={availability} className="mt-4">
+            <a>Availability</a>
+          </li>
+          <li onClick={settings} className="mt-4">
+            <a>Settings</a>
+          </li>
           <li
-            className="normal-case text-lg ml-6 hover:cursor-pointer  hover:text-primary transition duration-200 text-accent"
-            onClick={() => handleNavigatePage(1)}
+            className="hover:cursor-pointer hover:text-primary transition duration-200 flex mt-24"
+            onClick={logout}
           >
-            {navPublicLabels[1]}
+            <div>
+              <CiLogout size={40} />
+            </div>
           </li>
         </ul>
       </div>

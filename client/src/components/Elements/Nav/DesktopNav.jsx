@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const DesktopNav = () => {
   const navigate = useNavigate();
-
   const navPublicLabels = ["Login", "Signup"];
 
   const handleNavigatePage = (index) => {

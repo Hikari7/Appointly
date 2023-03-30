@@ -23,7 +23,7 @@ const MyPage = () => {
 
   const handleCopyLink = async () => {
     setIsCopied(true);
-    // console.log(userLink);
+
     return await navigator.clipboard.writeText(userLink);
   };
 

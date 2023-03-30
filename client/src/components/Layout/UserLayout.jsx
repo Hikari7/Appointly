@@ -9,13 +9,13 @@ const UserLayout = () => {
     <>
       <div className="hidden md:block">
         <UserDesktopNav />
+        <UserHomeWrapper>
+          <Outlet />
+        </UserHomeWrapper>
       </div>
       <div className="md:hidden">
         <MobileNav />
       </div>
-      <UserHomeWrapper>
-        <Outlet />
-      </UserHomeWrapper>
     </>
   );
 };
