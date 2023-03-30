@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       <PublicLayout>
-        <div className="container mt- md:mt-20">
+        <div className="container  md:mt-20">
           <AnimateInView>
             <div className="md:flex">
               <div className="w-full">
@@ -54,8 +54,8 @@ const Home = () => {
               </h2>
             </AnimateInView>
             <AnimateInView>
-              <div className="lg:flex mt-12  ">
-                <div className="card w-80 shadow-xl mt-8 mx-auto ">
+              <div className="lg:flex mt-12 container md:max-w-full">
+                <div className="card w-9/12 shadow-xl mt-8 mx-auto ">
                   <figure className="px-10 pt-10 ">
                     <img src={set} className="rounded-xl max-h-36" />
                   </figure>
@@ -77,7 +77,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-80 bg-base-100 shadow-xl mt-8 mx-auto ">
+                <div className="card w-9/12 bg-base-100 shadow-xl mt-8 mx-auto ">
                   <figure className="px-10 pt-10 ">
                     <img src={receiveInfo} className="rounded-xl max-h-36" />
                   </figure>
@@ -97,7 +97,7 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-80 bg-base-100 shadow-xl mt-8 mx-auto">
+                <div className="card w-9/12 bg-base-100 shadow-xl mt-8 mx-auto">
                   <figure className="px-10 pt-10">
                     <img src={niceMeeting} className="rounded-xl max-h-36" />
                   </figure>
@@ -124,52 +124,62 @@ const Home = () => {
           </div>
 
           <AnimateInView>
-            <div className="mt-14 md:mt-28">
-              <div className="md:flex md:min-h-[50%]">
-                <div className="md:m-0  mt-8 w-full h-full">
-                  <img
-                    src={top}
-                    className="max-h-90 mx-auto w-full rounded-lg"
-                  />
-                </div>
-                <div className="w-full md:mx-8">
-                  <h2 className="text-center font-second text-2xl">
-                    <span className="border-b border-thin border-neutral font-bold">
-                      Q&A
-                    </span>
-                  </h2>
-                  <div className="mt-5">
-                    <div
-                      tabIndex={0}
-                      className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
-                    >
-                      <div className="collapse-title text-xl font-bold">
-                        Q: Is this app free?
-                      </div>
-                      <div className="collapse-content">
-                        <p>A: Yes, it is totally free.</p>
-                      </div>
+            {/* <div className="my-14 md:mt-28 md:mb-28"> */}
+            <div className="md:flex md:min-h-[50%] md:my-40">
+              <div className="md:m-0  mt-8 w-full h-full">
+                <img src={top} className="max-h-90 mx-auto w-full rounded-lg" />
+              </div>
+              <div className="w-full md:mx-8">
+                <h2 className="text-center font-second text-2xl">
+                  <span className="border-b border-thin border-neutral font-bold">
+                    Q&A
+                  </span>
+                </h2>
+                <div className="mt-5">
+                  <div
+                    tabIndex={0}
+                    className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+                  >
+                    <div className="collapse-title text-xl font-bold">
+                      Q: Is this app free?
                     </div>
-                    <div
-                      tabIndex={0}
-                      className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
-                    >
-                      <div className="collapse-title text-xl font-bold">
-                        Q: How can the guest cancel the reservation?
-                      </div>
-                      <div className="collapse-content">
-                        <p>
-                          A: To cancel a reservation, guests can directly
-                          contact the host via email. The host's email
-                          information is provided to guests once the booking is
-                          confirmed.
-                        </p>
-                      </div>
+                    <div className="collapse-content">
+                      <p>A: Yes, it is totally free.</p>
+                    </div>
+                  </div>
+                  <div
+                    tabIndex={1}
+                    className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
+                  >
+                    <div className="collapse-title text-xl font-bold">
+                      Q: How can the host cancel the reservation?
+                    </div>
+                    <div className="collapse-content">
+                      <p>
+                        A: To cancel a reservation, hosts can send cancel from
+                        mypage??
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    tabIndex={2}
+                    className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
+                  >
+                    <div className="collapse-title text-xl font-bold">
+                      Q: How can the guest cancel the reservation?
+                    </div>
+                    <div className="collapse-content">
+                      <p>
+                        A: To cancel a reservation, guests can directly contact
+                        the host via email. The host's email information is
+                        provided to guests once the booking is confirmed.
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            {/* </div> */}
           </AnimateInView>
         </div>
       </PublicLayout>

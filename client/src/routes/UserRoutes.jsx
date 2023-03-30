@@ -8,9 +8,7 @@ const Settings = lazy(() => import("../pages/User/Settings"));
 
 export const UserRoutes = [
   {
-    // path: "/:uid/mypage" ??,
-    //✅仮です
-    path: "/",
+    path: "/:userId",
     element: <UserLayout />,
     children: [
       { path: "mypage", element: <MyPage /> },
@@ -20,3 +18,5 @@ export const UserRoutes = [
     ],
   },
 ];
+
+//      navigate(`/${newObj.userId}/mypage`);

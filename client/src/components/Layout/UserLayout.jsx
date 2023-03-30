@@ -1,5 +1,5 @@
 import React from "react";
-import UserDesktopNav from "../Elements/Nav/DesktopNav";
+import UserDesktopNav from "../Elements/Nav/UserDesktopNav";
 import MobileNav from "../Elements/Nav/MobileNav";
 import { Outlet } from "react-router";
 import UserHomeWrapper from "../Elements/Wrapper/UserHomeWrapper.jsx";
