@@ -125,11 +125,11 @@ const Home = () => {
 
           <AnimateInView>
             {/* <div className="my-14 md:mt-28 md:mb-28"> */}
-            <div className="md:flex md:min-h-[50%] md:my-40">
+            <div className="md:flex md:min-h-[50%]  md:my-40">
               <div className="md:m-0  mt-8 w-full h-full">
-                <img src={top} className="max-h-90 mx-auto w-full rounded-lg" />
+                <img src={top} className="max-h-90 mx-auto w-full rounded-lg mt-16" />
               </div>
-              <div className="w-full md:mx-8">
+              <div className="w-full md:mx-8 my-16">
                 <h2 className="text-center font-second text-2xl">
                   <span className="border-b border-thin border-neutral font-bold">
                     Q&A

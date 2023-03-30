@@ -28,4 +28,6 @@ export default useSlice.reducer;
 //loginした時にDispatchでUserを書き換える
 //(email, uid, uername)をストアする
 
+//mypageのpath
 //http://localhost:5173/641cd31d7868facf7acd2998/mypage
+

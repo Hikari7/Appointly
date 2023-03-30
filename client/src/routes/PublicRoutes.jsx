@@ -15,18 +15,45 @@ export const PublicRoutes = [
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
-      //↓✅仮です
       {
-        path: "/appointment",
+        path: ":uid/appointment",
         element: <Appointment />,
         children: [
-          // { path: "guestcalendar/:uid/, element: <GuestCalendar /> },
-          // { path: "guestform/:uid", element: <Guestform/> },
-          { path: "guestcalendar", element: <GuestCalendar /> },
+          {
+            path: "guestcalendar",
+            element: <GuestCalendar />,
+          },
           { path: "guestform", element: <Guestform /> },
+          // { path: "guestcalendar", element: <GuestCalendar /> },
+          // { path: "guestform", element: <Guestform /> },
         ],
       },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
 ];
+
+//for development
+
+// export const PublicRoutes = [
+//   {
+//     path: "/",
+//     children: [
+//       { path: "/", element: <Home /> },
+//       { path: "/login", element: <Login /> },
+//       { path: "/signup", element: <Signup /> },
+//       //↓✅仮です
+//       {
+//         path: "/appointment",
+//         element: <Appointment />,
+//         children: [
+//           // { path: "guestcalendar/:uid/, element: <GuestCalendar /> },
+//           // { path: "guestform/:uid", element: <Guestform/> },
+//           { path: "guestcalendar", element: <GuestCalendar /> },
+//           { path: "guestform", element: <Guestform /> },
+//         ],
+//       },
+//       { path: "*", element: <Navigate to="/" replace /> },
+//     ],
+//   },
+// ];
