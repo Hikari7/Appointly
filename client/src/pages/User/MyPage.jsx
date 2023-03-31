@@ -1,23 +1,68 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 // import UserMainWrapper from "../../components/Elements/Wrapper/UserMainWrapper";
 import mypageImg from "../../assets/mypage.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+
+import userAppointmentApi from "../../api/userAppointmentApi";
+import { setAvailability } from '../../redux/slicers/availbilitySlice'
+import { setListAppointment } from "../../redux/slicers/listAppointment"
 
 //✅UserMainWrapperでコンポーネント分けると{children}が表示されなくなる
 
 const MyPage = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch()
 
   const appointmentDateTime = appointment.appointmentDateTime;
   const [isCopied, setIsCopied] = useState(false);
+  const [appointmentList, setAppointmentList] = useState([])
+
+  useEffect(() => {
+    fetchAvailabilityAndListAppointment()
+  }, [])
+  
+  const fetchAvailabilityAndListAppointment = async () => {
+    try {
+      const res = await Promise.all([
+        // UserのAvailabilityをfetchしてReduxに登録
+        userAppointmentApi.getAvailability(user.userId),
+        // UserのAppointment listをfetchしてReduxに登録
+        userAppointmentApi.getAll(user.userId),
+      ])
+      if(res[0].data.length > 0){
+        const availabilityObj = {}
+        availabilityObj.weekly = res[0].data[0].weekly
+        availabilityObj.daily = res[0].data[0].daily
+        dispatch(setAvailability(availabilityObj))
+      }else{
+        dispatch(setAvailability([]))
+      }
+      console.log(res[1]);
+      if(res[1].data.length > 0){
+        const appointmentObj = res[1].data.map(e => {
+          let name = e.name
+          let email = e.email
+          let message = e.message
+          let appointmentDateTime = e.appointmentDateTime
+          return {name, email, message, appointmentDateTime}
+        })
+        setAppointmentList(appointmentObj)
+        dispatch(setListAppointment(appointmentObj))
+      }else{
+        dispatch(setListAppointment([]))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } 
 
   const userId = user.userId;
-  console.log(user.userId);
+  // console.log(user.userId);
 
   const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
 
@@ -66,7 +111,7 @@ const MyPage = () => {
               )}
             </div>
           </div>
-          {bookedNum === 0 ? (
+          {appointmentList.length === 0 ? (
             <div className="w-full mt-24 animate-pulse">
               <div
                 style={{
@@ -86,20 +131,20 @@ const MyPage = () => {
             </div>
           ) : (
             <div className="mt-12">
-              {appointmentDateTime.map((dateTime) => (
+              {appointmentList.map((eachAppointment) => (
                 <div
                   tabIndex={0}
                   className="collapse collapse-arrow border border-info bg-base-100 rounded-box w-4/6 mx-auto "
                   key={uuidv4()}
                 >
                   <div className="collapse-title text-xl font-medium flex w-4/6  mx-auto justify-evenly">
-                    <p className="mr-3">{dateTime.date}</p>
-                    <p className="mr-3">{dateTime.time}</p>
+                    <p className="mr-3">{eachAppointment.appointmentDateTime.date}</p>
+                    <p className="mr-3">{eachAppointment.appointmentDateTime.time}</p>
                   </div>
                   <div className="collapse-content">
                     {/* ✅詳細どうやって取得しよう？ */}
-                    <p>Guest name: Hikari</p>
-                    <p>Guest email: h.kobe712@gmail.com</p>
+                    <p>Guest name: {eachAppointment.name}</p>
+                    <p>Guest email: {eachAppointment.email}</p>
                   </div>
                 </div>
               ))}

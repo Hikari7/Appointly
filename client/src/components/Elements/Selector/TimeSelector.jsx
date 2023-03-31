@@ -1,14 +1,18 @@
-import moment from "moment" 
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { setFromCalendar } from '../../redux/slicers/appointmentSlice'
+
+import moment from "moment" 
+
+import { setFromCalendar } from '../../../redux/slicers/registerInfo'
 
 const TimeSelector = ({ timeArray, selectDate }) => {
+  const appointmentList = useSelector(state => state.listAppointment.listAppointment)
   const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
   const dispatch = useDispatch()
 
+  console.log(appointmentList);
   const appointment = [
     {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
     {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
@@ -17,18 +21,35 @@ const TimeSelector = ({ timeArray, selectDate }) => {
 
   useEffect(() => {
     setSlectedTime("")
-    setTimeList(timeArray)
-    appointment.forEach(eachAppointment => {
-      if(eachAppointment.bookedDateTime.date === selectDate){
-        const filteredTimeArray = timeArray.filter(eachTime => {
-          return eachTime !== eachAppointment.bookedDateTime.time 
-        })
-        setTimeList(filteredTimeArray)
-      }else{
-        return true
+    createDisplayTimeArr()
+    // setTimeList(timeArray)
+    // appointment.forEach(eachAppointment => {
+    //   if(eachAppointment.bookedDateTime.date === selectDate){
+    //     const filteredTimeArray = timeArray.filter(eachTime => {
+    //       return eachTime !== eachAppointment.bookedDateTime.time 
+    //     })
+    //     setTimeList(filteredTimeArray)
+    //   }else{
+    //     return true
+    //   }
+    // })
+  }, [selectDate])
+
+  const createDisplayTimeArr = () => {
+    const timeArr = []
+    timeArray.map(eachTimeObj => {
+      const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
+      const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
+      let baseTime = startTime
+      while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
+        timeArr.push(baseTime.format('HH:mm'))
+        baseTime.add(30, 'm')
       }
     })
-  }, [selectDate])
+    const filteredArr = [...new Set(timeArr)]
+    setTimeList(filteredArr)
+  }
+  
 
   const handleNext = () => {
     dispatch(setFromCalendar({date: selectDate, time: selectedTime}))
@@ -36,7 +57,7 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   }
 
   return (
-    <div id='timeSelect' className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>
+    <div className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>
       <div className="flex justify-center items-center gap-5">
         <div className="flex flex-col md:w-1/2 justify-content items-baseline">
           <div className="flex w-full items-center mb-2">
@@ -50,7 +71,6 @@ const TimeSelector = ({ timeArray, selectDate }) => {
         </div>
         <Link to={"../guestform"}>
           <button 
-            
             onClick={handleNext}
             className="md:text-2xl bg-green-400 text-white rounded-lg px-4 py-1 md:h-[2.5rem] disabled:opacity-30"
             disabled={!(selectDate && selectedTime)}

@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userInfoReducer from "../redux/slicers/userSlice";
-import appointmentInfoReducer from "../redux/slicers/appointmentSlice";
+import registerInfoReducer from "../redux/slicers/registerInfo";
 import availabilityReducer from "../redux/slicers/availbilitySlice";
+import listAppointmentReducer from "./slicers/listAppointment";
 
 export const store = configureStore({
   reducer: {
     user: userInfoReducer,
-    appointment: appointmentInfoReducer,
-    availability: availabilityReducer
+    appointment: registerInfoReducer,
+    availability: availabilityReducer,
+    listAppointment: listAppointmentReducer
   },
 });

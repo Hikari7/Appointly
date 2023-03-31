@@ -8,8 +8,13 @@ exports.fetchAppointment = async (uid) => {
     return await Appointment.find({ hostUser: userId })
 }
 
+exports.fetchUserAvailability = async (uid) => {
+    const userId = new ObjectId(uid)
+    return await Availability.find({userId})
+}
+
 exports.setAvailability = async (uid, data) => {
-    const userId = new ObjectId("64163374a2409176fff88fc2")
+    const userId = new ObjectId(uid)
     try {
         const targetAvailability = await Availability.findOneAndUpdate({userId}, {
             $set: { "weekly": data.weekly, "daily": data.daily }

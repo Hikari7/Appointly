@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const {
   fetchAppointmentController,
+  fetchAvailabilityController,
   setAvailabilityController,
   rescheduleMtgController,
   deleteMtgController,
@@ -9,18 +10,13 @@ const {
 
 router.get("/:uid/getappointment", fetchAppointmentController);
 /* Request param example
-    { 
-        userId: ""
-    }
+    { userId: ""}
 */
 
+router.get("/:uid/getavailability", fetchAvailabilityController)
+
 router.post("/:uid/setavailability", setAvailabilityController);
-/* Request param example
-    { 
-        weekly: [{ dow: "0", time: ["09:00", "09:30"]}],
-        daily: [{ date: "2023-03-20", time: ["09:00", "09:30"] }]
-    }
-*/
+
 
 router.put("/:appointmentid/reschedule", rescheduleMtgController);
 /* Request param example
