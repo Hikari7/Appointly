@@ -13,11 +13,11 @@ const Home = () => {
   return (
     <>
       <PublicLayout>
-        <div className="container  md:mt-20">
+        <div className="container md:mt-20 ">
           <AnimateInView>
             <div className="md:flex">
               <div className="w-full">
-                <h1 className="text-4xl font-second font-bold md:text-5xl">
+                <h1 className="text-4xl font-second font-bold md:text-5xl text-slate-700">
                   Stay connected anytime, anywhere.
                 </h1>
                 <h3 className="mt-6 md:text-lg text-info">
