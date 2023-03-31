@@ -54,7 +54,7 @@ const Home = () => {
                   <figure className="px-10 pt-10 ">
                     <img src={set} className="rounded-xl max-h-36" />
                   </figure>
-                  <div className="md:flex m-7 items-center text-center min-h-16 my-auto">
+                  <div className="md:flex m-7 items-center text-center ">
                     <div className="w-3/6 mx-auto">
                       <span className="block text-6xl md:text-8xl text-primary mx-2">
                         1
@@ -64,7 +64,7 @@ const Home = () => {
                       <h2 className="card-title block font-second">
                         Set your schedules
                       </h2>
-                      <p className="block my-2 text-info">
+                      <p className="block my-4 text-info">
                         Set your availability slots on your personal page, and
                         get a unique URL to share with your guests (Your guests
                         do not need to create an account).
@@ -84,7 +84,7 @@ const Home = () => {
                     </div>
                     <div>
                       <h2 className="card-title block font-second">Contact</h2>
-                      <p className="block my-2 text-info">
+                      <p className="block my-4 text-info">
                         Once your guest books a meeting, both you and your guest
                         will receive relevant details such as name, email, and
                         message.
@@ -96,7 +96,7 @@ const Home = () => {
                   <figure className="px-10 pt-10">
                     <img src={niceMeeting} className="rounded-xl max-h-36" />
                   </figure>
-                  <div className="md:flex m-7 items-center text-center my-auto ">
+                  <div className="md:flex m-7 items-center text-center ">
                     <div className="w-3/6 mx-auto">
                       <span className="block text-6xl md:text-8xl text-primary mx-2">
                         3
@@ -106,7 +106,7 @@ const Home = () => {
                       <h2 className="card-title block font-second">
                         Have a meeting
                       </h2>
-                      <p className="block my-2 text-info">
+                      <p className="block my-4 text-info">
                         You can now contact the guest directly via email to set
                         the meeting details and have a nice chat at the
                         scheduled time!

@@ -38,7 +38,7 @@ const MyPage = () => {
           </h1>
           <img
             src={mypageImg}
-            className="w-1/3 h-1/3 mx-auto my-7 md:w-11/12 md:h-60"
+            className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
           <h3>You have upcoming {bookedNum} meetings!</h3>
         </TitleWrapper>
