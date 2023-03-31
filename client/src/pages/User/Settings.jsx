@@ -50,21 +50,21 @@ const Settings = () => {
 
     if (error) return;
 
-    // try {
-    //   const res = await authApi.signup({
-    //     username,
-    //     email,
-    //     password,
-    //   });
+    try {
+      const res = await authApi.signup({
+        username,
+        email,
+      });
 
-    //   dispatch(setUser(user));
+      dispatch(setUser(user));
 
-    //   console.log(res);
-    //   console.log("success!");
-    //   navigate("/login");
-    // } catch (err) {
-    //   console.log(err, err.message);
-    // }
+      console.log(res);
+      
+      console.log("success!");
+      navigate("/login");
+    } catch (err) {
+      console.log(err, err.message);
+    }
   };
 
   const handlePasswordChange = async (e) => {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SignupImg from "../../assets/LoginImg.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -24,6 +24,25 @@ const Signup = () => {
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
+
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (success == true) {
+      setMessage(
+        <div className="toast toast-top toast-end">
+          <div className="alert alert-success">
+            <div>
+              <span>Sign up successfully!</span>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      setMessage(null);
+    }
+  }, [success]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,6 +91,7 @@ const Signup = () => {
     if (error) return;
 
     try {
+      setSuccess(true);
       const res = await authApi.signup({
         username,
         email,
@@ -81,7 +101,9 @@ const Signup = () => {
       dispatch(setUser(user));
 
       console.log(res);
-      console.log("success!");
+      console.log(success);
+
+      //✅3秒後に移動させたい
       navigate("/login");
     } catch (err) {
       console.log(err, err.message);
@@ -184,6 +206,7 @@ const Signup = () => {
             </Link>
           </div>
         </div>
+        {message}
       </section>
     </>
   );

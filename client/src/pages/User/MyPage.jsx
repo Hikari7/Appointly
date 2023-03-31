@@ -86,7 +86,9 @@ const MyPage = () => {
             </div>
           ) : (
             <div className="mt-12">
-              {appointmentDateTime.map((dateTime) => (
+              {appointmentDateTime.map((dateTime) =>
+              
+              (
                 <div
                   tabIndex={0}
                   className="collapse collapse-arrow border border-info bg-base-100 rounded-box w-4/6 mx-auto "
