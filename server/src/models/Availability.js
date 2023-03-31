@@ -4,8 +4,8 @@ const { Schema, model, SchemaTypes } = mongoose
 const AvailabilitySchema = new Schema({
     userId: { type: SchemaTypes.ObjectId, ref: "User" },
     weekly: [{
-        dow: String,
-        time: []
+        // dow: Boolean,
+        // time: []
     }],
     daily: [{
         date: String,

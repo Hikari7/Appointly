@@ -15,8 +15,8 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
             setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-6.5%] z-50")
             setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[31%] z-50")
         }else{
-            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-10%] z-50")
-            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[46%] z-50")
+            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-25%] z-50")
+            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-25%] z-50")
         }
     }, [])
 

@@ -11,6 +11,8 @@ const WeeklyAvailability = () => {
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
 
+  console.log(availability);
+
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
     const elem = clickedElem
@@ -55,7 +57,7 @@ const WeeklyAvailability = () => {
     e.preventDefault()
     try {
       alert("Successfully availability was changed!")
-      const res = await userAppointmentApi.set({weekly: availability, daily: []})
+      const res = await userAppointmentApi.set("641cd31d7868facf7acd2998", {weekly: availability, daily: []})
       console.log(res.data);
     } catch (error) {
       console.log(error); 

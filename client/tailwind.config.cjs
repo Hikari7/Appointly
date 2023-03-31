@@ -4,9 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        textBase: "#333333",
-        bgColor: "F7EDD6",
-        // textSecondary: "#786A78",
+        textBase: "#313131",
       },
       height: {
         93: "93vh",
@@ -19,10 +17,6 @@ module.exports = {
     fontFamily: {
       second: ["Albert Sans", "sans-serif"],
     },
-    backgroundColor: {
-      // primary: "#FFFDFE",
-      secondary: "#F7EDD6",
-    },
   },
   daisyui: {
     themes: [
@@ -31,7 +25,7 @@ module.exports = {
           primary: "#95B9F4",
           secondary: "#B9D1FB",
           accent: "#DEDFA6",
-          neutral: "#333",
+          neutral: "#616161",
           info: "#36454F",
           success: "#81CFD1",
           warning: "#EFD7BB",

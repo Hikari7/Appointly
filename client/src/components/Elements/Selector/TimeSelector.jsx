@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 import moment from "moment" 
 
-import { setFromCalendar } from '../../../redux/slicers/appointmentSlice'
+import { setFromCalendar } from '../../../redux/slicers/registerInfo'
 
 const TimeSelector = ({ timeArray, selectDate }) => {
+  const appointmentList = useSelector(state => state.listAppointment.listAppointment)
   const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
   const dispatch = useDispatch()
 
+  console.log(appointmentList);
   const appointment = [
     {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
     {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
@@ -19,19 +21,34 @@ const TimeSelector = ({ timeArray, selectDate }) => {
 
   useEffect(() => {
     setSlectedTime("")
-    setTimeList(timeArray)
-    appointment.forEach(eachAppointment => {
-      if(eachAppointment.bookedDateTime.date === selectDate){
-        const filteredTimeArray = timeArray.filter(eachTime => {
-          return eachTime !== eachAppointment.bookedDateTime.time 
-        })
-        setTimeList(filteredTimeArray)
-      }else{
-        return true
-      }
-    })
+    createDisplayTimeArr()
+    // setTimeList(timeArray)
+    // appointment.forEach(eachAppointment => {
+    //   if(eachAppointment.bookedDateTime.date === selectDate){
+    //     const filteredTimeArray = timeArray.filter(eachTime => {
+    //       return eachTime !== eachAppointment.bookedDateTime.time 
+    //     })
+    //     setTimeList(filteredTimeArray)
+    //   }else{
+    //     return true
+    //   }
+    // })
   }, [selectDate])
 
+  const createDisplayTimeArr = () => {
+    const timeArr = []
+    timeArray.map(eachTimeObj => {
+      const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
+      const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
+      let baseTime = startTime
+      while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
+        timeArr.push(baseTime.format('HH:mm'))
+        baseTime.add(30, 'm')
+      }
+    })
+    const filteredArr = [...new Set(timeArr)]
+    setTimeList(filteredArr)
+  }
   
 
   const handleNext = () => {

@@ -1,24 +1,28 @@
-const { fetchAppointment, setAvailability, rescheduleMtg, deleteAppointment } = require('../middleware/user.service')
+const {
+    fetchAppointment,
+    setAvailability,
+    rescheduleMtg,
+    deleteAppointment,
+    fetchUserAvailability
+} = require('../middleware/user.service')
 
 exports.fetchAppointmentController = async (req, res) => {
     const { uid } = req.params
     const allAppointments = await fetchAppointment(uid)
     return res.json(allAppointments);
-    
-    // try {
-    //     const { uid } = req.params
-    //     const allAppointments = await fetchAppointment(_id)
-    //     return res.json(allAppointments);
-    // } catch (error) {
-    //     console.log(error);
-    //     return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
-    // }
+}
+
+exports.fetchAvailabilityController = async (req, res) => {
+    const { uid } = req.params
+    const userAvailability = await fetchUserAvailability(uid)
+    if(userAvailability.length > 0){
+        return res.json(userAvailability)
+    }
 }
 
 exports.setAvailabilityController = async (req, res) => {
     try {
-        // const { uid } = req.params
-        const uid = "641e13400eec447fa1cd2aee"
+        const { uid } = req.params
         await setAvailability(uid, req.body)
     } catch (error) {
         console.log(error);

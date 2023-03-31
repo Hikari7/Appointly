@@ -59,7 +59,8 @@ const TimeAvailability = ({ selectDate }) => {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     if(isChecked){
       // axios logic to overwrite availability each date as "Unavauable"
     }else{
@@ -140,7 +141,7 @@ const TimeAvailability = ({ selectDate }) => {
           </div>
       }
       <div className='flex justify-center'>
-        <button onClick={handleSubmit} className='w-[70%] py-1 m-8 border border-gray-600 rounded-lg'>
+        <button onClick={(e) => handleSubmit(e)} className='w-[70%] py-1 m-8 border border-gray-600 rounded-lg'>
           Overwrite availability
         </button>
       </div>

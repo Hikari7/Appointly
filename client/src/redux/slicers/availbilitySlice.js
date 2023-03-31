@@ -18,18 +18,8 @@ export const availabilitySlice = createSlice({
   reducers: {
     // After get user availability from db.
     setAvailability: (state, action) => {
-      const prevAvailability = action.payload.weekly
-      const prevAvailabilityDows = prevAvailability.map(eachObj => Object.keys(eachObj)[0])
-      state.weekly.map(eachStateObj => {
-        prevAvailabilityDows.forEach(eachDow => {
-          if(eachStateObj[Object.keys(eachStateObj)[0]] === eachDow){
-            eachStateObj = prevAvailability.find(eachPrevObj => eachPrevObj[eachDow] === eachDow)
-          }else{
-            return true
-          }
-        })
-      })
-      // state.daily = action.payload.daily
+      state.weekly = action.payload.weekly
+      state.daily = action.payload.daily
     },
     setCheckBox: (state, action) => {
       const targetObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === action.payload)
@@ -96,6 +86,7 @@ export const availabilitySlice = createSlice({
 });
 
 export const { 
+  setAvailability,
   setCheckBox,
   addNewTimeObj,
   deleteTimeObj,

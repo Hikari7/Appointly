@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
+import { useParams } from 'react-router';
+
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
 
@@ -8,6 +10,7 @@ const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
+  const uidFromParams = useParams()
 
   const formRef = useRef(null);
 
@@ -22,6 +25,7 @@ const GuestInputForm = () => {
 
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +67,7 @@ const GuestInputForm = () => {
 
     try {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
-      newObj.hostUser = appointment.hostUser;
+      newObj.hostUser = uidFromParams.uid;
 
       //resを分解
       const {

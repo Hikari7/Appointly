@@ -8,6 +8,11 @@ exports.fetchAppointment = async (uid) => {
     return await Appointment.find({ hostUser: userId })
 }
 
+exports.fetchUserAvailability = async (uid) => {
+    const userId = new ObjectId(uid)
+    return await Availability.find({userId})
+}
+
 exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId(uid)
     try {

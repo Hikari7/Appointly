@@ -5,29 +5,60 @@ import moment from 'moment';
 
 import { createCalendar, getNextMonth, getPrevMonth } from "../../utils/calenderHelpers";
 import TimeSelector from '../Elements/Selector/TimeSelector';
+import userAppointmentApi from '../../api/userAppointmentApi';
+import { useParams } from 'react-router';
 
 const BaseCalendar = () => {
+    const [weeklyAvailability, setWeeklyAvailability] = useState([])
+    const [availableDowArr, setAvailableDowArr] = useState([])
     const [currentDate, setCurrentDate] = useState(moment());
     const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM")) 
     const [calendarData, setCalendarDate] = useState(createCalendar(currentDate));
     const [selectedDate, setSlectedDate] = useState(new Date())
     const [displayTime, setDisplayTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const params = useParams()
 
     useEffect(() => {
       setCalendarDate(createCalendar(currentDate))
     }, [currentDate])
 
-    const newAvailability = [
-      {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
-      {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
-      {dow: "3", time: ["09:30", "10:00", "10:30", "12:00"]},
-      {dow: "4", time: ["09:30", "10:00", "10:30", "11:00"]},
-      {dow: "5", time: ["09:00", "09:30", "10:00", "11:00"]},
-    ]
+    useEffect(() => {
+      fetchAvailability()
+    }, [])
+    
+    useEffect(() => {
+      console.log(weeklyAvailability);
+    }, [weeklyAvailability])
 
-    const availableDowArr = []
-    newAvailability.map(e => availableDowArr.push(e.dow))
+    const fetchAvailability = async () => {
+      const res = await userAppointmentApi.getAvailability(params.uid)
+      if(res.data.length > 0){
+        let dowNum = 0
+        const availabilityObj = res.data[0].weekly.map(e => {
+          let dow = String(dowNum)
+          dowNum += 1
+          return {...e, dow}
+        })
+        setWeeklyAvailability(availabilityObj)
+
+        const availableDowArr = []
+        availabilityObj.map(e => { 
+          if(Object.values(e).includes(true)){
+            availableDowArr.push(e.dow)
+          }
+        })
+        setAvailableDowArr(availableDowArr)
+      }
+    }
+
+    // const newAvailability = [
+    //   {dow: "1", time: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]},
+    //   {dow: "2", time: ["09:30", "10:00", "10:30", "11:00"]},
+    //   {dow: "3", time: ["09:30", "10:00", "10:30", "12:00"]},
+    //   {dow: "4", time: ["09:30", "10:00", "10:30", "11:00"]},
+    //   {dow: "5", time: ["09:00", "09:30", "10:00", "11:00"]},
+    // ]
 
     const today = moment()
     const year = currentDate.get('year')
@@ -83,7 +114,7 @@ const BaseCalendar = () => {
                     ) 
                   }else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
                     // Get target available time
-                    const timeArray = newAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
+                    const timeArray = weeklyAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
                     if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD"))){
                       return (
                         <div key={index} className='flex-1 flex justify-center items-center'>

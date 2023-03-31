@@ -1,7 +1,9 @@
 import { useState } from "react";
+
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/weeklyAvailability";
+
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1)
@@ -31,7 +33,7 @@ const Availability = () => {
                 <a 
                   className={
                     openTab === 1
-                      ? "px-5 py-2 shadow rounded block text-center text-green-500 bg-green-400"
+                      ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
                       : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(1); }}
@@ -43,7 +45,7 @@ const Availability = () => {
                 <a 
                   className={
                     openTab === 2
-                      ? "px-5 py-2 shadow rounded block text-center text-green-500 bg-green-400"
+                      ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
                       : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(2); }}
