@@ -9,15 +9,15 @@ function AnimateInView({ children }) {
   return (
     <>
       <div ref={ref}>
-        <span
+        <div
           style={{
-            transform: isInView ? "none" : "translateY(50px)",
+            transform: isInView ? "none" : "translateY(100px)",
             opacity: isInView ? 1 : 0,
-            transition: "all .5s ",
+            transition: "all 1.5s ",
           }}
         >
           {children}
-        </span>
+        </div>
       </div>
     </>
   );

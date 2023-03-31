@@ -4,8 +4,6 @@ export const useSlice = createSlice({
   name: "user",
   initialState: { user: null },
 
-  // initialState: { user: "test"},
-
   // initialState: {
   //   user: {
   //     email: "test@test.com",
@@ -16,11 +14,11 @@ export const useSlice = createSlice({
   //   },
   // },
 
-  // reducers: {
-  //   setUser: (state, action) => {
-  //     state.user = action.payload;
-  //   },
-  // },
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+  },
 });
 
 export const { setUser } = useSlice.actions;
@@ -29,3 +27,7 @@ export default useSlice.reducer;
 
 //loginした時にDispatchでUserを書き換える
 //(email, uid, uername)をストアする
+
+//mypageのpath
+//http://localhost:5173/641cd31d7868facf7acd2998/mypage
+//test4@gmail.com
