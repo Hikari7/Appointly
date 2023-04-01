@@ -38,6 +38,7 @@ export const availabilitySlice = createSlice({
       state.weekly[targetObjIndex].time.push(timeObj)
     },
     deleteTimeObj: (state, action) => {
+      console.log(action.payload);
       const targetObjIndex = state.weekly.findIndex(eachObj => Object.keys(eachObj)[0] === action.payload.dow)
       state.weekly[targetObjIndex].time = action.payload.filterdTimeArr
       if(action.payload.filterdTimeArr.length === 0){

@@ -4,7 +4,6 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-
 import userInfoReducer from "../redux/slicers/userSlice";
 import registerInfoReducer from "../redux/slicers/registerInfo";
 import availabilityReducer from "../redux/slicers/availbilitySlice";

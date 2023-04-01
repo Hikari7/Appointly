@@ -55,7 +55,7 @@ const DailyAvailability = () => {
 
   return (
     <div className='flex flex-col m-10 md:flex-row md:justify-center'>
-        <div className='md:w-1/3 p-5'>
+        <div className='md:w-[70%] p-5'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -65,12 +65,12 @@ const DailyAvailability = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-          <div className='flex justify-around mb-10'>
+          <div className='flex justify-around mb-5 md:mb-10'>
             {dow.map((item, index) => <div key={index} className='text-sm md:text-base'>{item}</div>)}
           </div>
           {calendarData && 
             calendarData.map((week, index) => (
-              <div key={index} className="flex h-12 md:text-xl">
+              <div key={index} className="flex h-8 md:h-12 md:text-xl">
                 {week.map((day, weekIndex) => {
                   if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD")) | currentMonth !== day.month){              
                     return (

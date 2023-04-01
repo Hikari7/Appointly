@@ -26,15 +26,15 @@ const Availability = () => {
 
         {/* <div className="mt-14 md:w-5/6 w-full">Availability</div> */}
 
-        <div className="mt-14 mx-auto w-full">
+        <div className="mt-5 mx-auto w-full">
           <div className="flex justify-center">
             <ul className="flex gap-2 list-none">
               <li className="w-[6rem]">
                 <a 
                   className={
                     openTab === 1
-                      ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                      : "px-5 py-2 shadow rounded block text-center text-black bg-white"
+                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
+                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(1); }}
                 >
@@ -45,8 +45,8 @@ const Availability = () => {
                 <a 
                   className={
                     openTab === 2
-                      ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                      : "px-5 py-2 shadow rounded block text-center text-black bg-white"
+                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
+                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
                   onClick={e => { e.preventDefault(); setOpenTab(2); }}
                 >
