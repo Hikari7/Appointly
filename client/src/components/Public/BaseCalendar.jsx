@@ -26,10 +26,6 @@ const BaseCalendar = () => {
     useEffect(() => {
       fetchAvailability()
     }, [])
-    
-    useEffect(() => {
-      console.log(weeklyAvailability);
-    }, [weeklyAvailability])
 
     const fetchAvailability = async () => {
       const res = await userAppointmentApi.getAvailability(params.uid)

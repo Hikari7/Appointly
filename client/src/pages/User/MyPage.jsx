@@ -42,7 +42,6 @@ const MyPage = () => {
       }else{
         dispatch(setAvailability([]))
       }
-      console.log(res[1]);
       if(res[1].data.length > 0){
         const appointmentObj = res[1].data.map(e => {
           let name = e.name

@@ -23,7 +23,8 @@ exports.fetchAvailabilityController = async (req, res) => {
 exports.setAvailabilityController = async (req, res) => {
     try {
         const { uid } = req.params
-        await setAvailability(uid, req.body)
+        const newAvailability = await setAvailability(uid, req.body)
+        return res.json(newAvailability)
     } catch (error) {
         console.log(error);
         return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
