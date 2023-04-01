@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
-import { useDispatch } from "react-redux";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const Login = () => {
 
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");
@@ -33,9 +36,9 @@ const Login = () => {
 
     try {
       const res = await authApi.login({
-        email,
-        password,
-      });
+          email,
+          password,
+        })
       console.log("success to login!");
       console.log(res);
 
@@ -50,6 +53,7 @@ const Login = () => {
       console.log(err);
     }
   };
+
 
   return (
     <>

@@ -1,14 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const appointmentSlice = createSlice({
+export const registerInfoSlice = createSlice({
   name: "appointment",
   initialState: {
     appointment: {
-      hostUser: "641e13400eec447fa1cd2aee",
-      appointmentDateTime: [
-        { date: "Mar.26", time: "11:00" },
-        { date: "Mar.27", time: "11:00" },
-      ],
+      appointmentDateTime: {},
     },
   },
 
@@ -22,6 +18,6 @@ export const appointmentSlice = createSlice({
 export const {
   setFromCalendar,
   // setFromForm
-} = appointmentSlice.actions;
+} = registerInfoSlice.actions;
 
-export default appointmentSlice.reducer;
+export default registerInfoSlice.reducer;
