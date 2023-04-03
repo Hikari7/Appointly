@@ -12,7 +12,9 @@ import { setAvailability } from "../../redux/slicers/availbilitySlice";
 import { setListAppointment } from "../../redux/slicers/listAppointment";
 
 const MyPage = () => {
-  const appointment = useSelector((state) => state.appointment.appointment);
+  const appointment = useSelector(
+    (state) => state.listAppointment.listAppointment
+  );
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
@@ -59,8 +61,6 @@ const MyPage = () => {
   };
 
   const userId = user.userId;
-  // console.log(user.userId);
-
   const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
 
   const handleCopyLink = async () => {
@@ -68,20 +68,26 @@ const MyPage = () => {
     return await navigator.clipboard.writeText(userLink);
   };
 
-  let bookedNum = appointment.appointmentDateTime.length;
+  // let bookedNum = appointment.appointmentDateTime.length;
+  let bookedNum = appointment.length;
+  console.log(appointment.length);
 
   return (
     <>
       <div className="md:flex md:w-93 ">
         <TitleWrapper>
-           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
+          <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Welcome, <span>{user.username}</span>
           </h1>
           <img
             src={mypageImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-          <h3>You have upcoming {bookedNum} meetings!</h3>
+          {appointment.length === 0 ? (
+            "Let's start connecting to your guests!"
+          ) : (
+            <h3>You have upcoming {bookedNum} meetings!</h3>
+          )}
         </TitleWrapper>
         <div className="mt-14 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
@@ -107,7 +113,8 @@ const MyPage = () => {
               )}
             </div>
           </div>
-          {appointmentList.length === 0 ? (
+          {/* {appointmentList.length === 0 ? ( */}
+          {appointment.length === 0 ? (
             <div className="w-full mt-24 animate-pulse">
               <div
                 style={{
@@ -127,7 +134,8 @@ const MyPage = () => {
             </div>
           ) : (
             <div className="mt-12">
-              {appointmentList.map((eachAppointment) => (
+              {/* {appointmentList.map((eachAppointment) => ( */}
+              {appointment.map((eachAppointment) => (
                 <div
                   tabIndex={0}
                   className="collapse collapse-arrow border border-info bg-base-100 rounded-box w-4/6 mx-auto "
