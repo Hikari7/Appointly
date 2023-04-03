@@ -74,7 +74,7 @@ const MyPage = () => {
     <>
       <div className="md:flex md:w-93 ">
         <TitleWrapper>
-          <h1 className="text-3xl font-second">
+           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Welcome, <span>{user.username}</span>
           </h1>
           <img

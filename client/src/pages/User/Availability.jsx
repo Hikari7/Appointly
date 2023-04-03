@@ -3,18 +3,20 @@ import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/weeklyAvailability";
-
+import availabilityImg from "../../assets/availability.svg";
 
 const Availability = () => {
-  const [openTab, setOpenTab] = useState(1)
+  const [openTab, setOpenTab] = useState(1);
 
   return (
     <>
       <div className="md:flex md:w-93">
         <TitleWrapper>
-          <h1 className="text-3xl font-second">Set Your Schedule</h1>
+          <h1 className="text-3xl font-second md:w-10/12 mx-auto">
+            Set Your Schedule
+          </h1>
           <img
-            // src={mypageImg}
+            src={availabilityImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-11/12 md:h-60"
           />
 
@@ -30,25 +32,31 @@ const Availability = () => {
           <div className="flex justify-center">
             <ul className="flex gap-2 list-none">
               <li className="w-[6rem]">
-                <a 
+                <a
                   className={
                     openTab === 1
                       ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
                       : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
-                  onClick={e => { e.preventDefault(); setOpenTab(1); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(1);
+                  }}
                 >
                   Weekly
                 </a>
-              </li> 
+              </li>
               <li className="w-[6rem]">
-                <a 
+                <a
                   className={
                     openTab === 2
                       ? "px-5 py-2 shadow rounded block text-center text-white bg-green-400"
                       : "px-5 py-2 shadow rounded block text-center text-black bg-white"
                   }
-                  onClick={e => { e.preventDefault(); setOpenTab(2); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTab(2);
+                  }}
                 >
                   Daily
                 </a>
@@ -56,7 +64,7 @@ const Availability = () => {
             </ul>
           </div>
           {openTab === 1 && <WeeklyAvailability />}
-          {openTab === 2 && <DailyAvailability />}          
+          {openTab === 2 && <DailyAvailability />}
         </div>
       </div>
     </>

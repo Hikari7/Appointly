@@ -103,8 +103,9 @@ const Signup = () => {
       console.log(res);
       console.log(success);
 
-      //✅3秒後に移動させたい
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (err) {
       console.log(err, err.message);
     }

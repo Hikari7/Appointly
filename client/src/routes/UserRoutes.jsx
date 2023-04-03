@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import UserLayout from "../components/Layout/UserLayout";
-import UserBooking from "../pages/User/UserBooking";
+// import UserBooking from "../pages/User/UserBooking";
 
 // import AdminProtectCheck from "../routes/AdminProtectedCheck";
 const MyPage = lazy(() => import("../pages/User/MyPage"));
@@ -16,9 +16,7 @@ export const UserRoutes = [
       { path: ":uid/mypage", element: <MyPage /> },
       { path: ":uid/availability", element: <Availability /> },
       { path: ":uid/settings", element: <Settings /> },
-      { path: "*", element: <UserBooking /> },
+      // { path: "*", element: <UserBooking /> },
     ],
   },
 ];
-
-//      navigate(`/${newObj.userId}/mypage`);

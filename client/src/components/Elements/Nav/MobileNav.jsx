@@ -31,8 +31,8 @@ const MobileNav = () => {
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-base-300">
+      <div className="drawer-content flex flex-col ">
+        <div className="w-full navbar">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -62,7 +62,7 @@ const MobileNav = () => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-8 pt-16 w-80 text-2xl bg-primary">
+        <ul className="menu p-8 pt-16 w-80 text-2xl bg-white ">
           <li onClick={myPage} className="mt-12">
             <a>My page</a>
           </li>
@@ -73,7 +73,7 @@ const MobileNav = () => {
             <a>Settings</a>
           </li>
           <li
-            className="hover:cursor-pointer hover:text-primary transition duration-200 flex mt-24"
+            className="hover:cursor-pointer hover:text-primary  transition duration-200 flex mt-24"
             onClick={logout}
           >
             <div>
