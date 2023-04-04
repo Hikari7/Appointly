@@ -1,39 +1,60 @@
 import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 
 import moment from "moment" 
 
 import { setFromCalendar } from '../../../redux/slicers/registerInfo'
+import { useParams } from "react-router"
+import userAppointmentApi from "../../../api/userAppointmentApi"
 
 const TimeSelector = ({ timeArray, selectDate }) => {
-  const appointmentList = useSelector(state => state.listAppointment.listAppointment)
   const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
+  const [appointment, setAppointment] = useState([])
   const dispatch = useDispatch()
+  const uidFromParam = useParams()
 
-  console.log(appointmentList);
-  const appointment = [
-    {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
-    {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
-    {bookedDateTime: {date: "2023-03-29", time: "10:00"}}
-  ]
+  // console.log(appointmentList);
+  // const appointment = [
+  //   {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
+  //   {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
+  //   {bookedDateTime: {date: "2023-03-29", time: "10:00"}}
+  // ]
 
   useEffect(() => {
     setSlectedTime("")
     createDisplayTimeArr()
-    // setTimeList(timeArray)
-    // appointment.forEach(eachAppointment => {
-    //   if(eachAppointment.bookedDateTime.date === selectDate){
-    //     const filteredTimeArray = timeArray.filter(eachTime => {
-    //       return eachTime !== eachAppointment.bookedDateTime.time 
-    //     })
-    //     setTimeList(filteredTimeArray)
-    //   }else{
-    //     return true
-    //   }
-    // })
+    console.log(selectDate);
   }, [selectDate])
+
+  useEffect(() => {
+    fetchAppointmentList()
+  }, [])
+
+  const fetchAppointmentList = async () => {
+    try {
+      const res = await userAppointmentApi.getAll(uidFromParam.uid)
+      const appoList = res.data.map(eachAppo => {
+        return {bookedDateTime: eachAppo.appointmentDateTime}
+      })
+      console.log(appoList);
+      setAppointment(appoList)
+      appoList.forEach(eachAppointment => {
+        if(eachAppointment.bookedDateTime.date === selectDate){
+          const filteredTimeArray = timeArray.filter(eachTime => {
+            return eachTime !== eachAppointment.bookedDateTime.time 
+          })
+          console.log(filteredTimeArray);
+          // setTimeList(filteredTimeArray)
+        }else{
+          return true
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }    
+  }
 
   const createDisplayTimeArr = () => {
     const timeArr = []
