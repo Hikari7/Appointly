@@ -30,13 +30,13 @@ const BaseCalendar = () => {
     const fetchAvailability = async () => {
       const res = await userAppointmentApi.getAvailability(params.uid)
       if(res.data.length > 0){
-        // let dowNum = 0
-        // const availabilityObj = res.data[0].weekly.map(e => {
-        //   let dow = String(dowNum)
-        //   dowNum += 1
-        //   return {...e, dow}
-        // })
-        // setWeeklyAvailability(availabilityObj)
+        let dowNum = 0
+        const availabilityObj = res.data[0].weekly.map(e => {
+          let dow = String(dowNum)
+          dowNum += 1
+          return {...e, dow}
+        })
+        setWeeklyAvailability(availabilityObj)
 
         const availableDowArr = []
         availabilityObj.map(e => { 
@@ -70,8 +70,8 @@ const BaseCalendar = () => {
     }
 
     return (
-      <div className='flex flex-col md:flex-row md:justify-center'>
-        <div className='md:w-1/3 p-5'>
+      <div className='flex flex-col md:flex-row md:justify-center md:w-full'>
+        <div className='md:w-1/2 p-5'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
