@@ -7,16 +7,22 @@ const UserProtectCheck = () => {
   const [redirectPath, setRedirectPath] = useState("");
   const user = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    if (user == null) {
-      setRedirectPath("/");
-    }
-  }, []);
 
-  if (user) {
-    return <Navigate to={"mypage"} />;
-  } else {
-    return <Navigate to={"login"} />;
+  // useEffect(() => {
+  //   if (user == null) {
+  //     setRedirectPath("/");
+  //   }
+  // }, []);
+
+  // if (user) {
+  //   return <Navigate to={"mypage"} />;
+  // } else {
+  //   return <Navigate to={"login"} />;
+  // }
+  if(!user){
+    return <Navigate to={"/"} />
+  }else{
+    return <Outlet />
   }
 };
 

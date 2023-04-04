@@ -4,13 +4,13 @@ export const availabilitySlice = createSlice({
   name: "availability",
   initialState: {
     weekly: [
-      {Sun: false, time: [{start: "", end: ""}]},
-      {Mon: false, time: [{start: "", end: ""}]},
-      {Tue: false, time: [{start: "", end: ""}]},
-      {Wed: false, time: [{start: "", end: ""}]},
-      {Thu: false, time: [{start: "", end: ""}]},
-      {Fri: false, time: [{start: "", end: ""}]},
-      {Sat: false, time: [{start: "", end: ""}]},
+      {Sun: false, time: [{start: "", end: ""}], dow: 0},
+      {Mon: false, time: [{start: "", end: ""}], dow: 1},
+      {Tue: false, time: [{start: "", end: ""}], dow: 2},
+      {Wed: false, time: [{start: "", end: ""}], dow: 3},
+      {Thu: false, time: [{start: "", end: ""}], dow: 4},
+      {Fri: false, time: [{start: "", end: ""}], dow: 5},
+      {Sat: false, time: [{start: "", end: ""}], dow: 6},
     ],
     daily: [{date: "", time: [{start: "", end: ""}]}]
   },
@@ -38,7 +38,6 @@ export const availabilitySlice = createSlice({
       state.weekly[targetObjIndex].time.push(timeObj)
     },
     deleteTimeObj: (state, action) => {
-      console.log(action.payload);
       const targetObjIndex = state.weekly.findIndex(eachObj => Object.keys(eachObj)[0] === action.payload.dow)
       state.weekly[targetObjIndex].time = action.payload.filterdTimeArr
       if(action.payload.filterdTimeArr.length === 0){

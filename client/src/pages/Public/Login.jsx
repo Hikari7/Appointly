@@ -42,10 +42,15 @@ const Login = () => {
       console.log("success to login!");
       console.log(res);
 
+      const loginDate = new Date(res.data.loginDate)
+      const expireTime = loginDate.setHours(loginDate.getHours() + 12)
+      // const expireTime = loginDate.setSeconds(loginDate.getSeconds() + 5)
+
       const newObj = {};
       newObj.userId = res.data.userId;
       newObj.username = res.data.username;
       newObj.email = res.data.email;
+      newObj.loginDate = expireTime;
       dispatch(setUser(newObj));
 
       navigate(`/${newObj.userId}/mypage`);

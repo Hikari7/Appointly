@@ -5,12 +5,13 @@ import userAppointmentApi from "../../api/userAppointmentApi"
 import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availbilitySlice'
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 
+
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
   const dispatch = useDispatch()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
-
+  
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
     const elem = clickedElem
@@ -42,7 +43,7 @@ const WeeklyAvailability = () => {
     if(method === "delete"){
       const targetDowObj = availability.find(eachObj => Object.keys(eachObj)[0] === dow)
       const filterdTimeArr = targetDowObj.time.filter(timeObj => timeObj !== data)
-      dispatch(deleteTimeObj({dow, filterdTimeArr}))   
+      dispatch(deleteTimeObj({dow, filterdTimeArr}))
       
     }else if('add'){
       dispatch(addNewTimeObj(dow))
@@ -55,7 +56,6 @@ const WeeklyAvailability = () => {
     e.preventDefault()
     // If there are empty inputs, delete those before send data to db.
     availability.map(eachObj => {
-      console.log(eachObj.time);
       eachObj.time.map(eachTimeObj => {
         if(eachTimeObj.start === "" | eachTimeObj.end ===""){
           const filterdTimeArr = eachObj.time.filter(timeObj => timeObj !== eachTimeObj)
@@ -75,9 +75,9 @@ const WeeklyAvailability = () => {
   }
 
   return (
-    <div className='flex justify-center'>
-      <form className='flex flex-col p-5 md:w-[60%]'>
-        {availability.map((eachObj, objIndex) => (
+    <div className='flex justify-center w-full'>
+      <form className='flex flex-col p-5 w-[90%] md:w-[60%]'>
+        {availability && availability.map((eachObj, objIndex) => (
           // Map out each day of week
           <div key={objIndex} className='flex justify-between width-full my-4'>
             <div className='flex items-start w-full'>
@@ -93,9 +93,9 @@ const WeeklyAvailability = () => {
               <div className='flex flex-col gap-3'>
 
                 {/* Check each day of week's value (which is boolean). If true, map all elem in time array. */}
-                {availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0])[Object.keys(eachObj)[0]]
+                {availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0])[Object.keys(eachObj)[0]]
                   ? (
-                    availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time.map((startEndObj, timeIndex) => {
+                    availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time.map((startEndObj, timeIndex) => {
                       return (
                       <div key={timeIndex} className='flex items-center gap-3 w-[80%] ml-4 relative'>
                         <div className='relative'>
@@ -104,7 +104,7 @@ const WeeklyAvailability = () => {
                             id={`${Object.keys(eachObj)[0]}+start+${timeIndex}`}
                             value={
                               // If time array is initial state (which means no elem in time array), set the value manually.
-                              availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time[0].start === ""
+                              availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time[0].start === ""
                               ? "09:00"
                               : startEndObj.start
                             }
@@ -120,7 +120,7 @@ const WeeklyAvailability = () => {
                           <input 
                             type="text"
                             value={
-                              availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time[0].end === ""
+                              availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time[0].end === ""
                               ? "17:00"
                               : startEndObj.end
                             }
@@ -144,7 +144,7 @@ const WeeklyAvailability = () => {
             </div>
             
             {/* Check each day of week's value (which is boolean), and conditional rendering for action btns */}
-            {availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0])[Object.keys(eachObj)[0]]
+            {availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0])[Object.keys(eachObj)[0]]
               ? <div className='flex gap-3 md:gap-1'>
                   <button onClick={(e) => handleMethod(e, "add", Object.keys(eachObj)[0])} className='flex justify-center items-center w-7 h-7 hover:bg-gray-200 hover:rounded-full'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
