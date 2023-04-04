@@ -32,7 +32,7 @@ const TimeAvailability = ({ selectDate }) => {
   }, [selectedItem, clickedElem])
 
   useEffect(() => {
-    scrollToBottomOfList()
+    // scrollToBottomOfList()
   }, [])
 
   const scrollToBottomOfList = () => {

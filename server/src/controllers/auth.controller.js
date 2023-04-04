@@ -10,6 +10,7 @@ exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const loginService = await login(email, password);
+    // console.log(loginService);
     loginService.errorMessage && res.status(400).send({ errorMessage });
     return res
       .cookie("token", loginService.token, { httpOnly: true })

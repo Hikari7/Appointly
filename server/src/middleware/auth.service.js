@@ -43,11 +43,15 @@ exports.login = async (email, password) => {
 
     if (isValid) {
       const token = JWT.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
-
+      
+      await User.updateOne({email}, { $set: {loginDate: new Date()}})
+      const userWithLoginDate = await User.findOne({email})
+      
       return (data = {
         userId: user._id,
         username: user.username,
         email: user.email,
+        loginDate: userWithLoginDate.loginDate,
         token,
       });
     } else {
