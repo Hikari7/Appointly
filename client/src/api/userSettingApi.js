@@ -1,8 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const userSettingApi = {
-  update: (params) => axiosClient.put("/user/edituserinfo", params),
-  reset: (params) => axiosClient.post("/user/resetpassword", params),
+  update: (uid, params) => axiosClient.put(`/user/${uid}/edituserinfo`, params),
+  // reset: (uid, params) =>
+  //   axiosClient.post(`/user/${uid}/resetpassword`, params),
 };
 
 export default userSettingApi;

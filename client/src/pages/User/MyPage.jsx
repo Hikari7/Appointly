@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
-//✅UserMainWrapperでコンポーネント分けると{children}が表示されなくなる
-// import UserMainWrapper from "../../components/Elements/Wrapper/UserMainWrapper";
 import mypageImg from "../../assets/mypage.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
@@ -53,16 +51,26 @@ const MyPage = () => {
         availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
         dispatch(setAvailability(availabilityObj));
       }
+      console.log(res[1].data);
       if (res[1].data.length > 0) {
-        const appointmentObj = res[1].data.map((e) => {
-          let name = e.name;
-          let email = e.email;
-          let message = e.message;
-          let appointmentDateTime = e.appointmentDateTime;
-          return { name, email, message, appointmentDateTime };
+        console.log(res[1].data);
+        const today = new Date();
+        const filteredAppointment = res[1].data.filter(function (
+          appointmentDate
+        ) {
+          const filteredDate = new Date(
+            appointmentDate.appointmentDateTime.date
+          );
+          if (today < filteredDate || today == filteredDate) {
+            return filteredDate;
+          } else {
+            return;
+          }
         });
-        setAppointmentList(appointmentObj);
-        dispatch(setListAppointment(appointmentObj));
+        console.log(filteredAppointment);
+
+        setAppointmentList(filteredAppointment);
+        dispatch(setListAppointment(filteredAppointment));
       } else {
         dispatch(setListAppointment([]));
       }
@@ -79,9 +87,9 @@ const MyPage = () => {
     return await navigator.clipboard.writeText(userLink);
   };
 
-  // let bookedNum = appointment.appointmentDateTime.length;
+  console.log(appointment);
+
   let bookedNum = appointment.length;
-  console.log(appointment.length);
 
   return (
     <>
@@ -124,7 +132,6 @@ const MyPage = () => {
               )}
             </div>
           </div>
-          {/* {appointmentList.length === 0 ? ( */}
           {appointment.length === 0 ? (
             <div className="w-full mt-24 animate-pulse">
               <div
@@ -144,8 +151,7 @@ const MyPage = () => {
               </p>
             </div>
           ) : (
-            <div className="mt-12">
-              {/* {appointmentList.map((eachAppointment) => ( */}
+            <div className="my-12 max-h-80">
               {appointment.map((eachAppointment) => (
                 <div
                   tabIndex={0}
@@ -161,8 +167,18 @@ const MyPage = () => {
                     </p>
                   </div>
                   <div className="collapse-content">
-                    <p>Guest name: {eachAppointment.name}</p>
-                    <p>Guest email: {eachAppointment.email}</p>
+                    <p>
+                      Guest name:{" "}
+                      <span className="text-primary">
+                        {eachAppointment.name}
+                      </span>
+                    </p>
+                    <p>
+                      Guest email:
+                      <span className="text-primary">
+                        {eachAppointment.email}
+                      </span>
+                    </p>
                   </div>
                 </div>
               ))}

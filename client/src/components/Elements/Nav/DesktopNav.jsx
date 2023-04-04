@@ -15,7 +15,7 @@ const DesktopNav = () => {
       <div className=" w-10/12 flex mx-auto font-second">
         <div className="flex-1">
           <Link className="normal-case text-lg font-bold text-primary " to="/">
-            Scheduling App
+            Appointly
           </Link>
         </div>
 

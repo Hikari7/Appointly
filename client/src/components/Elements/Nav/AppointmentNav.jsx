@@ -7,7 +7,7 @@ const AppointmentNav = () => {
       <div className=" w-10/12 flex mx-auto">
         <div className="flex-1">
           <Link className="normal-case text-lg font-bold text-primary" to="/">
-            Calendaly
+            Appointly
           </Link>
         </div>
       </div>
