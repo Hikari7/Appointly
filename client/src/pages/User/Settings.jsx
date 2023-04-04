@@ -1,33 +1,10 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
-import { useDispatch, useSelector } from "react-redux";
 import settingImg from "../../assets/setting.svg";
-import { setUser } from "../../redux/slicers/userSlice";
-import { useNavigate } from "react-router-dom";
-import {
-  validateUsername,
-  validateEmail,
-  validatePassword,
-  validateConfirmPassword,
-} from "../../utils/validators";
-import userSettingApi from "../../api/userSettingApi";
 import UserInfoChange from "../../components/User/Settings/UserInfoChange";
 import PasswordChange from "../../components/User/Settings/PasswordChange";
 
 const Settings = () => {
-  const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const userInput = useRef(null);
-  const emailInput = useRef(null);
-  const passwordInput = useRef(null);
-  const confirmPasswordInput = useRef(null);
-
-  const [usernameErr, setUsernameErr] = useState(null);
-  const [emailErr, setEmailErr] = useState(null);
-  const [passwordErr, setPasswordErr] = useState(null);
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
-
   return (
     <>
       <div className="md:flex md:w-93 ">
@@ -39,7 +16,7 @@ const Settings = () => {
             src={settingImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-          <h3> See your account information</h3>
+          <h3>Change general settings</h3>
         </TitleWrapper>
 
         <div className="mt-14 md:w-5/6 w-full">
