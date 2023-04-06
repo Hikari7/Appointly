@@ -11,21 +11,13 @@ import userAppointmentApi from "../../../api/userAppointmentApi"
 const TimeSelector = ({ timeArray, selectDate }) => {
   const [timeList, setTimeList] = useState([])
   const [selectedTime, setSlectedTime] = useState("")
-  const [appointment, setAppointment] = useState([])
   const dispatch = useDispatch()
   const uidFromParam = useParams()
 
-  // console.log(appointmentList);
-  // const appointment = [
-  //   {bookedDateTime: {date: "2023-03-27", time: "10:00"}},
-  //   {bookedDateTime: {date: "2023-03-28", time: "10:00"}},
-  //   {bookedDateTime: {date: "2023-03-29", time: "10:00"}}
-  // ]
-
   useEffect(() => {
     setSlectedTime("")
-    createDisplayTimeArr()
-    console.log(selectDate);
+    fetchAppointmentList()
+
   }, [selectDate])
 
   useEffect(() => {
@@ -38,37 +30,34 @@ const TimeSelector = ({ timeArray, selectDate }) => {
       const appoList = res.data.map(eachAppo => {
         return {bookedDateTime: eachAppo.appointmentDateTime}
       })
-      console.log(appoList);
-      setAppointment(appoList)
+
+      // Create display array from props
+      const timeArr = []
+      timeArray.map(eachTimeObj => {
+        const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
+        const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
+        let baseTime = startTime
+        while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
+          timeArr.push(baseTime.format('HH:mm'))
+          baseTime.add(30, 'm')
+        }
+      })
+      const filteredArr = [...new Set(timeArr)]
+
+      // Remove time which already have appointment
       appoList.forEach(eachAppointment => {
         if(eachAppointment.bookedDateTime.date === selectDate){
-          const filteredTimeArray = timeArray.filter(eachTime => {
+          const filteredTimeArray = filteredArr.filter(eachTime => {
             return eachTime !== eachAppointment.bookedDateTime.time 
           })
-          console.log(filteredTimeArray);
-          // setTimeList(filteredTimeArray)
+          setTimeList(filteredTimeArray)
         }else{
-          return true
+          setTimeList(filteredArr)
         }
       })
     } catch (error) {
       console.log(error);
     }    
-  }
-
-  const createDisplayTimeArr = () => {
-    const timeArr = []
-    timeArray.map(eachTimeObj => {
-      const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
-      const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
-      let baseTime = startTime
-      while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
-        timeArr.push(baseTime.format('HH:mm'))
-        baseTime.add(30, 'm')
-      }
-    })
-    const filteredArr = [...new Set(timeArr)]
-    setTimeList(filteredArr)
   }
   
 
@@ -78,15 +67,15 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   }
 
   return (
-    <div className='flex flex-col justify-center md:w-[40%] my-5 md:text-xl'>
-      <div className="flex justify-center items-center gap-5">
-        <div className="flex flex-col md:w-1/2 justify-content items-baseline">
-          <div className="flex w-full items-center mb-2">
-            <div className="w-[33%]">Date:</div>
+    <div className='flex flex-col justify-center md:w-[50%] my-5 md:text-xl'>
+      <div className="flex flex-col justify-center items-center gap-5">
+        <div className="flex flex-col md:w-full justify-center items-center">
+          <div className="flex w-full items-center justify-center mb-2">
+            <div className="w-[33%] md:w-[20%]">Date:</div>
             <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded md:text-xl">{selectDate}</div>
           </div>
-          <div className="flex w-full items-center">
-            <div className="w-[33%]">Time:</div>
+          <div className="flex w-full items-center justify-center">
+            <div className="w-[33%] md:w-[20%]">Time:</div>
             <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded md:text-xl">{selectedTime}</div>
           </div>
         </div>
@@ -98,7 +87,6 @@ const TimeSelector = ({ timeArray, selectDate }) => {
           >
             Next
           </button>
-
         </Link>
       </div>
       <div id='timeSelect' className='flex flex-col justify-center items-center my-8 gap-5'>

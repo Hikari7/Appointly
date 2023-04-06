@@ -4,14 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import userAppointmentApi from "../../api/userAppointmentApi"
 import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availbilitySlice'
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
-
+import { useParams } from 'react-router'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
+  const dailyAvailability = useSelector((state) => state.availability.daily)
   const dispatch = useDispatch()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
-  
+  const param = useParams()
+
+  console.log(dailyAvailability);
+
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
     const elem = clickedElem
@@ -60,12 +64,13 @@ const WeeklyAvailability = () => {
         if(eachTimeObj.start === "" | eachTimeObj.end ===""){
           const filterdTimeArr = eachObj.time.filter(timeObj => timeObj !== eachTimeObj)
           dispatch(deleteTimeObj({dow: Object.keys(eachObj)[0], filterdTimeArr}))
+        }else{
+          return true
         }
       })
     })
     try {
-      const res = await userAppointmentApi.set("641cd31d7868facf7acd2998", {weekly: availability, daily: []})
-      console.log(res);
+      const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
       if(res.status === 200){
         alert("Successfully availability was changed!")
       }

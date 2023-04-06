@@ -15,10 +15,14 @@ exports.fetchUserAvailability = async (uid) => {
 
 exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId(uid)
-    try {
+    try {   
+        const target = await Availability.findOne({userId})
+        console.log(target);
+        
         const targetAvailability = await Availability.findOneAndUpdate({userId}, {
             $set: { "weekly": data.weekly, "daily": data.daily }
         })
+
 
         //If the availability document does not exist, create new document
         if(!targetAvailability){
