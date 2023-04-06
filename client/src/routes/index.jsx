@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { persistor } from '../redux/store';
 
@@ -9,18 +9,16 @@ import { setUser } from '../redux/slicers/userSlice'
 
 const AppRoute = () => {
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch()
 
   let route;
   
   if (user) {
     const expireTime = new Date(user.loginDate)
     const now = new Date()
+    // Check if expireTime alredy past current time
     if(expireTime.getTime() < now.getTime()){
       route = PublicRoutes;
-      // dispatch(setUser(null));
       persistor.purge();
-      
     }else{
       route = UserRoutes(user);
     }

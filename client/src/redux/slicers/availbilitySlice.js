@@ -43,7 +43,7 @@ export const availabilitySlice = createSlice({
       if(action.payload.filterdTimeArr.length === 0){
         state.weekly[targetObjIndex][action.payload.dow] = false
         state.weekly[targetObjIndex].time = [{start: "", end: ""}]
-      }      
+      } 
 
       // const targetObjIndex = state.weekly.findIndex(eachObj => Object.keys(eachObj)[0] === action.payload.dow)
       // const filteredArr = state.weekly[targetObjIndex].time.filter(elem => elem !== action.payload.data)
@@ -60,19 +60,26 @@ export const availabilitySlice = createSlice({
         state.weekly[targetDowObjIndex].time[timeIndex].end = time
       }
     },
-    setDailyAvailabilityTime: (state, action) => {
+    setDailyTimeValue: (state, action) => {
       const { position, time, date, timeIndex } = action.payload
       const targetDateIndex = state.daily.findIndex(eachObj => eachObj.date === date)
+      console.log(targetDateIndex);
       if(position === "start"){
         state.daily[targetDateIndex].time[timeIndex].start = time
       }else{
         state.daily[targetDateIndex].time[timeIndex].end = time
       }
     },
-    addDailyNewTimeObj: (state, action) => {
+    addDailyNewTimeObj: async (state, action) => {
       const timeObj = {start: "", end: ""}
       const targetDateIndex = state.daily.findIndex(eachObj => eachObj.date === action.payload)
-      state.daily[targetDateIndex].time.push(timeObj)
+      const targetDate = state.daily.find(eachObj => eachObj.date === action.payload)
+      console.log(targetDate);
+      if(targetDateIndex === -1){
+        state.daily.push({date: action.payload, time: [timeObj]})
+      }else{
+        state.daily[targetDateIndex].time.push(timeObj)
+      }
     },
     deleteDailyTimeObj: (state, action) => {
       const { filteredArr, date } = action.payload
@@ -82,6 +89,9 @@ export const availabilitySlice = createSlice({
         state.daily[targetDateIndex].time = [{start: "", end: ""}]
       }
     },
+    // setUnavailable: (state, action) => {
+
+    // },
   },
 });
 
@@ -91,9 +101,9 @@ export const {
   addNewTimeObj,
   deleteTimeObj,
   setTimeValue,
-  setDailyAvailabilityTime,
   addDailyNewTimeObj,
   deleteDailyTimeObj,
+  setDailyTimeValue,
 } = availabilitySlice.actions;
 
 export default availabilitySlice.reducer;

@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 
 const BaseCalendar = () => {
     const [weeklyAvailability, setWeeklyAvailability] = useState([])
+    const [dailyAvailability, setDailyAvailability] = useState([])
     const [availableDowArr, setAvailableDowArr] = useState([])
     const [currentDate, setCurrentDate] = useState(moment());
     const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM")) 
@@ -18,6 +19,8 @@ const BaseCalendar = () => {
     const [displayTime, setDisplayTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const params = useParams()
+
+  console.log(dailyAvailability);
 
     useEffect(() => {
       setCalendarDate(createCalendar(currentDate))
@@ -31,21 +34,22 @@ const BaseCalendar = () => {
       const res = await userAppointmentApi.getAvailability(params.uid)
       if(res.data.length > 0){
         let dowNum = 0
-        const availabilityObj = res.data[0].weekly.map(e => {
+        const modifiedAvailabilityObj = res.data[0].weekly.map(e => {
           let dow = String(dowNum)
           dowNum += 1
           return {...e, dow}
         })
-        setWeeklyAvailability(availabilityObj)
+        setWeeklyAvailability(modifiedAvailabilityObj)
 
         const availableDowArr = []
-        availabilityObj.map(e => { 
+        modifiedAvailabilityObj.map(e => { 
           if(Object.values(e).includes(true)){
             availableDowArr.push(e.dow)
           }
         })
         setAvailableDowArr(availableDowArr)
       }
+      setDailyAvailability(res.data[0].daily)
     }
 
     const today = moment()
@@ -94,7 +98,7 @@ const BaseCalendar = () => {
                         <div className="text-center text-gray-300">{day.date}</div>
                       </div>
                     )
-                  }else if(moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-DD")){
+                  }else if(moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-D")){
                     return (
                       <div key={index} className='flex-1 flex justify-center items-center'>
                         <div className="text-center font-bold text-green-400 rounded-full">{day.date}</div>
@@ -103,7 +107,7 @@ const BaseCalendar = () => {
                   }else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
                     // Get target available time
                     const timeArray = weeklyAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
-                    if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD"))){
+                    if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-D"))){
                       return (
                         <div key={index} className='flex-1 flex justify-center items-center'>
                           <div className="text-center">{day.date}</div>
@@ -124,6 +128,23 @@ const BaseCalendar = () => {
                         </div>
                       )
                     }
+                  }else if(dailyAvailability.includes(moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))){
+                    // Get target dailyAvailability obj
+                    const targetObj = dailyAvailability.find(eachObj => eachObj.date === moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))
+                    // Check if target date has time array (If not, it means unavailable)
+                    return (targetObj.time.length === 0)
+                    ? (
+                      <div key={index} className='flex-1 flex justify-center items-center'>
+                        <div className="text-center">{day.date}</div>
+                      </div>
+                    )
+                    : (
+                      <div key={index} className='flex-1 flex justify-center items-center relative group'>
+                        <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, targetObj.time)} className='flex justify-center items-center w-[1.7rem] h-[1.7rem] md:w-8 md:h-8 bg-green-200 rounded-full group-hover:bg-green-400'>
+                          <div className="text-center z-50">{day.date}</div>
+                        </HashLink>
+                      </div>
+                    )
                   }else{
                     return (
                       <div key={index} className='flex-1 flex justify-center items-center'>

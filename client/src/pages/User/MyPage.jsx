@@ -30,30 +30,29 @@ const MyPage = () => {
   const fetchAvailabilityAndListAppointment = async () => {
     try {;
       const res = await Promise.all([
-        // UserのAvailabilityをfetchしてReduxに登録
+        // Fetch user Availability and set the values in redux store
         userAppointmentApi.getAvailability(user.userId),
-        // UserのAppointment listをfetchしてReduxに登録
+        // Fetch user Appointment and set the values in redux store
         userAppointmentApi.getAll(user.userId),
       ])
-      console.log(res);
       if(res[0].data.length > 0){
         const availabilityObj = {}
         availabilityObj.weekly = res[0].data[0].weekly
         availabilityObj.daily = res[0].data[0].daily
         dispatch(setAvailability(availabilityObj))
       }else{
-        const availabilityObj = {}
-        availabilityObj.weekly = [
-          {Sun: false, time: [{start: "", end: ""}], dow: 0},
-          {Mon: false, time: [{start: "", end: ""}], dow: 1},
-          {Tue: false, time: [{start: "", end: ""}], dow: 2},
-          {Wed: false, time: [{start: "", end: ""}], dow: 3},
-          {Thu: false, time: [{start: "", end: ""}], dow: 4},
-          {Fri: false, time: [{start: "", end: ""}], dow: 5},
-          {Sat: false, time: [{start: "", end: ""}], dow: 6},
-        ]
-        availabilityObj.daily = [{date: "", time: [{start: "", end: ""}]}]
-        dispatch(setAvailability(availabilityObj))
+        // const availabilityObj = {}
+        // availabilityObj.weekly = [
+        //   {Sun: false, time: [{start: "", end: ""}], dow: 0},
+        //   {Mon: false, time: [{start: "", end: ""}], dow: 1},
+        //   {Tue: false, time: [{start: "", end: ""}], dow: 2},
+        //   {Wed: false, time: [{start: "", end: ""}], dow: 3},
+        //   {Thu: false, time: [{start: "", end: ""}], dow: 4},
+        //   {Fri: false, time: [{start: "", end: ""}], dow: 5},
+        //   {Sat: false, time: [{start: "", end: ""}], dow: 6},
+        // ]
+        // availabilityObj.daily = [{date: "", time: [{start: "", end: ""}]}]
+        // dispatch(setAvailability(availabilityObj))
       }
       if(res[1].data.length > 0){
         const appointmentObj = res[1].data.map(e => {

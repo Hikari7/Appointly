@@ -8,10 +8,13 @@ import { useParams } from 'react-router'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
+  const dailyAvailability = useSelector((state) => state.availability.daily)
   const dispatch = useDispatch()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
   const param = useParams()
+
+  console.log(dailyAvailability);
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
@@ -62,19 +65,16 @@ const WeeklyAvailability = () => {
           const filterdTimeArr = eachObj.time.filter(timeObj => timeObj !== eachTimeObj)
           dispatch(deleteTimeObj({dow: Object.keys(eachObj)[0], filterdTimeArr}))
         }else{
-
+          return true
         }
       })
     })
     try {
-      console.log("Api");
       const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
-      console.log(res);
       if(res.status === 200){
         alert("Successfully availability was changed!")
       }
     } catch (error) {
-      console.log("error");
       console.log(error); 
     }
   }
