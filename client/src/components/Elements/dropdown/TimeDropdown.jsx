@@ -41,7 +41,6 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, eachTimeObjInde
             const tempArray = currentAvailbleTime
             tempArray[eachTimeObjIndex][position] = time
             setCurrentAvailbleTime(tempArray)
-            dispatch(setDailyAvailability({daily: tempArray}))
         }
     }
 

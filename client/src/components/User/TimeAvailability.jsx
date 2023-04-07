@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import userAppointmentApi from '../../api/userAppointmentApi'
 import { useParams } from 'react-router'
 import EachTimeInput from './EachTimeInput'
+import { setDailyAvailability } from '../../redux/slicers/availabilitySlice'
 import { TargetTime } from './DailyAvailability'
 
 const TimeAvailability = ({ selectDate }) => {
@@ -80,6 +81,8 @@ const TimeAvailability = ({ selectDate }) => {
         if(res.status === 200){
           alert("Successfully availability was changed!")
         }
+        dispatch(setDailyAvailability({date: selectDate, time: currentAvailbleTime}))
+
       } catch (error) {
         console.log(error);
       }

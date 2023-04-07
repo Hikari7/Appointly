@@ -22,7 +22,16 @@ export const availabilitySlice = createSlice({
       state.daily = action.payload.daily
     },
     setDailyAvailability: (state, action) => {
-      state.daily.push(action.payload.daily)
+      const { date, time }= action.payload
+      // Check if target date is exist in the daily availability array.
+      const targetObjIndex = state.daily.findIndex(eachObj => eachObj.date === date)
+      if (!(targetObjIndex < 0)){
+        // If exists, replace the value by payload.
+        state.daily[targetObjIndex] = {date, time}
+      }else{
+        // If not exists, push the payload.
+        state.daily.push({date, time})
+      }
     },
     setCheckBox: (state, action) => {
       const targetObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === action.payload)

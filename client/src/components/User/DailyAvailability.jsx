@@ -111,12 +111,12 @@ const DailyAvailability = () => {
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time[0])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
                             </div>
                           )
                         : (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time[0])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center">{day.date}</div>
                             </div>
                           )  
