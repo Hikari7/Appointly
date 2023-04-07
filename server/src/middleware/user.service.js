@@ -17,19 +17,30 @@ exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId(uid)
     try {   
         const target = await Availability.findOne({userId})
-        console.log(target);
+        if(data.daily.length > 0){
+            const targetAvailability = await Availability.findOneAndUpdate({userId}, {
+                $set: { "daily": data.daily }
+            })
+            //If the availability document does not exist, create new document
+            if(!targetAvailability){
+                data.userId = userId
+                const newAvailability = new Availability(data)
+                return await newAvailability.save()
+            }
+        }else{
+            const targetAvailability = await Availability.findOneAndUpdate({userId}, {
+                $set: { "weekly": data.weekly }
+            })
+            //If the availability document does not exist, create new document
+            if(!targetAvailability){
+                data.userId = userId
+                const newAvailability = new Availability(data)
+                return await newAvailability.save()
+            }
+        }       
+
+
         
-        const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-            $set: { "weekly": data.weekly, "daily": data.daily }
-        })
-
-
-        //If the availability document does not exist, create new document
-        if(!targetAvailability){
-            data.userId = userId
-            const newAvailability = new Availability(data)
-            return await newAvailability.save()
-        }
         
         return await Availability.findOne({userId})
 

@@ -8,7 +8,7 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 
 import userAppointmentApi from "../../api/userAppointmentApi";
-import { setAvailability } from '../../redux/slicers/availbilitySlice'
+import { setAvailability } from '../../redux/slicers/availabilitySlice'
 import { setListAppointment } from "../../redux/slicers/listAppointment"
 
 //✅UserMainWrapperでコンポーネント分けると{children}が表示されなくなる
@@ -41,18 +41,18 @@ const MyPage = () => {
         availabilityObj.daily = res[0].data[0].daily
         dispatch(setAvailability(availabilityObj))
       }else{
-        // const availabilityObj = {}
-        // availabilityObj.weekly = [
-        //   {Sun: false, time: [{start: "", end: ""}], dow: 0},
-        //   {Mon: false, time: [{start: "", end: ""}], dow: 1},
-        //   {Tue: false, time: [{start: "", end: ""}], dow: 2},
-        //   {Wed: false, time: [{start: "", end: ""}], dow: 3},
-        //   {Thu: false, time: [{start: "", end: ""}], dow: 4},
-        //   {Fri: false, time: [{start: "", end: ""}], dow: 5},
-        //   {Sat: false, time: [{start: "", end: ""}], dow: 6},
-        // ]
-        // availabilityObj.daily = [{date: "", time: [{start: "", end: ""}]}]
-        // dispatch(setAvailability(availabilityObj))
+        const availabilityObj = {}
+        availabilityObj.weekly = [
+          {Sun: false, time: [{start: "", end: ""}], dow: 0},
+          {Mon: false, time: [{start: "", end: ""}], dow: 1},
+          {Tue: false, time: [{start: "", end: ""}], dow: 2},
+          {Wed: false, time: [{start: "", end: ""}], dow: 3},
+          {Thu: false, time: [{start: "", end: ""}], dow: 4},
+          {Fri: false, time: [{start: "", end: ""}], dow: 5},
+          {Sat: false, time: [{start: "", end: ""}], dow: 6},
+        ]
+        availabilityObj.daily = [{date: "", time: [{start: "", end: ""}]}]
+        dispatch(setAvailability(availabilityObj))
       }
       if(res[1].data.length > 0){
         const appointmentObj = res[1].data.map(e => {

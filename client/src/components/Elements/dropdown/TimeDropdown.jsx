@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch } from "react-redux";
 
 import moment from 'moment';
 
-import { setTimeValue, setDailyTimeValue } from '../../../redux/slicers/availbilitySlice'
+import { setTimeValue } from '../../../redux/slicers/availabilitySlice'
+import { TargetTime } from '../../User/DailyAvailability'
 
-const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
+const TimeDropdown = ({ selectedItem, timeIndex, position, from, eachTimeObjIndex }) => {
     const dispatch = useDispatch()
+    const { currentAvailbleTime, setCurrentAvailbleTime } = useContext(TargetTime) || {}
     const [startTimeStyle, setStartTimeStyle] = useState("")
     const [endTimeStyle, setEndTimeStyle] = useState("")
 
     useEffect(() => {
         if(from === "daily"){
-            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-6.5%] z-50")
-            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[31%] z-50")
+            setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-24.5%] z-50")
+            setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-25%] z-50")
         }else{
             setStartTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-25%] z-50")
             setEndTimeStyle("flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[400%] overflow-y-scroll absolute top-[55%] left-[-25%] z-50")
@@ -36,8 +38,9 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
         if(from === "weekly"){
             dispatch(setTimeValue({selectedItem, timeIndex, time}))
         }else{
-            console.log(date);
-            dispatch(setDailyTimeValue({position, time, date, timeIndex}))
+            const tempArray = currentAvailbleTime
+            tempArray[eachTimeObjIndex][position] = time
+            setCurrentAvailbleTime(tempArray)
         }
     }
 

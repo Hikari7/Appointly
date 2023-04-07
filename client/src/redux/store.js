@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 
 import userInfoReducer from "../redux/slicers/userSlice";
 import registerInfoReducer from "../redux/slicers/registerInfo";
-import availabilityReducer from "../redux/slicers/availbilitySlice";
+import availabilityReducer from "../redux/slicers/availabilitySlice";
 import listAppointmentReducer from "./slicers/listAppointment";
 
 const reducers = combineReducers({

@@ -2,19 +2,16 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import userAppointmentApi from "../../api/userAppointmentApi"
-import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availbilitySlice'
+import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availabilitySlice'
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 import { useParams } from 'react-router'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
-  const dailyAvailability = useSelector((state) => state.availability.daily)
   const dispatch = useDispatch()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
   const param = useParams()
-
-  console.log(dailyAvailability);
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
