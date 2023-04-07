@@ -1,4 +1,3 @@
-
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -25,8 +24,6 @@ export const PublicRoutes = [
             element: <GuestCalendar />,
           },
           { path: "guestform", element: <Guestform /> },
-          // { path: "guestcalendar", element: <GuestCalendar /> },
-          // { path: "guestform", element: <Guestform /> },
         ],
       },
       { path: "*", element: <Navigate to="/" replace /> },

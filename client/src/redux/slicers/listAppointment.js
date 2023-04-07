@@ -9,7 +9,13 @@ export const listAppointmentSlice = createSlice({
         email: "test@test.com",
         message: "test",
         appointmentDateTime: {date: "2023-3-22", time: "11:00"}
-      }
+      },
+      // {
+      //   name: "test",
+      //   email: "test@test.com",
+      //   message: "test",
+      //   appointmentDateTime: {date: "2023-3-22", time: "11:00"}
+      // }
     ],
   },
   reducers: {

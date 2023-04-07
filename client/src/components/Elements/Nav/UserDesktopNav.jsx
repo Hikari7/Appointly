@@ -8,7 +8,7 @@ const UserDesktopNav = () => {
     <div className="navbar border-b border-neutral border-thin h-1/6 ">
       <div className=" w-10/12 flex mx-auto font-second">
         <div className="flex-1 normal-case text-lg font-bold text-primary font-second">
-          Scheduling App
+        Appointly
         </div>
 
         <ul className="menu-horizontal px-1">
