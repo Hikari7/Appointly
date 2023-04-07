@@ -26,9 +26,9 @@ const MyPage = () => {
   const fetchAvailabilityAndListAppointment = async () => {
     try {
       const res = await Promise.all([
-        // UserのAvailabilityをfetchしてReduxに登録
+        // Fetch user Availability and set the values in redux store
         userAppointmentApi.getAvailability(user.userId),
-        // UserのAppointment listをfetchしてReduxに登録
+        // Fetch user Appointment and set the values in redux store
         userAppointmentApi.getAll(user.userId),
       ]);
       console.log(res);

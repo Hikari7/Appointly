@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import moment from 'moment';
 
-import { setTimeValue, setDailyAvailabilityTime } from '../../../redux/slicers/availbilitySlice'
+import { setTimeValue, setDailyTimeValue } from '../../../redux/slicers/availbilitySlice'
 
 const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
     const dispatch = useDispatch()
@@ -36,7 +36,8 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, date }) => {
         if(from === "weekly"){
             dispatch(setTimeValue({selectedItem, timeIndex, time}))
         }else{
-            dispatch(setDailyAvailabilityTime({position, time, date, timeIndex}))
+            console.log(date);
+            dispatch(setDailyTimeValue({position, time, date, timeIndex}))
         }
     }
 

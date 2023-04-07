@@ -6,9 +6,12 @@ import moment from 'moment';
 
 import { createCalendar, getNextMonth, getPrevMonth } from "../../utils/calenderHelpers";
 import TimeAvailability from './TimeAvailability';
+import userAppointmentApi from "../../api/userAppointmentApi"
+import { useParams } from 'react-router';
 
 const DailyAvailability = () => {
     const weeklyAvailability = useSelector((state) => state.availability.weekly)
+    const [modifiedWeeklyAvailability, setModifiedWeeklyAvailability] = useState([]);
     const [currentDate, setCurrentDate] = useState(moment());
     const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM")) 
     const [calendarData, setCalendarDate] = useState(createCalendar(currentDate));
@@ -16,10 +19,32 @@ const DailyAvailability = () => {
     const [currentAvailbleTime, setCurrentAvailbleTime] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState("")
+    const [availableDowArr, setAvailableDowArr] = useState("")
+    const param = useParams()
 
     useEffect(() => {
       setCalendarDate(createCalendar(currentDate))
     }, [currentDate])
+
+    useEffect(() => {
+      // Add "dow" property on each object
+      let dowNum = 0
+      weeklyAvailability.map(e => {
+        let dow = String(dowNum)
+        dowNum += 1
+        return {...e, dow}
+      })
+
+      // Set availableDowArr
+      let tempArr = []
+      weeklyAvailability.map(eachDate => {
+        if(eachDate[Object.keys(eachDate)[0]]){
+          tempArr.push(eachDate.dow)
+        }
+      })
+      setAvailableDowArr(tempArr)
+      setModifiedWeeklyAvailability(weeklyAvailability)
+    }, [])
 
 
     const today = moment()
@@ -27,23 +52,6 @@ const DailyAvailability = () => {
     const month = currentDate.format('MMM')
     const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-    // const weeklyAvailability = [
-    //   {Sun: false, time: [{start: "", end: ""}]},
-    //   {Mon: false, time: [{start: "", end: ""}]},
-    //   {Tue: false, time: [{start: "", end: ""}]},
-    //   {Wed: false, time: [{start: "", end: ""}]},
-    //   {Thu: false, time: [{start: "", end: ""}]},
-    //   {Fri: false, time: [{start: "", end: ""}]},
-    //   {Sat: false, time: [{start: "", end: ""}]},
-    // ]
-
-    const availableDowArr = []
-    weeklyAvailability.map(e => {
-      // 曜日を数値に変える
-      if(e[Object.keys(e)[0]]){
-        availableDowArr.push(Object.keys(e)[0])
-      }
-    })
     
     const handleChangeMonth = (direction) => {
       if(direction === "next"){
@@ -56,7 +64,6 @@ const DailyAvailability = () => {
     }
 
     const handleClickDate = (date, timeArray) => {
-      console.log(timeArray);
       setIsOpen(true)
       setSlectedDate(date)
       setCurrentAvailbleTime(timeArray)
@@ -65,7 +72,7 @@ const DailyAvailability = () => {
 
   return (
     <div className='flex flex-col m-10 md:flex-row md:justify-center'>
-        <div className='md:w-[70%] p-5'>
+        <div className='md:w-[50%] p-5'>
           <div className="flex justify-between items-center mb-5">
             <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -82,25 +89,28 @@ const DailyAvailability = () => {
             calendarData.map((week, index) => (
               <div key={index} className="flex h-8 md:h-12 md:text-xl">
                 {week.map((day, weekIndex) => {
-                  if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-DD")) | currentMonth !== day.month){              
+                  {/* Set color to gray */}
+                  if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-D")) | currentMonth !== day.month){              
                     return (
                       <div key={weekIndex} className='flex-1 flex justify-center items-center'>
                         <div className="text-center text-gray-300">{day.date}</div>
                       </div>
                     )
-                  }else if(moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-DD")){
+                  {/* Set today's color */}
+                  }else if(moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-D")){
                     return (
                       <div key={weekIndex} className='flex-1 flex justify-center items-center'>
                         <div className="text-center font-bold text-green-400 rounded-full">{day.date}</div>
                       </div>
                     ) 
-                  }else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
-                    const timeArray = weeklyAvailability.find(e => Object.keys(e)[0].format('d') === moment(`${day.month}-${day.date}`).format('d'))
+                  {/* Condition for a date that has weekly availability */}
+                  }else if(availableDowArr.includes(Number(moment(`${day.month}-${day.date}`).format('d')))){
+                    const timeArray = modifiedWeeklyAvailability.filter(e => e.dow === Number(moment(`${day.month}-${day.date}`).format('d')))
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
                             <div onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
-                              <div className="text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full">{day.date}</div>
+                              <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
                             </div>
                           )
                         : (
@@ -109,16 +119,18 @@ const DailyAvailability = () => {
                             </div>
                           )  
                     )
+                  {/* Condition for a date that does not have availability */}
+                  {/* Set bg-color for selected date */}
                   }else{
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
-                              <div className="text-center w-[1.5rem] h-[1.5rem] bg-green-200 rounded-full">{day.date}</div>
+                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, [])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                              <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
                             </div>
                           )
                         : (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, [])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center">{day.date}</div>
                             </div>
                           )  
