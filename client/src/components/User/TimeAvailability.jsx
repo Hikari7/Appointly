@@ -75,7 +75,7 @@ const TimeAvailability = ({ selectDate }) => {
     }else{
       // axios logic to overwrite availability by daily
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: [currentAvailbleTime]}]})
+        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}]})
         console.log(res.data);
         if(res.status === 200){
           alert("Successfully availability was changed!")

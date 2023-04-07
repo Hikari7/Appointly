@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import moment from 'moment';
 
-import { setTimeValue } from '../../../redux/slicers/availabilitySlice'
+import { setTimeValue, setDailyAvailability } from '../../../redux/slicers/availabilitySlice'
 import { TargetTime } from '../../User/DailyAvailability'
 
 const TimeDropdown = ({ selectedItem, timeIndex, position, from, eachTimeObjIndex }) => {
@@ -41,6 +41,7 @@ const TimeDropdown = ({ selectedItem, timeIndex, position, from, eachTimeObjInde
             const tempArray = currentAvailbleTime
             tempArray[eachTimeObjIndex][position] = time
             setCurrentAvailbleTime(tempArray)
+            dispatch(setDailyAvailability({daily: tempArray}))
         }
     }
 

@@ -16,16 +16,30 @@ exports.fetchUserAvailability = async (uid) => {
 exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId(uid)
     try {   
-        const target = await Availability.findOne({userId})
         if(data.daily.length > 0){
-            const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-                $push: { "daily": data.daily }
-            })
-            //If the availability document does not exist, create new document
-            if(!targetAvailability){
-                data.userId = userId
-                const newAvailability = new Availability(data)
-                return await newAvailability.save()
+            // Check if the date which will be overwritten is already exist in the daily array.
+            const allDailyAvailability = await Availability.find({"daily.date": data.daily[0].date})
+            if(allDailyAvailability.length > 0){
+                // Remove the existing date field
+                await Availability.findOneAndUpdate({userId}, {
+                    $pull: {daily: {date: data.daily[0].date}}
+                })
+                // Then push the new object.
+                const targetAvailability = await Availability.findOneAndUpdate({userId}, {
+                    $push: { "daily": data.daily[0] }
+                })
+
+                // If the availability document does not exist, create new document
+                if(!targetAvailability){
+                    data.userId = userId
+                    const newAvailability = new Availability(data)
+                    return await newAvailability.save()
+                }
+            }else{
+                // If the date that will be overeritten is not exist on current daily availability, just push object.
+                await Availability.findOneAndUpdate({userId}, {
+                    $push: { "daily": data.daily[0] }
+                })
             }
         }else{
             const targetAvailability = await Availability.findOneAndUpdate({userId}, {
@@ -37,11 +51,7 @@ exports.setAvailability = async (uid, data) => {
                 const newAvailability = new Availability(data)
                 return await newAvailability.save()
             }
-        }       
-
-
-        
-        
+        }
         return await Availability.findOne({userId})
 
     } catch (error) {

@@ -22,7 +22,7 @@ export const availabilitySlice = createSlice({
       state.daily = action.payload.daily
     },
     setDailyAvailability: (state, action) => {
-      state.daily = action.payload.daily
+      state.daily.push(action.payload.daily)
     },
     setCheckBox: (state, action) => {
       const targetObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === action.payload)
