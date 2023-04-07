@@ -19,7 +19,7 @@ exports.setAvailability = async (uid, data) => {
         const target = await Availability.findOne({userId})
         if(data.daily.length > 0){
             const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-                $set: { "daily": data.daily }
+                $push: { "daily": data.daily }
             })
             //If the availability document does not exist, create new document
             if(!targetAvailability){

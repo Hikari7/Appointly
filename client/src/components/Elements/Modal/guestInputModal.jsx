@@ -24,13 +24,13 @@ const guestInputModal = ({ hostName, hostEmail, showModal }) => {
                     <h2 className="text-4xl font-bold justify-center my-4 md:text-5xl">
                       Confirmed!
                     </h2>
-                    <h3 className="font-bold my-2 md:text-xl">
+                    <h3 className="font-bold my-2 text-sm md:text-xl">
                       You are scheduled with{" "}
                       <span className="text-primary">{hostName}</span>
                     </h3>
-                    <div>
+                    <div className="text-sm">
                       The host will be in touch soon, <br></br>but feel free to
-                      reach out to us if you have any questions.
+                      reach out if you have any questions.
                       <br></br>
                       <h2>
                         you can reach out:
@@ -42,7 +42,7 @@ const guestInputModal = ({ hostName, hostEmail, showModal }) => {
                     src={comfirmed}
                     className="w-1/2 h-1/2 object-cover my-7 mx-auto md:max-h-56 md:max-w-fit"
                   />
-                  <div className="md:flex md:justify-evenly md:w-11/12 mx-auto">
+                  <div className="md:flex md:justify-evenly md:w-11/12 mx-auto ">
                     <div className="flex items-center my-3  md:text-xl">
                       <div>
                         <h2 className="mx-1 my-2">
