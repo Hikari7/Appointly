@@ -33,16 +33,30 @@ const TimeAvailability = ({ selectDate }) => {
     };
   }, [selectedItem, clickedElem])
 
+
   useEffect(() => {
+    setIsChecked(false)
+    if(currentAvailbleTime.length === 1 && JSON.stringify(currentAvailbleTime[0]) === JSON.stringify({start: '', end: ''})){
+      setIsChecked(true)
+    }
     // scrollToBottomOfList()
-    // dispatch()
-  }, [])
+  }, [currentAvailbleTime])
 
   const scrollToBottomOfList = () => {
     timeSelector && timeSelector.current.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     })
+  }
+
+  const handleCheckbox = () => {
+    if(!isChecked){
+      setCurrentAvailbleTime([{start: "", end: ""}])
+      setIsChecked(false)
+    }else{
+      setCurrentAvailbleTime([{start: "09:00", end: "17:00"}])
+      setIsChecked(true)
+    }
   }
 
   const displayTimeDropdown = (id, elem) => {
@@ -69,15 +83,19 @@ const TimeAvailability = ({ selectDate }) => {
     if(isChecked){
       // axios logic to overwrite availability each date as "Unavauable"
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: []})
+        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: {date: selectDate, time: []}})
+        if(res.status === 200){
+          alert("Successfully availability was changed!")
+        }
+        dispatch(setDailyAvailability({date: selectDate, time: currentAvailbleTime}))
       } catch (error) {
         console.log(error);
       }      
     }else{
       // axios logic to overwrite availability by daily
+      console.log("Set daily availability");
       try {
         const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}]})
-        console.log(res.data);
         if(res.status === 200){
           alert("Successfully availability was changed!")
         }
@@ -98,18 +116,19 @@ const TimeAvailability = ({ selectDate }) => {
       <div className=''>
         <label className='flex items-center mx-auto gap-2 w-[20%]'>
           <input 
-            type="checkbox" 
-            onChange={() => setIsChecked(!isChecked)}
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckbox}
           />
           Unavailable
         </label>
       </div>
       {isChecked
-        ? <div className='text-center text-xl m-8'>Unavailable whole day</div>
+        ? <div className='text-center text-xl m-7'>Unavailable whole day</div>
         : <div className='flex justify-between w-[80%] my-5 mx-auto'>
             <div className='flex flex-col items-center gap-3 w-full relative'>
             {/* If weekly availability is set, show that available time. */}
-            {currentAvailbleTime.length &&
+            {currentAvailbleTime &&
                currentAvailbleTime.map((eachTimeObj, eachTimeObjIndex) => (
                 <div key={eachTimeObjIndex} className='flex items-center gap-3 w-full'>
                   <EachTimeInput position={"start"} eachTimeObjIndex={eachTimeObjIndex} eachTimeObj={eachTimeObj} selectDate={selectDate} selectedItem={selectedItem} displayTimeDropdown={displayTimeDropdown} />
