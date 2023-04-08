@@ -15,74 +15,66 @@ exports.fetchUserAvailability = async (uid) => {
 
 exports.setAvailability = async (uid, data) => {
     const userId = new ObjectId(uid)
-    try {   
-        if(data.daily.length > 0){
+    try { 
+        // Check if user already have availability document.
+        const userAvailability = await Availability.find({userId})
+        // If exists,
+        if(userAvailability){
             // Setting for daily availability.            
-            // Check if the date which will be overwritten is already exist in the daily array.
-            const allDailyAvailability = await Availability.find({"daily.date": data.daily[0].date})
-            if(allDailyAvailability.length > 0){
-                // Remove the existing date field
-                await Availability.findOneAndUpdate({userId}, {
-                    $pull: {daily: {date: data.daily[0].date}}
-                })
-                // Then push the new object.
-                const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-                    $push: { "daily": data.daily[0] }
-                })
-
-                // If the availability document does not exist, create new document
-                if(!targetAvailability){
-                    data.userId = userId
-                    const newAvailability = new Availability(data)
-                    return await newAvailability.save()
+            if(data.target === "daily"){
+                // Check if the date which will be overwritten is already exist in the daily array.
+                const allDailyAvailability = await Availability.find({"daily.date": data.daily[0].date})
+                // If exists,
+                if(allDailyAvailability.length > 0){
+                    // Setting for unavailable.
+                    if(data.daily[0].time.length === 0){
+                        // Remove the existing date field
+                        await Availability.findOneAndUpdate({userId}, {
+                            $pull: {daily: {date: data.daily[0].date}}
+                        })
+                        // Then push the empty time array.
+                        await Availability.findOneAndUpdate({userId}, {
+                            $push: { "daily": {date: data.daily[0].date, time: [{start: "", end: ""}]} }
+                        })
+                    // Setting for overwrite.
+                    }else{
+                        // Remove the existing date field
+                        await Availability.findOneAndUpdate({userId}, {
+                            $pull: {daily: {date: data.daily[0].date}}
+                        })
+                        // Then push the new object.
+                        const targetAvailability = await Availability.findOneAndUpdate({userId}, {
+                            $push: { "daily": data.daily[0] }
+                        }) 
+                    }
+                // Case for target date is not exists. Add new date time obj.
+                }else{
+                    // Setting for unavailability.
+                    if(data.daily[0].time.length === 0){
+                        await Availability.findOneAndUpdate({userId}, {
+                            $push: { "daily": {date: data.daily[0].date, time: [{start: "", end: ""}]} }
+                        }) 
+    
+                    // Setting for overwrite.                
+                    }else{
+                        await Availability.findOneAndUpdate({userId}, {
+                            $push: { "daily": data.daily[0] }
+                        }) 
+                    }
                 }
-            }else{
-                // If the date that will be overeritten is not exist on current daily availability, just push object.
-                await Availability.findOneAndUpdate({userId}, {
-                    $push: { "daily": data.daily[0] }
-                })
-            }
-        }else if(data.weekly.length > 0){
             // Setting for weekly availability.
-            const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-                $set: { "weekly": data.weekly }
-            })
-            //If the availability document does not exist, create new document.
-            if(!targetAvailability){
-                data.userId = userId
-                const newAvailability = new Availability(data)
-                return await newAvailability.save()
-            }
-        }
-        else if(data.daily.time.length === 0){
-            // The case of unavailable.
-            // Check if the date which will be overwritten is already exist in the daily array.
-            const allDailyAvailability = await Availability.find({"daily.date": data.daily.date})
-            if(allDailyAvailability.length > 0){
-                // Remove the existing date field
-                await Availability.findOneAndUpdate({userId}, {
-                    $pull: {daily: {date: data.daily.date}}
-                })
-                // Then push the empty time array.
-                const targetAvailability = await Availability.findOneAndUpdate({userId}, {
-                    $push: { "daily": {date: data.daily.date, time: [{start: "", end: ""}]} }
-                })
-
-                // If the availability document does not exist, create new document of selected date with empty time array.
-                if(!targetAvailability){
-                    data.userId = userId
-                    const newAvailability = new Availability({date: data.daily[0].date, time: [{start: "", end: ""}]})
-                    return await newAvailability.save()
-                }
             }else{
-                // If the date that will be overeritten is not exist on current daily availability, just push object.
                 await Availability.findOneAndUpdate({userId}, {
-                    $push: { "daily": data.daily[0] }
+                    $set: { "weekly": data.weekly }
                 })
             }
+            return await Availability.findOne({userId})
+        //If the availability document does not exist, create new document.
+        }else{
+            data.userId = userId
+            const newAvailability = new Availability({userId, weekly: data.weekly, daily: data.daily})
+            return await newAvailability.save()
         }
-        return await Availability.findOne({userId})
-
     } catch (error) {
         console.log(error);
     }

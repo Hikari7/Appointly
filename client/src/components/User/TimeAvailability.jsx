@@ -83,7 +83,7 @@ const TimeAvailability = ({ selectDate }) => {
     if(isChecked){
       // axios logic to overwrite availability each date as "Unavauable"
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: {date: selectDate, time: []}})
+        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: []}], target: "daily"})
         if(res.status === 200){
           alert("Successfully availability was changed!")
         }
@@ -93,9 +93,8 @@ const TimeAvailability = ({ selectDate }) => {
       }      
     }else{
       // axios logic to overwrite availability by daily
-      console.log("Set daily availability");
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}]})
+        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}], target: "daily"})
         if(res.status === 200){
           alert("Successfully availability was changed!")
         }
