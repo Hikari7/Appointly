@@ -78,6 +78,9 @@ export const availabilitySlice = createSlice({
         }
         state.weekly[targetDowObj].time = baseTimeArr
       })
+    },
+    removeExtraTimeObj: (state, action) => {
+      state.weekly = action.payload
     }
   },
 });
@@ -90,6 +93,7 @@ export const {
   setTimeValue,
   setDailyAvailability,
   copyWeeklyAvailability,
+  removeExtraTimeObj,
 } = availabilitySlice.actions;
 
 export default availabilitySlice.reducer;

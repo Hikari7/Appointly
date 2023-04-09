@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import userAppointmentApi from "../../api/userAppointmentApi"
-import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availabilitySlice'
+import { setCheckBox, addNewTimeObj, deleteTimeObj, removeExtraTimeObj } from '../../redux/slicers/availabilitySlice'
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 import { useParams } from 'react-router'
 import DowDropdown from '../Elements/Dropdown/DowDropdown'
@@ -76,16 +76,11 @@ const WeeklyAvailability = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // If there are empty inputs, delete those before send data to db.
-    availability.map(eachObj => {
-      eachObj.time.map(eachTimeObj => {
-        if(eachTimeObj.start === "" | eachTimeObj.end ===""){
-          const filterdTimeArr = eachObj.time.filter(timeObj => timeObj !== eachTimeObj)
-          dispatch(deleteTimeObj({dow: Object.keys(eachObj)[0], filterdTimeArr}))
-        }else{
-          return true
-        }
-      })
+    const filterdAvailability = availability.map(eachObj => {
+      const filterdTimeArr = eachObj.time.filter(eachTimeObj => !(eachTimeObj.start === "" | eachTimeObj.end ===""))
+      return {...eachObj, time: filterdTimeArr}  
     })
+    dispatch(removeExtraTimeObj(filterdAvailability))
     try {
       const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
       if(res.status === 200){
