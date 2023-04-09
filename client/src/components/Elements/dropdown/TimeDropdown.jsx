@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import moment from 'moment';
 
-import { setTimeValue, setDailyAvailability } from '../../../redux/slicers/availabilitySlice'
+import { setTimeValue } from '../../../redux/slicers/availabilitySlice'
 import { TargetTime } from '../../User/DailyAvailability'
 
 const TimeDropdown = ({ selectedItem, timeIndex, position, from, eachTimeObjIndex }) => {

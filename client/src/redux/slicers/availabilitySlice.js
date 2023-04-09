@@ -68,9 +68,17 @@ export const availabilitySlice = createSlice({
       const targetDowObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === targetDow)
       state.weekly[targetDowObjIndex].time[timeIndex][targetTimePosition] = time
     },
-    // setUnavailable: (state, action) => {
-
-    // },
+    copyWeeklyAvailability: (state, action) => {
+      const {baseTimeArr, targetDowArray} = action.payload
+      targetDowArray.forEach(eachDow => {
+        const targetDowObj = state.weekly.findIndex(eachDowObj => Object.keys(eachDowObj)[0] === eachDow)
+        console.log(Object.keys(state.weekly[targetDowObj])[0]);
+        if(!Object.values(state.weekly[targetDowObj])[0]){
+          state.weekly[targetDowObj][Object.keys(state.weekly[targetDowObj])[0]] = true
+        }
+        state.weekly[targetDowObj].time = baseTimeArr
+      })
+    }
   },
 });
 
@@ -81,6 +89,7 @@ export const {
   deleteTimeObj,
   setTimeValue,
   setDailyAvailability,
+  copyWeeklyAvailability,
 } = availabilitySlice.actions;
 
 export default availabilitySlice.reducer;

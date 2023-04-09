@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
-import WeeklyAvailability from "../../components/User/weeklyAvailability";
+import WeeklyAvailability from "../../components/User/WeeklyAvailability";
 import availabilityImg from "../../assets/availability.svg";
 
 const Availability = () => {

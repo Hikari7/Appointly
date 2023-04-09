@@ -5,21 +5,24 @@ import userAppointmentApi from "../../api/userAppointmentApi"
 import { setCheckBox, addNewTimeObj, deleteTimeObj } from '../../redux/slicers/availabilitySlice'
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 import { useParams } from 'react-router'
+import DowDropdown from '../Elements/Dropdown/DowDropdown'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
   const dispatch = useDispatch()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
+  // const [selectedDow, setSelectedDow] = useState("")
+  // const [clickedDow, setClickedDow] = useState(null)
+  const [dowId, setDowId] = useState(null)
   const param = useParams()
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
-    const elem = clickedElem
-    if(!elem) return 
+    if(!clickedElem) return 
 
     const handleCloseTimeDropdown = (e) => {
-      if(!(elem === e.target)){
+      if(!(clickedElem === e.target)){
         setSelectedItem("")
         setClickedElem(null)
       }
@@ -29,14 +32,27 @@ const WeeklyAvailability = () => {
       document.removeEventListener("click", handleCloseTimeDropdown);
     };
   }, [selectedItem, clickedElem])
+  
+  // useEffect(() => {
+  //   //Logic of close dow dropdown by click anywhere.
+  //   if(!clickedDow) return 
+
+  //   const handlecloseDowDropdown = (e) => {
+  //     console.log(e.target);
+  //     if(!(clickedDow === e.currentTarget)){
+  //       setSelectedDow("")
+  //       setClickedDow(null)
+  //     }  
+  //   }
+  //   document.addEventListener("click", handlecloseDowDropdown);
+  //   return () => {
+  //     document.removeEventListener("click", handlecloseDowDropdown);
+  //   };
+  // }, [selectedDow, clickedDow])
 
   const displayTimeDropdown = (id, elem) => {
     setSelectedItem(id)
     setClickedElem(elem)
-  }
-  
-  const handleCheckbox = (targetDow) => {
-    dispatch(setCheckBox(targetDow))
   }
 
   const handleMethod = (e, method, dow, data) => {
@@ -45,11 +61,15 @@ const WeeklyAvailability = () => {
       const targetDowObj = availability.find(eachObj => Object.keys(eachObj)[0] === dow)
       const filterdTimeArr = targetDowObj.time.filter(timeObj => timeObj !== data)
       dispatch(deleteTimeObj({dow, filterdTimeArr}))
-      
-    }else if('add'){
+    }else if(method === 'add'){
       dispatch(addNewTimeObj(dow))
-    }else{
-      // Copy availability time logic will be here
+    }else if(method === 'copy'){
+      // console.log("copy");
+      if(!dowId){
+        setDowId(dow)
+      }else{
+        setDowId(null)
+      }
     }
   }
 
@@ -87,7 +107,7 @@ const WeeklyAvailability = () => {
                 <input 
                   type="checkbox" 
                   checked={eachObj[Object.keys(eachObj)[0]]}
-                  onChange={() => handleCheckbox(Object.keys(eachObj)[0])}
+                  onChange={() => dispatch(setCheckBox(Object.keys(eachObj)[0]))}
                   className='' 
                 />
                 {Object.keys(eachObj)[0]}
@@ -99,7 +119,7 @@ const WeeklyAvailability = () => {
                   ? (
                     availability && availability.find(elem => Object.keys(elem)[0] === Object.keys(eachObj)[0]).time.map((startEndObj, timeIndex) => {
                       return (
-                      <div key={timeIndex} className='flex items-center gap-3 w-[80%] ml-4 relative'>
+                      <div key={timeIndex} className='flex items-center gap-3 w-[80%] ml-4'>
                         <div className='relative'>
                           <input
                             type="text"
@@ -153,11 +173,15 @@ const WeeklyAvailability = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                   </button>
-                  <button onClick={(e) => handleMethod(e, "copy")} className='flex justify-center items-center w-7 h-7 hover:bg-gray-200 hover:rounded-full'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
-                    </svg>
-                  </button>
+                  <div className='relative'>
+                    <button id={Object.keys(eachObj)[0]} onClick={(e) => handleMethod(e, "copy", Object.keys(eachObj)[0])} className='flex justify-center items-center w-7 h-7 hover:bg-gray-200 hover:rounded-full'>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                      </svg>
+                    </button>
+                    {/* {selectedDow === Object.keys(eachObj)[0] && <DowDropdown selectedDow={Object.keys(eachObj)[0]}/>} */}
+                    {dowId === Object.keys(eachObj)[0] && <DowDropdown selectedDowObj={eachObj}/>}
+                  </div>
                 </div>
               : <div className='flex gap-3'>
                   <button className=''>
@@ -186,5 +210,10 @@ const WeeklyAvailability = () => {
 }
 
 export default WeeklyAvailability
+
+
+
+
+
 
 
