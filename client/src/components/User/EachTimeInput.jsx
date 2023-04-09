@@ -1,4 +1,3 @@
-
 import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 
 const EachTimeInput = ({ position, eachTimeObjIndex, eachTimeObj, selectedItem, displayTimeDropdown }) => {

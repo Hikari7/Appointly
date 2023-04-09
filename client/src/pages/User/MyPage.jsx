@@ -15,9 +15,7 @@ const MyPage = () => {
   );
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-
   const [isCopied, setIsCopied] = useState(false);
-  const [appointmentList, setAppointmentList] = useState([]);
 
   useEffect(() => {
     fetchAvailabilityAndListAppointment();
@@ -65,7 +63,6 @@ const MyPage = () => {
           }
         });
 
-        setAppointmentList(filteredAppointment);
         dispatch(setListAppointment(filteredAppointment));
       } else {
         dispatch(setListAppointment([]));

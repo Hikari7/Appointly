@@ -39,15 +39,7 @@ const TimeAvailability = ({ selectDate }) => {
     if(currentAvailbleTime.length === 1 && JSON.stringify(currentAvailbleTime[0]) === JSON.stringify({start: '', end: ''})){
       setIsChecked(true)
     }
-    // scrollToBottomOfList()
   }, [currentAvailbleTime])
-
-  const scrollToBottomOfList = () => {
-    timeSelector && timeSelector.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  }
 
   const handleCheckbox = () => {
     if(!isChecked){
@@ -149,7 +141,7 @@ const TimeAvailability = ({ selectDate }) => {
             </button>
           </div>
       }
-      <div className='flex justify-center'>
+      <div id="setBtn" className='flex justify-center'>
         <button onClick={(e) => handleSubmit(e)} className='w-[80%] py-1 px-2 m-8 border bg-green-400 text-white rounded-lg hover:bg-green-500'>
           Set daily availability
         </button>
@@ -159,10 +151,3 @@ const TimeAvailability = ({ selectDate }) => {
 }
 
 export default TimeAvailability
-
-
-/**
- * TimeSelectorの時点で日付は確定しているから、TimeSelectorでは時間だけ扱えばいい。
- * 
- * 
- */

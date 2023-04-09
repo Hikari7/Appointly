@@ -5,6 +5,8 @@ import { Outlet } from "react-router";
 import { CiLogout } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../redux/slicers/userSlice";
+import { persistor } from '../../../redux/store';
+
 
 const MobileNav = () => {
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const MobileNav = () => {
 
   const logout = () => {
     dispatch(setUser(null));
+    persistor.purge();
     setIsOpen(!isOpen);
     navigate("/");
   };

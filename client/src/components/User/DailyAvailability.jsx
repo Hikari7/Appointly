@@ -6,14 +6,12 @@ import moment from 'moment';
 
 import { createCalendar, getNextMonth, getPrevMonth } from "../../utils/calenderHelpers";
 import TimeAvailability from './TimeAvailability';
-import { useParams } from 'react-router';
 
 export const TargetTime = createContext()
 
 const DailyAvailability = () => {
     const weeklyAvailability = useSelector((state) => state.availability.weekly)
     const dailyAvailability = useSelector((state) => state.availability.daily)
-    const param = useParams()
     const [modifiedWeeklyAvailability, setModifiedWeeklyAvailability] = useState([]);
     const [currentDate, setCurrentDate] = useState(moment());
     const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM")) 
@@ -70,6 +68,7 @@ const DailyAvailability = () => {
       setSlectedDate(date)
       setCurrentAvailbleTime(timeArray)
       setSelectedItem(date)
+      
     }
 
   return (
@@ -111,14 +110,14 @@ const DailyAvailability = () => {
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )
                         : (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, targetDateTimeObj.time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )  
                     )
                   {/* Condition for a date that has weekly availability. */}
@@ -127,14 +126,14 @@ const DailyAvailability = () => {
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )
                         : (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, timeArray[0].time)} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )  
                     )
                   {/* Condition for a date that does not have availability */}
@@ -143,14 +142,14 @@ const DailyAvailability = () => {
                     return (
                       selectedItem === `${day.month}-${day.date}`
                         ? (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, [{start: "", end: ""}])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, [{start: "", end: ""}])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )
                         : (
-                            <div onClick={() => handleClickDate(`${day.month}-${day.date}`, [{start: "", end: ""}])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
+                            <HashLink smooth to="#setBtn" onClick={() => handleClickDate(`${day.month}-${day.date}`, [{start: "", end: ""}])} key={weekIndex} id={`${day.month}-${day.date}`} className="flex-1 flex justify-center items-center">
                               <div className="text-center">{day.date}</div>
-                            </div>
+                            </HashLink>
                           )  
                     )}
                 })}
