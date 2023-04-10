@@ -61,7 +61,10 @@ const DowDropdown = ({selectedDowObj}) => {
           {Object.keys(eachDowObj)[0]}
         </label>
       ))}
-      <button onClick={handleCopyAvailability} className='bg-green-400 font-bold text-white rounded-lg w-full py-2 my-5 mx-auto'>
+      <button
+        onClick={handleCopyAvailability}
+        disabled={dowStates.findIndex(eachDowObj => Object.values(eachDowObj)[0]) === -1 }
+        className='bg-green-400 font-bold text-white rounded-lg w-full py-2 my-5 mx-auto disabled:opacity-30'>
         Apply
       </button>
     </div>

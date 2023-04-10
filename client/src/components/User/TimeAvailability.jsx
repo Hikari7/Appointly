@@ -99,13 +99,13 @@ const TimeAvailability = ({ selectDate }) => {
   }
 
   return (
-    <div className='flex- flex-col'>
+    <div className='flex flex-col w-[70%] md:py-5 md:w-[50%]'>
       <div className="flex w-full items-center justify-center mb-2">
         <div className="mr-4">Date:</div>
         <div className="text-center py-.5 text-xl md:text-2xl">{selectDate}</div>
       </div>
-      <div className=''>
-        <label className='flex items-center mx-auto gap-2 w-[20%]'>
+      <div>
+        <label className='flex items-center justify-center mx-auto gap-2 w-[20%]'>
           <input 
             type="checkbox"
             checked={isChecked}

@@ -2,6 +2,7 @@ const { ObjectId } = require('mongodb')
 
 const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
+const User = require('../models/User');
 
 exports.fetchAppointment = async (uid) => {
     const userId = new ObjectId(uid)
@@ -98,3 +99,10 @@ exports.deleteAppointment = async (appointmentid) => {
     return await Appointment.findOneAndDelete({ _id: appointmentId })
 }
 
+exports.updateUsername = async (uid, data) => {
+    const userId = new ObjectId(uid)
+    await User.findByIdAndUpdate({ _id: userId }, {
+        $set: {username: data.username, email: data.email}
+    })
+    return await User.find({ _id: userId })
+}

@@ -10,12 +10,10 @@ import DowDropdown from '../Elements/Dropdown/DowDropdown'
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
   const dispatch = useDispatch()
+  const param = useParams()
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
-  // const [selectedDow, setSelectedDow] = useState("")
-  // const [clickedDow, setClickedDow] = useState(null)
   const [dowId, setDowId] = useState(null)
-  const param = useParams()
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
@@ -32,23 +30,6 @@ const WeeklyAvailability = () => {
       document.removeEventListener("click", handleCloseTimeDropdown);
     };
   }, [selectedItem, clickedElem])
-  
-  // useEffect(() => {
-  //   //Logic of close dow dropdown by click anywhere.
-  //   if(!clickedDow) return 
-
-  //   const handlecloseDowDropdown = (e) => {
-  //     console.log(e.target);
-  //     if(!(clickedDow === e.currentTarget)){
-  //       setSelectedDow("")
-  //       setClickedDow(null)
-  //     }  
-  //   }
-  //   document.addEventListener("click", handlecloseDowDropdown);
-  //   return () => {
-  //     document.removeEventListener("click", handlecloseDowDropdown);
-  //   };
-  // }, [selectedDow, clickedDow])
 
   const displayTimeDropdown = (id, elem) => {
     setSelectedItem(id)
@@ -64,7 +45,6 @@ const WeeklyAvailability = () => {
     }else if(method === 'add'){
       dispatch(addNewTimeObj(dow))
     }else if(method === 'copy'){
-      // console.log("copy");
       if(!dowId){
         setDowId(dow)
       }else{
@@ -82,7 +62,7 @@ const WeeklyAvailability = () => {
     })
     dispatch(removeExtraTimeObj(filterdAvailability))
     try {
-      const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
+      const res = await userAppointmentApi.set(param.uid, {weekly: filterdAvailability, daily: []})
       if(res.status === 200){
         alert("Successfully availability was changed!")
       }
@@ -179,23 +159,23 @@ const WeeklyAvailability = () => {
                   </div>
                 </div>
               : <div className='flex gap-3'>
-                  <button className=''>
+                  <div className=''>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-300">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                  </button>
-                  <button className=''>
+                  </div>
+                  <div className=''>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-300">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
                     </svg>
-                  </button>
+                  </div>
                 </div>
             }
           </div>
         ))}
         <button
           onClick={e => handleSubmit(e)}
-          className='bg-green-400 font-bold text-white rounded-lg w-[30%] py-2 my-5 mx-auto'
+          className='bg-green-400 font-bold text-white rounded-lg w-[30%] md:w-[50%] py-2 my-5 mx-auto'
         >
           Change apply
         </button>

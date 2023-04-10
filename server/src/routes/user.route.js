@@ -4,32 +4,21 @@ const {
   fetchAppointmentController,
   fetchAvailabilityController,
   setAvailabilityController,
+  updateUserInfoController,
   rescheduleMtgController,
   deleteMtgController,
 } = require("../controllers/user.controller");
 
 router.get("/:uid/getappointment", fetchAppointmentController);
-/* Request param example
-    { userId: ""}
-*/
 
 router.get("/:uid/getavailability", fetchAvailabilityController)
 
 router.post("/:uid/setavailability", setAvailabilityController);
 
+router.put("/:uid/updateUserInfo", updateUserInfoController)
 
-router.put("/:appointmentid/reschedule", rescheduleMtgController);
-/* Request param example
-    { 
-        changedDateTime: { date: "2023-03-20", time: "10:00"}
-    }
-*/
+// router.put("/:appointmentid/reschedule", rescheduleMtgController);
 
-router.delete("/:appointmentid/deleteappointment", deleteMtgController);
-/* Request param example
-    { 
-        appointmentId: ""
-    }
-*/
+// router.delete("/:appointmentid/deleteappointment", deleteMtgController);
 
 module.exports = router;

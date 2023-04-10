@@ -64,18 +64,3 @@ exports.login = async (email, password) => {
   }
 };
 
-exports.userCheck = async (email) => {
-  try {
-    let user = await User.findOne({ email }).lean();
-
-    // Check user existing
-    if (!user) {
-      const errorObj = new Error("User does not exists.");
-      errorObj.status = 404;
-      throw errorObj;
-    }
-  } catch (error) {
-    const errorObj = new Error("Something went wrong. Please try again.");
-    throw errorObj;
-  }
-};

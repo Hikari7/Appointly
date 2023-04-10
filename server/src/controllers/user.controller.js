@@ -3,7 +3,8 @@ const {
     setAvailability,
     rescheduleMtg,
     deleteAppointment,
-    fetchUserAvailability
+    fetchUserAvailability,
+    updateUsername,
 } = require('../middleware/user.service')
 
 exports.fetchAppointmentController = async (req, res) => {
@@ -47,5 +48,17 @@ exports.deleteMtgController = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
+    }
+}
+
+exports.updateUserInfoController = async (req, res) => {
+    try {
+        const { uid } = req.params
+        const newUserInfo = await updateUsername(uid, req.data)
+        return res.json(newUserInfo)
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
+
     }
 }
