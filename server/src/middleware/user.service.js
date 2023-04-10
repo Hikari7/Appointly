@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb')
+const bcrypt = require("bcrypt");
 
 const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
@@ -103,6 +104,15 @@ exports.updateUsername = async (uid, data) => {
     const userId = new ObjectId(uid)
     await User.findByIdAndUpdate({ _id: userId }, {
         $set: {username: data.username, email: data.email}
+    })
+    return await User.find({ _id: userId })
+}
+
+exports.updatePassward = async (uid, data) => {
+    const userId = new ObjectId(uid)
+    const hashedPassword = await bcrypt.hash(data.password, 10)
+    await User.findByIdAndUpdate({ _id: userId }, {
+        $set: {password: hashedPassword}
     })
     return await User.find({ _id: userId })
 }

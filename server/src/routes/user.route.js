@@ -5,6 +5,7 @@ const {
   fetchAvailabilityController,
   setAvailabilityController,
   updateUserInfoController,
+  updatePasswordController,
   rescheduleMtgController,
   deleteMtgController,
 } = require("../controllers/user.controller");
@@ -16,6 +17,8 @@ router.get("/:uid/getavailability", fetchAvailabilityController)
 router.post("/:uid/setavailability", setAvailabilityController);
 
 router.put("/:uid/updateUserInfo", updateUserInfoController)
+
+router.put("/:uid/updatepassword", updatePasswordController)
 
 // router.put("/:appointmentid/reschedule", rescheduleMtgController);
 
