@@ -44,7 +44,6 @@ const Login = () => {
 
       const loginDate = new Date(res.data.loginDate)
       const expireTime = loginDate.setHours(loginDate.getHours() + 12)
-      // const expireTime = loginDate.setSeconds(loginDate.getSeconds() + 5)
 
       const newObj = {};
       newObj.userId = res.data.userId;

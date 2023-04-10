@@ -5,7 +5,6 @@ import { persistor } from '../redux/store';
 
 import { UserRoutes } from "./UserRoutes";
 import { PublicRoutes } from "./PublicRoutes";
-import { setUser } from '../redux/slicers/userSlice'
 
 const AppRoute = () => {
   const user = useSelector((state) => state.user.user);

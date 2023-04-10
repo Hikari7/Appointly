@@ -104,7 +104,25 @@ const BaseCalendar = () => {
                         <div className="text-center font-bold text-green-400 rounded-full">{day.date}</div>
                       </div>
                     ) 
-                  }else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
+                  }else if(dailyAvailability.find(eachObj => eachObj.date === moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))){
+                    // Get target dailyAvailability obj
+                    const targetObj = dailyAvailability.find(eachObj => eachObj.date === moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))
+                    // Check if target date has time array (If not, it means unavailable)
+                    return (targetObj.time.length === 1 && JSON.stringify(targetObj.time[0]) === JSON.stringify({start: "", end: ""}))  
+                    ? (
+                      <div key={index} className='flex-1 flex justify-center items-center'>
+                        <div className="text-center">{day.date}</div>
+                      </div>
+                    )
+                    : (
+                      <div key={index} className='flex-1 flex justify-center items-center relative group'>
+                        <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, targetObj.time)} className='flex justify-center items-center w-[1.7rem] h-[1.7rem] md:w-8 md:h-8 bg-green-200 rounded-full group-hover:bg-green-400'>
+                          <div className="text-center z-50">{day.date}</div>
+                        </HashLink>
+                      </div>
+                    )
+                  }
+                  else if(availableDowArr.includes(moment(`${day.month}-${day.date}`).format('d'))){
                     // Get target available time
                     const timeArray = weeklyAvailability.filter(e => e.dow === String(moment(`${day.month}-${day.date}`).format('d')))
                     if(moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-D"))){
@@ -128,23 +146,6 @@ const BaseCalendar = () => {
                         </div>
                       )
                     }
-                  }else if(dailyAvailability.includes(moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))){
-                    // Get target dailyAvailability obj
-                    const targetObj = dailyAvailability.find(eachObj => eachObj.date === moment(`${day.month}-${day.date}`).format('YYYY-MM-D'))
-                    // Check if target date has time array (If not, it means unavailable)
-                    return (targetObj.time.length === 0)
-                    ? (
-                      <div key={index} className='flex-1 flex justify-center items-center'>
-                        <div className="text-center">{day.date}</div>
-                      </div>
-                    )
-                    : (
-                      <div key={index} className='flex-1 flex justify-center items-center relative group'>
-                        <HashLink smooth to="#timeSelect" onClick={() => handleClickDate(`${day.month}-${day.date}`, targetObj.time)} className='flex justify-center items-center w-[1.7rem] h-[1.7rem] md:w-8 md:h-8 bg-green-200 rounded-full group-hover:bg-green-400'>
-                          <div className="text-center z-50">{day.date}</div>
-                        </HashLink>
-                      </div>
-                    )
                   }else{
                     return (
                       <div key={index} className='flex-1 flex justify-center items-center'>

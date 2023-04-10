@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserHomeWrapper from "../Wrapper/UserHomeWrapper";
 import { Outlet } from "react-router";
 import { CiLogout } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../../redux/slicers/userSlice";
+import { persistor } from '../../../redux/store';
 
 const MobileNav = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
   const userId = user.userId;
-  console.log(isOpen);
+
   const handleClickMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -33,13 +34,14 @@ const MobileNav = () => {
 
   const logout = () => {
     dispatch(setUser(null));
+    persistor.purge();
     setIsOpen(!isOpen);
     navigate("/");
   };
 
   return (
     <div className="drawer">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+      <input id="my-drawer-3" type="checkbox" checked={isOpen} onChange={setIsOpen} className="drawer-toggle" />
       <div className="drawer-content flex flex-col ">
         <div className="w-full navbar">
           <div className="flex-none lg:hidden">
@@ -70,8 +72,7 @@ const MobileNav = () => {
           <Outlet />
         </UserHomeWrapper>
       </div>
-      {isOpen && (
-        <div className="drawer-side">
+      <div className="drawer-side">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
           <ul className="menu p-8 pt-16 w-80 text-2xl bg-white ">
             <li onClick={myPage} className="mt-12">
@@ -93,7 +94,6 @@ const MobileNav = () => {
             </li>
           </ul>
         </div>
-      )}
     </div>
   );
 };

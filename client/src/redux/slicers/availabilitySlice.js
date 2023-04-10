@@ -21,6 +21,18 @@ export const availabilitySlice = createSlice({
       state.weekly = action.payload.weekly
       state.daily = action.payload.daily
     },
+    setDailyAvailability: (state, action) => {
+      const { date, time }= action.payload
+      // Check if target date is exist in the daily availability array.
+      const targetObjIndex = state.daily.findIndex(eachObj => eachObj.date === date)
+      if (!(targetObjIndex < 0)){
+        // If exists, replace the value by payload.
+        state.daily[targetObjIndex] = {date, time}
+      }else{
+        // If not exists, push the payload.
+        state.daily.push({date, time})
+      }
+    },
     setCheckBox: (state, action) => {
       const targetObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === action.payload)
       state.weekly[targetObjIndex][action.payload] = !(state.weekly[targetObjIndex][action.payload])
@@ -54,44 +66,22 @@ export const availabilitySlice = createSlice({
       const targetDow = selectedItem.split('+')[0]
       const targetTimePosition = selectedItem.split('+')[1]
       const targetDowObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === targetDow)
-      if(targetTimePosition === "start"){
-        state.weekly[targetDowObjIndex].time[timeIndex].start = time
-      }else{
-        state.weekly[targetDowObjIndex].time[timeIndex].end = time
-      }
+      state.weekly[targetDowObjIndex].time[timeIndex][targetTimePosition] = time
     },
-    setDailyTimeValue: (state, action) => {
-      const { position, time, date, timeIndex } = action.payload
-      const targetDateIndex = state.daily.findIndex(eachObj => eachObj.date === date)
-      console.log(targetDateIndex);
-      if(position === "start"){
-        state.daily[targetDateIndex].time[timeIndex].start = time
-      }else{
-        state.daily[targetDateIndex].time[timeIndex].end = time
-      }
+    copyWeeklyAvailability: (state, action) => {
+      const {baseTimeArr, targetDowArray} = action.payload
+      targetDowArray.forEach(eachDow => {
+        const targetDowObj = state.weekly.findIndex(eachDowObj => Object.keys(eachDowObj)[0] === eachDow)
+        console.log(Object.keys(state.weekly[targetDowObj])[0]);
+        if(!Object.values(state.weekly[targetDowObj])[0]){
+          state.weekly[targetDowObj][Object.keys(state.weekly[targetDowObj])[0]] = true
+        }
+        state.weekly[targetDowObj].time = baseTimeArr
+      })
     },
-    addDailyNewTimeObj: async (state, action) => {
-      const timeObj = {start: "", end: ""}
-      const targetDateIndex = state.daily.findIndex(eachObj => eachObj.date === action.payload)
-      const targetDate = state.daily.find(eachObj => eachObj.date === action.payload)
-      console.log(targetDate);
-      if(targetDateIndex === -1){
-        state.daily.push({date: action.payload, time: [timeObj]})
-      }else{
-        state.daily[targetDateIndex].time.push(timeObj)
-      }
-    },
-    deleteDailyTimeObj: (state, action) => {
-      const { filteredArr, date } = action.payload
-      const targetDateIndex = state.daily.findIndex(eachObj => eachObj.date === date)
-      state.daily[targetDateIndex].time = filteredArr
-      if(filteredArr.length === 0){
-        state.daily[targetDateIndex].time = [{start: "", end: ""}]
-      }
-    },
-    // setUnavailable: (state, action) => {
-
-    // },
+    removeExtraTimeObj: (state, action) => {
+      state.weekly = action.payload
+    }
   },
 });
 
@@ -101,9 +91,9 @@ export const {
   addNewTimeObj,
   deleteTimeObj,
   setTimeValue,
-  addDailyNewTimeObj,
-  deleteDailyTimeObj,
-  setDailyTimeValue,
+  setDailyAvailability,
+  copyWeeklyAvailability,
+  removeExtraTimeObj,
 } = availabilitySlice.actions;
 
 export default availabilitySlice.reducer;

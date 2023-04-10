@@ -6,7 +6,7 @@ import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 import userAppointmentApi from "../../api/userAppointmentApi";
-import { setAvailability } from "../../redux/slicers/availbilitySlice";
+import { setAvailability } from "../../redux/slicers/availabilitySlice";
 import { setListAppointment } from "../../redux/slicers/listAppointment";
 
 const MyPage = () => {
@@ -15,9 +15,7 @@ const MyPage = () => {
   );
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-
   const [isCopied, setIsCopied] = useState(false);
-  const [appointmentList, setAppointmentList] = useState([]);
 
   useEffect(() => {
     fetchAvailabilityAndListAppointment();
@@ -31,7 +29,6 @@ const MyPage = () => {
         // Fetch user Appointment and set the values in redux store
         userAppointmentApi.getAll(user.userId),
       ]);
-      console.log(res);
       if (res[0].data.length > 0) {
         const availabilityObj = {};
         availabilityObj.weekly = res[0].data[0].weekly;
@@ -51,9 +48,7 @@ const MyPage = () => {
         availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
         dispatch(setAvailability(availabilityObj));
       }
-      console.log(res[1].data);
       if (res[1].data.length > 0) {
-        console.log(res[1].data);
         const today = new Date();
         const filteredAppointment = res[1].data.filter(function (
           appointmentDate
@@ -67,9 +62,7 @@ const MyPage = () => {
             return;
           }
         });
-        console.log(filteredAppointment);
 
-        setAppointmentList(filteredAppointment);
         dispatch(setListAppointment(filteredAppointment));
       } else {
         dispatch(setListAppointment([]));
@@ -86,8 +79,6 @@ const MyPage = () => {
     setIsCopied(true);
     return await navigator.clipboard.writeText(userLink);
   };
-
-  console.log(appointment);
 
   let bookedNum = appointment.length;
 
