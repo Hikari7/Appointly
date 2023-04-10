@@ -94,30 +94,6 @@ const MobileNav = () => {
             </li>
           </ul>
         </div>
-      {/* {isOpen && (
-        <div className="drawer-side">
-          <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu p-8 pt-16 w-80 text-2xl bg-white ">
-            <li onClick={myPage} className="mt-12">
-              <a>My page</a>
-            </li>
-            <li onClick={availability} className="mt-4">
-              <a>Availability</a>
-            </li>
-            <li onClick={settings} className="mt-4">
-              <a>Settings</a>
-            </li>
-            <li
-              className="hover:cursor-pointer hover:text-primary  transition duration-200 flex mt-24"
-              onClick={logout}
-            >
-              <div>
-                <CiLogout size={40} />
-              </div>
-            </li>
-          </ul>
-        </div>
-      )} */}
     </div>
   );
 };
