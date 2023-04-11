@@ -1,45 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/slicers/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validateUsername, validateEmail } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
 
 const UserInfoChange = () => {
   const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const param = useParams();
   const userInput = useRef(null);
   const emailInput = useRef(null);
 
   const [usernameErr, setUsernameErr] = useState(null);
-  const [emailErr, setEmailErr] = useState(null);
+  const [emailErr, setEmailErr] = useState("");
 
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(null);
-
-  useEffect(() => {
-    if (success == true) {
-      setMessage(
-        <div className="toast toast-top toast-end">
-          <div className="alert alert-success">
-            <div>
-              <span>Password Changed!</span>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      setMessage(null);
-    }
-  }, [success]);
+  const [successUsername, setSuccessUsername] = useState(false);
+  const [successEmail, setSuccessEmail] = useState(false);
 
   const handleAccountInfoChange = async (e) => {
     e.preventDefault();
-    setUsernameErr("");
-    setEmailErr("");
 
     let error = false;
+    console.log(user.username);
 
     const username = userInput.current.value;
     const email = emailInput.current.value;
@@ -59,20 +42,28 @@ const UserInfoChange = () => {
     if (error) return;
 
     try {
-      setSuccess(true);
-      const res = await userSettingApi.update({
-        // username,
-        // email,
+      const res = await userSettingApi.updateUserInfo(param.uid, {
+        username,
+        email,
       });
 
-      dispatch(setUser(user));
+      console.log(res.data[0]);
 
-      console.log(res);
+      if (res.status === 200) {
+        const newObj = {};
+        newObj.username = res.data[0].username;
+        newObj.email = res.data[0].email;
+        console.log(newObj.username);
+        console.log(user.username);
 
-      console.log("success!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+        if (newObj.username !== user.username) {
+          setSuccessUsername(true);
+        }
+        if (newObj.email !== user.email) {
+          setSuccessEmail(true);
+        }
+        dispatch(setUser(newObj));
+      }
     } catch (err) {
       console.log(err, err.message);
     }
@@ -94,10 +85,9 @@ const UserInfoChange = () => {
               name="password"
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
-            {usernameErr !== "" ? (
+
+            {usernameErr !== "" && (
               <p className="text-xs text-red-600">{usernameErr}</p>
-            ) : (
-              ""
             )}
           </div>
           <div className="md:w-5/12">
@@ -110,10 +100,8 @@ const UserInfoChange = () => {
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
 
-            {emailErr !== "" ? (
+            {emailErr !== "" && (
               <p className="text-xs text-red-600">{emailErr}</p>
-            ) : (
-              ""
             )}
           </div>
         </div>
@@ -124,7 +112,26 @@ const UserInfoChange = () => {
           Save changes
         </button>
       </form>
-      {message}
+      <div className="toast toast-top toast-start">
+        {successUsername ? (
+          <div className="alert alert-success">
+            <div>
+              <span>Username Changed!</span>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {successEmail ? (
+          <div className="alert alert-success">
+            <div>
+              <span>Email Changed!</span>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };

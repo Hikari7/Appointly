@@ -21,7 +21,7 @@ exports.setAvailability = async (uid, data) => {
         // Check if user already have availability document.
         const userAvailability = await Availability.find({userId})
         // If exists,
-        if(userAvailability){
+        if(userAvailability.length > 0){
             // Setting for daily availability.            
             if(data.target === "daily"){
                 // Check if the date which will be overwritten is already exist in the daily array.
@@ -69,7 +69,7 @@ exports.setAvailability = async (uid, data) => {
                 await Availability.findOneAndUpdate({userId}, {
                     $set: { "weekly": data.weekly }
                 })
-            }
+                }
             return await Availability.findOne({userId})
         //If the availability document does not exist, create new document.
         }else{

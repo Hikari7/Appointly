@@ -204,7 +204,7 @@ const MyPage = () => {
                   </div>
                 </div>
               ))}
-              <RescheduleModal />
+              {/* <RescheduleModal /> */}
               {isRescheduleModal && <RescheduleModal />}
               {isDeleteMTGModal && <DeleteMTGModal />}
             </div>

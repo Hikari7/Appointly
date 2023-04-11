@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient";
 
 const userSettingApi = {
-  update: (uid, params) => axiosClient.put(`/user/${uid}/edituserinfo`, params),
+  updateUserInfo: (uid, params) => axiosClient.put(`user/${uid}/updateuserinfo`, params),
   updatePassword: (uid, params) =>
     axiosClient.put(`/user/${uid}/updatepassword`, params),
 };
