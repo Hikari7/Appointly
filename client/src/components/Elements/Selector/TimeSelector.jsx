@@ -17,44 +17,47 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   useEffect(() => {
     setSlectedTime("")
     fetchAppointmentList()
-
   }, [selectDate])
 
   useEffect(() => {
     fetchAppointmentList()
   }, [])
 
+  // Create display array from props
+  const timeArr = []
+  timeArray.map(eachTimeObj => {
+    const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
+    const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
+    let baseTime = startTime
+    while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
+      timeArr.push(baseTime.format('HH:mm'))
+      baseTime.add(30, 'm')
+    }
+  })
+
   const fetchAppointmentList = async () => {
     try {
       const res = await userAppointmentApi.getAll(uidFromParam.uid)
-      const appoList = res.data.map(eachAppo => {
-        return {bookedDateTime: eachAppo.appointmentDateTime}
-      })
+      if(res.data.length > 0){
+        const appoList = res.data.map(eachAppo => {
+          return {bookedDateTime: eachAppo.appointmentDateTime}
+        })
+        // Remove time which already have appointment
+        appoList.forEach(eachAppointment => {
+          if(eachAppointment.bookedDateTime.date === selectDate){
+            const filteredTimeArray = timeArr.filter(eachTime => {
+              return eachTime !== eachAppointment.bookedDateTime.time 
+            })
+            console.log(filteredTimeArray);
+            setTimeList(filteredTimeArray)
+          }else{
+            setTimeList(timeArr)
+          }
+        })
+      }else{
+        setTimeList(timeArr)
+      }
 
-      // Create display array from props
-      const timeArr = []
-      timeArray.map(eachTimeObj => {
-        const startTime = moment(`2023-03-31 ${eachTimeObj.start}`)
-        const endTime = moment(`2023-03-31 ${eachTimeObj.end}`)
-        let baseTime = startTime
-        while(baseTime.format('HH:mm') !== endTime.format('HH:mm')){
-          timeArr.push(baseTime.format('HH:mm'))
-          baseTime.add(30, 'm')
-        }
-      })
-      const filteredArr = [...new Set(timeArr)]
-
-      // Remove time which already have appointment
-      appoList.forEach(eachAppointment => {
-        if(eachAppointment.bookedDateTime.date === selectDate){
-          const filteredTimeArray = filteredArr.filter(eachTime => {
-            return eachTime !== eachAppointment.bookedDateTime.time 
-          })
-          setTimeList(filteredTimeArray)
-        }else{
-          setTimeList(filteredArr)
-        }
-      })
     } catch (error) {
       console.log(error);
     }    
