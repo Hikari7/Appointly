@@ -2,7 +2,6 @@ import { lazy } from "react";
 import UserLayout from "../components/Layout/UserLayout";
 import { Navigate } from "react-router";
 
-// import AdminProtectCheck from "../routes/AdminProtectedCheck";
 const MyPage = lazy(() => import("../pages/User/MyPage"));
 const Availability = lazy(() => import("../pages/User/Availability"));
 const Settings = lazy(() => import("../pages/User/Settings"));
@@ -10,7 +9,6 @@ const Settings = lazy(() => import("../pages/User/Settings"));
 export const UserRoutes = (user) => {
   return [
     {
-      // path: "/",
       path: "/",
       element: <UserLayout />,
       children: [

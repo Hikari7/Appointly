@@ -25,8 +25,6 @@ const Availability = () => {
           </h3>
         </TitleWrapper>
 
-        {/* <div className="mt-14 md:w-5/6 w-full">Availability</div> */}
-
         <div className="mt-5 mx-auto w-full">
           <div className="flex justify-center">
             <ul className="flex gap-2 list-none">

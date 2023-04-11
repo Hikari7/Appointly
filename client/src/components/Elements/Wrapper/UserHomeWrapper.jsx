@@ -1,5 +1,4 @@
 import React from "react";
-// import SideWrapper from "./SideWrapper";
 import SideMenu from "../../User/SideMenu";
 import { Outlet } from "react-router";
 

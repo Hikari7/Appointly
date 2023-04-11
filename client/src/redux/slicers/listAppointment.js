@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const listAppointmentSlice = createSlice({
   name: "listAppointment",
-  initialState: { listAppointment: [], },
+  initialState: { listAppointment: [] },
+
   reducers: {
     setListAppointment: (state, action) => {
-      state.listAppointment = action.payload
+      state.listAppointment = action.payload;
     },
   },
 });
