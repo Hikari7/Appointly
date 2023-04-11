@@ -6,16 +6,10 @@ require("./utils/mongodb");
 const authRoute = require("./routes/auth.route");
 const appointmentRoute = require("./routes/appointment.route");
 const userRoute = require("./routes/user.route");
-// const { checkToken } = require('./controllers/auth.controller')
 
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
