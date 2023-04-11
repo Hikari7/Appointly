@@ -20,8 +20,6 @@ const BaseCalendar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const params = useParams()
 
-  console.log(dailyAvailability);
-
     useEffect(() => {
       setCalendarDate(createCalendar(currentDate))
     }, [currentDate])

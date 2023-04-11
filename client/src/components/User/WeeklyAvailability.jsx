@@ -60,20 +60,25 @@ const WeeklyAvailability = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // If there are empty inputs, delete those before send data to db.
-    // const filterdAvailability = Array.from(new Map(availability.map(eachObj => {
-    //   const newArray = [...new Set(eachObj.time)]
-    //   return {...eachObj, time: newArray}  
-    //   const filterdTimeArr = eachObj.time.filter(eachTimeObj => !(eachTimeObj.start === "" | eachTimeObj.end ===""))
-    //   return {...eachObj, time: filterdTimeArr}  
-    // })))
+    const filterdAvailability = availability.map(eachObj => {
+      const filterdTimeArr = eachObj.time.filter(eachTimeObj => !(eachTimeObj.start === "" | eachTimeObj.end ===""))
+      return {...eachObj, time: filterdTimeArr}  
+    })
+    const finalAvailability = filterdAvailability.map(eachObj => {
+      if(eachObj.time.length === 0){
+        return {...eachObj, time: [{start: "", end: ""}]}
+      }else{
+        return {...eachObj}
+      }
+    })
 
-    // console.log(filterdAvailability);
-
-    // dispatch(removeExtraTimeObj(filterdAvailability))
+    dispatch(removeExtraTimeObj(finalAvailability))
     try {
-      const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
+      const res = await userAppointmentApi.set(param.uid, {weekly: finalAvailability, daily: []})
       if(res.status === 200){
         alert("Successfully availability was changed!")
+      }else{
+        alert("Something went wrong... Please try again.")
       }
     } catch (error) {
       console.log(error); 

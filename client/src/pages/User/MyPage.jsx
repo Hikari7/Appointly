@@ -164,7 +164,7 @@ const MyPage = () => {
                   className="collapse collapse-arrow border border-info bg-base-100 rounded-box w-4/6 mx-auto "
                   key={uuidv4()}
                 >
-                  <div className="collapse-title text-xl font-medium flex w-4/6  mx-auto justify-evenly">
+                  <div className="collapse-title text-xl font-medium flex w-[90%]  mx-auto justify-evenly">
                     <p className="mr-3">
                       {eachAppointment.appointmentDateTime.date}
                     </p>
@@ -186,8 +186,20 @@ const MyPage = () => {
                           {eachAppointment.email}
                         </span>
                       </p>
+                    <p>
+                      Comments: 
+                      <span className="text-primary">
+                        {eachAppointment.message}
+                      </span>
+                    </p>
+                    <p>
+                      Created at: 
+                      <span className="text-primary">
+                        {eachAppointment.createdAt}
+                      </span>
+                    </p>
                     </div>
-                    <div className="flex items-center mx-auto my-1">
+                    {/* <div className="flex items-center mx-auto my-1">
                       <button 
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => handleClick(e, "reschedule")}
@@ -200,37 +212,13 @@ const MyPage = () => {
                       >
                         Cancel MTG  
                       </button>
-                    </div>
-                    <p>
-                      Guest name
-                      <span className="text-primary">
-                        {eachAppointment.name}
-                      </span>
-                    </p>
-                    <p>
-                      Guest email
-                      <span className="text-primary">
-                        {eachAppointment.email}
-                      </span>
-                    </p>
-                    {/* <p>
-                      Comments
-                      <span className="text-primary">
-                        {eachAppointment.message}
-                      </span>
-                    </p> */}
-                    {/* <p>
-                      Created at
-                      <span className="text-primary">
-                        {eachAppointment.createdAt}
-                      </span>
-                    </p> */}
+                    </div> */}
                   </div>
                 </div>
               ))}
               {/* <RescheduleModal /> */}
-              {isRescheduleModal && <RescheduleModal />}
-              {isDeleteMTGModal && <DeleteMTGModal />}
+              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
+              {/* {isDeleteMTGModal && <DeleteMTGModal />} */}
             </div>
           )}
         </div>
