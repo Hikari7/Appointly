@@ -67,8 +67,7 @@ const DailyAvailability = () => {
       setIsOpen(true)
       setSlectedDate(date)
       setCurrentAvailbleTime(timeArray)
-      setSelectedItem(date)
-      
+      setSelectedItem(date)      
     }
 
   return (
