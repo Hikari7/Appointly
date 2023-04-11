@@ -20,8 +20,8 @@ router.put("/:uid/updateUserInfo", updateUserInfoController)
 
 router.put("/:uid/updatepassword", updatePasswordController)
 
-// router.put("/:appointmentid/reschedule", rescheduleMtgController);
+router.put("/:appointmentid/reschedule", rescheduleMtgController);
 
-// router.delete("/:appointmentid/deleteappointment", deleteMtgController);
+router.delete("/:appointmentid/deleteappointment", deleteMtgController);
 
 module.exports = router;
