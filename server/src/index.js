@@ -13,7 +13,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
   })
 );
 app.use(express.json());
@@ -23,7 +23,6 @@ app.use("/api", (_, res) => res.json({ message: "Health check" }));
 app.use("/auth", authRoute);
 app.use("/appointment", appointmentRoute);
 app.use("/user", userRoute);
-// app.use('/user', checkToken, userRoute)
 
 app.use((req, res, next) => {
   const err = new Error("Route not found.");
