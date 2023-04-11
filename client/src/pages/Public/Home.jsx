@@ -3,7 +3,6 @@ import PublicLayout from "../../components/Layout/PublicLayout";
 import top from "../../assets/top.svg";
 import top2 from "../../assets/top2.jpg";
 import { Link } from "react-router-dom";
-// import PrimaryBtn from "../../components/Elements/Button/PrimaryBtn";
 import set from "../../assets/set.svg";
 import niceMeeting from "../../assets/nice-meeting.svg";
 import receiveInfo from "../../assets/receive-info.svg";

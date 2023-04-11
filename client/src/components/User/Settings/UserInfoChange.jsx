@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/slicers/userSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { validateUsername, validateEmail } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
 

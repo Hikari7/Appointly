@@ -91,12 +91,15 @@ const Signup = () => {
     if (error) return;
 
     try {
-      setSuccess(true);
       const res = await authApi.signup({
         username,
         email,
         password,
       });
+
+      if (res.status === 200) {
+        setSuccess(true);
+      }
 
       dispatch(setUser(user));
 
@@ -200,7 +203,6 @@ const Signup = () => {
             <p className="mt-8"> Already have an account?</p>
             <Link
               to="/login"
-              // href="#"
               className="text-blue-500 hover:opacity-70 border-b border-blue"
             >
               Login
