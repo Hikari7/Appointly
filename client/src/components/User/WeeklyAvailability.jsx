@@ -31,6 +31,10 @@ const WeeklyAvailability = () => {
     };
   }, [selectedItem, clickedElem])
 
+  const handleCheckbox = (data) => {
+    dispatch(setCheckBox(data))
+  }
+
   const displayTimeDropdown = (id, elem) => {
     setSelectedItem(id)
     setClickedElem(elem)
@@ -56,13 +60,18 @@ const WeeklyAvailability = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // If there are empty inputs, delete those before send data to db.
-    const filterdAvailability = availability.map(eachObj => {
-      const filterdTimeArr = eachObj.time.filter(eachTimeObj => !(eachTimeObj.start === "" | eachTimeObj.end ===""))
-      return {...eachObj, time: filterdTimeArr}  
-    })
-    dispatch(removeExtraTimeObj(filterdAvailability))
+    // const filterdAvailability = Array.from(new Map(availability.map(eachObj => {
+    //   const newArray = [...new Set(eachObj.time)]
+    //   return {...eachObj, time: newArray}  
+    //   const filterdTimeArr = eachObj.time.filter(eachTimeObj => !(eachTimeObj.start === "" | eachTimeObj.end ===""))
+    //   return {...eachObj, time: filterdTimeArr}  
+    // })))
+
+    // console.log(filterdAvailability);
+
+    // dispatch(removeExtraTimeObj(filterdAvailability))
     try {
-      const res = await userAppointmentApi.set(param.uid, {weekly: filterdAvailability, daily: []})
+      const res = await userAppointmentApi.set(param.uid, {weekly: availability, daily: []})
       if(res.status === 200){
         alert("Successfully availability was changed!")
       }
@@ -82,7 +91,7 @@ const WeeklyAvailability = () => {
                 <input 
                   type="checkbox" 
                   checked={eachObj[Object.keys(eachObj)[0]]}
-                  onChange={() => dispatch(setCheckBox(Object.keys(eachObj)[0]))}
+                  onChange={() => handleCheckbox(Object.keys(eachObj)[0])}
                   className='' 
                 />
                 {Object.keys(eachObj)[0]}

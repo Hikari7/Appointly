@@ -1,17 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../../redux/slicers/userSlice";
-import { useNavigate } from "react-router-dom";
-import {
-  validatePassword,
-  validateConfirmPassword,
-} from "../../../utils/validators";
+import { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { validatePassword, validateConfirmPassword } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
 
 const PasswordChange = () => {
-  const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const param = useParams()
 
   const passwordInput = useRef(null);
   const confirmPasswordInput = useRef(null);
@@ -67,18 +60,14 @@ const PasswordChange = () => {
     if (error) return;
 
     try {
-      setSuccess(true);
-      const res = await userSettingApi.reset({
-        // password,
-      });
-
-      dispatch(setUser(user));
-
-      console.log(res);
-      console.log("success!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+      const res = await userSettingApi.updatePassword(param.uid, {password: confirmPassword})
+      if(res.status === 200){
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+  
+        }, 3000)
+      }
     } catch (err) {
       console.log(err, err.message);
     }

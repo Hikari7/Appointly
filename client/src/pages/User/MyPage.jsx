@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import userAppointmentApi from "../../api/userAppointmentApi";
 import { setAvailability } from "../../redux/slicers/availabilitySlice";
 import { setListAppointment } from "../../redux/slicers/listAppointment";
+import RescheduleModal from "../../components/Elements/Modal/RescheduleModal";
+import DeleteMTGModal from "../../components/Elements/Modal/DeleteMTGModal";
 
 const MyPage = () => {
   const appointment = useSelector(
@@ -16,6 +18,8 @@ const MyPage = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [isCopied, setIsCopied] = useState(false);
+  const [isRescheduleModal, setIsRescheduleModal] = useState(false);
+  const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
 
   useEffect(() => {
     fetchAvailabilityAndListAppointment();
@@ -81,6 +85,17 @@ const MyPage = () => {
   };
 
   let bookedNum = appointment.length;
+
+  const handleClick = (e, method) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if(method === "reschedule"){
+      console.log("reschedule");
+      setIsRescheduleModal(!isRescheduleModal)
+    }else{
+
+    }
+  }
 
   return (
     <>
@@ -158,6 +173,34 @@ const MyPage = () => {
                     </p>
                   </div>
                   <div className="collapse-content">
+                    <div className="">
+                      <p>
+                        Guest name:{" "}
+                        <span className="text-primary">
+                          {eachAppointment.name}
+                        </span>
+                      </p>
+                      <p>
+                        Guest email:
+                        <span className="text-primary">
+                          {eachAppointment.email}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="flex items-center mx-auto my-1">
+                      <button 
+                        className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
+                        onClick={(e) => handleClick(e, "reschedule")}
+                      >
+                        Reschedule  
+                      </button>
+                      <button 
+                        className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
+                        onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
+                      >
+                        Cancel MTG  
+                      </button>
+                    </div>
                     <p>
                       Guest name
                       <span className="text-primary">
@@ -185,6 +228,9 @@ const MyPage = () => {
                   </div>
                 </div>
               ))}
+              {/* <RescheduleModal /> */}
+              {isRescheduleModal && <RescheduleModal />}
+              {isDeleteMTGModal && <DeleteMTGModal />}
             </div>
           )}
         </div>

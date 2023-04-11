@@ -5,6 +5,7 @@ const {
   fetchAvailabilityController,
   setAvailabilityController,
   updateUserInfoController,
+  updatePasswordController,
   rescheduleMtgController,
   deleteMtgController,
 } = require("../controllers/user.controller");
@@ -17,8 +18,10 @@ router.post("/:uid/setavailability", setAvailabilityController);
 
 router.put("/:uid/updateUserInfo", updateUserInfoController)
 
-// router.put("/:appointmentid/reschedule", rescheduleMtgController);
+router.put("/:uid/updatepassword", updatePasswordController)
 
-// router.delete("/:appointmentid/deleteappointment", deleteMtgController);
+router.put("/:appointmentid/reschedule", rescheduleMtgController);
+
+router.delete("/:appointmentid/deleteappointment", deleteMtgController);
 
 module.exports = router;

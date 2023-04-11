@@ -1,11 +1,12 @@
 const {
-  fetchAppointment,
-  setAvailability,
-  rescheduleMtg,
-  deleteAppointment,
-  fetchUserAvailability,
-  updateUsername,
-} = require("../middleware/user.service");
+    fetchAppointment,
+    setAvailability,
+    rescheduleMtg,
+    deleteAppointment,
+    fetchUserAvailability,
+    updateUsername,
+    updatePassward,
+} = require('../middleware/user.service')
 
 exports.fetchAppointmentController = async (req, res) => {
   const { uid } = req.params;
@@ -58,14 +59,25 @@ exports.deleteMtgController = async (req, res) => {
 };
 
 exports.updateUserInfoController = async (req, res) => {
-  try {
-    const { uid } = req.params;
-    const newUserInfo = await updateUsername(uid, req.body);
-    return res.json(newUserInfo);
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(400)
-      .send({ errorMessage: "Something went wrong. Please try again." });
-  }
-};
+    try {
+        const { uid } = req.params
+        const newUserInfo = await updateUsername(uid, req.body)
+        return res.json(newUserInfo)
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
+
+    }
+}
+
+exports.updatePasswordController = async (req, res) => {
+    try {
+        const { uid } = req.params
+        const newUserInfo = await updatePassward(uid, req.body)
+        return res.json(newUserInfo)
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
+
+    }
+}

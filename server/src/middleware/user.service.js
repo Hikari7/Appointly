@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb')
+const bcrypt = require("bcrypt");
 
 const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
@@ -20,7 +21,7 @@ exports.setAvailability = async (uid, data) => {
         // Check if user already have availability document.
         const userAvailability = await Availability.find({userId})
         // If exists,
-        if(userAvailability){
+        if(userAvailability.length > 0){
             // Setting for daily availability.            
             if(data.target === "daily"){
                 // Check if the date which will be overwritten is already exist in the daily array.
@@ -68,7 +69,7 @@ exports.setAvailability = async (uid, data) => {
                 await Availability.findOneAndUpdate({userId}, {
                     $set: { "weekly": data.weekly }
                 })
-            }
+                }
             return await Availability.findOne({userId})
         //If the availability document does not exist, create new document.
         }else{
@@ -103,6 +104,15 @@ exports.updateUsername = async (uid, data) => {
     const userId = new ObjectId(uid)
     await User.findByIdAndUpdate({ _id: userId }, {
         $set: {username: data.username, email: data.email}
+    })
+    return await User.find({ _id: userId })
+}
+
+exports.updatePassward = async (uid, data) => {
+    const userId = new ObjectId(uid)
+    const hashedPassword = await bcrypt.hash(data.password, 10)
+    await User.findByIdAndUpdate({ _id: userId }, {
+        $set: {password: hashedPassword}
     })
     return await User.find({ _id: userId })
 }
