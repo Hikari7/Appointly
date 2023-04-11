@@ -159,17 +159,29 @@ const MyPage = () => {
                   </div>
                   <div className="collapse-content">
                     <p>
-                      Guest name:{" "}
+                      Guest name
                       <span className="text-primary">
                         {eachAppointment.name}
                       </span>
                     </p>
                     <p>
-                      Guest email:
+                      Guest email
                       <span className="text-primary">
                         {eachAppointment.email}
                       </span>
                     </p>
+                    {/* <p>
+                      Comments
+                      <span className="text-primary">
+                        {eachAppointment.message}
+                      </span>
+                    </p> */}
+                    {/* <p>
+                      Created at
+                      <span className="text-primary">
+                        {eachAppointment.createdAt}
+                      </span>
+                    </p> */}
                   </div>
                 </div>
               ))}
