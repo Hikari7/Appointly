@@ -199,7 +199,7 @@ const MyPage = () => {
                       </span>
                     </p>
                     </div>
-                    {/* <div className="flex items-center mx-auto my-1">
+                    <div className="flex items-center mx-auto my-1">
                       <button 
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => handleClick(e, "reschedule")}
@@ -212,13 +212,13 @@ const MyPage = () => {
                       >
                         Cancel MTG  
                       </button>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               ))}
-              {/* <RescheduleModal /> */}
+              <RescheduleModal />
               {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
-              {/* {isDeleteMTGModal && <DeleteMTGModal />} */}
+              {isDeleteMTGModal && <DeleteMTGModal />}
             </div>
           )}
         </div>

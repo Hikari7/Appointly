@@ -7,7 +7,7 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validators";
-import authApi from "../../api/authApi";
+import authApi from "../../api/authAPI";
 import { setUser } from "../../redux/slicers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
