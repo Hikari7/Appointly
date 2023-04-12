@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import userAppointmentApi from "../../api/userAppointmentApi"
 import { setCheckBox, addNewTimeObj, deleteTimeObj, removeExtraTimeObj } from '../../redux/slicers/availabilitySlice'
-import TimeDropdown from '../Elements/Dropdown/TimeDropdown'
 import { useParams } from 'react-router'
-import DowDropdown from '../Elements/Dropdown/DowDropdown'
+import DowDropdown from '../Elements/dropdown/DowDropdown'
+import TimeDropdown from '../Elements/dropdown/TimeDropdown'
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly)
@@ -17,7 +17,7 @@ const WeeklyAvailability = () => {
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
-    if(!clickedElem) return 
+    if(!clickedElem) return
 
     const handleCloseTimeDropdown = (e) => {
       if(!(clickedElem === e.target)){
