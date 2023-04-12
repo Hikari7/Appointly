@@ -8,9 +8,9 @@ import {
   deleteTimeObj,
   removeExtraTimeObj,
 } from "../../redux/slicers/availabilitySlice";
-import TimeDropdown from "../Elements/Dropdown/TimeDropdown";
+import TimeDropdown from "../Elements/dropdown/TimeDropdown";
 import { useParams } from "react-router";
-import DowDropdown from "../Elements/Dropdown/DowDropdown";
+import DowDropdown from "../Elements/dropdown/DowDropdown";
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly);
