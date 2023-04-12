@@ -1,8 +1,4 @@
-const JWT = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
-const salt = Number(process.env.SALT);
-const jwtSecret = process.env.JWT_SECRET;
 const User = require("../models/User");
 
 exports.signUp = async (username, email, password) => {
@@ -16,15 +12,17 @@ exports.signUp = async (username, email, password) => {
     // return errorObj;
   }
 
+  console.log({user});
+
   // Create new user
   user = new User({ username, email, password });
   await user.save();
-  const token = JWT.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
+
+  console.log({newUser: user});
 
   return (data = {
     userId: user._id,
     username: user.username,
-    token,
   });
 };
 
@@ -43,9 +41,9 @@ exports.login = async (email, password) => {
 
     const isValid = await bcrypt.compare(password, user.password);
 
-    if (isValid) {
-      const token = JWT.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
-      
+    console.log({isValid});
+
+    if (isValid) {      
       await User.updateOne({email}, { $set: {loginDate: new Date()}})
       const userWithLoginDate = await User.findOne({email})
       
@@ -54,7 +52,6 @@ exports.login = async (email, password) => {
         username: user.username,
         email: user.email,
         loginDate: userWithLoginDate.loginDate,
-        token,
       });
     } else {
       const errorObj = new Error("Incorrect credentials.");
