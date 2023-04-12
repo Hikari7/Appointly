@@ -216,7 +216,7 @@ const MyPage = () => {
                   </div>
                 </div>
               ))}
-              <RescheduleModal />
+              {/* <RescheduleModal /> */}
               {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
               {isDeleteMTGModal && <DeleteMTGModal />}
             </div>

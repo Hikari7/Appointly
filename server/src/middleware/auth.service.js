@@ -39,6 +39,8 @@ exports.login = async (email, password) => {
       throw errorObj;
     }
 
+    console.log({user});
+
     const isValid = await bcrypt.compare(password, user.password);
 
     if (isValid) {
