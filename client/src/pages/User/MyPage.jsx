@@ -78,7 +78,7 @@ const MyPage = () => {
 
   const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
-  const userLink = `${BASE_URL}${userId}/appointment/guestcalendar`;
+  const userLink = `${BASE_URL}/${userId}/appointment/guestcalendar`;
 
   console.log(BASE_URL);
 
