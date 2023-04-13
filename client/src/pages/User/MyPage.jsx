@@ -76,8 +76,11 @@ const MyPage = () => {
     }
   };
 
+  const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
-  const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
+  const userLink = `${BASE_URL}/${userId}/appointment/guestcalendar`;
+
+  console.log(BASE_URL);
 
   const handleCopyLink = async () => {
     setIsCopied(true);
@@ -87,15 +90,14 @@ const MyPage = () => {
   let bookedNum = appointment.length;
 
   const handleClick = (e, method) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if(method === "reschedule"){
+    e.preventDefault();
+    e.stopPropagation();
+    if (method === "reschedule") {
       console.log("reschedule");
-      setIsRescheduleModal(!isRescheduleModal)
-    }else{
-
+      setIsRescheduleModal(!isRescheduleModal);
+    } else {
     }
-  }
+  };
 
   return (
     <>
@@ -186,37 +188,37 @@ const MyPage = () => {
                           {eachAppointment.email}
                         </span>
                       </p>
-                    <p>
-                      Comments: 
-                      <span className="text-primary">
-                        {eachAppointment.message}
-                      </span>
-                    </p>
-                    <p>
-                      Created at: 
-                      <span className="text-primary">
-                        {eachAppointment.createdAt}
-                      </span>
-                    </p>
+                      <p>
+                        Comments:
+                        <span className="text-primary">
+                          {eachAppointment.message}
+                        </span>
+                      </p>
+                      <p>
+                        Created at:
+                        <span className="text-primary">
+                          {eachAppointment.createdAt}
+                        </span>
+                      </p>
                     </div>
-                    <div className="flex items-center mx-auto my-1">
-                      <button 
+                    {/* <div className="flex items-center mx-auto my-1">
+                      <button
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => handleClick(e, "reschedule")}
                       >
-                        Reschedule  
+                        Reschedule
                       </button>
-                      <button 
+                      <button
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
                       >
-                        Cancel MTG  
+                        Cancel MTG
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
-              <RescheduleModal />
+              {/* <RescheduleModal /> */}
               {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
               {isDeleteMTGModal && <DeleteMTGModal />}
             </div>

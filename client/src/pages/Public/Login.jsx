@@ -6,7 +6,6 @@ import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,14 +35,14 @@ const Login = () => {
 
     try {
       const res = await authApi.login({
-          email,
-          password,
-        })
+        email,
+        password,
+      });
       console.log("success to login!");
       console.log(res);
 
-      const loginDate = new Date(res.data.loginDate)
-      const expireTime = loginDate.setHours(loginDate.getHours() + 12)
+      const loginDate = new Date(res.data.loginDate);
+      const expireTime = loginDate.setHours(loginDate.getHours() + 12);
 
       const newObj = {};
       newObj.userId = res.data.userId;
@@ -57,7 +56,6 @@ const Login = () => {
       console.log(err);
     }
   };
-
 
   return (
     <>
