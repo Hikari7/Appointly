@@ -147,13 +147,23 @@ const Home = () => {
                     tabIndex={1}
                     className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
                   >
-                    <div className="collapse-title text-xl font-bold">
+                    {/* <div className="collapse-title text-xl font-bold">
                       Q: How can the host cancel the reservation?
                     </div>
                     <div className="collapse-content">
                       <p>
                         A: To cancel a reservation, hosts can send cancel from
-                        mypage??
+                        mypage
+                      </p>
+                    </div> */}
+                    <div className="collapse-title text-xl font-bold">
+                      Q: How can the host cancel the reservation?
+                    </div>
+                    <div className="collapse-content">
+                      <p>
+                        A: To cancel a reservation, hosts can directly contact
+                        the host via email. The guest's email information is
+                        provided to hosts once the booking is confirmed.
                       </p>
                     </div>
                   </div>

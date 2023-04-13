@@ -101,7 +101,7 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="md:flex md:w-93 ">
+      <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Welcome, <span>{user.username}</span>
@@ -116,7 +116,7 @@ const MyPage = () => {
             <h3>You have upcoming {bookedNum} meetings!</h3>
           )}
         </TitleWrapper>
-        <div className="mt-14 w-full">
+        <div className="mt-14 md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
             <p className="font-second text-center">30 Minute Meeting</p>
             <div
