@@ -10,6 +10,7 @@ import { setAvailability } from "../../redux/slicers/availabilitySlice";
 import { setListAppointment } from "../../redux/slicers/listAppointment";
 import RescheduleModal from "../../components/Elements/Modal/RescheduleModal";
 import DeleteMTGModal from "../../components/Elements/Modal/DeleteMTGModal";
+import { HashLink } from "react-router-hash-link";
 
 const MyPage = () => {
   const appointment = useSelector(
@@ -17,13 +18,15 @@ const MyPage = () => {
   );
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const [fetchAppointmentList, setFetchAppointmentList] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
+  const [isCollapseOpen, setIsCollapseOpen] = useState(false);
 
   useEffect(() => {
     fetchAvailabilityAndListAppointment();
-  }, []);
+  }, [fetchAppointmentList]);
 
   const fetchAvailabilityAndListAppointment = async () => {
     try {
@@ -66,7 +69,6 @@ const MyPage = () => {
             return;
           }
         });
-
         dispatch(setListAppointment(filteredAppointment));
       } else {
         dispatch(setListAppointment([]));
@@ -80,8 +82,6 @@ const MyPage = () => {
   const userId = user.userId;
   const userLink = `${BASE_URL}/${userId}/appointment/guestcalendar`;
   // const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
-
-  console.log(BASE_URL);
 
   const handleCopyLink = async () => {
     setIsCopied(true);
@@ -161,66 +161,76 @@ const MyPage = () => {
           ) : (
             <div className="my-12 max-h-80">
               {appointment.map((eachAppointment) => (
-                <div
-                  tabIndex={0}
-                  className="collapse collapse-arrow border border-info bg-base-100 rounded-box w-4/6 mx-auto "
-                  key={uuidv4()}
-                >
-                  <div className="collapse-title text-xl font-medium flex w-[90%]  mx-auto justify-evenly">
-                    <p className="mr-3">
-                      {eachAppointment.appointmentDateTime.date}
-                    </p>
-                    <p className="mr-3">
-                      {eachAppointment.appointmentDateTime.time}
-                    </p>
-                  </div>
-                  <div className="collapse-content">
-                    <div className="">
-                      <p>
-                        Guest name:{" "}
-                        <span className="text-primary">
-                          {eachAppointment.name}
-                        </span>
+                <HashLink key={uuidv4()} smooth to="#appointmentBtns">
+                  <div
+                    tabIndex={0}
+                    onClick={() => setIsCollapseOpen(!isCollapseOpen)} 
+                    className="border border-info bg-base-100 rounded-box w-4/6 mx-auto "
+                    
+                  >
+                    <div className="text-xl font-medium flex w-[90%] py-3 mx-auto justify-evenly">
+                      <p className="mr-3">
+                        {eachAppointment.appointmentDateTime.date}
                       </p>
-                      <p>
-                        Guest email:
-                        <span className="text-primary">
-                          {eachAppointment.email}
-                        </span>
+                      <p className="mr-3">
+                        {eachAppointment.appointmentDateTime.time}
                       </p>
-                      <p>
-                        Comments:
-                        <span className="text-primary">
-                          {eachAppointment.message}
-                        </span>
-                      </p>
-                      <p>
-                        Created at:
-                        <span className="text-primary">
-                          {eachAppointment.createdAt}
-                        </span>
-                      </p>
+                      {isCollapseOpen
+                        ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                          </svg>
+                        : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                          </svg>
+                      }                    
                     </div>
-                    {/* <div className="flex items-center mx-auto my-1">
-                      <button
-                        className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
-                        onClick={(e) => handleClick(e, "reschedule")}
-                      >
-                        Reschedule
-                      </button>
-                      <button
-                        className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
-                        onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
-                      >
-                        Cancel MTG
-                      </button>
-                    </div> */}
+                    {isCollapseOpen &&                   
+                      <div className="p-3">
+                        <p>
+                          Guest name:{" "}
+                          <span className="text-primary">
+                            {eachAppointment.name}
+                          </span>
+                        </p>
+                        <p>
+                          Guest email:
+                          <span className="text-primary">
+                            {eachAppointment.email}
+                          </span>
+                        </p>
+                        <p>
+                          Comments:
+                          <span className="text-primary">
+                            {eachAppointment.message}
+                          </span>
+                        </p>
+                        <p>
+                          Created at:
+                          <span className="text-primary">
+                            {eachAppointment.createdAt}
+                          </span>
+                        </p>
+                        <div id="appointmentBtns" className="flex items-center mx-auto my-2">
+                          <button
+                            className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
+                            onClick={(e) => handleClick(e, "reschedule")}
+                          >
+                            Reschedule
+                          </button>
+                          <button
+                            className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
+                            onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
+                          >
+                            Cancel MTG
+                          </button>
+                        </div>
+                      </div>
+                    }
                   </div>
-                </div>
+                  {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} eachAppointment={eachAppointment} />}
+                  {isDeleteMTGModal && <DeleteMTGModal />}
+                </HashLink>
               ))}
-              {/* <RescheduleModal /> */}
-              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />}
-              {isDeleteMTGModal && <DeleteMTGModal />} */}
             </div>
           )}
         </div>

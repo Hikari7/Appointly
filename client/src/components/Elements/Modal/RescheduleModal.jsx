@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import moment from 'moment';
 
 import DatePicker from '../../User/DatePicker'
+import userAppointmentApi from '../../../api/userAppointmentApi';
+import { useDispatch } from 'react-redux';
+import { updateAppointment } from "../../../redux/slicers/listAppointment"
 
-const RescheduleModal = ({setIsRescheduleModal}) => {
+const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false)
 
-  useEffect(() => {
-
-  }, [])
-
+const dispatch = useDispatch()
 
   //Create selectable time array
   const timeArr = []
@@ -31,8 +31,26 @@ const RescheduleModal = ({setIsRescheduleModal}) => {
     setToggleTimeSelector(false)
   }
 
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
+    try {
+      const paramas = {
+        date: selectedDate,
+        time: selectedTime
+      }
+      const res = await userAppointmentApi.updateMTG(eachAppointment._id, paramas)
+      if(res.status === 200){
+        setSelectedDate("")
+        setSelectedTime("")
+        setIsRescheduleModal(false)
+        dispatch(updateAppointment({meetingId: eachAppointment._id, dateTime: paramas}))
+        alert("Successfully rescheduled!")
+      }else{
+        alert("Something went wrong... Please try again.")
+      }
+    } catch (error) {
+      alert("Something went wrong... Please try again.")
+      console.log(error);
+    }
   }
 
   return (
@@ -44,10 +62,11 @@ const RescheduleModal = ({setIsRescheduleModal}) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
-        <div className='text-center text-xl font-bold mb-8'>Reschedule the Meeting</div>
+        <div className='text-center text-xl font-bold mb-3'>Reschedule the Meeting</div>
         <div className='flex flex-col items-center mb-5'>
-          <div className=''>Guest name: </div>
-          <div className=''>Guest email: </div>
+          <div className=''>Guest name: {eachAppointment.name}</div>
+          <div className=''>Guest email: {eachAppointment.email}</div>
+          <div className=''>current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
         </div>
         <div className='flex flex-col justify-start w-full'>
           <div className='flex justify-center items-center w-full'>
@@ -65,7 +84,7 @@ const RescheduleModal = ({setIsRescheduleModal}) => {
               onClick={() => setToggleTimeSelector(!toggleTimeSelector)}
             />
             {toggleTimeSelector && 
-              <div className={"flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[50%] overflow-y-scroll absolute top-[38%] left-[22%] z-50"}>
+              <div className={"flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[50%] overflow-y-scroll absolute top-[56%] left-[21%] md:top-[46%] md:left-[29%] z-50"}>
               {timeArr && timeArr.map((eachTime, index) => (
                   <div onClick={() => handleTimeSelect(eachTime)} key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
                       {eachTime}

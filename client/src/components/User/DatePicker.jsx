@@ -41,7 +41,7 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
   }
 
   return (
-    <div className="">
+    <div>
       <input
         type="text"
         className="cursor-pointer relative w-full pl-3 my-1 pr-10 py-2 leading-none shadow border border-gray-700 rounded-lg shadow-sm text-gray-700 "
@@ -51,7 +51,7 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
         onClick={() => setToggleCalender(!toggleCalendar)}
       />
       {toggleCalendar && (
-        <div className="w-[65%] md:w-1/2 p-2 pt-8 border border-gray-700 rounded-lg bg-white absolute top[0%] left-[26%] z-50">
+        <div className="w-[65%] md:w-1/2 p-2 pt-6 border border-gray-700 rounded-lg bg-white absolute top[0%] left-[26%] md:left-[33%] z-50">
           <div onClick={() => setToggleCalender(false)} className='flex justify-end absolute top-[1%] right-[2%]'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

@@ -36,8 +36,7 @@ exports.setAvailabilityController = async (req, res) => {
 exports.rescheduleMtgController = async (req, res) => {
   try {
     const { appointmentid } = req.params;
-    const { changedDateTime } = req.body;
-    const changedMtg = await rescheduleMtg(appointmentid, changedDateTime);
+    const changedMtg = await rescheduleMtg(appointmentid, req.body);
     return res.json(changedMtg);
   } catch (error) {
     return res
