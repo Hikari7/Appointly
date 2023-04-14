@@ -12,10 +12,14 @@ export const listAppointmentSlice = createSlice({
       const { meetingId, dateTime } = action.payload
       const targetMtgIndex = state.listAppointment.findIndex(e => e._id === meetingId)
       state.listAppointment[targetMtgIndex].appointmentDateTime = dateTime
+    },
+    deleteAppointment: (state, action) => {
+      const { filteredArray } = action.payload
+      state.listAppointment = filteredArray
     }
   },
 });
 
-export const { setListAppointment, updateAppointment } = listAppointmentSlice.actions;
+export const { setListAppointment, updateAppointment,　deleteAppointment } = listAppointmentSlice.actions;
 
 export default listAppointmentSlice.reducer;

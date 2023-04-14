@@ -63,7 +63,10 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
         </div>
         <div className='text-center text-xl font-bold mb-3'>Reschedule the Meeting</div>
         <div className='flex flex-col items-center mb-5'>
-          <div className=''>Guest name: {eachAppointment.name}</div>
+          <div className='flex justify-center items-center w-full'>
+            <div className=''>Guest name: </div>
+            <div>{eachAppointment.name}</div>
+          </div>
           <div className=''>Guest email: {eachAppointment.email}</div>
           <div className=''>current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
         </div>
@@ -72,7 +75,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
             <label className='text-gray-700 ml-1 block basis-1/5'>Date:</label>
             <DatePicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
           </div>
-          <div className='flex justify-center items-center w-full'>
+          <div className='flex justify-center items-center w-full relative'>
             <label className='text-gray-700 ml-1 block basis-1/5'>Time:</label>
             <input
               type="text"
@@ -83,7 +86,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
               onClick={() => setToggleTimeSelector(!toggleTimeSelector)}
             />
             {toggleTimeSelector && 
-              <div className={"flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[50%] overflow-y-scroll absolute top-[56%] left-[21%] md:top-[46%] md:left-[29%] z-50"}>
+              <div className={"flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[300%] overflow-y-scroll absolute top-[56%] left-[18%] md:top-[46%] md:left-[29%] z-50"}>
               {timeArr && timeArr.map((eachTime, index) => (
                   <div onClick={() => handleTimeSelect(eachTime)} key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
                       {eachTime}

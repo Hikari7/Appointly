@@ -1,6 +1,31 @@
-import React from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+import userAppointmentApi from '../../../api/userAppointmentApi';
+import { deleteAppointment } from "../../../redux/slicers/listAppointment"
 
 const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
+  const appointmentList  = useSelector( (state) => state.listAppointment.listAppointment );
+  const dispatch = useDispatch()
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleSubmit = async () => {
+    try {
+      const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
+      if(res.status === 200){
+        setIsDeleteMTGModal(false)
+        const filteredArray = appointmentList.filter(e => e._id === eachAppointment._id)
+        dispatch(deleteAppointment({filteredArray}))
+        alert("Successfully deleted!")
+      }else{
+        alert("Something went wrong... Please try again.")
+      }
+    } catch (error) {
+      alert("Something went wrong... Please try again.")
+      console.log(error);
+    }
+  }
+
   return (
     <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
@@ -10,17 +35,27 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
-        <div className='text-center text-xl font-bold my-6'>Delete meeting?</div>
-        <div className='flex flex-col items-center mb-5'>
-          <div className=''>Guest name: {eachAppointment.name}</div>
+        <div className='text-center text-xl font-bold my-6'>Delete meeting</div>
+        <div className='flex flex-col items-center mb-5 w-full'>
+        <div className='flex items-center'>
+          <div className=''>Guest name:</div>
+          <div>{eachAppointment.name}</div>
+        </div>
           <div className=''>Guest email: {eachAppointment.email}</div>
-          <div className=''>current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
+          <div className=''>Current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
         </div>
         <div className='text-center text-xl font-bold my-6'>Are you sure delete this meeting?</div>
-
+        {/* <label className="flex items-center justify-center gap-3 font-bold w-full">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+          />
+          confirm delete
+        </label> */}
         <button
           onClick={(e) => handleSubmit(e)}
-          // disabled={}
+          // disabled={!isChecked}
           className="bg-red-400 font-bold text-white rounded-lg w-[60%] md:w-[50%] py-2 my-5 mx-auto disabled:opacity-50 hover:bg-red-600"
         >
           Delete Reschedule

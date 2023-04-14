@@ -23,6 +23,7 @@ const MyPage = () => {
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null)
 
   useEffect(() => {
     fetchAvailabilityAndListAppointment();
@@ -99,6 +100,12 @@ const MyPage = () => {
     }
   };
 
+  const handleCollapse = (id) => {
+    console.log(id);
+    setIsCollapseOpen(!isCollapseOpen)
+    setSelectedAppointment(id)
+  }
+
   return (
     <>
       <div className="md:flex md:w-93 h-full">
@@ -163,8 +170,9 @@ const MyPage = () => {
               {appointment.map((eachAppointment) => (
                 <HashLink key={uuidv4()} smooth to="#appointmentBtns">
                   <div
+                    id={eachAppointment.id}
                     tabIndex={0}
-                    onClick={() => setIsCollapseOpen(!isCollapseOpen)} 
+                    onClick={(e) => handleCollapse(e.target.id)} 
                     className="border border-info bg-base-100 rounded-box w-4/6 mx-auto "
                     
                   >
