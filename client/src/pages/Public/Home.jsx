@@ -20,7 +20,7 @@ const Home = () => {
                   Stay connected anytime, anywhere.
                 </h1>
                 <h3 className="mt-6 md:text-lg text-info">
-                  This app makes scheduling online chats with ease. <br />
+                  Appointly makes scheduling online chats with ease. <br />
                   Rather than spending time on scheduling, focus on connecting
                   more.
                 </h3>
@@ -118,7 +118,7 @@ const Home = () => {
           </div>
 
           <AnimateInView>
-            <div className="md:flex md:min-h-[50%]  md:my-40">
+            <div className="md:flex md:min-h-[50%] md:my-32">
               <div className="md:m-0  mt-8 w-full h-full">
                 <img
                   src={top}
@@ -187,6 +187,20 @@ const Home = () => {
             </div>
           </AnimateInView>
         </div>
+        <AnimateInView>
+          <div className="text-center my-20">
+            <Link to="/signup">
+              <h2 className="text-center font-second text-2xl  animate-pulse">
+                <span className="font-bold text-accent">
+                  Ready to connect?
+                </span>
+              </h2>
+              <button className="btn btn-primary normal-case w-42 py-2 mt-6 text-xl font-second">
+                Get started
+              </button>
+            </Link>
+          </div>
+        </AnimateInView>
       </PublicLayout>
     </>
   );
