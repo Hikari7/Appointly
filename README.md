@@ -1,6 +1,6 @@
 # Appointly
 
-MERN stuck application that allows users to create and share customizable calendar availability with others, enabling them to book appointments, meetings, and events at pre-scheduled times.
+MERN stack application that allows users to create and share customizable calendar availability with others, enabling them to book appointments, meetings, and events at pre-scheduled times.
 
 ## Demo Link
 
