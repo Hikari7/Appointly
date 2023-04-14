@@ -5,12 +5,12 @@ import { Outlet } from "react-router";
 const UserHomeWrapper = () => {
   return (
     <>
-      <div className="md:flex ">
-        <div className="hidden md:block h-93">
+      <div className="md:flex min-h-[97vh]">
+        <div className="hidden md:block ">
           <SideMenu />
         </div>
 
-        <div className="h-93 ">
+        <div className=" ">
           <Outlet />
         </div>
       </div>
