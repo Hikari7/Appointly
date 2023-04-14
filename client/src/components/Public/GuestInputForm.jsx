@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
-import { useParams } from 'react-router';
+import { useParams } from "react-router";
 
 import GuestInputModal from "../Elements/Modal/guestInputModal";
 import emailjs from "@emailjs/browser";
@@ -10,7 +10,7 @@ const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
-  const uidFromParams = useParams()
+  const uidFromParams = useParams();
 
   const formRef = useRef(null);
 
@@ -26,14 +26,12 @@ const GuestInputForm = () => {
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.dir(e.target);
     setEmailErr("");
     setNameErr("");
     setMessageErr("");
-
 
     const name = nameInput.current.value;
     const email = emailInput.current.value;

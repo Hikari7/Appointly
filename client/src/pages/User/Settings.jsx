@@ -7,7 +7,7 @@ import PasswordChange from "../../components/User/Settings/PasswordChange";
 const Settings = () => {
   return (
     <>
-      <div className="md:flex md:w-93 ">
+      <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Account settings
