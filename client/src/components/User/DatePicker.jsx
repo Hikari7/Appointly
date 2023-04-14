@@ -35,8 +35,13 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
     }
   };
 
+  const handleClick = (date) => {
+    setSelectedDate(date)
+    setToggleCalender(false)
+  }
+
   return (
-    <div className="w-[80%]">
+    <div className="">
       <input
         type="text"
         className="cursor-pointer relative w-full pl-3 my-1 pr-10 py-2 leading-none shadow border border-gray-700 rounded-lg shadow-sm text-gray-700 "
@@ -46,7 +51,12 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
         onClick={() => setToggleCalender(!toggleCalendar)}
       />
       {toggleCalendar && (
-        <div className="md:w-1/2 p-2 border border-gray-700 rounded-lg bg-white absolute top[0%] left-[26%]">
+        <div className="w-[65%] md:w-1/2 p-2 pt-8 border border-gray-700 rounded-lg bg-white absolute top[0%] left-[26%] z-50">
+          <div onClick={() => setToggleCalender(false)} className='flex justify-end absolute top-[1%] right-[2%]'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
           <div className="flex justify-between items-center mb-1">
             <svg
               onClick={() => handleChangeMonth("prev")}
@@ -137,7 +147,7 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
                       <div
                         key={index}
                         onClick={() =>
-                          setSelectedDate(`${day.month}-${day.date}`)
+                          handleClick(`${day.month}-${day.date}`)
                         }
                         className="flex-1 flex justify-center items-center"
                       >
