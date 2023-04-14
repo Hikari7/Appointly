@@ -30,7 +30,7 @@ const SideMenu = () => {
   };
 
   return (
-    <div className="p-4 w-20 h-full bg-base-100 border-r border-neutral border-thin ">
+    <div className="p-4 w-20 h-full border-r border-neutral border-thin">
       <div className="h-5/6 flex-col flex items-center mt-10">
         <ul className="w-3/4 mx-auto h-4/5 flex-col flex justify-center ">
           <li
