@@ -9,14 +9,14 @@ const Availability = () => {
 
   return (
     <>
-      <div className="md:flex md:w-93">
+      <div className="md:flex md:w-93 h-full ">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Set Your Schedule
           </h1>
           <img
             src={availabilityImg}
-            className="w-1/3 h-1/3 mx-auto my-7 md:w-11/12 md:h-60"
+            className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
 
           <h3>
@@ -24,7 +24,8 @@ const Availability = () => {
             <br></br>your available scheduled events
           </h3>
         </TitleWrapper>
-        <div className="mt-5 mx-auto w-full">
+
+        <div className="mt-14 md:w-5/6 w-full overflow-y-scroll">
           <div className="flex justify-center">
             <ul className="flex gap-2 list-none">
               <li className="w-[6rem]">

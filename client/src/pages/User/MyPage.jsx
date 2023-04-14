@@ -76,8 +76,12 @@ const MyPage = () => {
     }
   };
 
+  const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
-  const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
+  const userLink = `${BASE_URL}/${userId}/appointment/guestcalendar`;
+  // const userLink = `http://localhost:5173/${userId}/appointment/guestcalendar`;
+
+  console.log(BASE_URL);
 
   const handleCopyLink = async () => {
     setIsCopied(true);
@@ -87,19 +91,17 @@ const MyPage = () => {
   let bookedNum = appointment.length;
 
   const handleClick = (e, method) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if(method === "reschedule"){
-      console.log("reschedule");
-      setIsRescheduleModal(!isRescheduleModal)
-    }else{
-
+    e.preventDefault();
+    e.stopPropagation();
+    if (method === "reschedule") {
+      setIsRescheduleModal(!isRescheduleModal);
+    } else {
     }
-  }
+  };
 
   return (
     <>
-      <div className="md:flex md:w-93 ">
+      <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Welcome, <span>{user.username}</span>
@@ -114,7 +116,7 @@ const MyPage = () => {
             <h3>You have upcoming {bookedNum} meetings!</h3>
           )}
         </TitleWrapper>
-        <div className="mt-14 w-full">
+        <div className="mt-14 md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
             <p className="font-second text-center">30 Minute Meeting</p>
             <div
@@ -186,39 +188,39 @@ const MyPage = () => {
                           {eachAppointment.email}
                         </span>
                       </p>
-                    <p>
-                      Comments: 
-                      <span className="text-primary">
-                        {eachAppointment.message}
-                      </span>
-                    </p>
-                    <p>
-                      Created at: 
-                      <span className="text-primary">
-                        {eachAppointment.createdAt}
-                      </span>
-                    </p>
+                      <p>
+                        Comments:
+                        <span className="text-primary">
+                          {eachAppointment.message}
+                        </span>
+                      </p>
+                      <p>
+                        Created at:
+                        <span className="text-primary">
+                          {eachAppointment.createdAt}
+                        </span>
+                      </p>
                     </div>
                     {/* <div className="flex items-center mx-auto my-1">
-                      <button 
+                      <button
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => handleClick(e, "reschedule")}
                       >
-                        Reschedule  
+                        Reschedule
                       </button>
-                      <button 
+                      <button
                         className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                         onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
                       >
-                        Cancel MTG  
+                        Cancel MTG
                       </button>
                     </div> */}
                   </div>
                 </div>
               ))}
               {/* <RescheduleModal /> */}
-              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
-              {/* {isDeleteMTGModal && <DeleteMTGModal />} */}
+              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />}
+              {isDeleteMTGModal && <DeleteMTGModal />} */}
             </div>
           )}
         </div>

@@ -1,4 +1,4 @@
-const { ObjectId } = require("mongodb");
+const { ObjectId } = require("bson");
 
 const Appointment = require("../models/Appointment");
 const User = require("../models/User");
