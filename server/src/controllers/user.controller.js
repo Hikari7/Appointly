@@ -1,12 +1,12 @@
 const {
-    fetchAppointment,
-    setAvailability,
-    rescheduleMtg,
-    deleteAppointment,
-    fetchUserAvailability,
-    updateUsername,
-    updatePassward,
-} = require('../middleware/user.service')
+  fetchAppointment,
+  setAvailability,
+  rescheduleMtg,
+  deleteAppointment,
+  fetchUserAvailability,
+  updateUsername,
+  updatePassward,
+} = require("../middleware/user.service");
 
 exports.fetchAppointmentController = async (req, res) => {
   const { uid } = req.params;
@@ -36,8 +36,7 @@ exports.setAvailabilityController = async (req, res) => {
 exports.rescheduleMtgController = async (req, res) => {
   try {
     const { appointmentid } = req.params;
-    const { changedDateTime } = req.body;
-    const changedMtg = await rescheduleMtg(appointmentid, changedDateTime);
+    const changedMtg = await rescheduleMtg(appointmentid, req.body);
     return res.json(changedMtg);
   } catch (error) {
     return res
@@ -59,25 +58,27 @@ exports.deleteMtgController = async (req, res) => {
 };
 
 exports.updateUserInfoController = async (req, res) => {
-    try {
-        const { uid } = req.params
-        const newUserInfo = await updateUsername(uid, req.body)
-        return res.json(newUserInfo)
-    } catch (error) {
-        console.log(error);
-        return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
-
-    }
-}
+  try {
+    const { uid } = req.params;
+    const newUserInfo = await updateUsername(uid, req.body);
+    return res.json(newUserInfo);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ errorMessage: "Something went wrong. Please try again." });
+  }
+};
 
 exports.updatePasswordController = async (req, res) => {
-    try {
-        const { uid } = req.params
-        const newUserInfo = await updatePassward(uid, req.body)
-        return res.json(newUserInfo)
-    } catch (error) {
-        console.log(error);
-        return res.status(400).send({errorMessage: "Something went wrong. Please try again."});
-
-    }
-}
+  try {
+    const { uid } = req.params;
+    const newUserInfo = await updatePassward(uid, req.body);
+    return res.json(newUserInfo);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ errorMessage: "Something went wrong. Please try again." });
+  }
+};
