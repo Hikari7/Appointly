@@ -26,8 +26,8 @@ const WeeklyAvailability = () => {
     if (!clickedElem) return;
 
     const handleCloseTimeDropdown = (e) => {
-      // console.log({clickedElem});
-      // console.log({e: e.target});
+      console.log({clickedElem});
+      console.log({e: e.target});
       if (!(clickedElem === e.target)) {
         setSelectedItem("");
         setClickedElem(null);

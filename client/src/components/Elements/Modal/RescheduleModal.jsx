@@ -11,8 +11,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false)
-
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   //Create selectable time array
   const timeArr = []

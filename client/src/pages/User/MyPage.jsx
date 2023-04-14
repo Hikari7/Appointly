@@ -228,7 +228,7 @@ const MyPage = () => {
                     }
                   </div>
                   {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} eachAppointment={eachAppointment} />}
-                  {isDeleteMTGModal && <DeleteMTGModal />}
+                  {isDeleteMTGModal && <DeleteMTGModal setIsDeleteMTGModal={setIsDeleteMTGModal} eachAppointment={eachAppointment}/>}
                 </HashLink>
               ))}
             </div>
