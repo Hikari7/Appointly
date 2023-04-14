@@ -26,13 +26,14 @@ exports.login = async (email, password) => {
   try {
     let user = await User.findOne({ email }).lean();
 
+    
     // Check user existing
     if (!user) {
       const errorObj = new Error("User does not exists.");
       errorObj.status = 404;
       throw errorObj;
     }
-
+    
     const isValid = await bcrypt.compare(password, user.password);
 
     if (isValid) {      
