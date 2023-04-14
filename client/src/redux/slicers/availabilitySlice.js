@@ -56,11 +56,7 @@ export const availabilitySlice = createSlice({
       if(action.payload.filterdTimeArr.length === 0){
         state.weekly[targetObjIndex][action.payload.dow] = false
         state.weekly[targetObjIndex].time = [{start: "", end: ""}]
-      } 
-
-      // const targetObjIndex = state.weekly.findIndex(eachObj => Object.keys(eachObj)[0] === action.payload.dow)
-      // const filteredArr = state.weekly[targetObjIndex].time.filter(elem => elem !== action.payload.data)
-      // state.weekly[targetObjIndex].time = filteredArr
+      }
     },
     setTimeValue: (state, action) => {
       const { selectedItem, timeIndex, time } = action.payload
@@ -73,7 +69,6 @@ export const availabilitySlice = createSlice({
       const {baseTimeArr, targetDowArray} = action.payload
       targetDowArray.forEach(eachDow => {
         const targetDowObj = state.weekly.findIndex(eachDowObj => Object.keys(eachDowObj)[0] === eachDow)
-        console.log(Object.keys(state.weekly[targetDowObj])[0]);
         if(!Object.values(state.weekly[targetDowObj])[0]){
           state.weekly[targetDowObj][Object.keys(state.weekly[targetDowObj])[0]] = true
         }

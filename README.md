@@ -9,18 +9,20 @@ MERN stack application that allows users to create and share customizable calend
 # Screen shots
 
 ### Landing page
-  ![Top image](./ReadmeImg/LP-top.png)
+
+![Top image](./ReadmeImg/LP-top.png)
 
 ### Host pages
-  ![mypage](./ReadmeImg/mypage.png)
-  ![availability1](./ReadmeImg/availability.png)
-  ![availability2](./ReadmeImg/availability2.png)
-  ![setting](./ReadmeImg/setting.png)
+
+![mypage](./ReadmeImg/mypage.png)
+![availability1](./ReadmeImg/availability.png)
+![availability2](./ReadmeImg/availability2.png)
+![setting](./ReadmeImg/setting.png)
 
 ### Guest pages
-  ![guestcalendar](./ReadmeImg/guestcalendar.png)
-  ![confirm](./ReadmeImg/confirm.png)
 
+![guestcalendar](./ReadmeImg/guestcalendar.png)
+![confirm](./ReadmeImg/confirm.png)
 
 # Features
 
@@ -31,7 +33,6 @@ MERN stack application that allows users to create and share customizable calend
 
 - Deepen understanding about React and React related libraries su ch as Redux toolkit and React Router
 - Get used to team work with GitHub
-
 
 # Built With
 
@@ -60,7 +61,6 @@ MERN stack application that allows users to create and share customizable calend
 - JSON Web Token
 - bson
 - render
-
 
 # How to install
 

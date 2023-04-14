@@ -18,6 +18,7 @@ const WeeklyAvailability = () => {
   const param = useParams();
   const [selectedItem, setSelectedItem] = useState("");
   const [clickedElem, setClickedElem] = useState(null);
+  const [clickedCopyElem, setClickedCopyElem] = useState(null);
   const [dowId, setDowId] = useState(null);
 
   useEffect(() => {
@@ -25,6 +26,8 @@ const WeeklyAvailability = () => {
     if (!clickedElem) return;
 
     const handleCloseTimeDropdown = (e) => {
+      // console.log({clickedElem});
+      // console.log({e: e.target});
       if (!(clickedElem === e.target)) {
         setSelectedItem("");
         setClickedElem(null);
@@ -35,6 +38,25 @@ const WeeklyAvailability = () => {
       document.removeEventListener("click", handleCloseTimeDropdown);
     };
   }, [selectedItem, clickedElem]);
+  
+  useEffect(() => {
+    //Logic of close copy dropdown by click anywhere.
+    if (!clickedCopyElem) return;
+
+    const handleCloseCopyDropdown = (e) => {
+      // console.log({clickedCopyElem});
+      // console.log({e: e.target});
+      if (!(clickedCopyElem === e.target)) {
+        // setDowId(null);
+        setClickedCopyElem(null);
+      }
+    };
+    document.addEventListener("click", handleCloseCopyDropdown);
+    return () => {
+      document.removeEventListener("click", handleCloseCopyDropdown);
+    };
+  }, [dowId, clickedCopyElem]);
+  
 
   const handleCheckbox = (data) => {
     dispatch(setCheckBox(data));
@@ -58,6 +80,7 @@ const WeeklyAvailability = () => {
     } else if (method === "add") {
       dispatch(addNewTimeObj(dow));
     } else if (method === "copy") {
+      setClickedCopyElem(e.currentTarget)
       if (!dowId) {
         setDowId(dow);
       } else {

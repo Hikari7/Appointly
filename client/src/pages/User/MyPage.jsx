@@ -93,7 +93,6 @@ const MyPage = () => {
     e.preventDefault();
     e.stopPropagation();
     if (method === "reschedule") {
-      console.log("reschedule");
       setIsRescheduleModal(!isRescheduleModal);
     } else {
     }
@@ -219,8 +218,8 @@ const MyPage = () => {
                 </div>
               ))}
               {/* <RescheduleModal /> */}
-              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />} */}
-              {isDeleteMTGModal && <DeleteMTGModal />}
+              {/* {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} />}
+              {isDeleteMTGModal && <DeleteMTGModal />} */}
             </div>
           )}
         </div>
