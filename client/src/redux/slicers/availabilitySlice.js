@@ -35,7 +35,6 @@ export const availabilitySlice = createSlice({
     },
     setCheckBox: (state, action) => {
       const targetObjIndex = state.weekly.findIndex(eachDow => Object.keys(eachDow)[0] === action.payload)
-      console.log(targetObjIndex);
       state.weekly[targetObjIndex][action.payload] = !(state.weekly[targetObjIndex][action.payload])
       if(state.weekly[targetObjIndex][action.payload]){
         //If checkbox is true, add initial time obj.

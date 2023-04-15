@@ -58,7 +58,7 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
           // disabled={!isChecked}
           className="bg-red-400 font-bold text-white rounded-lg w-[60%] md:w-[50%] py-2 my-5 mx-auto disabled:opacity-50 hover:bg-red-600"
         >
-          Delete Reschedule
+          Delete meeting
         </button>
       </div>
     </div>

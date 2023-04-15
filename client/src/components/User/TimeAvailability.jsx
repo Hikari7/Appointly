@@ -61,7 +61,8 @@ const TimeAvailability = ({ selectDate }) => {
     if(method === "delete"){
       const filteredArr = currentAvailbleTime.filter(eachTimeObj => eachTimeObj !== timeObj)
       if(filteredArr.length === 0){
-        filteredArr.push({start: "00:00", end: "00:00"})
+        setIsChecked(true)
+        // filteredArr.push({start: "00:00", end: "00:00"})
       }
       setCurrentAvailbleTime(filteredArr)
     }else if(method === 'add'){
