@@ -14,8 +14,7 @@ const TimeDropdown = ({
   eachTimeObjIndex,
 }) => {
   const dispatch = useDispatch();
-  const { currentAvailbleTime, setCurrentAvailbleTime } =
-    useContext(TargetTime) || {};
+  const { currentAvailbleTime, setCurrentAvailbleTime } = useContext(TargetTime) || {};
   const [startTimeStyle, setStartTimeStyle] = useState("");
   const [endTimeStyle, setEndTimeStyle] = useState("");
 

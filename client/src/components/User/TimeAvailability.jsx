@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import userAppointmentApi from '../../api/userAppointmentApi'
 import { useParams } from 'react-router'
-import EachTimeInput from './EachTimeInput'
+import EachTimeInput from '../Elements/Input/EachTimeInput'
 import { setDailyAvailability } from '../../redux/slicers/availabilitySlice'
 import { TargetTime } from './DailyAvailability'
 
