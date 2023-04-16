@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef, useContext } from 'react'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router'
+
+import moment from 'moment'
 
 import userAppointmentApi from '../../api/userAppointmentApi'
-import { useParams } from 'react-router'
 import EachTimeInput from '../Elements/Input/EachTimeInput'
 import { setDailyAvailability } from '../../redux/slicers/availabilitySlice'
 import { TargetTime } from './DailyAvailability'
-import moment from 'moment'
+import ToastSuccess from "../Elements/Toast/ToastSuccess";
+import ToastError from "../Elements/Toast/ToastError";
 
 const TimeAvailability = ({ selectDate }) => {
   const dispatch = useDispatch()
@@ -16,6 +19,8 @@ const TimeAvailability = ({ selectDate }) => {
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
   const [isChecked, setIsChecked] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const formattedDate = moment(selectDate).format("MMM DD, YYYY")
 
@@ -81,23 +86,24 @@ const TimeAvailability = ({ selectDate }) => {
       try {
         const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: []}], target: "daily"})
         if(res.status === 200){
-          alert("Successfully availability was changed!")
+          setIsSuccess(true)
         }
         dispatch(setDailyAvailability({date: selectDate, time: currentAvailbleTime}))
       } catch (error) {
         console.log(error);
+        setIsError(true)
       }      
     }else{
       // axios logic to overwrite availability by daily
       try {
         const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}], target: "daily"})
         if(res.status === 200){
-          alert("Successfully availability was changed!")
+          setIsSuccess(true)
         }
         dispatch(setDailyAvailability({date: selectDate, time: currentAvailbleTime}))
-
       } catch (error) {
         console.log(error);
+        setIsError(true)
       }
     }
   }
@@ -150,6 +156,8 @@ const TimeAvailability = ({ selectDate }) => {
           Set daily availability
         </button>
       </div>
+      {isSuccess && <ToastSuccess props={"Successfully availability is changed!"} />}
+      {isError && <ToastError props={"Something went wrong... Please try again."} />}
     </div>
   )
 }

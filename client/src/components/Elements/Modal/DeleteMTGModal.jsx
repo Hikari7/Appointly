@@ -4,25 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import userAppointmentApi from '../../../api/userAppointmentApi';
 import { deleteAppointment } from "../../../redux/slicers/listAppointment"
 
-const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
+const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment, setIsMtgDeleteToast}) => {
   const appointmentList  = useSelector( (state) => state.listAppointment.listAppointment );
   const dispatch = useDispatch()
   const [isChecked, setIsChecked] = useState(false)
 
   const handleSubmit = async () => {
     try {
-      const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
+      const res = await userAppointmentApi.deleteMTG()
+      // const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
       if(res.status === 200){
+        setIsMtgDeleteToast(prev => ({...prev, success: true}))
         setIsDeleteMTGModal(false)
-        const filteredArray = appointmentList.filter(e => e._id === eachAppointment._id)
+        const filteredArray = appointmentList.filter(e => e._id !== eachAppointment._id)
         dispatch(deleteAppointment({filteredArray}))
-        alert("Successfully deleted!")
-      }else{
-        alert("Something went wrong... Please try again.")
       }
     } catch (error) {
-      alert("Something went wrong... Please try again.")
       console.log(error);
+      setIsMtgDeleteToast(prev => ({...prev, error: true}))
+      setIsDeleteMTGModal(false)
     }
   }
 

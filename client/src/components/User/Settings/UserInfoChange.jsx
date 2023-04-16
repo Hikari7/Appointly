@@ -4,6 +4,7 @@ import { setUser } from "../../../redux/slicers/userSlice";
 import { useParams } from "react-router-dom";
 import { validateUsername, validateEmail } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
+import Toast from "../../Elements/Toast/ToastSuccess";
 
 const UserInfoChange = () => {
   const user = useSelector((state) => state.user.user);
@@ -112,26 +113,9 @@ const UserInfoChange = () => {
           Save changes
         </button>
       </form>
-      <div className="toast toast-top toast-start">
-        {successUsername ? (
-          <div className="alert alert-success">
-            <div>
-              <span>Username Changed!</span>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {successEmail ? (
-          <div className="alert alert-success">
-            <div>
-              <span>Email Changed!</span>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
+
+      {successUsername ? <Toast props={"Username Changed!"} /> : ""}
+      {successEmail ? <Toast props={"Email changed!"} /> : ""}
     </>
   );
 };

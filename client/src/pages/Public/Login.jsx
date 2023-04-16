@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
+import SuccessToast from "../../components/Elements/Toast/ToastSuccess";
+import ErrorToast from "../../components/Elements/Toast/ToastError";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +17,8 @@ const Login = () => {
 
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,8 +49,6 @@ const Login = () => {
         email,
         password,
       });
-      console.log("success to login!");
-      console.log(res);
 
       const loginDate = new Date(res.data.loginDate);
       const expireTime = loginDate.setHours(loginDate.getHours() + 12);
@@ -56,11 +58,33 @@ const Login = () => {
       newObj.username = res.data.username;
       newObj.email = res.data.email;
       newObj.loginDate = expireTime;
+
       dispatch(setUser(newObj));
 
-      navigate(`/${newObj.userId}/mypage`);
+      // const reroute = async () => {
+      //   await new Promise((res) => setTimeout(() => res(), 2000));
+      //   const route = newObj.userId;
+      //   navigate(`/${route}/mypage`);
+      // };
+
+      // reroute();
+      // await new Promise((resolve) => {
+      //   setTimeout(() => resolve(), 1000);
+      // });
+      // const path = newObj.userId;
+
+      console.log(res.status);
+      if (res.status === 200) {
+        setSuccess(true);
+        console.log("success");
+        navigate(`/${newObj.userId}/mypage`, { replace: true });
+      } else {
+        console.log("error");
+        setError(true);
+      }
     } catch (err) {
       console.log(err);
+      setError(true);
     }
   };
 
@@ -74,8 +98,12 @@ const Login = () => {
         <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
+              Appointly
+            </div>
+            <div className="text-md font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
+
             <h3 className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
             </h3>
@@ -130,6 +158,8 @@ const Login = () => {
             </Link>
           </div>
         </div>
+        {success ? <SuccessToast props={"Login Successfull!"} /> : ""}
+        {error ? <ErrorToast props={"Incorrect Email or password"} /> : ""}
       </section>
     </>
   );

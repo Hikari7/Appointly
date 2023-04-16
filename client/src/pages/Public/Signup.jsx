@@ -10,6 +10,7 @@ import {
 import { setUser } from "../../redux/slicers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import authApi from "../../api/authApi";
+import Toast from "../../components/Elements/Toast/ToastSuccess";
 
 const Signup = () => {
   const user = useSelector((state) => state.user.user);
@@ -34,7 +35,7 @@ const Signup = () => {
         <div className="toast toast-top toast-end">
           <div className="alert alert-success">
             <div>
-              <span>Sign up successfully!</span>
+              <span>Registration successful!</span>
             </div>
           </div>
         </div>
@@ -124,6 +125,9 @@ const Signup = () => {
         <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
+              Appointly
+            </div>
+            <div className="text-md font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
             <h3 className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
@@ -209,7 +213,8 @@ const Signup = () => {
             </Link>
           </div>
         </div>
-        {message}
+
+        {success ? <Toast props={"Registration successful!"} /> : ""}
       </section>
     </>
   );
