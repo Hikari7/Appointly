@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useQuery } from "react-query";
 
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
@@ -32,6 +33,12 @@ const Login = () => {
       error = true;
       setPasswordErr("Please enter your password");
     }
+
+    // const { isLoading, error: queryError, data } = useQuery(
+    //   "login",
+    //   authApi.login({ email, password })
+    // )
+    // console.log(data);
 
     try {
       const res = await authApi.login({
