@@ -5,12 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
-import userAppointmentApi from "../../api/userAppointmentApi";
-import { setAvailability } from "../../redux/slicers/availabilitySlice";
-import { setListAppointment } from "../../redux/slicers/listAppointment";
 import RescheduleModal from "../../components/Elements/Modal/RescheduleModal";
 import DeleteMTGModal from "../../components/Elements/Modal/DeleteMTGModal";
 import { HashLink } from "react-router-hash-link";
+import useAppoinmentData from "../../hooks/useAppointmentData";
 
 const MyPage = () => {
   const appointment = useSelector(
@@ -23,60 +21,7 @@ const MyPage = () => {
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
-
-  useEffect(() => {
-    fetchAvailabilityAndListAppointment();
-  }, [fetchAppointmentList]);
-
-  const fetchAvailabilityAndListAppointment = async () => {
-    try {
-      const res = await Promise.all([
-        // Fetch user Availability and set the values in redux store
-        userAppointmentApi.getAvailability(user.userId),
-        // Fetch user Appointment and set the values in redux store
-        userAppointmentApi.getAll(user.userId),
-      ]);
-      if (res[0].data.length > 0) {
-        const availabilityObj = {};
-        availabilityObj.weekly = res[0].data[0].weekly;
-        availabilityObj.daily = res[0].data[0].daily;
-        dispatch(setAvailability(availabilityObj));
-      } else {
-        const availabilityObj = {};
-        availabilityObj.weekly = [
-          { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
-          { Mon: false, time: [{ start: "", end: "" }], dow: 1 },
-          { Tue: false, time: [{ start: "", end: "" }], dow: 2 },
-          { Wed: false, time: [{ start: "", end: "" }], dow: 3 },
-          { Thu: false, time: [{ start: "", end: "" }], dow: 4 },
-          { Fri: false, time: [{ start: "", end: "" }], dow: 5 },
-          { Sat: false, time: [{ start: "", end: "" }], dow: 6 },
-        ];
-        availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
-        dispatch(setAvailability(availabilityObj));
-      }
-      if (res[1].data.length > 0) {
-        const today = new Date();
-        const filteredAppointment = res[1].data.filter(function (
-          appointmentDate
-        ) {
-          const filteredDate = new Date(
-            appointmentDate.appointmentDateTime.date
-          );
-          if (today < filteredDate || today == filteredDate) {
-            return filteredDate;
-          } else {
-            return;
-          }
-        });
-        dispatch(setListAppointment(filteredAppointment));
-      } else {
-        dispatch(setListAppointment([]));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useAppoinmentData();
 
   const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
@@ -164,9 +109,8 @@ const MyPage = () => {
                 <HashLink key={uuidv4()} smooth to="#appointmentBtns">
                   <div
                     tabIndex={0}
-                    onClick={() => setIsCollapseOpen(!isCollapseOpen)} 
+                    onClick={() => setIsCollapseOpen(!isCollapseOpen)}
                     className="border border-info bg-base-100 rounded-box w-4/6 mx-auto "
-                    
                   >
                     <div className="text-xl font-medium flex w-[90%] py-3 mx-auto justify-evenly">
                       <p className="mr-3">
@@ -175,16 +119,39 @@ const MyPage = () => {
                       <p className="mr-3">
                         {eachAppointment.appointmentDateTime.time}
                       </p>
-                      {isCollapseOpen
-                        ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                          </svg>
-                        : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                          </svg>
-                      }                    
+                      {isCollapseOpen ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.5 15.75l7.5-7.5 7.5 7.5"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                          />
+                        </svg>
+                      )}
                     </div>
-                    {isCollapseOpen &&                   
+                    {isCollapseOpen && (
                       <div className="p-3">
                         <p>
                           Guest name:{" "}
@@ -210,7 +177,10 @@ const MyPage = () => {
                             {eachAppointment.createdAt}
                           </span>
                         </p>
-                        <div id="appointmentBtns" className="flex items-center mx-auto my-2">
+                        <div
+                          id="appointmentBtns"
+                          className="flex items-center mx-auto my-2"
+                        >
                           <button
                             className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
                             onClick={(e) => handleClick(e, "reschedule")}
@@ -219,15 +189,22 @@ const MyPage = () => {
                           </button>
                           <button
                             className="cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white hover:bg-green-400 hover:text-white"
-                            onClick={(e) => setIsDeleteMTGModal(!isDeleteMTGModal)}
+                            onClick={(e) =>
+                              setIsDeleteMTGModal(!isDeleteMTGModal)
+                            }
                           >
                             Cancel MTG
                           </button>
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
-                  {isRescheduleModal && <RescheduleModal setIsRescheduleModal={setIsRescheduleModal} eachAppointment={eachAppointment} />}
+                  {isRescheduleModal && (
+                    <RescheduleModal
+                      setIsRescheduleModal={setIsRescheduleModal}
+                      eachAppointment={eachAppointment}
+                    />
+                  )}
                   {isDeleteMTGModal && <DeleteMTGModal />}
                 </HashLink>
               ))}
