@@ -6,12 +6,17 @@ import DatePicker from '../../User/DatePicker'
 import userAppointmentApi from '../../../api/userAppointmentApi';
 import { useDispatch } from 'react-redux';
 import { updateAppointment } from "../../../redux/slicers/listAppointment"
+import { sendEmail } from '../../../utils/sendEmail';
 
 const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false)
   const dispatch = useDispatch()
+
+  const formattedDate = moment(eachAppointment.appointmentDateTime.date).format("MMM DD, YYYY")
+  const appointmentStartTime = moment(eachAppointment.appointmentDateTime.time)._i
+  const appointmentEndTime = moment(`2023-4-15 ${eachAppointment.appointmentDateTime.time}`).add(30, "m").format("HH:mm")
 
   //Create selectable time array
   const timeArr = []
@@ -43,6 +48,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
         setIsRescheduleModal(false)
         dispatch(updateAppointment({meetingId: eachAppointment._id, dateTime: paramas}))
         alert("Successfully rescheduled!")
+        // const sendEmail()
       }else{
         alert("Something went wrong... Please try again.")
       }
@@ -63,12 +69,18 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
         </div>
         <div className='text-center text-xl font-bold mb-3'>Reschedule the Meeting</div>
         <div className='flex flex-col items-center mb-5'>
-          <div className='flex justify-center items-center w-full'>
-            <div className=''>Guest name: </div>
-            <div>{eachAppointment.name}</div>
+          <div className='flex items-center justify-center w-full'>
+            <p className='basis-[40%]'>Guest name:</p>
+            <span className="text-primary">{eachAppointment.name}</span>
           </div>
-          <div className=''>Guest email: {eachAppointment.email}</div>
-          <div className=''>current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
+          <div className='flex items-center justify-center w-full'>
+            <p className='basis-[40%]'>Current date:</p>
+            <span className="text-primary">{formattedDate}</span>
+          </div>
+          <div className='flex items-center justify-center w-full'>
+            <p className='basis-[40%]'>Current time:</p>
+            <span className="text-primary">{`${appointmentStartTime} - ${appointmentEndTime}`}</span>
+          </div>
         </div>
         <div className='flex flex-col justify-start w-full'>
           <div className='flex justify-center items-center w-full'>

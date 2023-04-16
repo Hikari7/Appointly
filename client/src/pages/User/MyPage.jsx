@@ -143,7 +143,7 @@ const MyPage = () => {
               </p>
             </div>
           ) : (
-            <div className="my-12 max-h-80">
+            <div className="my-12 max-h-80 py-10">
               {appointment.map((eachAppointment) => (
                 <AppointmentCollapse key={eachAppointment._id} eachAppointment={eachAppointment} />
               ))}

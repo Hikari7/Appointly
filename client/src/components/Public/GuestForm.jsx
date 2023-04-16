@@ -5,11 +5,18 @@ import { BsGlobeAmericas } from "react-icons/bs";
 import GuestInputForm from "./GuestInputForm";
 import { useParams } from "react-router-dom";
 
+import moment from "moment";
+
 const GuestForm = () => {
   const { userId } = useParams();
-
   const user = useSelector((state) => state.user.user);
   const appointment = useSelector((state) => state.appointment.appointment);
+
+  const formattedDate = moment(appointment.appointmentDateTime.date).format("MMM DD, YYYY")
+  const appointmentStartTime = moment(appointment.appointmentDateTime.time)._i
+  const appointmentEndTime = moment(`2023-4-15 ${appointment.appointmentDateTime.time}`).add(30, "m").format("HH:mm")
+
+
 
   return (
     <>
@@ -27,8 +34,8 @@ const GuestForm = () => {
                   </h2>
                 </div>
                 <div className="mx-1 text-primary">
-                  <h2>{appointment.appointmentDateTime.date}</h2>
-                  <h2>{appointment.appointmentDateTime.time}</h2>
+                  <h2>{formattedDate}</h2>
+                  <h2>{`${appointmentStartTime} - ${appointmentEndTime}`}</h2>
                 </div>
               </div>
               <div className="flex items-center my-3 border-b md:border-b-0">
