@@ -9,7 +9,6 @@ export const sendEmail = (params, recipient) => {
     templateID = import.meta.env.VITE_APP_GUEST_TEMPLATE_ID
   }
 
-
   emailjs.send(
     import.meta.env.VITE_APP_SERVICE_ID,
     templateID,
@@ -19,9 +18,11 @@ export const sendEmail = (params, recipient) => {
   .then(
     (result) => {
       console.log(result.text);
+      return {status: "success"}
     },
     (error) => {
       console.log(error.text);
+      return {status: "faile"}
     }
   );
 }

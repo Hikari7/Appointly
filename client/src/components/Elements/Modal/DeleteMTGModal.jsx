@@ -45,17 +45,17 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
           <div className=''>Current schedule: {eachAppointment.appointmentDateTime.date}, {eachAppointment.appointmentDateTime.time}</div>
         </div>
         <div className='text-center text-xl font-bold my-6'>Are you sure delete this meeting?</div>
-        {/* <label className="flex items-center justify-center gap-3 font-bold w-full">
+        <label className="flex items-center justify-center gap-3 font-bold w-full">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={() => setIsChecked(!isChecked)}
           />
           confirm delete
-        </label> */}
+        </label>
         <button
           onClick={(e) => handleSubmit(e)}
-          // disabled={!isChecked}
+          disabled={!isChecked}
           className="bg-red-400 font-bold text-white rounded-lg w-[60%] md:w-[50%] py-2 my-5 mx-auto disabled:opacity-50 hover:bg-red-600"
         >
           Delete meeting

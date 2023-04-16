@@ -48,7 +48,6 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
         setIsRescheduleModal(false)
         dispatch(updateAppointment({meetingId: eachAppointment._id, dateTime: paramas}))
         alert("Successfully rescheduled!")
-        // const sendEmail()
       }else{
         alert("Something went wrong... Please try again.")
       }
