@@ -5,6 +5,7 @@ import {
   validateConfirmPassword,
 } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
+import Toast from "../../Elements/Toast/ToastSuccess";
 
 const PasswordChange = () => {
   const param = useParams();
@@ -20,15 +21,7 @@ const PasswordChange = () => {
 
   useEffect(() => {
     if (success == true) {
-      setMessage(
-        <div className="toast toast-top toast-end">
-          <div className="alert alert-success">
-            <div>
-              <span>Password Changed!</span>
-            </div>
-          </div>
-        </div>
-      );
+      setMessage(<Toast props={"Password changed!"} />);
     } else {
       setMessage(null);
     }

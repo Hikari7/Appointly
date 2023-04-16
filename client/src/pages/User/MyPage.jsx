@@ -4,9 +4,8 @@ import mypageImg from "../../assets/mypage.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import userAppointmentApi from "../../api/userAppointmentApi";
-import { setAvailability } from "../../redux/slicers/availabilitySlice";
-import { setListAppointment } from "../../redux/slicers/listAppointment";
+import useAppoinmentData from "../../hooks/useAppointmentData";
+import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 
 const MyPage = () => {
@@ -17,59 +16,8 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const [isCopied, setIsCopied] = useState(false);
 
-  useEffect(() => {
-    fetchAvailabilityAndListAppointment();
-  }, []);
-
-  const fetchAvailabilityAndListAppointment = async () => {
-    try {
-      const res = await Promise.all([
-        // Fetch user Availability and set the values in redux store
-        userAppointmentApi.getAvailability(user.userId),
-        // Fetch user Appointment and set the values in redux store
-        userAppointmentApi.getAll(user.userId),
-      ]);
-      if (res[0].data.length > 0) {
-        const availabilityObj = {};
-        availabilityObj.weekly = res[0].data[0].weekly;
-        availabilityObj.daily = res[0].data[0].daily;
-        dispatch(setAvailability(availabilityObj));
-      } else {
-        const availabilityObj = {};
-        availabilityObj.weekly = [
-          { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
-          { Mon: false, time: [{ start: "", end: "" }], dow: 1 },
-          { Tue: false, time: [{ start: "", end: "" }], dow: 2 },
-          { Wed: false, time: [{ start: "", end: "" }], dow: 3 },
-          { Thu: false, time: [{ start: "", end: "" }], dow: 4 },
-          { Fri: false, time: [{ start: "", end: "" }], dow: 5 },
-          { Sat: false, time: [{ start: "", end: "" }], dow: 6 },
-        ];
-        availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
-        dispatch(setAvailability(availabilityObj));
-      }
-      if (res[1].data.length > 0) {
-        const today = new Date();
-        const filteredAppointment = res[1].data.filter(function (
-          appointmentDate
-        ) {
-          const filteredDate = new Date(
-            appointmentDate.appointmentDateTime.date
-          );
-          if (today < filteredDate || today == filteredDate) {
-            return filteredDate;
-          } else {
-            return;
-          }
-        });
-        dispatch(setListAppointment(filteredAppointment));
-      } else {
-        dispatch(setListAppointment([]));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useAvailabilityData();
+  useAppoinmentData();
 
   const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
@@ -145,7 +93,10 @@ const MyPage = () => {
           ) : (
             <div className="my-12 max-h-80 py-10">
               {appointment.map((eachAppointment) => (
-                <AppointmentCollapse key={eachAppointment._id} eachAppointment={eachAppointment} />
+                <AppointmentCollapse
+                  key={eachAppointment._id}
+                  eachAppointment={eachAppointment}
+                />
               ))}
             </div>
           )}
