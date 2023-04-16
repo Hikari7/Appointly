@@ -10,9 +10,7 @@ import {
 
 const DatePicker = ({ selectedDate, setSelectedDate }) => {
   const [currentDate, setCurrentDate] = useState(moment());
-  const [currentMonth, setCurrentMonth] = useState(
-    currentDate.format("YYYY-MM")
-  );
+  const [currentMonth, setCurrentMonth] = useState(currentDate.format("YYYY-MM"));
   const [calendarData, setCalendarDate] = useState(createCalendar(currentDate));
   const [toggleCalendar, setToggleCalender] = useState(false);
 
@@ -36,7 +34,7 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
   };
 
   const handleClick = (date) => {
-    setSelectedDate(date)
+    setSelectedDate(moment(date).format('MMM DD, YYYY'))
     setToggleCalender(false)
   }
 
@@ -58,44 +56,16 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
             </svg>
           </div>
           <div className="flex justify-between items-center mb-1">
-            <svg
-              onClick={() => handleChangeMonth("prev")}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
+            <svg onClick={() => handleChangeMonth("prev")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
             <div className="text-xl md:text-2xl text-bold">{`${year} ${month}`}</div>
-            <svg
-              onClick={() => handleChangeMonth("next")}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
+            <svg onClick={() => handleChangeMonth("next")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </div>
           <div className="flex justify-around mb-3">
-            {dow.map((item, index) => (
-              <div key={index} className="text-sm md:text-base">
-                {item}
-              </div>
-            ))}
+            {dow.map((item, index) => ( <div key={index} className="text-sm md:text-base">{item}</div>))}
           </div>
           {calendarData &&
             calendarData.map((week, index) => (
@@ -103,54 +73,25 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
                 {week.map((day, index) => {
                   if (currentMonth !== day.month) {
                     return (
-                      <div
-                        key={index}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center text-gray-300">
-                          {day.date}
-                        </div>
+                      <div key={index} className="flex-1 flex justify-center items-center" >
+                        <div className="text-center text-gray-300">{day.date}</div>
                       </div>
                     );
-                  } else if (
-                    moment(`${day.month}-${day.date}`).isBefore(
-                      today.format("YYYY-MM-D")
-                    ) |
-                    (currentMonth !== day.month)
-                  ) {
+                  } else if (moment(`${day.month}-${day.date}`).isBefore(today.format("YYYY-MM-D")) | (currentMonth !== day.month)) {
                     return (
-                      <div
-                        key={index}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center text-gray-300">
-                          {day.date}
-                        </div>
+                      <div key={index} className="flex-1 flex justify-center items-center" >
+                        <div className="text-center text-gray-300">{day.date}</div>
                       </div>
                     );
-                  } else if (
-                    moment(`${day.month}-${day.date}`)._i ===
-                    today.format("YYYY-MM-D")
-                  ) {
+                  } else if (moment(`${day.month}-${day.date}`)._i === today.format("YYYY-MM-D")) {
                     return (
-                      <div
-                        key={index}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center font-bold text-green-400 rounded-full">
-                          {day.date}
-                        </div>
+                      <div key={index} className="flex-1 flex justify-center items-center" >
+                        <div className="text-center font-bold text-green-400 rounded-full">{day.date}</div>
                       </div>
                     );
                   } else {
                     return (
-                      <div
-                        key={index}
-                        onClick={() =>
-                          handleClick(`${day.month}-${day.date}`)
-                        }
-                        className="flex-1 flex justify-center items-center"
-                      >
+                      <div key={index} onClick={() => handleClick(`${day.month}-${day.date}`)} className="cursor-pointer flex-1 flex justify-center items-center" >
                         <div className="text-center">{day.date}</div>
                       </div>
                     );

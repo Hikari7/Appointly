@@ -18,8 +18,6 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  // useEffect(() => {}, [success]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailErr("");

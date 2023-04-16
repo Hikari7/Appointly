@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux'
 
 import userAppointmentApi from '../../api/userAppointmentApi'
 import { useParams } from 'react-router'
-import EachTimeInput from './EachTimeInput'
+import EachTimeInput from '../Elements/Input/EachTimeInput'
 import { setDailyAvailability } from '../../redux/slicers/availabilitySlice'
 import { TargetTime } from './DailyAvailability'
+import moment from 'moment'
 
 const TimeAvailability = ({ selectDate }) => {
   const dispatch = useDispatch()
@@ -15,6 +16,8 @@ const TimeAvailability = ({ selectDate }) => {
   const [selectedItem, setSelectedItem] = useState("")
   const [clickedElem, setClickedElem] = useState(null)
   const [isChecked, setIsChecked] = useState(false)
+
+  const formattedDate = moment(selectDate).format("MMM DD, YYYY")
 
   useEffect(() => {
     //Logic of close time dropdown by click anywhere.
@@ -61,7 +64,8 @@ const TimeAvailability = ({ selectDate }) => {
     if(method === "delete"){
       const filteredArr = currentAvailbleTime.filter(eachTimeObj => eachTimeObj !== timeObj)
       if(filteredArr.length === 0){
-        filteredArr.push({start: "00:00", end: "00:00"})
+        setIsChecked(true)
+        // filteredArr.push({start: "00:00", end: "00:00"})
       }
       setCurrentAvailbleTime(filteredArr)
     }else if(method === 'add'){
@@ -102,7 +106,7 @@ const TimeAvailability = ({ selectDate }) => {
     <div className='flex flex-col w-[70%] md:py-5 md:w-[50%]'>
       <div className="flex w-full items-center justify-center mb-2">
         <div className="mr-4">Date:</div>
-        <div className="text-center py-.5 text-xl md:text-2xl">{selectDate}</div>
+        <div className="text-center py-.5 text-xl md:text-2xl">{formattedDate}</div>
       </div>
       <div>
         <label className='flex items-center justify-center mx-auto gap-2 w-[20%]'>

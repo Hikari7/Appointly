@@ -48,7 +48,8 @@ exports.rescheduleMtgController = async (req, res) => {
 exports.deleteMtgController = async (req, res) => {
   try {
     const { appointmentid } = req.params;
-    await deleteAppointment(appointmentid);
+    const newObj = await deleteAppointment(appointmentid);
+    return res.json(newObj)
   } catch (error) {
     console.log(error);
     return res

@@ -1,4 +1,4 @@
-import TimeDropdown from "../Elements/dropdown/TimeDropdown";
+import TimeDropdown from "../dropdown/TimeDropdown";
 
 const EachTimeInput = ({
   position,
