@@ -13,7 +13,7 @@ const initialValue = [
     {Sat: false},
   ]
 
-const DowDropdown = ({selectedDowObj}) => {
+const DowDropdown = ({selectedDowObj, setIsDowDropdownOpen}) => {
   const [dowStates, setDowStates] = useState(initialValue)
   const dispatch = useDispatch()
 
@@ -41,10 +41,15 @@ const DowDropdown = ({selectedDowObj}) => {
 
   const handleCopyAvailability = (e) => {
     e.preventDefault()
-    const baseTimeArr = selectedDowObj.time
-    const targetDowObj = dowStates.filter(eachDowObj => Object.values(eachDowObj)[0])
-    const targetDowArray = targetDowObj.map(eachDowObj => Object.keys(eachDowObj)[0])
-    dispatch(copyWeeklyAvailability({baseTimeArr, targetDowArray}))
+    try {
+      const baseTimeArr = selectedDowObj.time
+      const targetDowObj = dowStates.filter(eachDowObj => Object.values(eachDowObj)[0])
+      const targetDowArray = targetDowObj.map(eachDowObj => Object.keys(eachDowObj)[0])
+      dispatch(copyWeeklyAvailability({baseTimeArr, targetDowArray}))
+      setIsDowDropdownOpen(false)
+    } catch (error) {
+      console.log(error);    
+    }
   }
 
   return (
