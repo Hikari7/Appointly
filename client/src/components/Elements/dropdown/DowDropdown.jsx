@@ -53,7 +53,7 @@ const DowDropdown = ({selectedDowObj, setIsDowDropdownOpen}) => {
   }
 
   return (
-    <div className="flex flex-col bg-white gap-1 m-4 px-1.5 pt-3 border-2 border-green-400 rounded-lg w-[500%] h-[500%] overflow-y-scroll absolute top-[30%] right-[-40%] z-50">
+    <div className="flex flex-col bg-white gap-1 m-4 px-1.5 pt-3 border-2 border-green-400 rounded-lg w-[500%] h-fit overflow-y-scroll absolute top-[30%] right-[-40%] z-50">
       <div className='text-center mb-3'>Copy times to ...</div>
       {dowStates && dowStates.map((eachDowObj, index) => (
         <label key={index} className='flex items-center font-bold ml-3'>

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import DowDropdown from '../Elements/dropdown/DowDropdown'
 import { addNewTimeObj } from '../../redux/slicers/availabilitySlice'
 
-
 const AddCopyBtn = ({ dow, eachObj }) => {
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch()
@@ -45,10 +44,9 @@ const AddCopyBtn = ({ dow, eachObj }) => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
           </button>
-          <div className="relative">
-            <button
-              ref={copyIcon}
-              onClick={(e) => handleMethod(e, "copy", dow)}
+          <div ref={copyIcon} className="relative">
+            <button          
+              onClick={(e) => handleMethod(e, "copy", dow)}   
               className="flex justify-center items-center w-7 h-7 hover:bg-gray-200 hover:rounded-full"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600" >

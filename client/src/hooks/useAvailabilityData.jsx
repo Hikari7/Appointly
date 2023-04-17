@@ -3,7 +3,7 @@ import userAppointmentApi from "../api/userAppointmentApi";
 import { setAvailability } from "../redux/slicers/availabilitySlice";
 import { useEffect } from "react";
 
-const useAvailabilityData = () => {
+const useAvailabilityData = async () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {

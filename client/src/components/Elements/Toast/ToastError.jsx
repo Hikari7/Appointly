@@ -1,8 +1,10 @@
-import React from "react";
-
-const ToastError = ({ props, setFunction }) => {
+const ToastError = ({ props, method, setFunction }) => {
   setTimeout(() => {
-    setFunction(false);
+    if (method === "mtg") {
+      setFunction((prev) => ({ ...prev, error: false }));
+    } else {
+      setFunction(false);
+    }
   }, 2000);
 
   return (
