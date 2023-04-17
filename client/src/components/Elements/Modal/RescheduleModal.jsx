@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { updateAppointment } from "../../../redux/slicers/listAppointment"
 import { sendEmail } from '../../../utils/sendEmail';
 
-const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
+const RescheduleModal = ({setIsRescheduleModal, eachAppointment, setIsMtgRescheduleToast}) => {
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false)
@@ -43,16 +43,12 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
       }
       const res = await userAppointmentApi.updateMTG(eachAppointment._id, paramas)
       if(res.status === 200){
-        setSelectedDate("")
-        setSelectedTime("")
+        setIsMtgRescheduleToast(prev => ({...prev, success: true}))
         setIsRescheduleModal(false)
         dispatch(updateAppointment({meetingId: eachAppointment._id, dateTime: paramas}))
-        alert("Successfully rescheduled!")
-      }else{
-        alert("Something went wrong... Please try again.")
       }
     } catch (error) {
-      alert("Something went wrong... Please try again.")
+      setIsMtgRescheduleToast(prev => ({...prev, success: false}))
       console.log(error);
     }
   }

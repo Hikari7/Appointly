@@ -17,6 +17,7 @@ const MyPage = () => {
   const user = useSelector((state) => state.user.user);
   const [isCopied, setIsCopied] = useState(false);
   const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({success: false, error: false})
+  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({success: false, error: false})
 
   useAvailabilityData();
   useAppoinmentData();
@@ -99,6 +100,7 @@ const MyPage = () => {
                   key={eachAppointment._id}
                   eachAppointment={eachAppointment}
                   setIsMtgDeleteToast={setIsMtgDeleteToast}
+                  setIsMtgRescheduleToast={setIsMtgRescheduleToast}
                 />
               ))}
             </div>
@@ -107,6 +109,8 @@ const MyPage = () => {
       </div>
       {isMtgDeleteToast.success && <ToastSuccess props={"Successfully deleted!"} />}
       {isMtgDeleteToast.error && <ToastError props={"Something went wrong... Please try again."} />}
+      {isMtgRescheduleToast.success && <ToastSuccess props={"Successfully reschedule!"} />}
+      {isMtgRescheduleToast.error && <ToastError props={"Something went wrong... Please try again."} />}
     </>
   );
 };

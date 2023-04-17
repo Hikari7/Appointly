@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { HashLink } from "react-router-hash-link";
 
-import RescheduleModal from "../Modal/RescheduleModal";
-import DeleteMTGModal from "../Modal/DeleteMTGModal";
 import moment from "moment";
 
-const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast }) => {
+import RescheduleModal from "../Modal/RescheduleModal";
+import DeleteMTGModal from "../Modal/DeleteMTGModal";
+
+const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRescheduleToast }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
@@ -116,6 +117,7 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast }) => {
         <RescheduleModal
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
+          setIsMtgRescheduleToast={setIsMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
