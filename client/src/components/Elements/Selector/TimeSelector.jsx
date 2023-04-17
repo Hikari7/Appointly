@@ -14,6 +14,8 @@ const TimeSelector = ({ timeArray, selectDate }) => {
   const dispatch = useDispatch()
   const uidFromParam = useParams()
 
+  const formattedDate = moment(selectDate).format("MMM DD, YYYY")
+
   useEffect(() => {
     setSlectedTime("")
     fetchAppointmentList()
@@ -48,7 +50,6 @@ const TimeSelector = ({ timeArray, selectDate }) => {
             const filteredTimeArray = timeArr.filter(eachTime => {
               return eachTime !== eachAppointment.bookedDateTime.time 
             })
-            console.log(filteredTimeArray);
             setTimeList(filteredTimeArray)
           }else{
             setTimeList(timeArr)
@@ -75,7 +76,7 @@ const TimeSelector = ({ timeArray, selectDate }) => {
         <div className="flex flex-col md:w-full justify-center items-center">
           <div className="flex w-full items-center justify-center mb-2">
             <div className="w-[33%] md:w-[20%]">Date:</div>
-            <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded md:text-xl">{selectDate}</div>
+            <div className="text-center w-[8rem] h-[1.9rem] py-.5 text-lg border border-gray-500 rounded md:text-xl">{formattedDate}</div>
           </div>
           <div className="flex w-full items-center justify-center">
             <div className="w-[33%] md:w-[20%]">Time:</div>

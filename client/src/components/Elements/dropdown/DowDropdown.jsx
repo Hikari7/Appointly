@@ -13,7 +13,7 @@ const initialValue = [
     {Sat: false},
   ]
 
-const DowDropdown = ({selectedDowObj}) => {
+const DowDropdown = ({selectedDowObj, setIsDowDropdownOpen}) => {
   const [dowStates, setDowStates] = useState(initialValue)
   const dispatch = useDispatch()
 
@@ -41,14 +41,19 @@ const DowDropdown = ({selectedDowObj}) => {
 
   const handleCopyAvailability = (e) => {
     e.preventDefault()
-    const baseTimeArr = selectedDowObj.time
-    const targetDowObj = dowStates.filter(eachDowObj => Object.values(eachDowObj)[0])
-    const targetDowArray = targetDowObj.map(eachDowObj => Object.keys(eachDowObj)[0])
-    dispatch(copyWeeklyAvailability({baseTimeArr, targetDowArray}))
+    try {
+      const baseTimeArr = selectedDowObj.time
+      const targetDowObj = dowStates.filter(eachDowObj => Object.values(eachDowObj)[0])
+      const targetDowArray = targetDowObj.map(eachDowObj => Object.keys(eachDowObj)[0])
+      dispatch(copyWeeklyAvailability({baseTimeArr, targetDowArray}))
+      setIsDowDropdownOpen(false)
+    } catch (error) {
+      console.log(error);    
+    }
   }
 
   return (
-    <div className="flex flex-col bg-white gap-1 m-4 px-1.5 pt-3 border-2 border-green-400 rounded-lg w-[500%] h-[500%] overflow-y-scroll absolute top-[30%] right-[-40%] z-50">
+    <div className="flex flex-col bg-white gap-1 m-4 px-1.5 pt-3 border-2 border-green-400 rounded-lg w-[500%] h-fit overflow-y-scroll absolute top-[30%] right-[-40%] z-50">
       <div className='text-center mb-3'>Copy times to ...</div>
       {dowStates && dowStates.map((eachDowObj, index) => (
         <label key={index} className='flex items-center font-bold ml-3'>

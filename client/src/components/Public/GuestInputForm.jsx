@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import GuestInputModal from "../Elements/Modal/guestInputModal";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
+import { sendEmail } from "../../utils/sendEmail";
 
 const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
@@ -28,7 +29,6 @@ const GuestInputForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.dir(e.target);
     setEmailErr("");
     setNameErr("");
     setMessageErr("");
@@ -85,39 +85,9 @@ const GuestInputForm = () => {
         date,
       };
 
-      console.log(params);
-
-      emailjs
-        .send(
-          import.meta.env.VITE_APP_SERVICE_ID,
-          import.meta.env.VITE_APP_USER_TEMPLATE_ID,
-          params,
-          import.meta.env.VITE_APP_PUBLIC_KEY
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
-
-      emailjs
-        .send(
-          import.meta.env.VITE_APP_SERVICE_ID,
-          import.meta.env.VITE_APP_GUEST_TEMPLATE_ID,
-          params,
-          import.meta.env.VITE_APP_PUBLIC_KEY
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
+      sendEmail(params, "user")
+      sendEmail(params, "guest")
+      
     } catch (err) {
       console.log(err);
     }

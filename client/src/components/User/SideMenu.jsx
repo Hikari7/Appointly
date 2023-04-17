@@ -26,6 +26,7 @@ const SideMenu = () => {
 
   const logout = () => {
     dispatch(setUser(null));
+
     navigate("/");
   };
 

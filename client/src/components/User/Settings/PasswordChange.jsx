@@ -5,6 +5,8 @@ import {
   validateConfirmPassword,
 } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
+import SuccessToast from "../../Elements/Toast/ToastSuccess";
+import ErrorToast from "../../Elements/Toast/ToastError";
 
 const PasswordChange = () => {
   const param = useParams();
@@ -16,23 +18,8 @@ const PasswordChange = () => {
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
 
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(null);
 
-  useEffect(() => {
-    if (success == true) {
-      setMessage(
-        <div className="toast toast-top toast-end">
-          <div className="alert alert-success">
-            <div>
-              <span>Password Changed!</span>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      setMessage(null);
-    }
-  }, [success]);
+  const [error, setError] = useState(false);
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
@@ -74,6 +61,7 @@ const PasswordChange = () => {
       }
     } catch (err) {
       console.log(err, err.message);
+      setError(true);
     }
   };
 
@@ -87,7 +75,6 @@ const PasswordChange = () => {
           <div className="md:w-5/12">
             <label className="block text-gray-700">New Password</label>
             <input
-              // defaultValue={user.password}
               ref={passwordInput}
               type="password"
               name="password"
@@ -104,7 +91,6 @@ const PasswordChange = () => {
           <div className="md:w-5/12">
             <label className="block text-gray-700">Confirm Password</label>
             <input
-              // defaultValue={user.password}
               ref={confirmPasswordInput}
               type="password"
               name="confirm password"
@@ -126,7 +112,12 @@ const PasswordChange = () => {
         </button>
       </form>
 
-      {message}
+      {success && (
+        <SuccessToast props={"Password changed!"} setFunction={setSuccess} />
+      )}
+      {error && (
+        <ErrorToast props={"Something went wrong!"} setFunction={setError} />
+      )}
     </>
   );
 };

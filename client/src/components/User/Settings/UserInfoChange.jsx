@@ -4,6 +4,8 @@ import { setUser } from "../../../redux/slicers/userSlice";
 import { useParams } from "react-router-dom";
 import { validateUsername, validateEmail } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
+import SuccessToast from "../../Elements/Toast/ToastSuccess";
+import ErrorToast from "../../Elements/Toast/ToastError";
 
 const UserInfoChange = () => {
   const user = useSelector((state) => state.user.user);
@@ -17,6 +19,8 @@ const UserInfoChange = () => {
 
   const [successUsername, setSuccessUsername] = useState(false);
   const [successEmail, setSuccessEmail] = useState(false);
+
+  const [error, setError] = useState(false);
 
   const handleAccountInfoChange = async (e) => {
     e.preventDefault();
@@ -66,6 +70,7 @@ const UserInfoChange = () => {
       }
     } catch (err) {
       console.log(err, err.message);
+      setError(true);
     }
   };
 
@@ -112,26 +117,19 @@ const UserInfoChange = () => {
           Save changes
         </button>
       </form>
-      <div className="toast toast-top toast-start">
-        {successUsername ? (
-          <div className="alert alert-success">
-            <div>
-              <span>Username Changed!</span>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {successEmail ? (
-          <div className="alert alert-success">
-            <div>
-              <span>Email Changed!</span>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
+
+      {successUsername && (
+        <SuccessToast
+          props={"Username Changed!"}
+          setFunction={setSuccessUsername}
+        />
+      )}
+      {successEmail && (
+        <SuccessToast props={"Email changed!"} setFunction={setSuccessEmail} />
+      )}
+      {error && (
+        <ErrorToast props={"Something went wrong!"} setFunction={setError} />
+      )}
     </>
   );
 };

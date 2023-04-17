@@ -85,8 +85,6 @@ exports.setAvailability = async (uid, data) => {
 exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
     const appointmentId = new ObjectId(appointmentid)
 
-    console.log(changedDateTime);
-
     try {
         await Appointment.findOneAndUpdate({ _id: appointmentId }, {
             $set: { "appointmentDateTime":  changedDateTime }

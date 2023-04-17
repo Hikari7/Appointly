@@ -1,19 +1,20 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
+import { setLoginToast } from "../../redux/slicers/loginToastSlice";
+import ErrorToast from "../../components/Elements/Toast/ToastError";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,13 +34,17 @@ const Login = () => {
       setPasswordErr("Please enter your password");
     }
 
+    // const { isLoading, error: queryError, data } = useQuery(
+    //   "login",
+    //   authApi.login({ email, password })
+    // )
+    // console.log(data);
+
     try {
       const res = await authApi.login({
         email,
         password,
       });
-      console.log("success to login!");
-      console.log(res);
 
       const loginDate = new Date(res.data.loginDate);
       const expireTime = loginDate.setHours(loginDate.getHours() + 12);
@@ -49,11 +54,17 @@ const Login = () => {
       newObj.username = res.data.username;
       newObj.email = res.data.email;
       newObj.loginDate = expireTime;
+
       dispatch(setUser(newObj));
 
-      navigate(`/${newObj.userId}/mypage`);
+      if (res.status === 200) {
+        const loginSuccess = true;
+        navigate(`/${newObj.userId}/mypage`, { replace: true });
+        dispatch(setLoginToast(loginSuccess));
+      }
     } catch (err) {
       console.log(err);
+      setError(true);
     }
   };
 
@@ -67,8 +78,12 @@ const Login = () => {
         <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
+              Appointly
+            </div>
+            <div className="text-md font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
+
             <h3 className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
             </h3>
@@ -123,6 +138,12 @@ const Login = () => {
             </Link>
           </div>
         </div>
+        {error && (
+          <ErrorToast
+            props={"Incorrect Email or password"}
+            setFunction={setError}
+          />
+        )}
       </section>
     </>
   );
