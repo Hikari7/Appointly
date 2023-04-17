@@ -57,25 +57,25 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
   return (
     <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
-      <div className="p-5 border-0 rounded-lg shadow-lg relative flex flex-col w-4/5 md:w-1/3 bg-white outline-none focus:outline-none">
+      <div className="p-5 border-0 rounded-lg shadow-lg relative flex flex-col items-center w-4/5 md:w-[40%] h-fit bg-white outline-none focus:outline-none">
         <div onClick={() => setIsRescheduleModal(false)} className='flex justify-end absolute top-[2%] right-[3%]'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 translate rounded-full hover:bg-gray-200">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
-        <div className='text-center text-xl font-bold mb-3'>Reschedule the Meeting</div>
-        <div className='flex flex-col items-center mb-5'>
-          <div className='flex items-center justify-center w-full'>
-            <p className='basis-[40%]'>Guest name:</p>
-            <span className="text-primary">{eachAppointment.name}</span>
+        <div className='text-center text-2xl font-bold my-6'>Reschedule the Meeting</div>
+        <div className='flex flex-col mb-5 w-[80%] md:w-[60%]'>
+          <div className='flex justify-center w-full'>
+            <p className='basis-[50%]'>Guest name:</p>
+            <span className="text-primary basis-[50%]">{eachAppointment.name}</span>
           </div>
-          <div className='flex items-center justify-center w-full'>
-            <p className='basis-[40%]'>Current date:</p>
-            <span className="text-primary">{formattedDate}</span>
+          <div className='flex justify-center w-full'>
+            <p className='basis-[50%]'>Current date:</p>
+            <span className="text-primary basis-[50%]">{formattedDate}</span>
           </div>
-          <div className='flex items-center justify-center w-full'>
-            <p className='basis-[40%]'>Current time:</p>
-            <span className="text-primary">{`${appointmentStartTime} - ${appointmentEndTime}`}</span>
+          <div className='flex justify-center w-full'>
+            <p className='basis-[50%]'>Current time:</p>
+            <span className="text-primary basis-[50%]">{`${appointmentStartTime} - ${appointmentEndTime}`}</span>
           </div>
         </div>
         <div className='flex flex-col justify-start w-full'>

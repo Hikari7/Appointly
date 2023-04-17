@@ -76,27 +76,28 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
       </HashLink>
       {isCollapseOpen && (
         <div id={eachAppointment._id} className="p-3 mx-auto">
-          <div className="flex flex-col mx-3">
-            <div className="flex items-center w-full">
-              <p className="basis-[40%]">Guest name:</p>
-              <span className="text-primary">{eachAppointment.name}</span>
-            </div>
-            <div className="flex items-center w-full">
-              <p className="basis-[40%]">Guest email:</p>
-              <span className="text-primary">{eachAppointment.email}</span>
-            </div>
-            <div className="flex items-center w-full">
-              <p className="basis-[40%]">Comments:</p>
-              <span className="text-primary">{eachAppointment.message}</span>
-            </div>
-            <div className="flex items-center w-full">
-              <p className="basis-[40%]">Created at:</p>
-              <span className="text-primary">{createdDate}</span>
+          <div className="flex justify-center">
+            <div className="flex flex-col mx-3 md:w-[60%]">
+              <div className="flex items-center w-full">
+                <p className="basis-[50%]">Guest name:</p>
+                <span className="text-primary">{eachAppointment.name}</span>
+              </div>
+              <div className="flex items-center w-full">
+                <p className="basis-[50%]">Guest email:</p>
+                <span className="text-primary">{eachAppointment.email}</span>
+              </div>
+              <div className="flex items-center w-full">
+                <p className="basis-[50%]">Comments:</p>
+                <span className="text-primary">{eachAppointment.message}</span>
+              </div>
+              <div className="flex items-center w-full">
+                <p className="basis-[50%]">Created at:</p>
+                <span className="text-primary">{createdDate}</span>
+              </div>
             </div>
           </div>
-          <div
-            
-            className="flex items-center justify-center my-2 gap-1"
+          <div            
+            className="flex items-center justify-center my-4 gap-1"
           >
             <button
               className="cursor-pointer px-5 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
