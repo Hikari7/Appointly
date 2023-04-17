@@ -2,14 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setLoginToast } from "../../../redux/slicers/loginToastSlice";
 
-const Toast = ({ props, method, setFuction }) => {
+const Toast = ({ props, method, setFunction }) => {
   const dispatch = useDispatch();
 
   setTimeout(() => {
     if (method === "login") {
       dispatch(setLoginToast(false));
     } else {
-      setFuction(false);
+      setFunction(false);
     }
   }, 2000);
 

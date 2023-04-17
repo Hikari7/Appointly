@@ -215,7 +215,7 @@ const Signup = () => {
         </div>
 
         {success ? (
-          <Toast props={"Registration successful!"} setFuction={setSuccess} />
+          <Toast props={"Registration successful!"} setFunction={setSuccess} />
         ) : (
           ""
         )}

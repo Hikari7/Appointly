@@ -115,12 +115,12 @@ const UserInfoChange = () => {
       </form>
 
       {successUsername ? (
-        <Toast props={"Username Changed!"} setFuction={setSuccessUsername} />
+        <Toast props={"Username Changed!"} setFunction={setSuccessUsername} />
       ) : (
         ""
       )}
       {successEmail ? (
-        <Toast props={"Email changed!"} setFuction={setSuccessEmail} />
+        <Toast props={"Email changed!"} setFunction={setSuccessEmail} />
       ) : (
         ""
       )}

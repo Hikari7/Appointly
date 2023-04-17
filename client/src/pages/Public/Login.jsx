@@ -147,7 +147,7 @@ const Login = () => {
         {error && (
           <ErrorToast
             props={"Incorrect Email or password"}
-            setFuction={setError}
+            setFunction={setError}
           />
         )}
       </section>

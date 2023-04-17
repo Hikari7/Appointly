@@ -1,8 +1,8 @@
 import React from "react";
 
-const Toast = ({ props, setFuction }) => {
+const Toast = ({ props, setFunction }) => {
   setTimeout(() => {
-    setFuction(false);
+    setFunction(false);
   }, 2000);
 
   return (
