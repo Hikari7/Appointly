@@ -19,9 +19,9 @@ const MyPage = () => {
 
   const [isCopied, setIsCopied] = useState(false);
 
-  useEffect(() => {
-    console.log(toast);
-  }, [toast]);
+  // useEffect(() => {
+  //   console.log(toast);
+  // }, [toast]);
 
   useAvailabilityData();
   useAppoinmentData();
@@ -113,7 +113,9 @@ const MyPage = () => {
               ))}
             </div>
           )}
-          {toast && <SuccessToast props={"Login Successfull!"} />}
+          {toast && (
+            <SuccessToast props={"Login Successfull!"} method="login" />
+          )}
         </div>
       </div>
     </>

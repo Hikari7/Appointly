@@ -74,8 +74,6 @@ const Login = () => {
     }
   };
 
-  //testtesttest@test.com
-
   return (
     <>
       <section className="flex flex-col md:flex-row h-screen items-center">
