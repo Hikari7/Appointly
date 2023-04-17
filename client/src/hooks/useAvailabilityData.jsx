@@ -36,7 +36,6 @@ const useAvailabilityData = () => {
       }
     };
     fetchData();
-    console.log(fetchData());
   }, []);
 };
 

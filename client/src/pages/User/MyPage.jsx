@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
+import SuccessToast from "../../components/Elements/Toast/ToastSuccess";
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
   const appointment = useSelector(
     (state) => state.listAppointment.listAppointment
   );
-  const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
+  const toast = useSelector((state) => state.loginToast.isLogined);
+
   const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    console.log(toast);
+  }, [toast]);
 
   useAvailabilityData();
   useAppoinmentData();
+
+  let bookedNum = appointment.length;
+
+  function currentBooking() {
+    if (bookedNum === 0) {
+      return <p>Let's start connecting to your guests!</p>;
+    } else if (bookedNum === 1) {
+      return <p>You have upcoming 1 meeting!</p>;
+    } else {
+      return <h3>You have upcoming {bookedNum} meetings!</h3>;
+    }
+  }
 
   const BASE_URL = `${import.meta.env.VITE_DEPLOY_URL}`;
   const userId = user.userId;
@@ -28,8 +47,6 @@ const MyPage = () => {
     setIsCopied(true);
     return await navigator.clipboard.writeText(userLink);
   };
-
-  let bookedNum = appointment.length;
 
   return (
     <>
@@ -42,11 +59,7 @@ const MyPage = () => {
             src={mypageImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-          {appointment.length === 0 ? (
-            "Let's start connecting to your guests!"
-          ) : (
-            <h3>You have upcoming {bookedNum} meetings!</h3>
-          )}
+          <div>{currentBooking()}</div>
         </TitleWrapper>
         <div className="mt-14 md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
@@ -100,6 +113,7 @@ const MyPage = () => {
               ))}
             </div>
           )}
+          {toast && <SuccessToast props={"Login Successfull!"} />}
         </div>
       </div>
     </>

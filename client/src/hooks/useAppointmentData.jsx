@@ -11,7 +11,6 @@ const useAppoinmentData = () => {
     const fetchData = async () => {
       try {
         const res = await userAppointmentApi.getAll(user.userId);
-        console.log(res);
         if (res.data.length > 0) {
           const today = new Date();
           const filteredAppointment = res.data.filter(function (
