@@ -4,7 +4,8 @@ import { setUser } from "../../../redux/slicers/userSlice";
 import { useParams } from "react-router-dom";
 import { validateUsername, validateEmail } from "../../../utils/validators";
 import userSettingApi from "../../../api/userSettingApi";
-import Toast from "../../Elements/Toast/ToastSuccess";
+import SuccessToast from "../../Elements/Toast/ToastSuccess";
+import ErrorToast from "../../Elements/Toast/ToastError";
 
 const UserInfoChange = () => {
   const user = useSelector((state) => state.user.user);
@@ -18,6 +19,8 @@ const UserInfoChange = () => {
 
   const [successUsername, setSuccessUsername] = useState(false);
   const [successEmail, setSuccessEmail] = useState(false);
+
+  const [error, setError] = useState(false);
 
   const handleAccountInfoChange = async (e) => {
     e.preventDefault();
@@ -67,6 +70,7 @@ const UserInfoChange = () => {
       }
     } catch (err) {
       console.log(err, err.message);
+      setError(true);
     }
   };
 
@@ -79,7 +83,7 @@ const UserInfoChange = () => {
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
             <label className="block text-gray-700">Username</label>
-            <input
+            <inputl
               defaultValue={user.username}
               ref={userInput}
               type="username"
@@ -114,15 +118,17 @@ const UserInfoChange = () => {
         </button>
       </form>
 
-      {successUsername ? (
-        <Toast props={"Username Changed!"} setFunction={setSuccessUsername} />
-      ) : (
-        ""
+      {successUsername && (
+        <SuccessToast
+          props={"Username Changed!"}
+          setFunction={setSuccessUsername}
+        />
       )}
-      {successEmail ? (
-        <Toast props={"Email changed!"} setFunction={setSuccessEmail} />
-      ) : (
-        ""
+      {successEmail && (
+        <SuccessToast props={"Email changed!"} setFunction={setSuccessEmail} />
+      )}
+      {error && (
+        <ErrorToast props={"Something went wrong!"} setFunction={setError} />
       )}
     </>
   );

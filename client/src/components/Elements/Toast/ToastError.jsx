@@ -1,6 +1,6 @@
 import React from "react";
 
-const Toast = ({ props, setFunction }) => {
+const ToastError = ({ props, setFunction }) => {
   setTimeout(() => {
     setFunction(false);
   }, 2000);
@@ -18,4 +18,4 @@ const Toast = ({ props, setFunction }) => {
   );
 };
 
-export default Toast;
+export default ToastError;

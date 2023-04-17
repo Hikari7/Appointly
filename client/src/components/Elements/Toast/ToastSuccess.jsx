@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setLoginToast } from "../../../redux/slicers/loginToastSlice";
 
-const Toast = ({ props, method, setFunction }) => {
+const ToastError = ({ props, method, setFunction }) => {
   const dispatch = useDispatch();
 
   setTimeout(() => {
@@ -26,4 +26,4 @@ const Toast = ({ props, method, setFunction }) => {
   );
 };
 
-export default Toast;
+export default ToastError;

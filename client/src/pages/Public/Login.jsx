@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
@@ -55,17 +55,6 @@ const Login = () => {
         const loginSuccess = true;
         navigate(`/${newObj.userId}/mypage`, { replace: true });
 
-        // const reroute = async () => {
-        //   await new Promise((res) => setTimeout(() => res(), 2000));
-        //   const route = newObj.userId;
-        //   navigate(`/${route}/mypage`);
-        // };
-
-        // reroute();
-        // await new Promise((resolve) => {
-        //   setTimeout(() => resolve(), 1000);
-        // });
-        // const path = newObj.userId;
         dispatch(setLoginToast(loginSuccess));
       }
     } catch (err) {
