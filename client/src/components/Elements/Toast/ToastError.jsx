@@ -1,6 +1,10 @@
 import React from "react";
 
-const Toast = ({ props }) => {
+const Toast = ({ props, setFuction }) => {
+  setTimeout(() => {
+    setFuction(false);
+  }, 2000);
+
   return (
     <>
       <div className="toast toast-top toast-end">

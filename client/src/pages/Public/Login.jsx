@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoginImg from "../../assets/LoginImg.jpg";
 import authApi from "../../api/authApi";
 import { setUser } from "../../redux/slicers/userSlice";
-import SuccessToast from "../../components/Elements/Toast/ToastSuccess";
+import { setLoginToast } from "../../redux/slicers/loginToastSlice";
 import ErrorToast from "../../components/Elements/Toast/ToastError";
 
 const Login = () => {
@@ -12,10 +12,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -53,26 +51,22 @@ const Login = () => {
 
       dispatch(setUser(newObj));
 
-      // const reroute = async () => {
-      //   await new Promise((res) => setTimeout(() => res(), 2000));
-      //   const route = newObj.userId;
-      //   navigate(`/${route}/mypage`);
-      // };
-
-      // reroute();
-      // await new Promise((resolve) => {
-      //   setTimeout(() => resolve(), 1000);
-      // });
-      // const path = newObj.userId;
-
-      console.log(res.status);
       if (res.status === 200) {
-        setSuccess(true);
-        console.log("success");
+        const loginSuccess = true;
         navigate(`/${newObj.userId}/mypage`, { replace: true });
-      } else {
-        console.log("error");
-        setError(true);
+
+        // const reroute = async () => {
+        //   await new Promise((res) => setTimeout(() => res(), 2000));
+        //   const route = newObj.userId;
+        //   navigate(`/${route}/mypage`);
+        // };
+
+        // reroute();
+        // await new Promise((resolve) => {
+        //   setTimeout(() => resolve(), 1000);
+        // });
+        // const path = newObj.userId;
+        dispatch(setLoginToast(loginSuccess));
       }
     } catch (err) {
       console.log(err);
@@ -150,8 +144,12 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        {success ? <SuccessToast props={"Login Successfull!"} /> : ""}
-        {error ? <ErrorToast props={"Incorrect Email or password"} /> : ""}
+        {error && (
+          <ErrorToast
+            props={"Incorrect Email or password"}
+            setFuction={setError}
+          />
+        )}
       </section>
     </>
   );

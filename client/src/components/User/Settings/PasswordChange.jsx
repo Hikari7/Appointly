@@ -21,7 +21,7 @@ const PasswordChange = () => {
 
   useEffect(() => {
     if (success == true) {
-      setMessage(<Toast props={"Password changed!"} />);
+      setMessage(<Toast props={"Password changed!"} setFuction={setSuccess} />);
     } else {
       setMessage(null);
     }
@@ -125,3 +125,5 @@ const PasswordChange = () => {
 };
 
 export default PasswordChange;
+
+
