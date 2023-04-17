@@ -2,14 +2,16 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setLoginToast } from "../../../redux/slicers/loginToastSlice";
 
-const Toast = ({ props, method, setFuction }) => {
+const ToastSuccess = ({ props, method, setFunction }) => {
   const dispatch = useDispatch();
 
   setTimeout(() => {
     if (method === "login") {
       dispatch(setLoginToast(false));
+    }else if(method === "mtg"){
+      setFunction(prev => ({...prev, success: false}))
     } else {
-      setFuction(false);
+      setFunction(false);
     }
   }, 2000);
 
@@ -26,4 +28,4 @@ const Toast = ({ props, method, setFuction }) => {
   );
 };
 
-export default Toast;
+export default ToastSuccess;

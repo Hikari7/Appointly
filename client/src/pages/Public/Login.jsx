@@ -34,6 +34,12 @@ const Login = () => {
       setPasswordErr("Please enter your password");
     }
 
+    // const { isLoading, error: queryError, data } = useQuery(
+    //   "login",
+    //   authApi.login({ email, password })
+    // )
+    // console.log(data);
+
     try {
       const res = await authApi.login({
         email,
@@ -147,7 +153,7 @@ const Login = () => {
         {error && (
           <ErrorToast
             props={"Incorrect Email or password"}
-            setFuction={setError}
+            setFunction={setError}
           />
         )}
       </section>

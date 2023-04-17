@@ -5,11 +5,16 @@ import userAppointmentApi from "../../api/userAppointmentApi";
 import { setCheckBox, deleteTimeObj, removeExtraTimeObj } from "../../redux/slicers/availabilitySlice";
 import WeeklyAvailabilityInput from "../Elements/Input/WeeklyAvailabilityInput";
 import AddCopyBtn from "./AddCopyBtn";
+import { useState } from "react";
+import ToastSuccess from "../Elements/Toast/ToastSuccess";
+import ToastError from "../Elements/Toast/ToastError";
 
 const WeeklyAvailability = () => {
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch();
   const param = useParams();
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const handleDelete = (e, dow, data) => {
     e.preventDefault();
@@ -47,12 +52,11 @@ const WeeklyAvailability = () => {
         daily: [],
       });
       if (res.status === 200) {
-        alert("Successfully availability was changed!");
-      } else {
-        alert("Something went wrong... Please try again.");
+        setIsSuccess(true)
       }
     } catch (error) {
       console.log(error);
+      setIsError(true)
     }
   };
 
@@ -103,6 +107,8 @@ const WeeklyAvailability = () => {
           Change apply
         </button>
       </form>
+      {isSuccess && <ToastSuccess props={"Successfully availability was changed!"} />}
+      {isError && <ToastError props={"Something went wrong... Please try again."} />}
     </div>
   );
 };

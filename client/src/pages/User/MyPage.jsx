@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
-import SuccessToast from "../../components/Elements/Toast/ToastSuccess";
+import ToastSuccess from '../../components/Elements/Toast/ToastSuccess';
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -18,10 +18,8 @@ const MyPage = () => {
   const toast = useSelector((state) => state.loginToast.isLogined);
 
   const [isCopied, setIsCopied] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(toast);
-  // }, [toast]);
+  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({success: false, error: false})
+  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({success: false, error: false})
 
   useAvailabilityData();
   useAppoinmentData();
@@ -109,6 +107,8 @@ const MyPage = () => {
                 <AppointmentCollapse
                   key={eachAppointment._id}
                   eachAppointment={eachAppointment}
+                  setIsMtgDeleteToast={setIsMtgDeleteToast}
+                  setIsMtgRescheduleToast={setIsMtgRescheduleToast}
                 />
               ))}
             </div>
@@ -118,6 +118,8 @@ const MyPage = () => {
           )}
         </div>
       </div>
+      {isMtgDeleteToast.success && <ToastSuccess props={"Successfully deleted!"} setFunction={setIsMtgDeleteToast}  method={"mtg"} />}
+      {isMtgRescheduleToast.success && <ToastSuccess props={"Successfully reschedule!"} setFunction={setIsMtgRescheduleToast} method={"mtg"}/> }
     </>
   );
 };

@@ -3,25 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import userAppointmentApi from '../../../api/userAppointmentApi';
 import { deleteAppointment } from "../../../redux/slicers/listAppointment"
+import ToastError from '../Toast/ToastError';
 
 const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
   const appointmentList  = useSelector( (state) => state.listAppointment.listAppointment );
   const dispatch = useDispatch()
   const [isChecked, setIsChecked] = useState(false)
+  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({success: false, error: false})
 
   const handleSubmit = async () => {
     try {
-      const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
+      const res = await userAppointmentApi.deleteMTG()
+      // const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
       if(res.status === 200){
+        setIsMtgDeleteToast(prev => ({...prev, success: true}))
         setIsDeleteMTGModal(false)
-        const filteredArray = appointmentList.filter(e => e._id === eachAppointment._id)
+        const filteredArray = appointmentList.filter(e => e._id !== eachAppointment._id)
         dispatch(deleteAppointment({filteredArray}))
-        alert("Successfully deleted!")
-      }else{
-        alert("Something went wrong... Please try again.")
       }
     } catch (error) {
-      alert("Something went wrong... Please try again.")
+      setIsMtgDeleteToast(prev => ({...prev, error: true}))
       console.log(error);
     }
   }
@@ -61,6 +62,7 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
           Delete meeting
         </button>
       </div>
+      {isMtgDeleteToast.error && <ToastError props={"Something went wrong... Please try again."} setFunction={setIsMtgDeleteToast}  method={"mtg"} />}
     </div>
   )
 }

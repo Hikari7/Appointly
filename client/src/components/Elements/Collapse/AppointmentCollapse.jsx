@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { HashLink } from "react-router-hash-link";
 
-import RescheduleModal from "../Modal/RescheduleModal";
-import DeleteMTGModal from "../Modal/DeleteMTGModal";
 import moment from "moment";
 
-const AppointmentCollapse = ({ eachAppointment }) => {
+import RescheduleModal from "../Modal/RescheduleModal";
+import DeleteMTGModal from "../Modal/DeleteMTGModal";
+
+const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRescheduleToast }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
@@ -28,14 +29,13 @@ const AppointmentCollapse = ({ eachAppointment }) => {
 
   return (
     <div
-      id={eachAppointment._id}
       tabIndex={0}
       onClick={() => setIsCollapseOpen(!isCollapseOpen)}
       className="border border-info bg-base-100 rounded-box w-4/6 mx-auto"
     >
       <HashLink
         smooth
-        to="#appointmentBtns"
+        to={`#${eachAppointment._id}`}
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly"
       >
         <div className="flex flex-col">
@@ -75,7 +75,7 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         )}
       </HashLink>
       {isCollapseOpen && (
-        <div className="p-3 mx-auto">
+        <div id={eachAppointment._id} className="p-3 mx-auto">
           <div className="flex flex-col mx-3">
             <div className="flex items-center w-full">
               <p className="basis-[40%]">Guest name:</p>
@@ -95,7 +95,7 @@ const AppointmentCollapse = ({ eachAppointment }) => {
             </div>
           </div>
           <div
-            id="appointmentBtns"
+            
             className="flex items-center justify-center my-2 gap-1"
           >
             <button
@@ -117,12 +117,14 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         <RescheduleModal
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
+          setIsMtgRescheduleToast={setIsMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
         <DeleteMTGModal
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
+          setIsMtgDeleteToast={setIsMtgDeleteToast}
         />
       )}
     </div>
