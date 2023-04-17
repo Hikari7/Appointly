@@ -83,7 +83,7 @@ const UserInfoChange = () => {
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
             <label className="block text-gray-700">Username</label>
-            <inputl
+            <input
               defaultValue={user.username}
               ref={userInput}
               type="username"
