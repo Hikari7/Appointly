@@ -114,8 +114,16 @@ const UserInfoChange = () => {
         </button>
       </form>
 
-      {successUsername ? <Toast props={"Username Changed!"} /> : ""}
-      {successEmail ? <Toast props={"Email changed!"} /> : ""}
+      {successUsername ? (
+        <Toast props={"Username Changed!"} setFunction={setSuccessUsername} />
+      ) : (
+        ""
+      )}
+      {successEmail ? (
+        <Toast props={"Email changed!"} setFunction={setSuccessEmail} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

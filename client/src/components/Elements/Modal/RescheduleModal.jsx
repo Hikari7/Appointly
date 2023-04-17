@@ -6,12 +6,13 @@ import DatePicker from '../../User/DatePicker'
 import userAppointmentApi from '../../../api/userAppointmentApi';
 import { useDispatch } from 'react-redux';
 import { updateAppointment } from "../../../redux/slicers/listAppointment"
-import { sendEmail } from '../../../utils/sendEmail';
+import ToastError from '../Toast/ToastError';
 
-const RescheduleModal = ({setIsRescheduleModal, eachAppointment, setIsMtgRescheduleToast}) => {
+const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false)
+  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({success: false, error: false})
   const dispatch = useDispatch()
 
   const formattedDate = moment(eachAppointment.appointmentDateTime.date).format("MMM DD, YYYY")
@@ -48,7 +49,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment, setIsMtgResched
         dispatch(updateAppointment({meetingId: eachAppointment._id, dateTime: paramas}))
       }
     } catch (error) {
-      setIsMtgRescheduleToast(prev => ({...prev, success: false}))
+      setIsMtgRescheduleToast(prev => ({...prev, error: true}))
       console.log(error);
     }
   }
@@ -95,9 +96,9 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment, setIsMtgResched
             {toggleTimeSelector && 
               <div className={"flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[300%] overflow-y-scroll absolute top-[56%] left-[18%] md:top-[46%] md:left-[29%] z-50"}>
               {timeArr && timeArr.map((eachTime, index) => (
-                  <div onClick={() => handleTimeSelect(eachTime)} key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
-                      {eachTime}
-                  </div>
+                <div onClick={() => handleTimeSelect(eachTime)} key={index} className='p-1 hover:bg-gray-200 rounded-lg'>
+                  {eachTime}
+                </div>
               ))}
               </div>
             }
@@ -111,6 +112,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment, setIsMtgResched
           Reschedule
         </button>
       </div>
+      {isMtgRescheduleToast.error && <ToastError props={"Something went wrong... Please try again."} setFunction={setIsMtgRescheduleToast} method={"mtg"}/>}
     </div>
   )
 }

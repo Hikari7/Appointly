@@ -1,6 +1,13 @@
-import React from "react";
 
-const Toast = ({ props }) => {
+const ToastError = ({ props, method, setFunction }) => {
+  setTimeout(() => {
+    if(method === "mtg"){
+      setFunction(prev => ({...prev, error: false}))
+    }else{
+      setFunction(false);
+    }
+  }, 2000);
+
   return (
     <>
       <div className="toast toast-top toast-end">
@@ -14,4 +21,4 @@ const Toast = ({ props }) => {
   );
 };
 
-export default Toast;
+export default ToastError;

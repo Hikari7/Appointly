@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import userAppointmentApi from '../../../api/userAppointmentApi';
 import { deleteAppointment } from "../../../redux/slicers/listAppointment"
+import ToastError from '../Toast/ToastError';
 
-const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment, setIsMtgDeleteToast}) => {
+const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment}) => {
   const appointmentList  = useSelector( (state) => state.listAppointment.listAppointment );
   const dispatch = useDispatch()
   const [isChecked, setIsChecked] = useState(false)
+  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({success: false, error: false})
 
   const handleSubmit = async () => {
     try {
@@ -20,9 +22,8 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment, setIsMtgDeleteToa
         dispatch(deleteAppointment({filteredArray}))
       }
     } catch (error) {
-      console.log(error);
       setIsMtgDeleteToast(prev => ({...prev, error: true}))
-      setIsDeleteMTGModal(false)
+      console.log(error);
     }
   }
 
@@ -61,6 +62,7 @@ const DeleteMTGModal = ({setIsDeleteMTGModal, eachAppointment, setIsMtgDeleteToa
           Delete meeting
         </button>
       </div>
+      {isMtgDeleteToast.error && <ToastError props={"Something went wrong... Please try again."} setFunction={setIsMtgDeleteToast}  method={"mtg"} />}
     </div>
   )
 }
