@@ -60,7 +60,6 @@ const Login = () => {
       if (res.status === 200) {
         const loginSuccess = true;
         navigate(`/${newObj.userId}/mypage`, { replace: true });
-
         dispatch(setLoginToast(loginSuccess));
       }
     } catch (err) {

@@ -7,10 +7,9 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
-import ToastSuccess from '../../components/Elements/Toast/ToastSuccess';
+import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 
 const MyPage = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const appointment = useSelector(
     (state) => state.listAppointment.listAppointment
@@ -18,8 +17,14 @@ const MyPage = () => {
   const toast = useSelector((state) => state.loginToast.isLogined);
 
   const [isCopied, setIsCopied] = useState(false);
-  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({success: false, error: false})
-  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({success: false, error: false})
+  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({
+    success: false,
+    error: false,
+  });
+  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({
+    success: false,
+    error: false,
+  });
 
   useAvailabilityData();
   useAppoinmentData();
@@ -114,12 +119,24 @@ const MyPage = () => {
             </div>
           )}
           {toast && (
-            <SuccessToast props={"Login Successfull!"} method="login" />
+            <ToastSuccess props={"Login Successfull!"} method="login" />
           )}
         </div>
       </div>
-      {isMtgDeleteToast.success && <ToastSuccess props={"Successfully deleted!"} setFunction={setIsMtgDeleteToast}  method={"mtg"} />}
-      {isMtgRescheduleToast.success && <ToastSuccess props={"Successfully reschedule!"} setFunction={setIsMtgRescheduleToast} method={"mtg"}/> }
+      {isMtgDeleteToast.success && (
+        <ToastSuccess
+          props={"Successfully deleted!"}
+          setFunction={setIsMtgDeleteToast}
+          method={"mtg"}
+        />
+      )}
+      {isMtgRescheduleToast.success && (
+        <ToastSuccess
+          props={"Successfully reschedule!"}
+          setFunction={setIsMtgRescheduleToast}
+          method={"mtg"}
+        />
+      )}
     </>
   );
 };
