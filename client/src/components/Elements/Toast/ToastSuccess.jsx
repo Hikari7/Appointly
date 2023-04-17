@@ -8,8 +8,8 @@ const ToastSuccess = ({ props, method, setFunction }) => {
   setTimeout(() => {
     if (method === "login") {
       dispatch(setLoginToast(false));
-    }else if(method === "mtg"){
-      setFunction(prev => ({...prev, success: false}))
+    } else if (method === "mtg") {
+      setFunction((prev) => ({ ...prev, success: false }));
     } else {
       setFunction(false);
     }

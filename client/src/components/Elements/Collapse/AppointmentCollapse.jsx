@@ -100,13 +100,13 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
             className="flex items-center justify-center my-4 gap-1"
           >
             <button
-              className="cursor-pointer px-5 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
+              className="cursor-pointer px-3 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
               onClick={() => setIsRescheduleModal(!isRescheduleModal)}
             >
               Reschedule
             </button>
             <button
-              className="cursor-pointer px-5 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
+              className="cursor-pointer px-3 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
               onClick={() => setIsDeleteMTGModal(!isDeleteMTGModal)}
             >
               Cancel MTG
