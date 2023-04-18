@@ -32,7 +32,8 @@
     "react-router-dom": "^6.9.0",
     "react-router-hash-link": "^2.4.3",
     "redux-persist": "^6.0.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
