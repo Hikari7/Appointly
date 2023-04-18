@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer')
+// import { render } from '@react-email/render';
+
 require('dotenv').config()
 
-// const RescheduleEmail = require('../../../../client/src/components/Elements/EmailView/RescheduleEmail')
+// const RescheduleEmail = require('../emailView/RescheduleEmail')
 
 const sendRescheduleEmail = async (host, guest, mtgInfo) => {
   const transporter = nodemailer.createTransport({
