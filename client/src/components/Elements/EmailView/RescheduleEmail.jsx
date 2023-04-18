@@ -35,7 +35,8 @@ const RescheduleEmail = ({ host, guest, mtgInfo }) => {
   )
 }
 
-export default RescheduleEmail
+// export default RescheduleEmail
+module.exports = RescheduleEmail
 
 // Styles
 
