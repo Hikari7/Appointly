@@ -8,6 +8,7 @@ import useAppoinmentData from "../../hooks/useAppointmentData";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
+import RescheduleEmail from "../../components/Elements/EmailView/RescheduleEmail";
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -51,8 +52,13 @@ const MyPage = () => {
     return await navigator.clipboard.writeText(userLink);
   };
 
+  const host = {name: "Jess", email: "jess@jess.com"}
+  const guest = {name: "Guest", email: "guest@guest.com"}
+  const mtgInfo = {date: "Apr 20, 2023", time: "11:00"}
+
   return (
     <>
+      {/* <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} /> */}
       <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
