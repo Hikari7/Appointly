@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
+// import { Mypage as MypageImg } from "../../assets/mypage.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
@@ -52,9 +53,9 @@ const MyPage = () => {
     return await navigator.clipboard.writeText(userLink);
   };
 
-  const host = {name: "Jess", email: "jess@jess.com"}
-  const guest = {name: "Guest", email: "guest@guest.com"}
-  const mtgInfo = {date: "Apr 20, 2023", time: "11:00"}
+  const host = { name: "Jess", email: "jess@jess.com" };
+  const guest = { name: "Guest", email: "guest@guest.com" };
+  const mtgInfo = { date: "Apr 20, 2023", time: "11:00" };
 
   return (
     <>
@@ -68,6 +69,7 @@ const MyPage = () => {
             src={mypageImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
+          {/* <MypageImg className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60" /> */}
           <div>{currentBooking()}</div>
         </TitleWrapper>
         <div className="mt-14 md:w-5/6 w-full">
