@@ -5,6 +5,8 @@ const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
 const User = require('../models/User');
 
+const rescheduleEmail = require('../utils/nodemailer/rescheduleMail')
+
 exports.fetchAppointment = async (uid) => {
     const userId = new ObjectId(uid)
     return await Appointment.find({ hostUser: userId })
@@ -90,9 +92,11 @@ exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
             $set: { "appointmentDateTime":  changedDateTime }
         })
 
-        // console.log(await Appointment.findOne(appointmentId));
+        // const host = await User.findOne({_id: })
+        // rescheduleEmail()
 
         return await Appointment.findOne(appointmentId)
+
     } catch (error) {
         console.log(error);
     }
