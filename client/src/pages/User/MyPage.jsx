@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
-// import { Mypage as MypageImg } from "../../assets/mypage.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
@@ -10,6 +9,7 @@ import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import RescheduleEmail from "../../components/Elements/EmailView/RescheduleEmail";
+import CancelationEmail from "../../components/Elements/EmailView/CancelationEmail";
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -59,7 +59,8 @@ const MyPage = () => {
 
   return (
     <>
-      {/* <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} /> */}
+      {/* <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} />
+      <CancelationEmail host={host} guest={guest} mtgInfo={mtgInfo} /> */}
       <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">

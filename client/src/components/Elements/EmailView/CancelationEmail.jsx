@@ -6,7 +6,7 @@ import { Text } from "@react-email/text";
 import { Body } from "@react-email/body";
 import { Hr } from "@react-email/hr";
 
-const RescheduleEmail = ({ host, guest, mtgInfo }) => {
+const CancelationEmail = ({ host, guest, mtgInfo }) => {
   return (
     <Html>
       <Head />
@@ -16,14 +16,14 @@ const RescheduleEmail = ({ host, guest, mtgInfo }) => {
         <Hr style={hr} />
 
         <Container style={container}>
-          <Text style={h1}>Rescheduled meeting</Text>
+          <Text style={h1}>Canceled meeting</Text>
           <Text style={h2}>
             @{mtgInfo.date} {mtgInfo.time} (PDT)
           </Text>
 
           <Text style={paragraph}>Hi {guest.name},</Text>
           <Text style={paragraph}>
-            This meeting has been rescheduled by {host.name}.
+            This meeting has been canceled by {host.name}.
             <br />
             Here's the updated meeting information.
           </Text>
@@ -48,7 +48,7 @@ const RescheduleEmail = ({ host, guest, mtgInfo }) => {
   );
 };
 
-export default RescheduleEmail;
+export default CancelationEmail;
 
 // Styles
 
