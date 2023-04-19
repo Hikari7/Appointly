@@ -1,29 +1,29 @@
-import { Html } from '@react-email/html';
-import { Head } from '@react-email/head';
-import { Preview } from '@react-email/preview';
-import { Container } from '@react-email/container';
-import { Text } from '@react-email/text';
+const Html = require('@react-email/html')
+const Head = require('@react-email/head')
+const Preview = require('@react-email/preview')
+const Container = require('@react-email/container')
+const Text = require('@react-email/text')
+const { h } = require('preact')
 
-
-const RescheduleEmail = ({ host, guest, mtgInfo }) => {
+exports.RescheduleEmail = ({host, mtgInfo}) => {
   return (
-    <Html>
+    <Html lang="en">
     <Head />
     <Preview>
       Your meetin is rescheduled!
     </Preview>
       <Container style={container}>
-        <Text style={paragraph}>Hi {guest.name},</Text>
+        <Text style={paragraph}>Hi {mtgInfo.name},</Text>
         <Text style={paragraph}>
-          Your meeting was rescheduled by the host, {host.name}. Please check the details below.
+          Your meeting was rescheduled by the host, {host.username}. Please check the details below.
         </Text>
         <Text style={paragraph}>Updated meeting information</Text>
         <Text style={paragraph}>Event Type:</Text>
         <Text style={paragraph}>30 Minute Meeting</Text>
         <Text style={paragraph}>Host:</Text>
-        <Text style={paragraph}>{host.name}</Text>
+        <Text style={paragraph}>{host.username}</Text>
         <Text style={paragraph}>Event Date/Time:</Text>
-        <Text style={paragraph}>{mtgInfo.date}, {mtgInfo.time}</Text>
+        <Text style={paragraph}>{mtgInfo.appointmentDateTime.date}, {mtgInfo.appointmentDateTime.time}</Text>
         <Text style={paragraph}>(Pacific Time - US & Canada)</Text>
         <Text style={paragraph}>
           Best wishes,
@@ -35,8 +35,7 @@ const RescheduleEmail = ({ host, guest, mtgInfo }) => {
   )
 }
 
-// export default RescheduleEmail
-module.exports = RescheduleEmail
+// module.exports = RescheduleEmail
 
 // Styles
 

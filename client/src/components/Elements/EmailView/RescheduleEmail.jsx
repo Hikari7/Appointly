@@ -4,6 +4,11 @@ import { Preview } from '@react-email/preview';
 import { Container } from '@react-email/container';
 import { Text } from '@react-email/text';
 
+// const Html = require('@react-email/html')
+// const Head = require('@react-email/head')
+// const Preview = require('@react-email/preview')
+// const Container = require('@react-email/container')
+// const Text = require('@react-email/text')
 
 const RescheduleEmail = ({ host, guest, mtgInfo }) => {
   return (
@@ -35,8 +40,7 @@ const RescheduleEmail = ({ host, guest, mtgInfo }) => {
   )
 }
 
-// export default RescheduleEmail
-module.exports = RescheduleEmail
+export default RescheduleEmail
 
 // Styles
 

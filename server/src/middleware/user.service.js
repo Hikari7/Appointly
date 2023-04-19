@@ -92,8 +92,9 @@ exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
             $set: { "appointmentDateTime":  changedDateTime }
         })
 
-        // const host = await User.findOne({_id: })
-        // rescheduleEmail()
+        const mtgInfo = await Appointment.findOne({_id: appointmentid}).lean()
+        const host = await User.findOne({_id: mtgInfo.hostUser})
+        rescheduleEmail.sendRescheduleEmail(host, mtgInfo)
 
         return await Appointment.findOne(appointmentId)
 

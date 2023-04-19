@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer')
-// import { render } from '@react-email/render';
+const { render } = require('@react-email/render')
 
 require('dotenv').config()
 
-// const RescheduleEmail = require('../emailView/RescheduleEmail')
+const { RescheduleEmail } = require("../emailView/RescheduleEmail.jsx")
 
-const sendRescheduleEmail = async (host, guest, mtgInfo) => {
+exports.sendRescheduleEmail = async (host, mtgInfo) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SENDINBLUE_HOST,
     port: 587,
@@ -16,10 +16,15 @@ const sendRescheduleEmail = async (host, guest, mtgInfo) => {
     }
   })
 
+  const templateHTML = render(RescheduleEmail({host, mtgInfo}))
+
   const rescheduleEmail = await transporter.sendMail({
     from: "Appointly",
-    to: guest.email,
+    to: mtgInfo.email,
     subject: "Your meeting was rescheduled",
-    // html: <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} />,
+    html: templateHTML
   })
+
+  transporter.sendMail(rescheduleEmail);
+
 }
