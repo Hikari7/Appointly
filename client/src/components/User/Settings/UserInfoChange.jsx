@@ -76,7 +76,7 @@ const UserInfoChange = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
+      <h3 className="text-xl font-bold leading-tight  mt-10  text-center font-second text-accent">
         Account information
       </h3>
       <form className="mt-6" onSubmit={handleAccountInfoChange}>
@@ -112,7 +112,7 @@ const UserInfoChange = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
+          className="btn btn-primary normal-case font-bold py-2 my-7"
         >
           Save changes
         </button>

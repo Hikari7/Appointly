@@ -1,26 +1,26 @@
-import { useState, useEffect, useRef, useContext } from 'react'
-import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router'
+import { useState, useEffect, useRef, useContext } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import moment from "moment";
 
-import moment from 'moment'
-
-import userAppointmentApi from '../../api/userAppointmentApi'
-import EachTimeInput from '../Elements/Input/EachTimeInput'
-import { setDailyAvailability } from '../../redux/slicers/availabilitySlice'
-import { TargetTime } from './DailyAvailability'
+import userAppointmentApi from "../../api/userAppointmentApi";
+import EachTimeInput from "../Elements/Input/EachTimeInput";
+import { setDailyAvailability } from "../../redux/slicers/availabilitySlice";
+import { TargetTime } from "./DailyAvailability";
 import ToastSuccess from "../Elements/Toast/ToastSuccess";
 import ToastError from "../Elements/Toast/ToastError";
 
 const TimeAvailability = ({ selectDate }) => {
-  const dispatch = useDispatch()
-  const timeSelector = useRef(null)
-  const param = useParams()
-  const { currentAvailbleTime, setCurrentAvailbleTime } = useContext(TargetTime)
-  const [selectedItem, setSelectedItem] = useState("")
-  const [clickedElem, setClickedElem] = useState(null)
-  const [isChecked, setIsChecked] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const dispatch = useDispatch();
+  const timeSelector = useRef(null);
+  const param = useParams();
+  const { currentAvailbleTime, setCurrentAvailbleTime } =
+    useContext(TargetTime);
+  const [selectedItem, setSelectedItem] = useState("");
+  const [clickedElem, setClickedElem] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const formattedDate = moment(selectDate).format("MMM DD, YYYY");
 
@@ -89,28 +89,38 @@ const TimeAvailability = ({ selectDate }) => {
     if (isChecked) {
       // axios logic to overwrite availability each date as "Unavauable"
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: []}], target: "daily"})
-        if(res.status === 200){
-          setIsSuccess(true)
+        const res = await userAppointmentApi.set(param.uid, {
+          weekly: [],
+          daily: [{ date: selectDate, time: [] }],
+          target: "daily",
+        });
+        if (res.status === 200) {
+          setIsSuccess(true);
         }
         dispatch(
           setDailyAvailability({ date: selectDate, time: currentAvailbleTime })
         );
       } catch (error) {
         console.log(error);
-        setIsError(true)
-      }      
-    }else{
+        setIsError(true);
+      }
+    } else {
       // axios logic to overwrite availability by daily
       try {
-        const res = await userAppointmentApi.set(param.uid, {weekly: [], daily: [{date: selectDate, time: currentAvailbleTime}], target: "daily"})
-        if(res.status === 200){
-          setIsSuccess(true)
+        const res = await userAppointmentApi.set(param.uid, {
+          weekly: [],
+          daily: [{ date: selectDate, time: currentAvailbleTime }],
+          target: "daily",
+        });
+        if (res.status === 200) {
+          setIsSuccess(true);
         }
-        dispatch(setDailyAvailability({date: selectDate, time: currentAvailbleTime}))
+        dispatch(
+          setDailyAvailability({ date: selectDate, time: currentAvailbleTime })
+        );
       } catch (error) {
         console.log(error);
-        setIsError(true)
+        setIsError(true);
       }
     }
   };
@@ -118,7 +128,6 @@ const TimeAvailability = ({ selectDate }) => {
   return (
     <div className="flex flex-col w-[70%] md:py-5 md:w-[50%]">
       <div className="flex w-full items-center justify-center mb-2">
-        <div className="mr-4">Date:</div>
         <div className="text-center py-.5 text-xl md:text-2xl">
           {formattedDate}
         </div>
@@ -209,13 +218,17 @@ const TimeAvailability = ({ selectDate }) => {
       <div id="setBtn" className="flex justify-center">
         <button
           onClick={(e) => handleSubmit(e)}
-          className="w-[80%] py-1 px-2 m-8 border bg-green-400 text-white rounded-lg hover:bg-green-500"
+          className="btn btn-primary normal-case font-bold py-2 my-7 "
         >
-          Set daily availability
+          Change Apply
         </button>
       </div>
-      {isSuccess && <ToastSuccess props={"Successfully availability is changed!"} />}
-      {isError && <ToastError props={"Something went wrong... Please try again."} />}
+      {isSuccess && (
+        <ToastSuccess props={"Availability changed!"} />
+      )}
+      {isError && (
+        <ToastError props={"Something went wrong... Please try again."} />
+      )}
     </div>
   );
 };
