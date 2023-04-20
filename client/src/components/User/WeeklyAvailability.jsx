@@ -162,7 +162,7 @@ const WeeklyAvailability = () => {
         </button>
       </form>
       {isSuccess && (
-        <ToastSuccess props={"Successfully availability was changed!"} />
+        <ToastSuccess props={"Availability changed!"} />
       )}
       {isError && (
         <ToastError props={"Something went wrong... Please try again."} />

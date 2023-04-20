@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-
 import moment from "moment";
 
 import userAppointmentApi from "../../api/userAppointmentApi";
@@ -129,7 +128,6 @@ const TimeAvailability = ({ selectDate }) => {
   return (
     <div className="flex flex-col w-[70%] md:py-5 md:w-[50%]">
       <div className="flex w-full items-center justify-center mb-2">
-        <div className="mr-4">Date:</div>
         <div className="text-center py-.5 text-xl md:text-2xl">
           {formattedDate}
         </div>
@@ -226,7 +224,7 @@ const TimeAvailability = ({ selectDate }) => {
         </button>
       </div>
       {isSuccess && (
-        <ToastSuccess props={"Successfully availability is changed!"} />
+        <ToastSuccess props={"Availability changed!"} />
       )}
       {isError && (
         <ToastError props={"Something went wrong... Please try again."} />
@@ -236,4 +234,3 @@ const TimeAvailability = ({ selectDate }) => {
 };
 
 export default TimeAvailability;
-l

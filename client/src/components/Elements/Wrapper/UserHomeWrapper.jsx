@@ -10,7 +10,7 @@ const UserHomeWrapper = () => {
           <SideMenu />
         </div>
 
-        <div className=" ">
+        <div className="pb-8 md:pb-0">
           <Outlet />
         </div>
       </div>
