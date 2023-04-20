@@ -27,9 +27,3 @@ export const sendEmail = (params, recipient) => {
       }
     );
 };
-
-// export const sendRescheduling = (params, recipient) => {
-//   let templateID;
-//   if()
-
-// };
