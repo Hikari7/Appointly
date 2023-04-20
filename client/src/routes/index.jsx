@@ -27,12 +27,6 @@ const AppRoute = () => {
 
   const routeElem = createBrowserRouter([...route, ...PublicRoutes]);
 
-  // function Loading() {
-  //   return (
-  //     <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
-  //   );
-  // }
-
   const Loading = () => {
     return(
       <div className="flex justify-center pt-[8rem]">
