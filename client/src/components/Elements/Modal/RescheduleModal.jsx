@@ -1,12 +1,13 @@
-import { useState } from "react";
-
+import React, { useState, useRef } from "react";
 import moment from "moment";
-
 import DatePicker from "../../User/DatePicker";
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { useDispatch } from "react-redux";
 import { updateAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
+
+import emailjs from "@emailjs/browser";
+// import { sendRescheduling } from "../../../utils/sendEmail";
 
 const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
   const [selectedDate, setSelectedDate] = useState("");
@@ -49,23 +50,51 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
 
   const handleSubmit = async (e) => {
     try {
-      const paramas = {
+      const params = {
         date: selectedDate,
         time: selectedTime,
       };
+
       const res = await userAppointmentApi.updateMTG(
         eachAppointment._id,
-        paramas
+        params
       );
+
+      console.log(eachAppointment);
       if (res.status === 200) {
         setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
+
         setIsRescheduleModal(false);
         dispatch(
           updateAppointment({
             meetingId: eachAppointment._id,
-            dateTime: paramas,
+            dateTime: params,
           })
         );
+
+        const newObj = { ...params };
+        newObj.guestEmail = eachAppointment.email;
+        newObj.guestName = eachAppointment.name;
+
+        console.log(newObj);
+
+        emailjs
+          .send(
+            import.meta.env.VITE_APP_SERVICE_ID_SECOND,
+            import.meta.env.VITE_APP_RESCHEDULED_TEMPLATE_ID,
+            newObj,
+            import.meta.env.VITE_APP_PUBLIC_KEY_SECOND
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+              return { status: "success" };
+            },
+            (error) => {
+              console.log(error.text);
+              return { status: "faile" };
+            }
+          );
       }
     } catch (error) {
       setIsMtgRescheduleToast((prev) => ({ ...prev, error: true }));
