@@ -43,6 +43,7 @@ const RescheduleModal = ({setIsRescheduleModal, eachAppointment}) => {
         time: selectedTime
       }
       const res = await userAppointmentApi.updateMTG(eachAppointment._id, paramas)
+      console.log(res);
       if(res.status === 200){
         setIsMtgRescheduleToast(prev => ({...prev, success: true}))
         setIsRescheduleModal(false)

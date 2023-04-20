@@ -2,11 +2,6 @@ const express = require("express");
 const cors = require("cors");
 require("express-async-errors");
 require("./utils/mongodb");
-require('jsx-node').install({
-  replace: {
-    preact: 'jsx-node',
-  }
-});
 
 const authRoute = require("./routes/auth.route");
 const appointmentRoute = require("./routes/appointment.route");

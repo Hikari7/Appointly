@@ -101,7 +101,7 @@ exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
     } catch (error) {
         console.log(error);
     }
-}
+}   
 
 exports.deleteAppointment = async (appointmentid) => {
     const appointmentId = new ObjectId(appointmentid)
