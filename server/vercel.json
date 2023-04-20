@@ -7,9 +7,10 @@
     }
   ],
   "rewrites": [
-      {
-          "source": "/(.*)",
-          "destination": "/src/index.js"
-      }
+    {
+      "source": "/(.*)",
+      "destination": "./src/index.js"
+    }
   ]
 }
+

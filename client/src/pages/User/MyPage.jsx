@@ -1,15 +1,12 @@
 import { useState } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
-// import { Mypage as MypageImg } from "../../assets/mypage.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
-import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
-import RescheduleEmail from "../../components/Elements/EmailView/RescheduleEmail";
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -28,7 +25,6 @@ const MyPage = () => {
     error: false,
   });
 
-  useAvailabilityData();
   useAppoinmentData();
 
   let bookedNum = appointment.length;
@@ -53,14 +49,9 @@ const MyPage = () => {
     return await navigator.clipboard.writeText(userLink);
   };
 
-  const host = { name: "Jess", email: "jess@jess.com" };
-  const guest = { name: "Guest", email: "guest@guest.com" };
-  const mtgInfo = { date: "Apr 20, 2023", time: "11:00" };
-
   return (
     <>
-      {/* <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} /> */}
-      <div className="md:flex md:w-93 h-full">
+      <div className="md:flex md:w-93 h-[97vh]">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
             Welcome, <span>{user.username}</span>
@@ -69,10 +60,9 @@ const MyPage = () => {
             src={mypageImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-          {/* <MypageImg className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60" /> */}
           <div>{currentBooking()}</div>
         </TitleWrapper>
-        <div className="mt-14 md:w-5/6 w-full">
+        <div className="mt-14 md:my-auto md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
             <p className="font-second text-center">30 Minute Meeting</p>
             <div
@@ -115,7 +105,7 @@ const MyPage = () => {
               </p>
             </div>
           ) : (
-            <div className="my-12 max-h-80 py-10">
+            <div className="max-h-80 py-10 md:mt-12">
               {appointment.map((eachAppointment) => (
                 <AppointmentCollapse
                   key={eachAppointment._id}
