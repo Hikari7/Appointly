@@ -9,7 +9,9 @@ const userRoute = require("./routes/user.route");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://appointly-mtg.vercel.app/"
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
