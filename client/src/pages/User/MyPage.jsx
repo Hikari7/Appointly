@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
-import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 
@@ -26,7 +25,6 @@ const MyPage = () => {
     error: false,
   });
 
-  useAvailabilityData();
   useAppoinmentData();
 
   let bookedNum = appointment.length;
