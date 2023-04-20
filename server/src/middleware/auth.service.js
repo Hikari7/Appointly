@@ -8,8 +8,7 @@ exports.signUp = async (username, email, password) => {
   if (user) {
     const errorObj = new Error("Email already exists");
     errorObj.status = 404;
-    throw errorObj;
-    // return errorObj;
+    return errorObj;
   }
 
   // Create new user
