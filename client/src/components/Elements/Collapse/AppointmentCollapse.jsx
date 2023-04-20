@@ -6,7 +6,11 @@ import moment from "moment";
 import RescheduleModal from "../Modal/RescheduleModal";
 import DeleteMTGModal from "../Modal/DeleteMTGModal";
 
-const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRescheduleToast }) => {
+const AppointmentCollapse = ({
+  eachAppointment,
+  setIsMtgDeleteToast,
+  setIsMtgRescheduleToast,
+}) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
@@ -26,7 +30,7 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
     .add(30, "m")
     .format("HH:mm");
   const createdDate = moment(eachAppointment.createdAt).format("MMM DD, YYYY");
-
+  //✅Layoutにあるmy-12の幅がcollapse開くと取れなくなる
   return (
     <div
       tabIndex={0}
@@ -36,7 +40,7 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
       <HashLink
         smooth
         to={`#${eachAppointment._id}`}
-        className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly"
+        className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
       >
         <div className="flex flex-col">
           <p className="w-full text-lg">{`${appointmentDow}, ${appointmentDate}`}</p>
@@ -78,7 +82,7 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
         <div id={eachAppointment._id} className="p-3 mx-auto">
           <div className="flex justify-center">
             <div className="flex flex-col mx-3 md:w-[60%]">
-              <div className="flex items-center w-full">
+              <div className="flex items-center w-full ">
                 <p className="basis-[50%]">Guest name:</p>
                 <span className="text-primary">{eachAppointment.name}</span>
               </div>
@@ -96,20 +100,18 @@ const AppointmentCollapse = ({ eachAppointment, setIsMtgDeleteToast, setIsMtgRes
               </div>
             </div>
           </div>
-          <div            
-            className="flex items-center justify-center my-4 gap-1"
-          >
+          <div className="flex items-center justify-center my-6 gap-6">
             <button
-              className="cursor-pointer px-3 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
+              className="cursor-pointer px-5 py-2 shadow rounded block text-center  hover:bg-green-400 hover:text-white  bg-white text-neutral transition duration-200 w-32"
               onClick={() => setIsRescheduleModal(!isRescheduleModal)}
             >
               Reschedule
             </button>
             <button
-              className="cursor-pointer px-3 py-2 shadow rounded border-2 border-gray-300 block text-center text-black bg-white hover:bg-green-400 hover:text-white hover:border-green-400"
+              className="cursor-pointer px-5 py-2 shadow rounded block text-center  hover:bg-green-400 hover:text-white  bg-white text-neutral transition duration-200 w-32"
               onClick={() => setIsDeleteMTGModal(!isDeleteMTGModal)}
             >
-              Cancel MTG
+              Cancel
             </button>
           </div>
         </div>

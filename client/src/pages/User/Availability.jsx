@@ -25,9 +25,9 @@ const Availability = () => {
           </h3>
         </TitleWrapper>
 
-        <div className="mt-14 md:w-5/6 w-full overflow-y-scroll">
+        <div className="my-14 md:my-auto md:w-5/6 w-full ">
           <div className="flex justify-center">
-            <ul className="flex gap-2 list-none">
+            <ul className="flex gap-6 list-none">
               <li className="w-[6rem]">
                 <a
                   className={

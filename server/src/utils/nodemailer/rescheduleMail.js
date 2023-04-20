@@ -6,7 +6,7 @@ require('dotenv').config()
 const sendRescheduleEmail = async (host, guest, mtgInfo) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SENDINBLUE_HOST,
-    port: 587,
+    pornpt: 587,
     secure: false,
     auth: {
       user: process.env.SENDINBLUE_USER,
