@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import SignupImg from "../../assets/LoginImg.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -10,7 +10,14 @@ import {
 import { setUser } from "../../redux/slicers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import authApi from "../../api/authApi";
-import Toast from "../../components/Elements/Toast/ToastSuccess";
+import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
+import ToastError from "../../components/Elements/Toast/ToastError";
+import { useMutation } from "react-query";
+
+const handleSignup = async ({username, email, password}) => {
+  const res = await authApi.signup({username, email, password});
+  return res.data
+}
 
 const Signup = () => {
   const user = useSelector((state) => state.user.user);
@@ -25,25 +32,24 @@ const Signup = () => {
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
-
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (success == true) {
-      setMessage(
-        <div className="toast toast-top toast-end">
-          <div className="alert alert-success">
-            <div>
-              <span>Registration successful!</span>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      setMessage(null);
-    }
-  }, [success]);
+  const { mutate, isLoading } = useMutation(handleSignup, {
+    onSuccess: data => {
+      if(data.status === 404){
+        setError(true)
+      }else{
+        setSuccess(true);
+        dispatch(setUser(user));
+  
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      }
+    },
+    onError: error => console.log(error)
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,28 +97,8 @@ const Signup = () => {
 
     if (error) return;
 
-    try {
-      const res = await authApi.signup({
-        username,
-        email,
-        password,
-      });
-
-      if (res.status === 200) {
-        setSuccess(true);
-      }
-
-      dispatch(setUser(user));
-
-      console.log(res);
-      console.log(success);
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-    } catch (err) {
-      console.log(err, err.message);
-    }
+    // Call signup api
+    mutate({username, email, password})
   };
 
   return (
@@ -198,7 +184,7 @@ const Signup = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary normal-case font-bold w-full py-2 my-7"
+                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 ${isLoading && "loading"}`}
               >
                 Signup
               </button>
@@ -214,11 +200,8 @@ const Signup = () => {
           </div>
         </div>
 
-        {success ? (
-          <Toast props={"Registration successful!"} setFunction={setSuccess} />
-        ) : (
-          ""
-        )}
+        {success && <ToastSuccess props={"Registration successful!"} setFunction={setSuccess} />}
+        {error && <ToastError props={"Eamil already exists."} setFunction={setError} />}
       </section>
     </>
   );

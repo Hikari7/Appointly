@@ -5,7 +5,6 @@ const Appointment = require("../models/Appointment");
 const Availability = require("../models/Availability");
 const User = require('../models/User');
 
-const rescheduleEmail = require('../utils/nodemailer/rescheduleMail')
 
 exports.fetchAppointment = async (uid) => {
     const userId = new ObjectId(uid)
@@ -91,10 +90,6 @@ exports.rescheduleMtg = async (appointmentid, changedDateTime) => {
         await Appointment.findOneAndUpdate({ _id: appointmentId }, {
             $set: { "appointmentDateTime":  changedDateTime }
         })
-
-        const mtgInfo = await Appointment.findOne({_id: appointmentid}).lean()
-        const host = await User.findOne({_id: mtgInfo.hostUser})
-        rescheduleEmail.sendRescheduleEmail(host, mtgInfo)
 
         return await Appointment.findOne(appointmentId)
 

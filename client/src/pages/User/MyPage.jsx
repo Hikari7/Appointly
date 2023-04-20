@@ -8,7 +8,6 @@ import useAppoinmentData from "../../hooks/useAppointmentData";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
-import RescheduleEmail from "../../components/Elements/EmailView/RescheduleEmail";
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -58,7 +57,6 @@ const MyPage = () => {
 
   return (
     <>
-      {/* <RescheduleEmail host={host} guest={guest} mtgInfo={mtgInfo} /> */}
       <div className="md:flex md:w-93 h-full">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
