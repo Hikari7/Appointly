@@ -18,7 +18,6 @@ export const sendEmail = (params, recipient) => {
     )
     .then(
       (result) => {
-        console.log(result.text);
         return { status: "success" };
       },
       (error) => {

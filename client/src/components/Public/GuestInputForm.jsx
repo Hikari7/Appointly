@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import GuestInputModal from "../Elements/Modal/guestInputModal";
-// import emailjs from "@emailjs/browser";
 import { sendEmail } from "../../utils/sendEmail";
+import usePostAppointment from "../../hooks/usePostAppointment";
 
 const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
@@ -26,6 +26,8 @@ const GuestInputForm = () => {
 
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
+
+  // const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +63,12 @@ const GuestInputForm = () => {
       name,
       email,
       message,
+      appointmentDateTime: appointment.appointmentDateTime,
+      hostUser: uidFromParams.uid
     };
+
+    // Call createAppointment api
+    // mutate({newObj})
 
     try {
       newObj.appointmentDateTime = appointment.appointmentDateTime;
