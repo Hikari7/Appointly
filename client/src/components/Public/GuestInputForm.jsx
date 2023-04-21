@@ -27,7 +27,7 @@ const GuestInputForm = () => {
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
 
-  const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName)
+  // const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,36 +68,36 @@ const GuestInputForm = () => {
     };
 
     // Call createAppointment api
-    mutate({newObj})
+    // mutate({newObj})
 
-    // try {
-    //   newObj.appointmentDateTime = appointment.appointmentDateTime;
-    //   newObj.hostUser = uidFromParams.uid;
+    try {
+      newObj.appointmentDateTime = appointment.appointmentDateTime;
+      newObj.hostUser = uidFromParams.uid;
 
-    //   //resを分解
-    //   const {
-    //     data: { username, email },
-    //   } = await appointmentApi({
-    //     newObj,
-    //   });
+      //resを分解
+      const {
+        data: { username, email },
+      } = await appointmentApi({
+        newObj,
+      });
 
-    //   setHostEmail(email);
-    //   setHostName(username);
+      setHostEmail(email);
+      setHostName(username);
 
-    //   const params = {
-    //     ...newObj,
-    //     hostEmail: email,
-    //     hostName: username,
-    //     time,
-    //     date,
-    //   };
+      const params = {
+        ...newObj,
+        hostEmail: email,
+        hostName: username,
+        time,
+        date,
+      };
 
-    //   sendEmail(params, "user")
-    //   sendEmail(params, "guest")
+      sendEmail(params, "user")
+      sendEmail(params, "guest")
       
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
