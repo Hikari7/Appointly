@@ -18,8 +18,7 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
 
   const handleSubmit = async () => {
     try {
-      const res = await userAppointmentApi.deleteMTG();
-      // const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
+      const res = await userAppointmentApi.deleteMTG(eachAppointment._id)
       if (res.status === 200) {
         setIsMtgDeleteToast((prev) => ({ ...prev, success: true }));
         setIsDeleteMTGModal(false);
@@ -98,7 +97,6 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!isChecked}
-          // className="bg-red-400 font-bold text-white rounded-lg w-[60%] md:w-[50%] py-2 my-5 mx-auto disabled:opacity-50 hover:bg-red-600"
           className="btn btn-error disabled:btn-disabled normal-case font-bold py-2 w-28"
         >
           Cancel meeting
