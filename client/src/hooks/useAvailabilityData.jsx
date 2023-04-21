@@ -10,14 +10,14 @@ const useAvailabilityData = () => {
 
   return useQuery({
     queryKey: ["availability"],
-    queryFn: async() => {
-      const { data } = await userAppointmentApi.getAvailability(user.userId)
-      if(data.length > 0) {
+    queryFn: async () => {
+      const { data } = await userAppointmentApi.getAvailability(user.userId);
+      if (data.length > 0) {
         const availabilityObj = {};
         availabilityObj.weekly = data[0].weekly;
         availabilityObj.daily = data[0].daily;
         dispatch(setAvailability(availabilityObj));
-      }else{
+      } else {
         const availabilityObj = {};
         availabilityObj.weekly = [
           { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
@@ -28,14 +28,12 @@ const useAvailabilityData = () => {
           { Fri: false, time: [{ start: "", end: "" }], dow: 5 },
           { Sat: false, time: [{ start: "", end: "" }], dow: 6 },
         ];
-        availabilityObj.daily = [
-          { date: "", time: [{ start: "", end: "" }] },
-        ];
+        availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
         dispatch(setAvailability(availabilityObj));
       }
-      return data
-    }
-  })
-}
+      return data;
+    },
+  });
+};
 
 export default useAvailabilityData;
