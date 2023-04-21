@@ -86,39 +86,41 @@ const MyPage = () => {
               )}
             </div>
           </div>
-          {appointment.length === 0 ? (
-            <div className="w-full mt-24 animate-pulse">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <AiOutlineArrowUp size={32} />
+          <div className="">
+            {appointment.length === 0 ? (
+              <div className="w-full mt-24 animate-pulse">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AiOutlineArrowUp size={32} />
+                </div>
+                <p className="text-center text-info mt-8">
+                  It seems you haven't had any appointments yet.
+                  <br></br>
+                  Share your link with your guests and get started!
+                </p>
               </div>
-              <p className="text-center text-info mt-8">
-                It seems you haven't had any appointments yet.
-                <br></br>
-                Share your link with your guests and get started!
-              </p>
-            </div>
-          ) : (
-            <div className="max-h-80 py-10 md:mt-12">
-              {appointment.map((eachAppointment) => (
-                <AppointmentCollapse
-                  key={eachAppointment._id}
-                  eachAppointment={eachAppointment}
-                  setIsMtgDeleteToast={setIsMtgDeleteToast}
-                  setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-                />
-              ))}
-            </div>
-          )}
-          {toast && (
-            <ToastSuccess props={"Login Successfull!"} method="login" />
-          )}
+            ) : (
+              <div className="py-10 md:mt-12 ">
+                {appointment.map((eachAppointment) => (
+                  <AppointmentCollapse
+                    key={eachAppointment._id}
+                    eachAppointment={eachAppointment}
+                    setIsMtgDeleteToast={setIsMtgDeleteToast}
+                    setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+                  />
+                ))}
+              </div>
+            )}
+            {toast && (
+              <ToastSuccess props={"Login Successfull!"} method="login" />
+            )}
+          </div>
         </div>
       </div>
       {isMtgDeleteToast.success && (

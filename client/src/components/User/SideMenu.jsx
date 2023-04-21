@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/slicers/userSlice";
 
-const SideMenu = () => {
+const SideMenu = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -62,6 +62,9 @@ const SideMenu = () => {
             <CiLogout size={"100%"} />
           </li>
         </ul>
+      </div>
+      <div className="md:border-r border-neutral border-thin justify-center flex-col flex items-center text-center md:w-3/12 pt-14 md:pt-0 md:absolute mdh-full">
+        {children}
       </div>
     </div>
   );
