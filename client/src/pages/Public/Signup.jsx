@@ -1,26 +1,17 @@
 import React, { useState, useRef } from "react";
 import SignupImg from "../../assets/LoginImg.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   validateUsername,
   validateEmail,
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validators";
-import { setUser } from "../../redux/slicers/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import authApi from "../../api/authApi";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
-import { useMutation } from "react-query";
 import useSignup from "../../hooks/useSignup";
 
-
-
 const Signup = () => {
-  const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const userInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);

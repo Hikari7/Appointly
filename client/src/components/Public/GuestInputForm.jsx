@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import GuestInputModal from "../Elements/Modal/guestInputModal";
-// import emailjs from "@emailjs/browser";
 import { sendEmail } from "../../utils/sendEmail";
+import usePostAppointment from "../../hooks/usePostAppointment";
 
 const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
@@ -26,6 +26,8 @@ const GuestInputForm = () => {
 
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
+
+  const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,36 +63,41 @@ const GuestInputForm = () => {
       name,
       email,
       message,
+      appointmentDateTime: appointment.appointmentDateTime,
+      hostUser: uidFromParams.uid
     };
 
-    try {
-      newObj.appointmentDateTime = appointment.appointmentDateTime;
-      newObj.hostUser = uidFromParams.uid;
+    // Call createAppointment api
+    mutate({newObj})
 
-      //resを分解
-      const {
-        data: { username, email },
-      } = await appointmentApi({
-        newObj,
-      });
+    // try {
+    //   newObj.appointmentDateTime = appointment.appointmentDateTime;
+    //   newObj.hostUser = uidFromParams.uid;
 
-      setHostEmail(email);
-      setHostName(username);
+    //   //resを分解
+    //   const {
+    //     data: { username, email },
+    //   } = await appointmentApi({
+    //     newObj,
+    //   });
 
-      const params = {
-        ...newObj,
-        hostEmail: email,
-        hostName: username,
-        time,
-        date,
-      };
+    //   setHostEmail(email);
+    //   setHostName(username);
 
-      sendEmail(params, "user")
-      sendEmail(params, "guest")
+    //   const params = {
+    //     ...newObj,
+    //     hostEmail: email,
+    //     hostName: username,
+    //     time,
+    //     date,
+    //   };
+
+    //   sendEmail(params, "user")
+    //   sendEmail(params, "guest")
       
-    } catch (err) {
-      console.log(err);
-    }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (
