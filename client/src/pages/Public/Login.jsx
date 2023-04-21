@@ -61,33 +61,6 @@ const Login = () => {
 
     // Call login api
     mutate({email, password})
-
-    // try {
-    //   const res = await authApi.login({
-    //     email,
-    //     password,
-    //   });
-
-    //   const loginDate = new Date(res.data.loginDate);
-    //   const expireTime = loginDate.setHours(loginDate.getHours() + 12);
-
-    //   const newObj = {};
-    //   newObj.userId = res.data.userId;
-    //   newObj.username = res.data.username;
-    //   newObj.email = res.data.email;
-    //   newObj.loginDate = expireTime;
-
-    //   dispatch(setUser(newObj));
-
-    //   if (res.status === 200) {
-    //     const loginSuccess = true;
-    //     navigate(`/${newObj.userId}/mypage`, { replace: true });
-    //     dispatch(setLoginToast(loginSuccess));
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   setError(true);
-    // }
   };
 
   return (
@@ -146,8 +119,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto`}
-                // className={`btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto ${isLoading && "loading"}`}
+                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto ${isLoading && "loading"}`}
               >
                 Login
               </button>
