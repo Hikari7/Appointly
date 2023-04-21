@@ -32,7 +32,7 @@ const useAvailabilityData = () => {
         dispatch(setAvailability(availabilityObj));
       }
       return data;
-    },
+    }
   });
 };
 

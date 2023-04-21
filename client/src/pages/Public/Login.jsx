@@ -1,45 +1,18 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useMutation } from "react-query"
+import { Link } from "react-router-dom";
 
 import LoginImg from "../../assets/LoginImg.jpg";
-import authApi from "../../api/authApi";
-import { setUser } from "../../redux/slicers/userSlice";
-import { setLoginToast } from "../../redux/slicers/loginToastSlice";
 import ErrorToast from "../../components/Elements/Toast/ToastError";
-
-const handleLogin = async ({email, password}) => {
-  const res = await authApi.login({email, password})
-  return res.data
-}
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
   const [emailErr, setEmailErr] = useState(null);
   const [passwordErr, setPasswordErr] = useState(null);
   const [error, setError] = useState(false);
 
-  const { mutate, isLoading } = useMutation(handleLogin, {
-    onSuccess: data => {
-      const loginDate = new Date(data.loginDate);
-      const expireTime = loginDate.setHours(loginDate.getHours() + 12);
-
-      const newObj = {};
-      newObj.userId = data.userId;
-      newObj.username = data.username;
-      newObj.email = data.email;
-      newObj.loginDate = expireTime;
-      dispatch(setUser(newObj));
-
-      navigate(`/${newObj.userId}/mypage`, { replace: true });
-      dispatch(setLoginToast(true));
-    },
-    onError: error => setError(true)
-  })
+  const { mutate, isLoading } = useLogin(setError)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,11 +68,9 @@ const Login = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {emailErr !== "" ? (
-                <p className="text-xs text-red-600">{emailErr}</p>
-              ) : (
-                ""
-              )}
+
+              {emailErr !== "" && <p className="text-xs text-red-600">{emailErr}</p>}
+
               <div className="mt-4">
                 <label className="block text-gray-700">Password</label>
                 <input
@@ -111,11 +82,8 @@ const Login = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {passwordErr !== "" ? (
-                <p className="text-xs text-red-600">{passwordErr}</p>
-              ) : (
-                ""
-              )}
+              
+              {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
 
               <button
                 type="submit"
