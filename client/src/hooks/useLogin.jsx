@@ -31,8 +31,7 @@ const useLogin = (errorUpdater) => {
       dispatch(setLoginToast(true));
     },
     onError: error => errorUpdater(true)
-  })
-   
+  })   
 }
 
 export default useLogin
