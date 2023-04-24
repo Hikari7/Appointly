@@ -9,6 +9,14 @@ import {
 } from "../../utils/validators";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
+
+import { useMutation } from "react-query";
+
+const handleSignup = async ({ username, email, password }) => {
+  const res = await authApi.signup({ username, email, password });
+  return res.data;
+};
+
 import useSignup from "../../hooks/useSignup";
 
 const Signup = () => {
@@ -24,7 +32,7 @@ const Signup = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const { mutate, isLoading } = useSignup(setSuccess, setError)
+  const { mutate, isLoading } = useSignup(setSuccess, setError);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +81,7 @@ const Signup = () => {
     if (error) return;
 
     // Call signup api
-    mutate({username, email, password})
+    mutate({ username, email, password });
   };
 
   return (
@@ -105,7 +113,9 @@ const Signup = () => {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
 
-              {usernameErr !== "" && <p className="text-xs text-red-600">{usernameErr}</p>}
+              {usernameErr !== "" && (
+                <p className="text-xs text-red-600">{usernameErr}</p>
+              )}
 
               <label className="block text-gray-700 mt-2">Email</label>
               <input
@@ -116,7 +126,9 @@ const Signup = () => {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
 
-              {emailErr !== "" && <p className="text-xs text-red-600">{emailErr}</p>}
+              {emailErr !== "" && (
+                <p className="text-xs text-red-600">{emailErr}</p>
+              )}
 
               <div className="mt-4">
                 <label className="block text-gray-700">Password</label>
@@ -128,7 +140,9 @@ const Signup = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
+              {passwordErr !== "" && (
+                <p className="text-xs text-red-600">{passwordErr}</p>
+              )}
               <div className="mt-4">
                 <label className="block text-gray-700">Confirm Password</label>
                 <input
@@ -139,11 +153,15 @@ const Signup = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {confirmPasswordErr !== "" && <p className="text-xs text-red-600">{confirmPasswordErr}</p>}
+              {confirmPasswordErr !== "" && (
+                <p className="text-xs text-red-600">{confirmPasswordErr}</p>
+              )}
 
               <button
                 type="submit"
-                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 ${isLoading && "loading"}`}
+                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 ${
+                  isLoading && "loading"
+                }`}
               >
                 Signup
               </button>
@@ -159,8 +177,15 @@ const Signup = () => {
           </div>
         </div>
 
-        {success && <ToastSuccess props={"Registration successful!"} setFunction={setSuccess} />}
-        {error && <ToastError props={"Eamil already exists."} setFunction={setError} />}
+        {success && (
+          <ToastSuccess
+            props={"Registration successful!"}
+            setFunction={setSuccess}
+          />
+        )}
+        {error && (
+          <ToastError props={"Eamil already exists."} setFunction={setError} />
+        )}
       </section>
     </>
   );

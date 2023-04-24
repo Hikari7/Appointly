@@ -5,18 +5,18 @@ import userAppointmentApi from "../../../api/userAppointmentApi";
 import { useDispatch } from "react-redux";
 import { updateAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
-
 import emailjs from "@emailjs/browser";
-// import { sendRescheduling } from "../../../utils/sendEmail";
 
-const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
+const RescheduleModal = ({
+  setIsRescheduleModal,
+  eachAppointment,
+  setIsMtgRescheduleToast,
+  isMtgRescheduleToast,
+}) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false);
-  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({
-    success: false,
-    error: false,
-  });
+
   const dispatch = useDispatch();
 
   const formattedDate = moment(eachAppointment.appointmentDateTime.date).format(
@@ -55,14 +55,12 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         time: selectedTime,
       };
 
-      const res = await userAppointmentApi.updateMTG(
+      const res = await userAppointmentApi.updateMTGぁjslだsd(
         eachAppointment._id,
         params
       );
 
       if (res.status === 200) {
-        setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
-
         setIsRescheduleModal(false);
         dispatch(
           updateAppointment({
@@ -74,8 +72,6 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         const newObj = { ...params };
         newObj.guestEmail = eachAppointment.email;
         newObj.guestName = eachAppointment.name;
-
-        console.log(newObj);
 
         emailjs
           .send(
@@ -94,6 +90,8 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
               return { status: "faile" };
             }
           );
+
+        setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
       }
     } catch (error) {
       setIsMtgRescheduleToast((prev) => ({ ...prev, error: true }));
@@ -104,7 +102,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
   return (
     <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
-      <div className="p-5 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%] md-[70%] bg-white outline-none focus:outline-none">
+      <div className="p-12 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%]  bg-white outline-none focus:outline-none">
         <div
           onClick={() => setIsRescheduleModal(false)}
           className="flex justify-end absolute top-[2%] right-[3%]"
@@ -127,45 +125,35 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         <div className="text-center text-3xl font-bold font-second mt-6">
           Reschedule Meeting?
         </div>
-        <p className="text-center">
+        <p className="text-center break-words">
           An email notification will be sent to your guest informing them of the
           rescheduling.
         </p>
-        <div className="flex flex-col w-[60%] text-left">
-          <div className="flex w-full mt-1">
-            <p>
-              Guest name:&nbsp;&nbsp;
-              <span className="text-primary ">{eachAppointment.name}</span>
-            </p>
+        <div className="flex justify-evenly w-[80%]">
+          <div>
+            <p>Guest name</p>
+            <span className="text-primary">{eachAppointment.name}</span>
           </div>
-          <div className="flex w-full mt-1">
-            <p>
-              Current date:&nbsp;&nbsp;
-              <span className="text-primary ">{formattedDate}</span>
-            </p>
-          </div>
-          <div className="flex w-full mt-1">
-            <p>Current time:&nbsp;&nbsp;</p>
-            <span className="text-primary">{`${appointmentStartTime} - ${appointmentEndTime}`}</span>
+
+          <div>
+            <p>Current date</p>
+            <span className="text-primary">{formattedDate}</span>
           </div>
         </div>
-        <div className="flex flex-col justify-start w-full">
-          <div className="flex justify-center items-center w-full">
-            <label className="text-gray-700 ml-1 block basis-1/5 font-second">
-              Date
-            </label>
+
+        <div className="flex flex-col w-full">
+          <div className="flex items-center w-full justify-center">
+            <label className="block font-second mr-5">Date</label>
             <DatePicker
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
             />
           </div>
-          <div className="flex justify-center items-center w-full relative">
-            <label className="text-gray-700 ml-1 block basis-1/5 font-second">
-              Time
-            </label>
+          <div className="flex items-center w-full relative justify-center">
+            <label className="block font-second mr-5">Time</label>
             <input
               type="text"
-              className="cursor-pointer pl-3 my-1 pr-10 py-2 leading-none border border-gray-700 rounded-lg shadow-sm text-gray-700"
+              className="cursor-pointer pl-3 my-1 pr-10 py-2 leading-none border border-gray-700 rounded-lg shadow-sm"
               placeholder="Select time"
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
@@ -194,7 +182,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!(selectedDate && selectedTime)}
-          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28"
+          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3"
         >
           Reschedule
         </button>

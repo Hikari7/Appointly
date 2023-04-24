@@ -64,7 +64,12 @@ const MyPage = () => {
         </TitleWrapper>
         <div className="mt-14 md:my-auto md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
-            <p className="font-second text-center">30 Minute Meeting</p>
+            <p className="font-second text-center text-acc">
+              30 Minute Meeting
+            </p>
+            <p className="text-center text-sm">
+              Share the link with guests to get started!
+            </p>
             <div
               className="flex justify-center mt-3 hover:cursor-pointer hover:text-primary transition duration-200"
               onClick={handleCopyLink}
@@ -78,59 +83,53 @@ const MyPage = () => {
                 </>
               ) : (
                 <>
-                  <span className="my-auto">
-                    <FiCopy size={"24px"} />
+                  <span className="animate-pulse flex">
+                    <span className="my-auto">
+                      <FiCopy size={"24px"} />
+                    </span>
+                    <p className="ml-2">Copy Link</p>
                   </span>
-                  <p className="ml-2">Copy Link</p>
                 </>
               )}
             </div>
           </div>
-          {appointment.length === 0 ? (
-            <div className="w-full mt-24 animate-pulse">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <AiOutlineArrowUp size={32} />
+          <div className="">
+            {appointment.length === 0 ? (
+              <div className="w-full mt-24">
+                <p className="text-center mt-8 text-slate-500">
+                  It looks like you haven't made any appointments yet.
+                </p>
               </div>
-              <p className="text-center text-info mt-8">
-                It seems you haven't had any appointments yet.
-                <br></br>
-                Share your link with your guests and get started!
-              </p>
-            </div>
-          ) : (
-            <div className="max-h-80 py-10 md:mt-12">
-              {appointment.map((eachAppointment) => (
-                <AppointmentCollapse
-                  key={eachAppointment._id}
-                  eachAppointment={eachAppointment}
-                  setIsMtgDeleteToast={setIsMtgDeleteToast}
-                  setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-                />
-              ))}
-            </div>
-          )}
-          {toast && (
-            <ToastSuccess props={"Login Successfull!"} method="login" />
-          )}
+            ) : (
+              <div className="py-10 md:mt-12 ">
+                {appointment.map((eachAppointment) => (
+                  <AppointmentCollapse
+                    key={eachAppointment._id}
+                    eachAppointment={eachAppointment}
+                    setIsMtgDeleteToast={setIsMtgDeleteToast}
+                    setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+                    isMtgRescheduleToast={isMtgRescheduleToast}
+                    isMtgDeleteToast={isMtgDeleteToast}
+                  />
+                ))}
+              </div>
+            )}
+            {toast && (
+              <ToastSuccess props={"Login Successfull!"} method="login" />
+            )}
+          </div>
         </div>
       </div>
       {isMtgDeleteToast.success && (
         <ToastSuccess
-          props={"Successfully deleted!"}
+          props={"Successfully canceled!"}
           setFunction={setIsMtgDeleteToast}
           method={"mtg"}
         />
       )}
       {isMtgRescheduleToast.success && (
         <ToastSuccess
-          props={"Successfully reschedule!"}
+          props={"Successfully rescheduled!"}
           setFunction={setIsMtgRescheduleToast}
           method={"mtg"}
         />
