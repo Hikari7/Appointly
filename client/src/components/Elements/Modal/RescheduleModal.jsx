@@ -5,17 +5,18 @@ import userAppointmentApi from "../../../api/userAppointmentApi";
 import { useDispatch } from "react-redux";
 import { updateAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
-import ToastSuccess from "../Toast/ToastSuccess";
 import emailjs from "@emailjs/browser";
 
-const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
+const RescheduleModal = ({
+  setIsRescheduleModal,
+  eachAppointment,
+  setIsMtgRescheduleToast,
+  isMtgRescheduleToast,
+}) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false);
-  const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({
-    success: false,
-    error: false,
-  });
+
   const dispatch = useDispatch();
 
   const formattedDate = moment(eachAppointment.appointmentDateTime.date).format(
@@ -54,7 +55,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         time: selectedTime,
       };
 
-      const res = await userAppointmentApi.updateMTG(
+      const res = await userAppointmentApi.updateMTGぁjslだsd(
         eachAppointment._id,
         params
       );
@@ -89,10 +90,8 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
               return { status: "faile" };
             }
           );
-        // setIsMtgRescheduleToast({ error: false, success: true });
+
         setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
-        // console.log("success", isMtgRescheduleToast.success);
-        // console.log(isMtgRescheduleToast);
       }
     } catch (error) {
       setIsMtgRescheduleToast((prev) => ({ ...prev, error: true }));
@@ -193,13 +192,6 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
           props={"Something went wrong... Please try again."}
           setFunction={setIsMtgRescheduleToast}
           method={"mtg"}
-        />
-      )}
-      {isMtgRescheduleToast.success && (
-        <ToastSuccess
-          props={"Rescheduled successfully"}
-          method={"mtg"}
-          setFunction={setIsMtgRescheduleToast}
         />
       )}
     </div>

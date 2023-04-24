@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { deleteAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
+import ToastSuccess from "../Toast/ToastSuccess";
 import emailjs from "@emailjs/browser";
 
-const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
+const DeleteMTGModal = ({
+  setIsDeleteMTGModal,
+  eachAppointment,
+  isMtgDeleteToast,
+  setIsMtgDeleteToast,
+}) => {
   const appointmentList = useSelector(
     (state) => state.listAppointment.listAppointment
   );
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
-  const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({
-    success: false,
-    error: false,
-  });
 
   const handleSubmit = async () => {
     try {
@@ -50,6 +51,8 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
               return { status: "faile" };
             }
           );
+
+        setIsMtgDeleteToast((prev) => ({ ...prev, success: true }));
 
         dispatch(deleteAppointment({ filteredArray }));
       }

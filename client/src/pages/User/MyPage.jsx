@@ -108,6 +108,8 @@ const MyPage = () => {
                     eachAppointment={eachAppointment}
                     setIsMtgDeleteToast={setIsMtgDeleteToast}
                     setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+                    isMtgRescheduleToast={isMtgRescheduleToast}
+                    isMtgDeleteToast={isMtgDeleteToast}
                   />
                 ))}
               </div>
@@ -120,14 +122,14 @@ const MyPage = () => {
       </div>
       {isMtgDeleteToast.success && (
         <ToastSuccess
-          props={"Successfully deleted!"}
+          props={"Successfully canceled!"}
           setFunction={setIsMtgDeleteToast}
           method={"mtg"}
         />
       )}
       {isMtgRescheduleToast.success && (
         <ToastSuccess
-          props={"Successfully reschedule!"}
+          props={"Successfully rescheduled!"}
           setFunction={setIsMtgRescheduleToast}
           method={"mtg"}
         />

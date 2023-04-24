@@ -10,6 +10,8 @@ const AppointmentCollapse = ({
   eachAppointment,
   setIsMtgDeleteToast,
   setIsMtgRescheduleToast,
+  isMtgRescheduleToast,
+  isMtgDeleteToast,
 }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
@@ -119,6 +121,7 @@ const AppointmentCollapse = ({
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
           setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+          isMtgRescheduleToast={isMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
@@ -126,6 +129,7 @@ const AppointmentCollapse = ({
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
           setIsMtgDeleteToast={setIsMtgDeleteToast}
+          isMtgDeleteToast={isMtgDeleteToast}
         />
       )}
     </div>

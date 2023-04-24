@@ -14,10 +14,10 @@ import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
 import { useMutation } from "react-query";
 
-const handleSignup = async ({username, email, password}) => {
-  const res = await authApi.signup({username, email, password});
-  return res.data
-}
+const handleSignup = async ({ username, email, password }) => {
+  const res = await authApi.signup({ username, email, password });
+  return res.data;
+};
 
 const Signup = () => {
   const user = useSelector((state) => state.user.user);
@@ -36,20 +36,20 @@ const Signup = () => {
   const [error, setError] = useState(false);
 
   const { mutate, isLoading } = useMutation(handleSignup, {
-    onSuccess: data => {
-      if(data.status === 404){
-        setError(true)
-      }else{
+    onSuccess: (data) => {
+      if (data.status === 404) {
+        setError(true);
+      } else {
         setSuccess(true);
         dispatch(setUser(user));
-  
+
         setTimeout(() => {
           navigate("/login");
         }, 1500);
       }
     },
-    onError: error => console.log(error)
-  })
+    onError: (error) => console.log(error),
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +98,7 @@ const Signup = () => {
     if (error) return;
 
     // Call signup api
-    mutate({username, email, password})
+    mutate({ username, email, password });
   };
 
   return (
@@ -184,7 +184,9 @@ const Signup = () => {
 
               <button
                 type="submit"
-                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 ${isLoading && "loading"}`}
+                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 ${
+                  isLoading && "loading"
+                }`}
               >
                 Signup
               </button>
@@ -200,8 +202,15 @@ const Signup = () => {
           </div>
         </div>
 
-        {success && <ToastSuccess props={"Registration successful!"} setFunction={setSuccess} />}
-        {error && <ToastError props={"Eamil already exists."} setFunction={setError} />}
+        {success && (
+          <ToastSuccess
+            props={"Registration successful!"}
+            setFunction={setSuccess}
+          />
+        )}
+        {error && (
+          <ToastError props={"Eamil already exists."} setFunction={setError} />
+        )}
       </section>
     </>
   );
