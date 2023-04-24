@@ -60,7 +60,6 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         params
       );
 
-      console.log(eachAppointment);
       if (res.status === 200) {
         setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
 
