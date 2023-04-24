@@ -9,26 +9,32 @@ const handleCreateAppointment = async ({newObj}) => {
   return res.data
 }
 
-const usePostAppointment = (hostEmailUpdater, hostNameUpdater) => {
+const usePostAppointment = (hostEmailUpdater, hostNameUpdater, modalUpdater, toastUpdater) => {
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
 
   return useMutation(handleCreateAppointment, {
-    onSuccess: data => {
-      hostEmailUpdater(data.email);
-      hostNameUpdater(data.username);
+    onSuccess: (data) => {
+      hostEmailUpdater(data.email)
+      hostNameUpdater(data.username)
+      modalUpdater(true)
 
       const params = {
-        ...newObj,
-        hostEmail: email,
-        hostName: username,
+        name: data.guestName,
+        email: data.guestEmail,
+        message: data.message,
+        hostEmail: data.email,
+        hostName: data.username,
         time,
         date,
       };
 
-      sendEmail(params, "user")
-      sendEmail(params, "guest")
+      // sendEmail(params, "user")
+      // sendEmail(params, "guest")
+    },
+    onError: () => {
+      toastUpdater(true)
     }
   })
 }

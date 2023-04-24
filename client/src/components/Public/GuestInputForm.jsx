@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
-import appointmentApi from "../../api/guestAppointmentApi";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import GuestInputModal from "../Elements/Modal/guestInputModal";
-import { sendEmail } from "../../utils/sendEmail";
 import usePostAppointment from "../../hooks/usePostAppointment";
+import ToastError from "../Elements/Toast/ToastError";
 
 const GuestInputForm = () => {
   const appointment = useSelector((state) => state.appointment.appointment);
@@ -23,11 +22,12 @@ const GuestInputForm = () => {
   const [emailErr, setEmailErr] = useState(null);
   const [messageErr, setMessageErr] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
 
   const [hostEmail, setHostEmail] = useState("");
   const [hostName, setHostName] = useState("");
 
-  // const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName)
+  const { mutate, isLoading } = usePostAppointment(setHostEmail, setHostName, setShowModal, setShowErrorToast)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,8 +57,6 @@ const GuestInputForm = () => {
 
     if (error) return;
 
-    setShowModal(true);
-
     const newObj = {
       name,
       email,
@@ -68,38 +66,11 @@ const GuestInputForm = () => {
     };
 
     // Call createAppointment api
-    // mutate({newObj})
+    mutate({newObj})
 
-    try {
-      newObj.appointmentDateTime = appointment.appointmentDateTime;
-      newObj.hostUser = uidFromParams.uid;
-
-      //resを分解
-      const {
-        data: { username, email },
-      } = await appointmentApi({
-        newObj,
-      });
-
-      setHostEmail(email);
-      setHostName(username);
-
-      const params = {
-        ...newObj,
-        hostEmail: email,
-        hostName: username,
-        time,
-        date,
-      };
-
-      sendEmail(params, "user")
-      sendEmail(params, "guest")
-      
-    } catch (err) {
-      console.log(err);
-    }
   };
 
+  
   return (
     <>
       <div className="form-control w-full md:w-10/12 md:justify-center md:mx-auto mt-6">
@@ -115,11 +86,7 @@ const GuestInputForm = () => {
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
-          {nameErr !== "" ? (
-            <p className="text-xs text-red-600 pt-1">{nameErr}</p>
-          ) : (
-            ""
-          )}
+          {nameErr !== "" && <p className="text-xs text-red-600 pt-1">{nameErr}</p>}
           <label className="label">
             <span className="label-text text-textBase">Email</span>
           </label>
@@ -130,11 +97,8 @@ const GuestInputForm = () => {
             className="input input-bordered w-full max-w-xs input-primary "
           />
 
-          {emailErr !== "" ? (
-            <p className="text-xs text-red-600 pt-1">{emailErr}</p>
-          ) : (
-            ""
-          )}
+          {emailErr !== "" && <p className="text-xs text-red-600 pt-1">{emailErr}</p>}
+
           <div className="form-control mt-3 my-5">
             <label className="label">
               <span className="label-text normal-case text-textBase">
@@ -147,16 +111,12 @@ const GuestInputForm = () => {
               name="message"
               className="textarea textarea-bordered h-24 textarea-primary"
             ></textarea>
-            {messageErr !== "" ? (
-              <p className="text-xs text-red-600 pt-1">{messageErr}</p>
-            ) : (
-              ""
-            )}
+            {messageErr !== "" && <p className="text-xs text-red-600 pt-1">{messageErr}</p>}
           </div>
 
           <button
             type="submit"
-            className="btn btn-primary normal-case font-bold w-2/8 ml-auto"
+            className={`btn btn-primary normal-case font-bold w-2/8 ml-auto ${isLoading && "loading"}`}
             htmlFor="my-modal-4"
           >
             Schedule Event
@@ -167,13 +127,19 @@ const GuestInputForm = () => {
           <input type="hidden" value={time} name={time}></input>
           <input type="hidden" value={date} name={date}></input>
         </form>
-        {showModal ? (
+        {showModal && 
           <GuestInputModal
             showModal={true}
             hostName={hostName}
             hostEmail={hostEmail}
           />
-        ) : null}
+        }
+        {showErrorToast && 
+          <ToastError 
+            props={"Something went wrong... Please try again."}
+            setFunction={setShowErrorToast}
+          />
+        }
       </div>
     </>
   );
