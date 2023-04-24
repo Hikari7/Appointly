@@ -119,10 +119,10 @@ const Home = () => {
 
           <AnimateInView>
             <div className="md:flex md:min-h-[50%] md:my-32">
-              <div className="md:m-0  mt-8 w-full h-full">
+              <div className="mt-8 w-full md:my-auto">
                 <img
                   src={top}
-                  className="max-h-90 mx-auto w-full rounded-lg mt-16"
+                  className="max-h-90 mx-auto w-full rounded-lg mt-16 md:mt-0"
                 />
               </div>
               <div className="w-full md:mx-8 my-16">
@@ -147,23 +147,13 @@ const Home = () => {
                     tabIndex={1}
                     className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
                   >
-                    {/* <div className="collapse-title text-xl font-bold">
-                      Q: How can the host cancel the reservation?
-                    </div>
-                    <div className="collapse-content">
-                      <p>
-                        A: To cancel a reservation, hosts can send cancel from
-                        mypage
-                      </p>
-                    </div> */}
                     <div className="collapse-title text-xl font-bold">
-                      Q: How can the host cancel the reservation?
+                      Q: How can the host reschedule or cancel a meeting?
                     </div>
                     <div className="collapse-content">
                       <p>
-                        A: To cancel a reservation, hosts can directly contact
-                        the host via email. The guest's email information is
-                        provided to hosts once the booking is confirmed.
+                        A: To reschedule or cancel a meeting, hosts can do so by
+                        sending a request through their personal page.
                       </p>
                     </div>
                   </div>
@@ -172,13 +162,14 @@ const Home = () => {
                     className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box "
                   >
                     <div className="collapse-title text-xl font-bold">
-                      Q: How can the guest cancel the reservation?
+                      Q: How can the guest reschedule or cancel a meeting?
                     </div>
                     <div className="collapse-content">
                       <p>
-                        A: To cancel a reservation, guests can directly contact
-                        the host via email. The host's email information is
-                        provided to guests once the booking is confirmed.
+                        A: To reschedule or cancel a meeting, guests can
+                        directly contact the host via email. The host's email
+                        information is provided to guests once the booking is
+                        confirmed.
                       </p>
                     </div>
                   </div>
@@ -191,9 +182,7 @@ const Home = () => {
           <div className="text-center my-20">
             <Link to="/signup">
               <h2 className="text-center font-second text-2xl  animate-pulse">
-                <span className="font-bold text-accent">
-                  Ready to connect?
-                </span>
+                <span className="font-bold text-accent">Ready to connect?</span>
               </h2>
               <button className="btn btn-primary normal-case w-42 py-2 mt-6 text-xl font-second">
                 Get started

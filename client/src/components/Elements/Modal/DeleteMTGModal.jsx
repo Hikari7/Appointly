@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { deleteAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
+import emailjs from "@emailjs/browser";
 
 const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
   const appointmentList = useSelector(
@@ -25,6 +26,31 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
         const filteredArray = appointmentList.filter(
           (e) => e._id !== eachAppointment._id
         );
+
+        const newObj = {};
+        newObj.date = res.data.appointmentDateTime.date;
+        newObj.time = res.data.appointmentDateTime.time;
+        newObj.guestEmail = res.data.email;
+        newObj.guestName = res.data.name;
+
+        emailjs
+          .send(
+            import.meta.env.VITE_APP_SERVICE_ID_SECOND,
+            import.meta.env.VITE_APP_CANCEL_TEMPLATE_ID,
+            newObj,
+            import.meta.env.VITE_APP_PUBLIC_KEY_SECOND
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+              return { status: "success" };
+            },
+            (error) => {
+              console.log(error.text);
+              return { status: "faile" };
+            }
+          );
+
         dispatch(deleteAppointment({ filteredArray }));
       }
     } catch (error) {
@@ -59,33 +85,29 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
         <div className="text-center text-3xl font-bold font-second mt-6">
           Cancel meeting?
         </div>
-        <p className="text-center">
+        <p className="text-center break-words w-[80%]">
           An email notification will be sent to your guest informing them of the
           cancellation.
         </p>
-        <div className="flex flex-col w-[60%] text-left">
-          <div className="flex w-full mt-1">
-            <p>
-              Guest name:&nbsp;&nbsp;
-              <span className="text-primary ">{eachAppointment.name}</span>
-            </p>
-          </div>
-          <div className="flex w-full mt-1">
-            <p>
-              Guest name:&nbsp;&nbsp;
-              <span className="text-primary ">{eachAppointment.email}</span>
-            </p>
-          </div>
-          <div className="flex w-full mt-1">
-            <p>
-              Current schedule:
-              <span className="text-primary">
-                {eachAppointment.appointmentDateTime.date},
-                {eachAppointment.appointmentDateTime.time}
-              </span>
-            </p>
-          </div>
+        <div className="w-full">
+          <p>Guest name</p>
+          <span className="text-primary">{eachAppointment.name}</span>
         </div>
+
+        <div className="w-full">
+          <p>Guest email</p>
+          <span className="text-primary">{eachAppointment.email}</span>
+        </div>
+        <div className="w-full">
+          <p>Current schedule</p>
+          <span className="text-primary">
+            {eachAppointment.appointmentDateTime.date}
+          </span>
+          <span className="text-primary">
+            {eachAppointment.appointmentDateTime.time}
+          </span>
+        </div>
+
         <label className="flex items-center justify-center gap-3 font-bold w-full">
           <input
             type="checkbox"
@@ -97,8 +119,7 @@ const DeleteMTGModal = ({ setIsDeleteMTGModal, eachAppointment }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!isChecked}
-          // className="bg-red-400 font-bold text-white rounded-lg w-[60%] md:w-[50%] py-2 my-5 mx-auto disabled:opacity-50 hover:bg-red-600"
-          className="btn btn-error disabled:btn-disabled normal-case font-bold py-2 w-28"
+          className="btn btn-error disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3"
         >
           Cancel meeting
         </button>
