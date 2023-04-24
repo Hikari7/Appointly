@@ -1,17 +1,15 @@
 import React, { useState, useRef } from "react";
 import SignupImg from "../../assets/LoginImg.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   validateUsername,
   validateEmail,
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validators";
-import { setUser } from "../../redux/slicers/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import authApi from "../../api/authApi";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
+
 import { useMutation } from "react-query";
 
 const handleSignup = async ({ username, email, password }) => {
@@ -19,10 +17,9 @@ const handleSignup = async ({ username, email, password }) => {
   return res.data;
 };
 
+import useSignup from "../../hooks/useSignup";
+
 const Signup = () => {
-  const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const userInput = useRef(null);
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
@@ -35,21 +32,7 @@ const Signup = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const { mutate, isLoading } = useMutation(handleSignup, {
-    onSuccess: (data) => {
-      if (data.status === 404) {
-        setError(true);
-      } else {
-        setSuccess(true);
-        dispatch(setUser(user));
-
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-      }
-    },
-    onError: (error) => console.log(error),
-  });
+  const { mutate, isLoading } = useSignup(setSuccess, setError);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,10 +113,8 @@ const Signup = () => {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
 
-              {usernameErr !== "" ? (
+              {usernameErr !== "" && (
                 <p className="text-xs text-red-600">{usernameErr}</p>
-              ) : (
-                ""
               )}
 
               <label className="block text-gray-700 mt-2">Email</label>
@@ -145,10 +126,8 @@ const Signup = () => {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
 
-              {emailErr !== "" ? (
+              {emailErr !== "" && (
                 <p className="text-xs text-red-600">{emailErr}</p>
-              ) : (
-                ""
               )}
 
               <div className="mt-4">
@@ -161,10 +140,8 @@ const Signup = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {passwordErr !== "" ? (
+              {passwordErr !== "" && (
                 <p className="text-xs text-red-600">{passwordErr}</p>
-              ) : (
-                ""
               )}
               <div className="mt-4">
                 <label className="block text-gray-700">Confirm Password</label>
@@ -176,10 +153,8 @@ const Signup = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              {confirmPasswordErr !== "" ? (
+              {confirmPasswordErr !== "" && (
                 <p className="text-xs text-red-600">{confirmPasswordErr}</p>
-              ) : (
-                ""
               )}
 
               <button

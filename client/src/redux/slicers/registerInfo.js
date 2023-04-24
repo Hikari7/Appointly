@@ -11,13 +11,12 @@ export const registerInfoSlice = createSlice({
   reducers: {
     setFromCalendar: (state, action) => {
       state.appointment.appointmentDateTime = action.payload;
-    },
+    }
   },
 });
 
 export const {
   setFromCalendar,
-  // setFromForm
 } = registerInfoSlice.actions;
 
 export default registerInfoSlice.reducer;

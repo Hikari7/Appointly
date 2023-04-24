@@ -21,6 +21,7 @@ const DeleteMTGModal = ({
   const handleSubmit = async () => {
     try {
       const res = await userAppointmentApi.deleteMTG(eachAppointment._id);
+
       if (res.status === 200) {
         setIsMtgDeleteToast((prev) => ({ ...prev, success: true }));
         setIsDeleteMTGModal(false);

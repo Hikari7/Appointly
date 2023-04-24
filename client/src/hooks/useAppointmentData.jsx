@@ -1,7 +1,10 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import moment from "moment";
+
 import userAppointmentApi from "../api/userAppointmentApi";
 import { setListAppointment } from "../redux/slicers/listAppointment";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const useAppoinmentData = () => {
   const user = useSelector((state) => state.user.user);
@@ -25,6 +28,9 @@ const useAppoinmentData = () => {
               return;
             }
           });
+          filteredAppointment.sort((a, b) => {
+            return moment(a.appointmentDateTime.date).diff(moment(b.appointmentDateTime.date))
+          }) 
           dispatch(setListAppointment(filteredAppointment));
         } else {
           dispatch(setListAppointment([]));
