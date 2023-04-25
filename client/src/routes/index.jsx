@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { persistor } from "../redux/store";
-
 import { UserRoutes } from "./UserRoutes";
 import { PublicRoutes } from "./PublicRoutes";
 
@@ -32,7 +31,7 @@ const AppRoute = () => {
       <div className="flex justify-center pt-[8rem]">
         <svg
           aria-hidden="true"
-          className="w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="w-10 h-10 mr-2 text-gray-200 animate-spin fill-[#F7EDD6]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

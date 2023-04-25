@@ -8,6 +8,8 @@ import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentC
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
 
+//✅ToastをuseContextに書き換えたい
+
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
   const appointment = useSelector(
@@ -99,7 +101,7 @@ const MyPage = () => {
             <div className="flex justify-center pt-[2rem] md:pt-0">
               <svg
                 aria-hidden="true"
-                className="w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                className="w-10 h-10 mr-2 text-gray-200 animate-spin fill-[#F7EDD6]"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
