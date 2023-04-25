@@ -6,8 +6,10 @@ import { CiLogout } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/slicers/userSlice";
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
 
-const SideMenu = () => {
+const SideMenu = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -30,38 +32,56 @@ const SideMenu = () => {
     navigate("/");
   };
 
+  tippy("#singleElement", {
+    content: "Tooltip",
+  });
+  tippy("[data-tippy-content]", {
+    placement: "right",
+  });
+
   return (
     <div className="p-4 w-20 h-full border-r border-neutral border-thin">
       <div className="h-5/6 flex-col flex items-center mt-10">
         <ul className="w-3/4 mx-auto h-4/5 flex-col flex justify-center ">
           <button
             className="hover:cursor-pointer hover:text-accent transition duration-200 mt-8"
+            data-tippy-content="MyPage"
+            data-tippy-arrow="false"
             onClick={myPage}
           >
             <CiCalendar size={"100%"} />
           </button>
 
-          <li
+          <button
             className="hover:cursor-pointer hover:text-accent transition duration-200 mt-8"
+            data-tippy-content="Availablity"
+            data-tippy-arrow="false"
             onClick={availability}
           >
             <CiCalendarDate size={"100%"} />
-          </li>
-          <li
+          </button>
+          <button
             className="hover:cursor-pointer hover:text-accent transition duration-200 mt-8"
+            data-tippy-content="Settings"
+            data-tippy-arrow="false"
             onClick={settings}
           >
             <CiUser size={"100%"} />
-          </li>
+          </button>
         </ul>
         <ul className="w-3/4 mx-auto mt-auto">
-          <li
+          <button
             className="hover:cursor-pointer hover:text-primary transition duration-200"
+            data-tippy-content="Logout"
+            data-tippy-arrow="false"
             onClick={logout}
           >
             <CiLogout size={"100%"} />
-          </li>
+          </button>
         </ul>
+      </div>
+      <div className="md:border-r border-neutral border-thin justify-center flex-col flex items-center text-center md:w-3/12 pt-14 md:pt-0 md:absolute mdh-full">
+        {children}
       </div>
     </div>
   );

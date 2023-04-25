@@ -10,6 +10,8 @@ const AppointmentCollapse = ({
   eachAppointment,
   setIsMtgDeleteToast,
   setIsMtgRescheduleToast,
+  isMtgRescheduleToast,
+  isMtgDeleteToast,
 }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
@@ -30,7 +32,6 @@ const AppointmentCollapse = ({
     .add(30, "m")
     .format("HH:mm");
   const createdDate = moment(eachAppointment.createdAt).format("MMM DD, YYYY");
-  //✅Layoutにあるmy-12の幅がcollapse開くと取れなくなる
   return (
     <div
       tabIndex={0}
@@ -79,27 +80,26 @@ const AppointmentCollapse = ({
         )}
       </HashLink>
       {isCollapseOpen && (
-        <div id={eachAppointment._id} className="p-3 mx-auto">
-          <div className="flex justify-center">
-            <div className="flex flex-col mx-3 md:w-[60%]">
-              <div className="flex items-center w-full ">
-                <p className="basis-[50%]">Guest name:</p>
-                <span className="text-primary">{eachAppointment.name}</span>
-              </div>
-              <div className="flex items-center w-full">
-                <p className="basis-[50%]">Guest email:</p>
-                <span className="text-primary">{eachAppointment.email}</span>
-              </div>
-              <div className="flex items-center w-full">
-                <p className="basis-[50%]">Comments:</p>
-                <span className="text-primary">{eachAppointment.message}</span>
-              </div>
-              <div className="flex items-center w-full">
-                <p className="basis-[50%]">Created at:</p>
-                <span className="text-primary">{createdDate}</span>
-              </div>
+        <div id={eachAppointment._id} className="px-10 mx-auto">
+          <div className="md:flex justify-between w-full">
+            <div className="items-center w-full ">
+              <p className="basis-[50%]">Guest name</p>
+              <span className="text-primary">{eachAppointment.name}</span>
+            </div>
+            <div className="items-center w-full">
+              <p className="basis-[50%]">Guest email</p>
+              <span className="text-primary">{eachAppointment.email}</span>
             </div>
           </div>
+          <div className="items-center w-full mt-3">
+            <p className="basis-[50%]">Comments</p>
+            <span className="text-primary">{eachAppointment.message}</span>
+          </div>
+          <div className="items-center w-full mt-3">
+            <p className="basis-[50%]">Created at</p>
+            <span className="text-primary">{createdDate}</span>
+          </div>
+
           <div className="flex items-center justify-center my-6 gap-6">
             <button
               className="cursor-pointer px-5 py-2 shadow rounded block text-center  hover:bg-green-400 hover:text-white  bg-white text-neutral transition duration-200 w-32"
@@ -121,6 +121,7 @@ const AppointmentCollapse = ({
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
           setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+          isMtgRescheduleToast={isMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
@@ -128,6 +129,7 @@ const AppointmentCollapse = ({
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
           setIsMtgDeleteToast={setIsMtgDeleteToast}
+          isMtgDeleteToast={isMtgDeleteToast}
         />
       )}
     </div>
