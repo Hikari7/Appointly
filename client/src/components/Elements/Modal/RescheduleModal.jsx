@@ -55,7 +55,7 @@ const RescheduleModal = ({
         time: selectedTime,
       };
 
-      const res = await userAppointmentApi.updateMTGぁjslだsd(
+      const res = await userAppointmentApi.updateMTG(
         eachAppointment._id,
         params
       );

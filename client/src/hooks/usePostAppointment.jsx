@@ -1,24 +1,29 @@
-import { useMutation } from 'react-query'
-import { useSelector } from 'react-redux'
+import { useMutation } from "react-query";
+import { useSelector } from "react-redux";
 
-import { sendEmail } from '../utils/sendEmail'
-import guestAppointmentApi from '../api/guestAppointmentApi'
+import { sendEmail } from "../utils/sendEmail";
+import guestAppointmentApi from "../api/guestAppointmentApi";
 
-const handleCreateAppointment = async ({newObj}) => {
-  const res = await guestAppointmentApi({newObj})
-  return res.data
-}
+const handleCreateAppointment = async ({ newObj }) => {
+  const res = await guestAppointmentApi({ newObj });
+  return res.data;
+};
 
-const usePostAppointment = (hostEmailUpdater, hostNameUpdater, modalUpdater, toastUpdater) => {
+const usePostAppointment = (
+  hostEmailUpdater,
+  hostNameUpdater,
+  modalUpdater,
+  toastUpdater
+) => {
   const appointment = useSelector((state) => state.appointment.appointment);
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
 
   return useMutation(handleCreateAppointment, {
     onSuccess: (data) => {
-      hostEmailUpdater(data.email)
-      hostNameUpdater(data.username)
-      modalUpdater(true)
+      hostEmailUpdater(data.email);
+      hostNameUpdater(data.username);
+      modalUpdater(true);
 
       const params = {
         name: data.guestName,
@@ -30,13 +35,13 @@ const usePostAppointment = (hostEmailUpdater, hostNameUpdater, modalUpdater, toa
         date,
       };
 
-      // sendEmail(params, "user")
-      // sendEmail(params, "guest")
+      sendEmail(params, "user");
+      sendEmail(params, "guest");
     },
     onError: () => {
-      toastUpdater(true)
-    }
-  })
-}
+      toastUpdater(true);
+    },
+  });
+};
 
-export default usePostAppointment
+export default usePostAppointment;

@@ -3,10 +3,12 @@ import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
 import { useSelector } from "react-redux";
 import { FiCopy, FiCheck } from "react-icons/fi";
-import { AiOutlineArrowUp } from "react-icons/ai";
 import useAppoinmentData from "../../hooks/useAppointmentData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
+import ToastError from "../../components/Elements/Toast/ToastError";
+
+//✅ToastをuseContextに書き換えたい
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -14,10 +16,9 @@ const MyPage = () => {
     (state) => state.listAppointment.listAppointment
   );
   const toast = useSelector((state) => state.loginToast.isLogined);
-
   const [isCopied, setIsCopied] = useState(false);
   const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({
-    success: false,
+    succeslss: false,
     error: false,
   });
   const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({
@@ -25,13 +26,13 @@ const MyPage = () => {
     error: false,
   });
 
-  useAppoinmentData();
+  const { isError, isFetching } = useAppoinmentData();
 
   let bookedNum = appointment.length;
 
   function currentBooking() {
     if (bookedNum === 0) {
-      return <p>Let's start connecting to your guests!</p>;
+      return <p>Ready to get your first appointment?</p>;
     } else if (bookedNum === 1) {
       return <p>You have upcoming 1 meeting!</p>;
     } else {
@@ -54,7 +55,9 @@ const MyPage = () => {
       <div className="md:flex md:w-93 h-[97vh]">
         <TitleWrapper>
           <h1 className="text-3xl font-second md:w-10/12 mx-auto">
-            Welcome, <span>{user.username}</span>
+            Welcome,
+            <br></br>
+            <span>{user.username}</span>
           </h1>
           <img
             src={mypageImg}
@@ -62,7 +65,7 @@ const MyPage = () => {
           />
           <div>{currentBooking()}</div>
         </TitleWrapper>
-        <div className="mt-14 md:my-auto md:w-5/6 w-full">
+        <div className="mt-14 overflow-scroll md:w-5/6 w-full">
           <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
             <p className="font-second text-center text-acc">
               30 Minute Meeting
@@ -93,43 +96,70 @@ const MyPage = () => {
               )}
             </div>
           </div>
-          <div className="">
-            {appointment.length === 0 ? (
-              <div className="w-full mt-24">
-                <p className="text-center mt-8 text-slate-500">
-                  It looks like you haven't made any appointments yet.
-                </p>
-              </div>
-            ) : (
-              <div className="py-10 md:mt-12 ">
-                {appointment.map((eachAppointment) => (
-                  <AppointmentCollapse
-                    key={eachAppointment._id}
-                    eachAppointment={eachAppointment}
-                    setIsMtgDeleteToast={setIsMtgDeleteToast}
-                    setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-                    isMtgRescheduleToast={isMtgRescheduleToast}
-                    isMtgDeleteToast={isMtgDeleteToast}
-                  />
-                ))}
-              </div>
-            )}
-            {toast && (
-              <ToastSuccess props={"Login Successfull!"} method="login" />
-            )}
-          </div>
+
+          {isFetching ? (
+            <div className="flex justify-center pt-[2rem] md:pt-0">
+              <svg
+                aria-hidden="true"
+                className="w-10 h-10 mr-2 text-gray-200 animate-spin fill-[#F7EDD6]"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
+              </svg>
+            </div>
+          ) : (
+            <>
+              {appointment.length === 0 ? (
+                <div className="w-full mt-24">
+                  <p className="text-center mt-8 text-slate-500">
+                    It looks like you haven't made any appointments yet.
+                  </p>
+                </div>
+              ) : (
+                <div className="py-10 md:mt-12 ">
+                  {appointment.map((eachAppointment) => (
+                    <AppointmentCollapse
+                      key={eachAppointment._id}
+                      eachAppointment={eachAppointment}
+                      setIsMtgDeleteToast={setIsMtgDeleteToast}
+                      setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+                      isMtgRescheduleToast={isMtgRescheduleToast}
+                      isMtgDeleteToast={isMtgDeleteToast}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+          {toast && <ToastSuccess props={"Login Successful!"} method="login" />}
         </div>
       </div>
       {isMtgDeleteToast.success && (
         <ToastSuccess
-          props={"Successfully canceled!"}
+          props={"Successfully Canceled!"}
           setFunction={setIsMtgDeleteToast}
           method={"mtg"}
         />
       )}
       {isMtgRescheduleToast.success && (
         <ToastSuccess
-          props={"Successfully rescheduled!"}
+          props={"Successfully Rescheduled!"}
+          setFunction={setIsMtgRescheduleToast}
+          method={"mtg"}
+        />
+      )}
+      {isError && (
+        <ToastError
+          props={"Something went wrong...Please try again"}
           setFunction={setIsMtgRescheduleToast}
           method={"mtg"}
         />
