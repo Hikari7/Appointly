@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { HashLink } from "react-router-hash-link";
-
 import moment from "moment";
-
 import RescheduleModal from "../Modal/RescheduleModal";
 import DeleteMTGModal from "../Modal/DeleteMTGModal";
+import { appointmentToast } from "../../../pages/User/MyPage";
 
-const AppointmentCollapse = ({
-  eachAppointment,
-  setIsMtgDeleteToast,
-  setIsMtgRescheduleToast,
-  isMtgRescheduleToast,
-  isMtgDeleteToast,
-}) => {
+const AppointmentCollapse = ({ eachAppointment }) => {
+  const { currentAvailbleTime, setCurrentAvailbleTime } =
+    useContext(appointmentToast);
+
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const [isRescheduleModal, setIsRescheduleModal] = useState(false);
   const [isDeleteMTGModal, setIsDeleteMTGModal] = useState(false);
@@ -44,8 +40,8 @@ const AppointmentCollapse = ({
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
       >
         <div className="flex flex-col">
-          <p className="w-full text-lg">{`${appointmentDow}, ${appointmentDate}`}</p>
-          <p className="w-full text-lg">{`${appointmentStartTime} - ${appointmentEndTime}`}</p>
+          <p className="w-full text-lg break-all">{`${appointmentDow}, ${appointmentDate}`}</p>
+          <p className="w-full text-lg break-all">{`${appointmentStartTime} - ${appointmentEndTime}`}</p>
         </div>
         {isCollapseOpen ? (
           <svg
@@ -82,18 +78,24 @@ const AppointmentCollapse = ({
       {isCollapseOpen && (
         <div id={eachAppointment._id} className="px-10 mx-auto">
           <div className="md:flex justify-between w-full">
-            <div className="items-center w-full ">
+            <div className="items-center w-full">
               <p className="basis-[50%]">Guest name</p>
-              <span className="text-primary">{eachAppointment.name}</span>
+              <span className="text-primary break-all ">
+                {eachAppointment.name}
+              </span>
             </div>
             <div className="items-center w-full">
               <p className="basis-[50%]">Guest email</p>
-              <span className="text-primary">{eachAppointment.email}</span>
+              <span className="text-primary break-all ">
+                {eachAppointment.email}
+              </span>
             </div>
           </div>
           <div className="items-center w-full mt-3">
             <p className="basis-[50%]">Comments</p>
-            <span className="text-primary">{eachAppointment.message}</span>
+            <span className="text-primary break-all ">
+              {eachAppointment.message}
+            </span>
           </div>
           <div className="items-center w-full mt-3">
             <p className="basis-[50%]">Created at</p>
@@ -120,16 +122,16 @@ const AppointmentCollapse = ({
         <RescheduleModal
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
-          setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-          isMtgRescheduleToast={isMtgRescheduleToast}
+          // setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+          // isMtgRescheduleToast={isMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
         <DeleteMTGModal
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
-          setIsMtgDeleteToast={setIsMtgDeleteToast}
-          isMtgDeleteToast={isMtgDeleteToast}
+          // setIsMtgDeleteToast={setIsMtgDeleteToast}
+          // isMtgDeleteToast={isMtgDeleteToast}
         />
       )}
     </div>

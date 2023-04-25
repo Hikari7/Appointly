@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import mypageImg from "../../assets/mypage.svg";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentC
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
 
-//✅ToastをuseContextに書き換えたい
+export const appointmentToast = createContext();
 
 const MyPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -17,6 +17,8 @@ const MyPage = () => {
   );
   const toast = useSelector((state) => state.loginToast.isLogined);
   const [isCopied, setIsCopied] = useState(false);
+  const { isError, isFetching } = useAppoinmentData();
+
   const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({
     succeslss: false,
     error: false,
@@ -26,7 +28,12 @@ const MyPage = () => {
     error: false,
   });
 
-  const { isError, isFetching } = useAppoinmentData();
+  const value = {
+    isMtgDeleteToast,
+    setIsMtgDeleteToast,
+    isMtgRescheduleToast,
+    setIsMtgRescheduleToast,
+  };
 
   let bookedNum = appointment.length;
 
@@ -120,21 +127,25 @@ const MyPage = () => {
             <>
               {appointment.length === 0 ? (
                 <div className="w-full mt-24">
-                  <p className="text-center mt-8 text-slate-500">
+                  <p className="text-center my-8 text-slate-500">
                     It looks like you haven't made any appointments yet.
                   </p>
                 </div>
               ) : (
                 <div className="py-10 md:mt-12 ">
                   {appointment.map((eachAppointment) => (
-                    <AppointmentCollapse
+                    <appointmentToast.Provider
+                      value={value}
                       key={eachAppointment._id}
-                      eachAppointment={eachAppointment}
-                      setIsMtgDeleteToast={setIsMtgDeleteToast}
-                      setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-                      isMtgRescheduleToast={isMtgRescheduleToast}
-                      isMtgDeleteToast={isMtgDeleteToast}
-                    />
+                    >
+                      <AppointmentCollapse
+                        eachAppointment={eachAppointment}
+                        // setIsMtgDeleteToast={setIsMtgDeleteToast}
+                        // setIsMtgRescheduleToast={setIsMtgRescheduleToast}
+                        // isMtgRescheduleToast={isMtgRescheduleToast}
+                        // isMtgDeleteToast={isMtgDeleteToast}
+                      />
+                    </appointmentToast.Provider>
                   ))}
                 </div>
               )}
