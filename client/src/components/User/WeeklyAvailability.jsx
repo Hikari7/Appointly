@@ -87,11 +87,9 @@ const WeeklyAvailability = () => {
                 </label>
                 <div className="flex flex-col gap-3">
                   {/* Check each day of week's value (which is boolean). If true, map all elem in time array. */}
-                  {availability &&
-                  availability.find(
+                  {availability.find(
                     (elem) => Object.keys(elem)[0] === Object.keys(eachObj)[0]
                   )[Object.keys(eachObj)[0]] ? (
-                    availability &&
                     availability
                       .find(
                         (elem) =>

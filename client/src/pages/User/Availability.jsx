@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/WeeklyAvailability";
 import availabilityImg from "../../assets/availability.svg";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
+import ToastError from "../../components/Elements/Toast/ToastError";
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
-  const { isFetching } = useAvailabilityData();
+  const { isFetching, isError } = useAvailabilityData();
 
   return (
     <>
@@ -21,7 +22,6 @@ const Availability = () => {
             src={availabilityImg}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-
           <h3>
             Select dates and times for
             <br></br>your available scheduled events
@@ -74,6 +74,11 @@ const Availability = () => {
                 {openTab === 1 && <WeeklyAvailability />}
                 {openTab === 2 && <DailyAvailability />}
               </>
+          }
+          {isError && 
+            <ToastError 
+              props={"Something went wrong... Please try again."}
+            />
           }
         </div>
       </div>

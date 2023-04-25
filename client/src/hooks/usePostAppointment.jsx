@@ -30,8 +30,8 @@ const usePostAppointment = (hostEmailUpdater, hostNameUpdater, modalUpdater, toa
         date,
       };
 
-      // sendEmail(params, "user")
-      // sendEmail(params, "guest")
+      sendEmail(params, "user")
+      sendEmail(params, "guest")
     },
     onError: () => {
       toastUpdater(true)
