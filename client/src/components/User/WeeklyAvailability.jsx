@@ -13,7 +13,7 @@ import { useState } from "react";
 import ToastSuccess from "../Elements/Toast/ToastSuccess";
 import ToastError from "../Elements/Toast/ToastError";
 
-const WeeklyAvailability = () => {
+const WeeklyAvailability = ({isError: fetchFailed}) => {
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch();
   const param = useParams();
@@ -153,8 +153,9 @@ const WeeklyAvailability = () => {
             </div>
           ))}
         <button
+          disabled={fetchFailed}
           onClick={(e) => handleSubmit(e)}
-          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6"
+          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
          Change Apply
         </button>

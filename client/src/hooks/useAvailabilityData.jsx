@@ -18,7 +18,8 @@ const useAvailabilityData = () => {
           availabilityObj.daily = data[0].daily;
           dispatch(setAvailability(availabilityObj));
         }
-      }
+    },
+    retry: false,    
   });
 
   if(isError){

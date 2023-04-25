@@ -26,7 +26,6 @@ const UserInfoChange = () => {
     e.preventDefault();
 
     let error = false;
-    console.log(user.username);
 
     const username = userInput.current.value;
     const email = emailInput.current.value;
@@ -51,7 +50,6 @@ const UserInfoChange = () => {
         email,
       });
 
-      console.log(res.data[0]);
 
       if (res.status === 200) {
         const newObj = {};

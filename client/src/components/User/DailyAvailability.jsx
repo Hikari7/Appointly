@@ -307,7 +307,6 @@ const DailyAvailability = () => {
       {isOpen && (
         <TargetTime.Provider value={value}>
           <TimeAvailability
-            timeArray={currentAvailbleTime}
             selectDate={selectedDate}
           />
         </TargetTime.Provider>
