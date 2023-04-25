@@ -12,7 +12,7 @@ const Login = () => {
   const [passwordErr, setPasswordErr] = useState(null);
   const [error, setError] = useState(false);
 
-  const { mutate, isLoading } = useLogin(setError)
+  const { mutate, isLoading } = useLogin(setError);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const Login = () => {
     }
 
     // Call login api
-    mutate({email, password})
+    mutate({ email, password });
   };
 
   return (
@@ -69,7 +69,9 @@ const Login = () => {
                 />
               </div>
 
-              {emailErr !== "" && <p className="text-xs text-red-600">{emailErr}</p>}
+              {emailErr !== "" && (
+                <p className="text-xs text-red-600">{emailErr}</p>
+              )}
 
               <div className="mt-4">
                 <label className="block text-gray-700">Password</label>
@@ -82,12 +84,16 @@ const Login = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 />
               </div>
-              
-              {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
+
+              {passwordErr !== "" && (
+                <p className="text-xs text-red-600">{passwordErr}</p>
+              )}
 
               <button
                 type="submit"
-                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto ${isLoading && "loading"}`}
+                className={`btn btn-primary normal-case font-bold w-full py-2 my-7 mr-auto ${
+                  isLoading && "loading"
+                }`}
               >
                 Login
               </button>
