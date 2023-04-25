@@ -16,7 +16,7 @@ const MyPage = () => {
   const toast = useSelector((state) => state.loginToast.isLogined);
   const [isCopied, setIsCopied] = useState(false);
   const [isMtgDeleteToast, setIsMtgDeleteToast] = useState({
-    success: false,
+    succeslss: false,
     error: false,
   });
   const [isMtgRescheduleToast, setIsMtgRescheduleToast] = useState({
@@ -24,9 +24,7 @@ const MyPage = () => {
     error: false,
   });
 
-  const { isFetching, isError } = useAppoinmentData();
-
-  console.log(useAppoinmentData);
+  const { isError, isFetching } = useAppoinmentData();
 
   let bookedNum = appointment.length;
 
@@ -96,6 +94,7 @@ const MyPage = () => {
               )}
             </div>
           </div>
+
           {isFetching ? (
             <div className="flex justify-center pt-[2rem] md:pt-0">
               <svg

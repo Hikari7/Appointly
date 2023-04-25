@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
-
 import moment from "moment";
-
 import userAppointmentApi from "../api/userAppointmentApi";
 import { setListAppointment } from "../redux/slicers/listAppointment";
 
@@ -10,10 +8,12 @@ const useAppoinmentData = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
-  return useQuery({
+  const { isFetching, isError } = useQuery({
     queryKey: ["appointments"],
     queryFn: async () => {
       const { data } = await userAppointmentApi.getAll(user.userId);
+      console.log({ data });
+
       if (data.length > 0) {
         const today = new Date();
         const filteredAppointment = data.filter(function (appointmentDate) {
@@ -32,12 +32,17 @@ const useAppoinmentData = () => {
           );
         });
         dispatch(setListAppointment(filteredAppointment));
-      } else {
+      }
+
+      if (isError) {
         dispatch(setListAppointment([]));
       }
-      return data;
     },
   });
+  return {
+    isFetching,
+    isError,
+  };
 };
 
 export default useAppoinmentData;
