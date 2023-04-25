@@ -35,8 +35,8 @@ const usePostAppointment = (
         date,
       };
 
-      sendEmail(params, "user");
-      sendEmail(params, "guest");
+      sendEmail(params, "user")
+      sendEmail(params, "guest")
     },
     onError: () => {
       toastUpdater(true);

@@ -3,7 +3,9 @@ const ToastError = ({ props, method, setFunction }) => {
     if (method === "mtg") {
       setFunction((prev) => ({ ...prev, error: false }));
     } else {
-      setFunction(false);
+      if (setFunction) {
+        setFunction(false);        
+      }
     }
   }, 2000);
 
