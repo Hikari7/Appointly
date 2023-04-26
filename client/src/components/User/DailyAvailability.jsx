@@ -10,7 +10,6 @@ import {
   getPrevMonth,
 } from "../../utils/calenderHelpers";
 import TimeAvailability from "./TimeAvailability";
-import UserAnimation from "../../utils/userAnimation";
 
 export const TargetTime = createContext();
 
@@ -81,231 +80,229 @@ const DailyAvailability = () => {
   return (
     <div className="flex flex-col items-center md:flex-row md:justify-center">
       <div className="w-[80%] md:w-[50%] py-5 px-2 md:ml-5 mt-[12px]">
-        <UserAnimation>
-          <div className="flex justify-between items-center mb-5">
-            <svg
-              onClick={() => handleChangeMonth("prev")}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
-            <div className="text-2xl md:text-3xl text-bold">{`${year} ${month}`}</div>
-            <svg
-              onClick={() => handleChangeMonth("next")}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </div>
-          <div className="flex justify-around mb-5 md:mb-10">
-            {dow.map((item, index) => (
-              <div key={index} className="text-sm md:text-base">
-                {item}
-              </div>
-            ))}
-          </div>
-          {calendarData &&
-            calendarData.map((week, index) => (
-              <div key={index} className="flex h-8 md:h-12 md:text-xl">
-                {week.map((day, weekIndex) => {
-                  {
-                    /* Set color to gray for dates before current date. */
-                  }
-                  if (
-                    moment(`${day.month}-${day.date}`).isBefore(
-                      today.format("YYYY-MM-D")
-                    ) |
-                    (currentMonth !== day.month)
-                  ) {
-                    return (
-                      <div
-                        key={weekIndex}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center text-gray-300">
-                          {day.date}
-                        </div>
-                      </div>
-                    );
-                    {
-                      /* Set today's color. */
-                    }
-                  } else if (
-                    moment(`${day.month}-${day.date}`)._i ===
+        <div className="flex justify-between items-center mb-5">
+          <svg
+            onClick={() => handleChangeMonth("prev")}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+          <div className="text-2xl md:text-3xl text-bold">{`${year} ${month}`}</div>
+          <svg
+            onClick={() => handleChangeMonth("next")}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </div>
+        <div className="flex justify-around mb-5 md:mb-10">
+          {dow.map((item, index) => (
+            <div key={index} className="text-sm md:text-base">
+              {item}
+            </div>
+          ))}
+        </div>
+        {calendarData &&
+          calendarData.map((week, index) => (
+            <div key={index} className="flex h-8 md:h-12 md:text-xl">
+              {week.map((day, weekIndex) => {
+                {
+                  /* Set color to gray for dates before current date. */
+                }
+                if (
+                  moment(`${day.month}-${day.date}`).isBefore(
                     today.format("YYYY-MM-D")
-                  ) {
-                    return (
-                      <div
-                        key={weekIndex}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center font-bold text-green-400 rounded-full">
-                          {day.date}
-                        </div>
+                  ) |
+                  (currentMonth !== day.month)
+                ) {
+                  return (
+                    <div
+                      key={weekIndex}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center text-gray-300">
+                        {day.date}
                       </div>
-                    );
-                    {
-                      /* Condition for a date that has daily availability. */
-                    }
-                  } else if (
-                    dailyAvailability.find(
-                      (eachDateTimeObj) =>
-                        eachDateTimeObj.date ===
-                        moment(`${day.month}-${day.date}`).format("YYYY-MM-D")
-                    )
-                  ) {
-                    const targetDateTimeObj = dailyAvailability.find(
-                      (eachDateTimeObj) =>
-                        eachDateTimeObj.date ===
-                        moment(`${day.month}-${day.date}`).format("YYYY-MM-D")
-                    );
-                    return selectedItem === `${day.month}-${day.date}` ? (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(
-                            `${day.month}-${day.date}`,
-                            targetDateTimeObj.time
-                          )
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
-                          {day.date}
-                        </div>
-                      </HashLink>
-                    ) : (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(
-                            `${day.month}-${day.date}`,
-                            targetDateTimeObj.time
-                          )
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center">{day.date}</div>
-                      </HashLink>
-                    );
-                    {
-                      /* Condition for a date that has weekly availability. */
-                    }
-                  } else if (
-                    availableDowArr.includes(
-                      Number(moment(`${day.month}-${day.date}`).format("d"))
-                    )
-                  ) {
-                    const timeArray = modifiedWeeklyAvailability.filter(
-                      (e) =>
-                        e.dow ===
-                        Number(moment(`${day.month}-${day.date}`).format("d"))
-                    );
-                    return selectedItem === `${day.month}-${day.date}` ? (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(
-                            `${day.month}-${day.date}`,
-                            timeArray[0].time
-                          )
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
-                          {day.date}
-                        </div>
-                      </HashLink>
-                    ) : (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(
-                            `${day.month}-${day.date}`,
-                            timeArray[0].time
-                          )
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center">{day.date}</div>
-                      </HashLink>
-                    );
-                    {
-                      /* Condition for a date that does not have availability */
-                    }
-                    {
-                      /* Set bg-color for selected date */
-                    }
-                  } else {
-                    return selectedItem === `${day.month}-${day.date}` ? (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(`${day.month}-${day.date}`, [
-                            { start: "", end: "" },
-                          ])
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
-                          {day.date}
-                        </div>
-                      </HashLink>
-                    ) : (
-                      <HashLink
-                        smooth
-                        to="#setBtn"
-                        onClick={() =>
-                          handleClickDate(`${day.month}-${day.date}`, [
-                            { start: "", end: "" },
-                          ])
-                        }
-                        key={weekIndex}
-                        id={`${day.month}-${day.date}`}
-                        className="flex-1 flex justify-center items-center"
-                      >
-                        <div className="text-center">{day.date}</div>
-                      </HashLink>
-                    );
+                    </div>
+                  );
+                  {
+                    /* Set today's color. */
                   }
-                })}
-              </div>
-            ))}
-          <hr className="mt-5 md:hidden" />
-        </UserAnimation>
+                } else if (
+                  moment(`${day.month}-${day.date}`)._i ===
+                  today.format("YYYY-MM-D")
+                ) {
+                  return (
+                    <div
+                      key={weekIndex}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center font-bold text-green-400 rounded-full">
+                        {day.date}
+                      </div>
+                    </div>
+                  );
+                  {
+                    /* Condition for a date that has daily availability. */
+                  }
+                } else if (
+                  dailyAvailability.find(
+                    (eachDateTimeObj) =>
+                      eachDateTimeObj.date ===
+                      moment(`${day.month}-${day.date}`).format("YYYY-MM-D")
+                  )
+                ) {
+                  const targetDateTimeObj = dailyAvailability.find(
+                    (eachDateTimeObj) =>
+                      eachDateTimeObj.date ===
+                      moment(`${day.month}-${day.date}`).format("YYYY-MM-D")
+                  );
+                  return selectedItem === `${day.month}-${day.date}` ? (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(
+                          `${day.month}-${day.date}`,
+                          targetDateTimeObj.time
+                        )
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
+                        {day.date}
+                      </div>
+                    </HashLink>
+                  ) : (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(
+                          `${day.month}-${day.date}`,
+                          targetDateTimeObj.time
+                        )
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center">{day.date}</div>
+                    </HashLink>
+                  );
+                  {
+                    /* Condition for a date that has weekly availability. */
+                  }
+                } else if (
+                  availableDowArr.includes(
+                    Number(moment(`${day.month}-${day.date}`).format("d"))
+                  )
+                ) {
+                  const timeArray = modifiedWeeklyAvailability.filter(
+                    (e) =>
+                      e.dow ===
+                      Number(moment(`${day.month}-${day.date}`).format("d"))
+                  );
+                  return selectedItem === `${day.month}-${day.date}` ? (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(
+                          `${day.month}-${day.date}`,
+                          timeArray[0].time
+                        )
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
+                        {day.date}
+                      </div>
+                    </HashLink>
+                  ) : (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(
+                          `${day.month}-${day.date}`,
+                          timeArray[0].time
+                        )
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center">{day.date}</div>
+                    </HashLink>
+                  );
+                  {
+                    /* Condition for a date that does not have availability */
+                  }
+                  {
+                    /* Set bg-color for selected date */
+                  }
+                } else {
+                  return selectedItem === `${day.month}-${day.date}` ? (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(`${day.month}-${day.date}`, [
+                          { start: "", end: "" },
+                        ])
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center w-[1.5rem] h-[1.5rem] md:w-[1.8rem] md:h-[1.8rem] bg-green-200 rounded-full">
+                        {day.date}
+                      </div>
+                    </HashLink>
+                  ) : (
+                    <HashLink
+                      smooth
+                      to="#setBtn"
+                      onClick={() =>
+                        handleClickDate(`${day.month}-${day.date}`, [
+                          { start: "", end: "" },
+                        ])
+                      }
+                      key={weekIndex}
+                      id={`${day.month}-${day.date}`}
+                      className="flex-1 flex justify-center items-center"
+                    >
+                      <div className="text-center">{day.date}</div>
+                    </HashLink>
+                  );
+                }
+              })}
+            </div>
+          ))}
+        <hr className="mt-5 md:hidden" />
       </div>
 
       {isOpen && (

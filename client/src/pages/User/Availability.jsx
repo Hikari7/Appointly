@@ -1,12 +1,11 @@
 import { useState } from "react";
-
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/WeeklyAvailability";
 import availabilityImg from "../../assets/availability.svg";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import ToastError from "../../components/Elements/Toast/ToastError";
-import UserAnimation from "../../utils/userAnimation";
+import UserAnimation from "../../utils/Animation/UserAnimation";
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -32,8 +31,8 @@ const Availability = () => {
                   <a
                     className={
                       openTab === 1
-                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
+                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 w-28 font-second"
+                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-neutral bg-white w-28 font-second"
                     }
                     onClick={(e) => {
                       e.preventDefault();
@@ -47,8 +46,8 @@ const Availability = () => {
                   <a
                     className={
                       openTab === 2
-                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
+                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 w-28 font-second"
+                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-neutral bg-white w-28 font-second"
                     }
                     onClick={(e) => {
                       e.preventDefault();
@@ -73,6 +72,7 @@ const Availability = () => {
             ) : (
               <>
                 {openTab === 1 && <WeeklyAvailability />}
+
                 {openTab === 2 && <DailyAvailability />}
               </>
             )}

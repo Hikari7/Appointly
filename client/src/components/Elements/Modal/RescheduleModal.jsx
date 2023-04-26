@@ -183,7 +183,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!(selectedDate && selectedTime)}
-          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3"
+          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3 mb-5"
         >
           Reschedule
         </button>

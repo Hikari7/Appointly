@@ -3,10 +3,12 @@ import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import settingImg from "../../assets/setting.svg";
 import UserInfoChange from "../../components/User/Settings/UserInfoChange";
 import PasswordChange from "../../components/User/Settings/PasswordChange";
-import UserAnimation from "../../utils/userAnimation";
+import UserAnimation from "../../utils/Animation/UserAnimation";
+import { useEffect } from "react";
 
 const Settings = () => {
   const [openTab, setOpenTab] = useState(1);
+
   return (
     <>
       <div className="md:flex md:w-[93vw] h-full">
@@ -37,8 +39,8 @@ const Settings = () => {
                   <li
                     className={
                       openTab === 1
-                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 w-28"
-                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white w-28"
+                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 w-28 font-second"
+                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-neutral bg-white w-28 font-second"
                     }
                     onClick={(e) => {
                       e.preventDefault();
@@ -51,8 +53,8 @@ const Settings = () => {
                   <li
                     className={
                       openTab === 2
-                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
+                        ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 font-second"
+                        : "cursor-pointer px-5 py-2 shadow rounded block text-center text-neutral bg-white font-second"
                     }
                     onClick={(e) => {
                       e.preventDefault();
@@ -63,8 +65,16 @@ const Settings = () => {
                   </li>
                 </ul>
               </div>
-              {openTab === 1 && <UserInfoChange />}
-              {openTab === 2 && <PasswordChange />}
+              {openTab === 1 && (
+                // <ToLeftAnimation>
+                <UserInfoChange />
+                // </ToLeftAnimation>
+              )}
+              {openTab === 2 && (
+                // <ToRightAnimation>
+                <PasswordChange />
+                // </ToRightAnimation>
+              )}
             </div>
           </UserAnimation>
         </div>

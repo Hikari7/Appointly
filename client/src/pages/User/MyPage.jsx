@@ -7,7 +7,7 @@ import useAppoinmentData from "../../hooks/useAppointmentData";
 import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentCollapse";
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
-import UserAnimation from "../../utils/userAnimation";
+import UserAnimation from "../../utils/Animation/UserAnimation";
 
 export const appointmentToast = createContext();
 
@@ -121,9 +121,9 @@ const MyPage = () => {
             ) : (
               <>
                 {appointment.length === 0 ? (
-                  <div className="w-full mt-24">
-                    <p className="text-center my-8 text-slate-500">
-                      It looks like you haven't got any appointments yet.
+                  <div className="w-full my-24">
+                    <p className="text-center my-8 text-slate-500 w-1/2 mx-auto break-words">
+                      It looks you haven't got any appointments yet.
                     </p>
                   </div>
                 ) : (

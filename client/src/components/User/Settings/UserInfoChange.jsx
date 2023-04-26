@@ -13,13 +13,10 @@ const UserInfoChange = () => {
   const param = useParams();
   const userInput = useRef(null);
   const emailInput = useRef(null);
-
   const [usernameErr, setUsernameErr] = useState(null);
   const [emailErr, setEmailErr] = useState("");
-
   const [successUsername, setSuccessUsername] = useState(false);
   const [successEmail, setSuccessEmail] = useState(false);
-
   const [error, setError] = useState(false);
 
   const handleAccountInfoChange = async (e) => {

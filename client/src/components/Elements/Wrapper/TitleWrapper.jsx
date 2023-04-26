@@ -1,5 +1,5 @@
 import React from "react";
-import UserAnimation from "../../../utils/userAnimation";
+import UserAnimation from "../../../utils/Animation/UserAnimation";
 
 const TitleWrapper = ({ title, img, children }) => {
   return (
