@@ -2,7 +2,7 @@ import * as React from "react";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
-function AnimateInView({ children }) {
+function HomeAnimation({ children }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -23,4 +23,4 @@ function AnimateInView({ children }) {
   );
 }
 
-export default AnimateInView;
+export default HomeAnimation;

@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import set from "../../assets/set.svg";
 import niceMeeting from "../../assets/nice-meeting.svg";
 import receiveInfo from "../../assets/receive-info.svg";
-import AnimateInView from "../../utils/animation";
+import HomeAnimation from "../../utils/Animation/HomeAnimation";
 
 const Home = () => {
   return (
     <>
       <PublicLayout>
         <div className="container md:mt-20 ">
-          <AnimateInView>
+          <HomeAnimation>
             <div className="md:flex">
               <div className="w-full">
                 <h1 className="text-4xl font-second font-bold md:text-5xl text-slate-700">
@@ -38,16 +38,16 @@ const Home = () => {
                 />
               </div>
             </div>
-          </AnimateInView>
+          </HomeAnimation>
           <div className="mt-20 md:mt-28">
-            <AnimateInView>
+            <HomeAnimation>
               <h2 className="text-center font-second text-2xl">
                 <span className="border-b border-thin border-neutral font-bold">
                   How to use
                 </span>
               </h2>
-            </AnimateInView>
-            <AnimateInView>
+            </HomeAnimation>
+            <HomeAnimation>
               <div className="lg:flex mt-12 container md:max-w-full">
                 <div className="card w-9/12 shadow-xl mt-12 mx-auto lg:mr-8 ">
                   <figure className="px-10 pt-10 ">
@@ -114,10 +114,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-            </AnimateInView>
+            </HomeAnimation>
           </div>
 
-          <AnimateInView>
+          <HomeAnimation>
             <div className="md:flex md:min-h-[50%] md:my-32">
               <div className="mt-8 w-full md:my-auto">
                 <img
@@ -176,9 +176,9 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </AnimateInView>
+          </HomeAnimation>
         </div>
-        <AnimateInView>
+        <HomeAnimation>
           <div className="text-center my-20">
             <Link to="/signup">
               <h2 className="text-center font-second text-2xl  animate-pulse">
@@ -189,7 +189,7 @@ const Home = () => {
               </button>
             </Link>
           </div>
-        </AnimateInView>
+        </HomeAnimation>
       </PublicLayout>
     </>
   );

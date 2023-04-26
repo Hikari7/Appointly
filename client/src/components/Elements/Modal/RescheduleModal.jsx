@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 import DatePicker from "../../User/DatePicker";
 import userAppointmentApi from "../../../api/userAppointmentApi";
@@ -6,16 +6,15 @@ import { useDispatch } from "react-redux";
 import { updateAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
 import emailjs from "@emailjs/browser";
+import { appointmentToast } from "../../../pages/User/MyPage";
 
-const RescheduleModal = ({
-  setIsRescheduleModal,
-  eachAppointment,
-  setIsMtgRescheduleToast,
-  isMtgRescheduleToast,
-}) => {
+const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [toggleTimeSelector, setToggleTimeSelector] = useState(false);
+
+  const { isMtgRescheduleToast, setIsMtgRescheduleToast } =
+    useContext(appointmentToast);
 
   const dispatch = useDispatch();
 
@@ -132,7 +131,9 @@ const RescheduleModal = ({
         <div className="flex justify-evenly w-[80%]">
           <div>
             <p>Guest name</p>
-            <span className="text-primary">{eachAppointment.name}</span>
+            <span className="text-primary break-all">
+              {eachAppointment.name}
+            </span>
           </div>
 
           <div>
@@ -182,7 +183,7 @@ const RescheduleModal = ({
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!(selectedDate && selectedTime)}
-          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3"
+          className="btn btn-primary disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3 mb-5"
         >
           Reschedule
         </button>

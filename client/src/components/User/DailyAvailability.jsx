@@ -78,8 +78,8 @@ const DailyAvailability = () => {
   };
 
   return (
-    <div className="flex flex-col items-center my-8 md:flex-row md:justify-center">
-      <div className="w-[80%] md:w-[50%] py-5 px-2 md:ml-5">
+    <div className="flex flex-col items-center md:flex-row md:justify-center">
+      <div className="w-[80%] md:w-[50%] py-5 px-2 md:ml-5 mt-[12px]">
         <div className="flex justify-between items-center mb-5">
           <svg
             onClick={() => handleChangeMonth("prev")}
@@ -304,6 +304,7 @@ const DailyAvailability = () => {
           ))}
         <hr className="mt-5 md:hidden" />
       </div>
+
       {isOpen && (
         <TargetTime.Provider value={value}>
           <TimeAvailability
