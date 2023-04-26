@@ -102,7 +102,7 @@ const RescheduleModal = ({
   return (
     <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
-      <div className="p-12 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%]  bg-white outline-none focus:outline-none">
+      <div className="p-12 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%] bg-white outline-none focus:outline-none">
         <div
           onClick={() => setIsRescheduleModal(false)}
           className="flex justify-end absolute top-[2%] right-[3%]"
@@ -139,6 +139,11 @@ const RescheduleModal = ({
             <p>Current date</p>
             <span className="text-primary">{formattedDate}</span>
           </div>
+          
+          <div>
+            <p>Current time</p>
+            <span className="text-primary">{appointmentStartTime} - {appointmentStartTime}</span>
+          </div>
         </div>
 
         <div className="flex flex-col w-full">
@@ -162,7 +167,7 @@ const RescheduleModal = ({
             {toggleTimeSelector && (
               <div
                 className={
-                  "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[300%] overflow-y-scroll absolute top-[56%] left-[18%] md:top-[60%] md:left-[33%] z-50"
+                  "flex flex-col bg-white m-4 px-1.5 border-2 border-green-400 rounded-lg w-fit h-[250%] overflow-y-scroll absolute bottom-[60%] left-[10%] md:left-[20%] z-50"
                 }
               >
                 {timeArr &&

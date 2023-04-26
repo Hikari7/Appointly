@@ -13,12 +13,10 @@ import AddCopyBtn from "./AddCopyBtn";
 import ToastSuccess from "../Elements/Toast/ToastSuccess";
 import ToastError from "../Elements/Toast/ToastError";
 
-const WeeklyAvailability = memo(({isError: fetchFailed}) => {
-  console.log("Weekly");
-
+const WeeklyAvailability = ({isError: fetchFailed}) => {
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch();
-  const param = useParams();
+  const param = useParams()
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -170,6 +168,7 @@ const WeeklyAvailability = memo(({isError: fetchFailed}) => {
       )}
     </div>
   );
-});
+};
 
+// export default WeeklyAvailability;
 export default WeeklyAvailability;

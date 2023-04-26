@@ -11,8 +11,6 @@ const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
   const { isFetching, isError } = useAvailabilityData();
 
-  console.log("Parent");
-
   return (
     <>
       <div className="md:flex md:w-93 h-full ">
@@ -45,10 +43,7 @@ const Availability = () => {
                       ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 disabled:bg-gray-400 disabled:cursor-not-allowed"
                       : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(1);
-                  }}
+                  onClick={(e) => setOpenTab(1)}
                 >
                   Weekly
                 </button>
@@ -61,10 +56,7 @@ const Availability = () => {
                       ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white  bg-green-400 disabled:bg-gray-400 disabled:cursor-not-allowed"
                       : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(2);
-                  }}
+                  onClick={(e) => setOpenTab(2)}
                 >
                   Daily
                 </button>
@@ -79,7 +71,7 @@ const Availability = () => {
                 </svg>
               </div>
             : <>
-                {openTab === 1 && <WeeklyAvailability  />}
+                {openTab === 1 && <WeeklyAvailability isError={isError} />}
                 {openTab === 2 && <DailyAvailability />}
               </> 
           }

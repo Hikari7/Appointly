@@ -17,7 +17,7 @@ const useAvailabilityData = () => {
           availabilityObj.weekly = data[0].weekly;
           availabilityObj.daily = data[0].daily;
           dispatch(setAvailability(availabilityObj));
-        }
+      }
     },
     retry: false,    
   });

@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, memo } from "react";
 import { HashLink } from "react-router-hash-link";
 import { useSelector } from "react-redux";
 
@@ -14,8 +14,6 @@ import TimeAvailability from "./TimeAvailability";
 export const TargetTime = createContext();
 
 const DailyAvailability = () => {
-  console.log("Daily");
-
   const weeklyAvailability = useSelector((state) => state.availability.weekly);
   const dailyAvailability = useSelector((state) => state.availability.daily);
   const [modifiedWeeklyAvailability, setModifiedWeeklyAvailability] = useState(
@@ -32,8 +30,7 @@ const DailyAvailability = () => {
   const [availableDowArr, setAvailableDowArr] = useState("");
   const [currentAvailbleTime, setCurrentAvailbleTime] = useState([]);
   const value = { currentAvailbleTime, setCurrentAvailbleTime };
-
-
+  
   useEffect(() => {
     setCalendarDate(createCalendar(currentDate));
   }, [currentDate]);
@@ -74,7 +71,7 @@ const DailyAvailability = () => {
   };
 
   const handleClickDate = (e, date, timeArray) => {
-    e.stopPropagation()
+    // e.stopPropagation()
     setIsOpen(true);
     setSlectedDate(date);
     setCurrentAvailbleTime(timeArray);
