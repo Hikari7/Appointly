@@ -11,7 +11,9 @@ const ToastSuccess = ({ props, method, setFunction }) => {
     } else if (method === "mtg") {
       setFunction((prev) => ({ ...prev, success: false }));
     } else {
-      setFunction(false);
+      if (setFunction) {
+        setFunction(false);
+      }
     }
   }, 2000);
 

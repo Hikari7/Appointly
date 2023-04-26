@@ -1,3 +1,4 @@
+import { useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 
@@ -9,11 +10,12 @@ import {
 } from "../../redux/slicers/availabilitySlice";
 import WeeklyAvailabilityInput from "../Elements/Input/WeeklyAvailabilityInput";
 import AddCopyBtn from "./AddCopyBtn";
-import { useState } from "react";
 import ToastSuccess from "../Elements/Toast/ToastSuccess";
 import ToastError from "../Elements/Toast/ToastError";
 
-const WeeklyAvailability = ({isError: fetchFailed}) => {
+const WeeklyAvailability = memo(({isError: fetchFailed}) => {
+  console.log("Weekly");
+
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch();
   const param = useParams();
@@ -168,6 +170,6 @@ const WeeklyAvailability = ({isError: fetchFailed}) => {
       )}
     </div>
   );
-};
+});
 
 export default WeeklyAvailability;

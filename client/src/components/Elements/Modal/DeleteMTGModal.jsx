@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { deleteAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
-import ToastSuccess from "../Toast/ToastSuccess";
 import emailjs from "@emailjs/browser";
 
 const DeleteMTGModal = ({

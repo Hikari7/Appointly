@@ -11,6 +11,8 @@ const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
   const { isFetching, isError } = useAvailabilityData();
 
+  console.log("Parent");
+
   return (
     <>
       <div className="md:flex md:w-93 h-full ">
@@ -77,7 +79,7 @@ const Availability = () => {
                 </svg>
               </div>
             : <>
-                {openTab === 1 && <WeeklyAvailability isError={isError} />}
+                {openTab === 1 && <WeeklyAvailability  />}
                 {openTab === 2 && <DailyAvailability />}
               </> 
           }

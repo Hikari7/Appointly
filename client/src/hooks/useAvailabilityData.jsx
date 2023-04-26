@@ -36,6 +36,7 @@ const useAvailabilityData = () => {
     availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
     dispatch(setAvailability(availabilityObj));
   }
+  
 
   return ({isFetching, isError})
 };

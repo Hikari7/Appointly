@@ -1,20 +1,18 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import moment from "moment";
 
 import { setTimeValue } from "../../../redux/slicers/availabilitySlice";
-import { TargetTime } from "../../User/DailyAvailability";
 
 const TimeDropdown = ({
   selectedItem,
   timeIndex,
   position,
   from,
-  eachTimeObjIndex,
+  dailyTimeHandle
 }) => {
   const dispatch = useDispatch();
-  const { currentAvailbleTime, setCurrentAvailbleTime } = useContext(TargetTime) || {};
   const [startTimeStyle, setStartTimeStyle] = useState("");
   const [endTimeStyle, setEndTimeStyle] = useState("");
 
@@ -52,9 +50,7 @@ const TimeDropdown = ({
     if (from === "weekly") {
       dispatch(setTimeValue({ selectedItem, timeIndex, time }));
     } else {
-      const tempArray = currentAvailbleTime;
-      tempArray[eachTimeObjIndex][position] = time;
-      setCurrentAvailbleTime(tempArray);
+      dailyTimeHandle(time)
     }
   };
 
