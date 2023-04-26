@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { deleteAppointment } from "../../../redux/slicers/listAppointment";
 import ToastError from "../Toast/ToastError";
 import emailjs from "@emailjs/browser";
+import { appointmentToast } from "../../../pages/User/MyPage";
 
-const DeleteMTGModal = ({
-  setIsDeleteMTGModal,
-  eachAppointment,
-  isMtgDeleteToast,
-  setIsMtgDeleteToast,
-}) => {
+const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
+  const { isMtgDeleteToast, setIsMtgDeleteToast } =
+    useContext(appointmentToast);
+
   const appointmentList = useSelector(
     (state) => state.listAppointment.listAppointment
   );
@@ -94,12 +93,16 @@ const DeleteMTGModal = ({
         </p>
         <div className="w-full">
           <p>Guest name</p>
-          <span className="text-primary">{eachAppointment.name}</span>
+          <span className="text-primary break-all ">
+            {eachAppointment.name}
+          </span>
         </div>
 
         <div className="w-full">
           <p>Guest email</p>
-          <span className="text-primary">{eachAppointment.email}</span>
+          <span className="text-primary break-all ">
+            {eachAppointment.email}
+          </span>
         </div>
         <div className="w-full">
           <p>Current schedule</p>

@@ -66,13 +66,14 @@ const WeeklyAvailability = ({isError: fetchFailed}) => {
 
   return (
     <div className="flex justify-center w-full ">
-      <form className="flex flex-col p-5 w-[90%] md:w-[60%]  max-h-full">
+      <form className="flex flex-col p-5 w-[90%] md:w-[60%] max-h-full">
         {availability &&
           availability.map((eachObj, objIndex) => (
             // Map out each day of week
+
             <div
-              key={objIndex}
               className="flex justify-between width-full my-4"
+              key={objIndex}
             >
               <div className="flex items-start w-full">
                 <label className="flex items-center gap-3 font-bold w-[20%]">
@@ -157,12 +158,10 @@ const WeeklyAvailability = ({isError: fetchFailed}) => {
           onClick={(e) => handleSubmit(e)}
           className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-         Change Apply
+          Change Apply
         </button>
       </form>
-      {isSuccess && (
-        <ToastSuccess props={"Availability changed!"} />
-      )}
+      {isSuccess && <ToastSuccess props={"Availability changed!"} />}
       {isError && (
         <ToastError props={"Something went wrong... Please try again."} />
       )}
