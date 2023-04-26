@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, memo } from "react";
 import { HashLink } from "react-router-hash-link";
 import { useSelector } from "react-redux";
 
@@ -30,7 +30,7 @@ const DailyAvailability = () => {
   const [availableDowArr, setAvailableDowArr] = useState("");
   const [currentAvailbleTime, setCurrentAvailbleTime] = useState([]);
   const value = { currentAvailbleTime, setCurrentAvailbleTime };
-
+  
   useEffect(() => {
     setCalendarDate(createCalendar(currentDate));
   }, [currentDate]);
@@ -70,7 +70,8 @@ const DailyAvailability = () => {
     }
   };
 
-  const handleClickDate = (date, timeArray) => {
+  const handleClickDate = (e, date, timeArray) => {
+    // e.stopPropagation()
     setIsOpen(true);
     setSlectedDate(date);
     setCurrentAvailbleTime(timeArray);
@@ -179,8 +180,9 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
+                      onClick={(e) =>
                         handleClickDate(
+                          e,
                           `${day.month}-${day.date}`,
                           targetDateTimeObj.time
                         )
@@ -197,8 +199,9 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
+                      onClick={(e) =>
                         handleClickDate(
+                          e,
                           `${day.month}-${day.date}`,
                           targetDateTimeObj.time
                         )
@@ -227,8 +230,9 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
+                      onClick={(e) =>
                         handleClickDate(
+                          e,
                           `${day.month}-${day.date}`,
                           timeArray[0].time
                         )
@@ -245,8 +249,9 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
+                      onClick={(e) =>
                         handleClickDate(
+                          e,
                           `${day.month}-${day.date}`,
                           timeArray[0].time
                         )
@@ -269,8 +274,11 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
-                        handleClickDate(`${day.month}-${day.date}`, [
+                      onClick={(e) =>
+                        
+                        handleClickDate(
+                          e,
+                          `${day.month}-${day.date}`, [
                           { start: "", end: "" },
                         ])
                       }
@@ -286,8 +294,10 @@ const DailyAvailability = () => {
                     <HashLink
                       smooth
                       to="#setBtn"
-                      onClick={() =>
-                        handleClickDate(`${day.month}-${day.date}`, [
+                      onClick={(e) =>                      
+                        handleClickDate(
+                          e,
+                          `${day.month}-${day.date}`, [
                           { start: "", end: "" },
                         ])
                       }
@@ -308,7 +318,6 @@ const DailyAvailability = () => {
       {isOpen && (
         <TargetTime.Provider value={value}>
           <TimeAvailability
-            timeArray={currentAvailbleTime}
             selectDate={selectedDate}
           />
         </TargetTime.Provider>

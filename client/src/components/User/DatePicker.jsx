@@ -39,17 +39,17 @@ const DatePicker = ({ selectedDate, setSelectedDate }) => {
   }
 
   return (
-    <div>
+    <div className="relative">
       <input
         type="text"
-        className="cursor-pointer relative w-full pl-3 my-1 pr-10 py-2 leading-none shadow border border-gray-700 rounded-lg shadow-sm text-gray-700 "
+        className="cursor-pointer pl-3 my-1 pr-10 py-2 leading-none shadow border border-gray-700 rounded-lg shadow-sm text-gray-700 "
         placeholder="Select date"
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
         onClick={() => setToggleCalender(!toggleCalendar)}
       />
       {toggleCalendar && (
-        <div className="w-[65%] md:w-1/2 p-2 pt-6 border border-gray-700 rounded-lg bg-white absolute top-[0%] left-[26%] md:top-[53%] md:left-[83%] z-50">
+        <div className="w-full md:height-full p-2 pt-6 border border-gray-700 rounded-lg bg-white absolute bottom-[100%] left-[0%] z-50">
           <div onClick={() => setToggleCalender(false)} className='flex justify-end absolute top-[1%] right-[2%]'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
