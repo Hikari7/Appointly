@@ -12,7 +12,6 @@ const useAppoinmentData = () => {
     queryKey: ["appointments"],
     queryFn: async () => {
       const { data } = await userAppointmentApi.getAll(user.userId);
-      console.log({ data });
 
       if (data.length > 0) {
         const today = new Date();

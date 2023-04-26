@@ -6,6 +6,7 @@ import WeeklyAvailability from "../../components/User/WeeklyAvailability";
 import availabilityImg from "../../assets/availability.svg";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import ToastError from "../../components/Elements/Toast/ToastError";
+import UserAnimation from "../../utils/Animation/UserAnimation";
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -14,20 +15,11 @@ const Availability = () => {
   return (
     <>
       <div className="md:flex md:w-93 h-full ">
-        <TitleWrapper>
-          <h1 className="text-3xl font-second md:w-10/12 mx-auto">
-            Set Your Schedule
-          </h1>
-          <img
-            src={availabilityImg}
-            className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
-          />
-          <h3>
-            Select dates and times for
-            <br></br>your available scheduled events
-          </h3>
-        </TitleWrapper>
-
+        <TitleWrapper
+          title={"Set Your Schedule"}
+          img={availabilityImg}
+          children={"Select your availability dates and times"}
+        />
         <div className="my-14 overflow-scroll md:w-5/6 w-full">
           <div className="flex justify-center">
             <ul

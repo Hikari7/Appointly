@@ -79,7 +79,7 @@ const TimeAvailability = ({ selectDate }) => {
       }
       setCurrentAvailbleTime(filteredArr);
     } else if (method === "add") {
-      const timeObj = { start: "", end: "" };
+      const timeObj = { start: "09:00", end: "17:00" };
       setCurrentAvailbleTime((prev) => [...prev, timeObj]);
     }
   };

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import {
   validatePassword,
@@ -10,15 +10,11 @@ import ErrorToast from "../../Elements/Toast/ToastError";
 
 const PasswordChange = () => {
   const param = useParams();
-
   const passwordInput = useRef(null);
   const confirmPasswordInput = useRef(null);
-
   const [passwordErr, setPasswordErr] = useState(null);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState(null);
-
   const [success, setSuccess] = useState(false);
-
   const [error, setError] = useState(false);
 
   const handlePasswordChange = async (e) => {

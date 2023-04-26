@@ -13,20 +13,16 @@ const UserInfoChange = () => {
   const param = useParams();
   const userInput = useRef(null);
   const emailInput = useRef(null);
-
   const [usernameErr, setUsernameErr] = useState(null);
   const [emailErr, setEmailErr] = useState("");
-
   const [successUsername, setSuccessUsername] = useState(false);
   const [successEmail, setSuccessEmail] = useState(false);
-
   const [error, setError] = useState(false);
 
   const handleAccountInfoChange = async (e) => {
     e.preventDefault();
 
     let error = false;
-    console.log(user.username);
 
     const username = userInput.current.value;
     const email = emailInput.current.value;
@@ -51,7 +47,6 @@ const UserInfoChange = () => {
         email,
       });
 
-      console.log(res.data[0]);
 
       if (res.status === 200) {
         const newObj = {};
