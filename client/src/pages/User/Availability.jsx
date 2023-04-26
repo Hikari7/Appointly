@@ -28,34 +28,30 @@ const Availability = () => {
               }`}
             >
               <li className="w-[6rem]">
-                <a
+                <button
+                  disabled={isError}
                   className={
                     openTab === 1
-                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
+                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(1);
-                  }}
+                  onClick={(e) => setOpenTab(1)}
                 >
                   Weekly
-                </a>
+                </button>
               </li>
               <li className="w-[6rem]">
-                <a
+                <button
+                  disabled={isError}
                   className={
                     openTab === 2
-                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400"
-                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white"
+                      ? "cursor-pointer px-5 py-2 shadow rounded block text-center text-white bg-green-400 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      : "cursor-pointer px-5 py-2 shadow rounded block text-center text-black bg-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTab(2);
-                  }}
+                  onClick={(e) => setOpenTab(2)}
                 >
                   Daily
-                </a>
+                </button>
               </li>
             </ul>
           </div>
