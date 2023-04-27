@@ -1,10 +1,13 @@
 import { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import emailjs from "@emailjs/browser";
+import moment from "moment";
+
 import userAppointmentApi from "../../../api/userAppointmentApi";
 import { deleteAppointment } from "../../../redux/slicers/listAppointment";
-import ToastError from "../Toast/ToastError";
-import emailjs from "@emailjs/browser";
 import { appointmentToast } from "../../../pages/User/MyPage";
+import ToastError from "../Toast/ToastError";
 
 const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
   const { isMtgDeleteToast, setIsMtgDeleteToast } =
@@ -15,6 +18,18 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
   );
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
+
+  const formattedDate = moment(eachAppointment.appointmentDateTime.date).format(
+    "MMM DD, YYYY"
+  );
+  const appointmentStartTime = moment(
+    eachAppointment.appointmentDateTime.time
+  )._i;
+  const appointmentEndTime = moment(
+    `${formattedDate} ${eachAppointment.appointmentDateTime.time}`
+  )
+    .add(30, "m")
+    .format("HH:mm");
 
   const handleSubmit = async () => {
     try {
@@ -42,7 +57,6 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
           )
           .then(
             (result) => {
-              console.log(result.text);
               return { status: "success" };
             },
             (error) => {
@@ -62,9 +76,9 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
   };
 
   return (
-    <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
+    <div className="flex justify-center items-center py-5 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
-      <div className="p-12 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%] md-[70%] bg-white outline-none focus:outline-none">
+      <div className="p-6 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-center w-4/5 md:w-[40%] bg-white outline-none focus:outline-none overflow-y-scroll">
         <div
           onClick={() => setIsDeleteMTGModal(false)}
           className="flex justify-end absolute top-[2%] right-[3%]"
@@ -84,37 +98,39 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
             />
           </svg>
         </div>
-        <div className="text-center text-3xl font-bold font-second mt-6">
+        <div className="text-center text-3xl font-bold font-second my-6">
           Cancel meeting?
         </div>
         <p className="text-center break-words w-[80%]">
           An email notification will be sent to your guest informing them of the
           cancellation.
         </p>
-        <div className="w-full">
-          <p>Guest name</p>
-          <span className="text-primary break-all ">
-            {eachAppointment.name}
-          </span>
+        <div className="flex-column justify-content my-6">
+          <div className="w-full">
+            <p className="font-second">Guest name</p>
+            <span className="text-primary break-all ">
+              {eachAppointment.name}
+            </span>
+          </div>
+
+          <div className="w-full">
+            <p className="font-second">Guest email</p>
+            <span className="text-primary break-all">
+              {eachAppointment.email}
+            </span>
+          </div>
+          <div className="w-full">
+            <p className="font-second">Current schedule</p>
+            <span className="text-primary mr-2">
+              {formattedDate}
+            </span>
+            <span className="text-primary">
+              {`${appointmentStartTime} - ${appointmentEndTime}`}
+            </span>
+          </div>
         </div>
 
-        <div className="w-full">
-          <p>Guest email</p>
-          <span className="text-primary break-all ">
-            {eachAppointment.email}
-          </span>
-        </div>
-        <div className="w-full">
-          <p>Current schedule</p>
-          <span className="text-primary">
-            {eachAppointment.appointmentDateTime.date}
-          </span>
-          <span className="text-primary">
-            {eachAppointment.appointmentDateTime.time}
-          </span>
-        </div>
-
-        <label className="flex items-center justify-center gap-3 font-bold w-full">
+        <label className="flex items-center justify-center font-bold w-full mb-2">
           <input
             type="checkbox"
             checked={isChecked}
@@ -125,7 +141,7 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!isChecked}
-          className="btn btn-error disabled:btn-disabled normal-case font-bold py-2 w-28 mt-3"
+          className="btn btn-error disabled:btn-disabled normal-case font-bold py-1.5 w-28"
         >
           Cancel meeting
         </button>
