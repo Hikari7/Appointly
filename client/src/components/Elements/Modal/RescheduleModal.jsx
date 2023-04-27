@@ -72,6 +72,9 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
         newObj.guestEmail = eachAppointment.email;
         newObj.guestName = eachAppointment.name;
 
+        setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
+
+
         emailjs
           .send(
             import.meta.env.VITE_APP_SERVICE_ID_SECOND,
@@ -90,7 +93,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
             }
           );
 
-        setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
+        // setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
       }
     } catch (error) {
       setIsMtgRescheduleToast((prev) => ({ ...prev, error: true }));
