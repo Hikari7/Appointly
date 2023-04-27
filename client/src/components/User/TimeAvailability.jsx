@@ -220,12 +220,10 @@ const TimeAvailability = ({ selectDate }) => {
           onClick={(e) => handleSubmit(e)}
           className="btn btn-primary normal-case font-bold py-2 my-7 "
         >
-          Change Apply
+          Save Changes
         </button>
       </div>
-      {isSuccess && (
-        <ToastSuccess props={"Availability changed!"} />
-      )}
+      {isSuccess && <ToastSuccess props={"Availability changed!"} />}
       {isError && (
         <ToastError props={"Something went wrong... Please try again."} />
       )}

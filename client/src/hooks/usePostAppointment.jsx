@@ -19,6 +19,8 @@ const usePostAppointment = (
   const date = appointment.appointmentDateTime.date;
   const time = appointment.appointmentDateTime.time;
 
+  
+
   return useMutation(handleCreateAppointment, {
     onSuccess: (data) => {
       hostEmailUpdater(data.email);
