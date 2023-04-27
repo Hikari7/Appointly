@@ -22,8 +22,8 @@ const PasswordChange = () => {
     setPasswordErr("");
     setConfirmPasswordErr("");
     let error = false;
-    const password = passwordInput.current.value;
-    const confirmPassword = confirmPasswordInput.current.value;
+    let password = passwordInput.current.value;
+    let confirmPassword = confirmPasswordInput.current.value;
 
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
@@ -51,6 +51,9 @@ const PasswordChange = () => {
       });
       if (res.status === 200) {
         setSuccess(true);
+        passwordInput.current.value = ""
+        confirmPasswordInput.current.value = ""
+
         setTimeout(() => {
           setSuccess(false);
         }, 3000);
@@ -78,11 +81,7 @@ const PasswordChange = () => {
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
 
-            {passwordErr !== "" ? (
-              <p className="text-xs text-red-600">{passwordErr}</p>
-            ) : (
-              ""
-            )}
+            {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
           </div>
           <div className="md:w-5/12">
             <label className="block text-gray-700 mt-2">Confirm Password</label>
@@ -93,11 +92,7 @@ const PasswordChange = () => {
               placeholder="Enter Confirm password"
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
-            {confirmPasswordErr !== "" ? (
-              <p className="text-xs text-red-600">{confirmPasswordErr}</p>
-            ) : (
-              ""
-            )}
+            {confirmPasswordErr !== "" && <p className="text-xs text-red-600">{confirmPasswordErr}</p>}
           </div>
         </div>
         <button
