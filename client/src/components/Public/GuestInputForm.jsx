@@ -129,7 +129,6 @@ const GuestInputForm = () => {
         </form>
         {showModal && 
           <GuestInputModal
-            showModal={true}
             hostName={hostName}
             hostEmail={hostEmail}
           />
