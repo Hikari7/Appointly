@@ -99,7 +99,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
   };
 
   return (
-    <div className="flex justify-center py-10 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
+    <div className="flex justify-center py-5 h-screen fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="overlay absolute inset-0 z-0 bg-gray-400 opacity-80"></div>
       <div className="p-12 border-0 rounded-lg shadow-lg relative flex flex-col items-center justify-between w-4/5 md:w-[40%] h-[80%] bg-white outline-none focus:outline-none">
         <div
@@ -128,21 +128,21 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
           An email notification will be sent to your guest informing them of the
           rescheduling.
         </p>
-        <div className="w-[80%]">
+        <div className="w-[80%] text-center py-1">
           <div>
-            <p>Guest name</p>
+            <p className="font-second">Guest name</p>
             <span className="text-primary break-all">
               {eachAppointment.name}
             </span>
           </div>
 
           <div>
-            <p>Current date</p>
+            <p className="font-second">Current date</p>
             <span className="text-primary">{formattedDate}</span>
           </div>
 
           <div>
-            <p>Current time</p>
+            <p className="font-second">Current time</p>
             <span className="text-primary">
               {appointmentStartTime} - {appointmentEndTime}
             </span>
