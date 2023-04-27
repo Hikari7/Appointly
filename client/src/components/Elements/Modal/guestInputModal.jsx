@@ -24,10 +24,10 @@ const guestInputModal = ({ hostName, hostEmail, showModal }) => {
                     <h2 className="text-4xl font-bold justify-center my-4 md:text-5xl">
                       Confirmed!
                     </h2>
-                    <h3 className="font-bold my-2 text-sm md:text-xl">
+                    <div className="font-bold my-2 text-sm md:text-xl">
                       You are scheduled with{" "}
                       <span className="text-primary">{hostName}</span>
-                    </h3>
+                    </div>
                     <div className="text-sm">
                       The host will be in touch soon, <br></br>but feel free to
                       reach out if you have any questions.

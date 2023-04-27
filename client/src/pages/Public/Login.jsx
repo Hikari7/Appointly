@@ -52,9 +52,9 @@ const Login = () => {
               Meeting Scheduling App
             </div>
 
-            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
+            <div className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
-            </h3>
+            </div>
 
             <form className="mt-6" onSubmit={handleSubmit}>
               <div className="mt-4">

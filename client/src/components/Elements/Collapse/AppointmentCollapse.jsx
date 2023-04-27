@@ -39,7 +39,7 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         to={`#${eachAppointment._id}`}
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col w-1/2">
           <p className="w-full text-lg break-all">{`${appointmentDow}, ${appointmentDate}`}</p>
           <p className="w-full text-lg break-all">{`${appointmentStartTime} - ${appointmentEndTime}`}</p>
         </div>
@@ -76,7 +76,7 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         )}
       </HashLink>
       {isCollapseOpen && (
-        <div id={eachAppointment._id} className="px-10 mx-auto">
+        <div id={eachAppointment._id} className="px-10 mx-auto w-full md:w-4/5">
           <div className="md:flex justify-between w-full">
             <div className="items-center w-full">
               <p className="basis-[50%]">Guest name</p>

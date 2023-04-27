@@ -65,16 +65,8 @@ const Settings = () => {
                   </li>
                 </ul>
               </div>
-              {openTab === 1 && (
-                // <ToLeftAnimation>
-                <UserInfoChange />
-                // </ToLeftAnimation>
-              )}
-              {openTab === 2 && (
-                // <ToRightAnimation>
-                <PasswordChange />
-                // </ToRightAnimation>
-              )}
+              {openTab === 1 && <UserInfoChange />}
+              {openTab === 2 && <PasswordChange />}
             </div>
           </UserAnimation>
         </div>
