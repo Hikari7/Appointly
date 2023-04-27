@@ -32,6 +32,10 @@ const useAppoinmentData = () => {
         });
         dispatch(setListAppointment(filteredAppointment));
       }
+      
+      if (data.length === 0){
+        dispatch(setListAppointment([]));
+      }
 
       if (isError) {
         dispatch(setListAppointment([]));
