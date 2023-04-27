@@ -1,6 +1,8 @@
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 
+import moment from "moment";
+
 import { sendEmail } from "../utils/sendEmail";
 import guestAppointmentApi from "../api/guestAppointmentApi";
 
@@ -16,8 +18,21 @@ const usePostAppointment = (
   toastUpdater
 ) => {
   const appointment = useSelector((state) => state.appointment.appointment);
-  const date = appointment.appointmentDateTime.date;
-  const time = appointment.appointmentDateTime.time;
+
+  const appointmentDow = moment(
+    appointment.appointmentDateTime.date
+  ).format("dddd");
+  const appointmentDate = `${appointmentDow}, ${moment(
+    appointment.appointmentDateTime.date
+  ).format("MMM DD, YYYY")}`;
+  const appointmentStartTime = moment(
+    appointment.appointmentDateTime.time
+  )._i;
+  const appointmentEndTime = moment(
+    `${appointmentDate} ${appointment.appointmentDateTime.time}`
+  )
+    .add(30, "m")
+    .format("HH:mm");
 
   
 
@@ -33,8 +48,8 @@ const usePostAppointment = (
         message: data.message,
         hostEmail: data.email,
         hostName: data.username,
-        time,
-        date,
+        time: `${appointmentStartTime} - ${appointmentEndTime}`,
+        date: appointmentDate,
       };
 
       sendEmail(params, "user")

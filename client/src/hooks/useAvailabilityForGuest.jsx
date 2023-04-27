@@ -24,7 +24,10 @@ const useAvailabilityForGuest = (userId, weeklyUpdater, dailyUpdater, dowArrayUp
         });
         dowArrayUpdater(tempAvailableDowArr);
       }
-      dailyUpdater(data[0].daily);
+
+      if(data[0] && data[0].daily){
+        dailyUpdater(data[0].daily);
+      }
       return data
     }
   })

@@ -32,14 +32,14 @@ const AppointmentCollapse = ({ eachAppointment }) => {
     <div
       tabIndex={0}
       onClick={() => setIsCollapseOpen(!isCollapseOpen)}
-      className="border border-info bg-base-100 rounded-box w-4/6 mx-auto"
+      className="border border-info bg-base-100 rounded-box w-[80%] md:w-4/6 mx-auto"
     >
       <HashLink
         smooth
         to={`#${eachAppointment._id}`}
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
       >
-        <div className="flex flex-col w-1/2">
+        <div className="flex flex-col w-[70%]">
           <p className="w-full text-lg break-all">{`${appointmentDow}, ${appointmentDate}`}</p>
           <p className="w-full text-lg break-all">{`${appointmentStartTime} - ${appointmentEndTime}`}</p>
         </div>
