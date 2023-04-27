@@ -44,7 +44,7 @@ const MyPage = () => {
     } else if (bookedNum === 1) {
       return <p>You have upcoming 1 meeting!</p>;
     } else {
-      return <h3>You have upcoming {bookedNum} meetings!</h3>;
+      return <p>You have upcoming {bookedNum} meetings!</p>;
     }
   }
 

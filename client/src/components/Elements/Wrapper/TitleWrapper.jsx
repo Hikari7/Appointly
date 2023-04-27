@@ -11,7 +11,7 @@ const TitleWrapper = ({ title, img, children }) => {
             src={img}
             className="w-1/3 h-1/3 mx-auto my-7 md:w-10/12 md:h-60"
           />
-          <h3 className="break-words">{children}</h3>
+          <div className="break-words">{children}</div>
         </UserAnimation>
       </div>
     </>

@@ -99,9 +99,9 @@ const Signup = () => {
             <div className="text-md font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
+            <div className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
               Sign up
-            </h3>
+            </div>
 
             <form className="mt-6" onSubmit={handleSubmit}>
               <label className="block text-gray-700">Username</label>

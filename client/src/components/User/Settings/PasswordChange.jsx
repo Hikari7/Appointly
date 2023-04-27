@@ -66,13 +66,13 @@ const PasswordChange = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold leading-tight mt-10 text-center font-second text-accent">
+      <div className="text-xl font-bold leading-tight mt-10 text-center font-second text-accent">
         Password settings
-      </h3>
+      </div>
       <form className="mt-6" onSubmit={handlePasswordChange}>
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
-            <label className="block text-gray-700">New Password</label>
+            <label className="block text-gray-700 mt-2">New Password</label>
             <input
               ref={passwordInput}
               type="password"

@@ -71,9 +71,9 @@ const UserInfoChange = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold leading-tight  mt-10  text-center font-second text-accent">
+      <div className="text-xl font-bold leading-tight  mt-10  text-center font-second text-accent">
         Account information
-      </h3>
+      </div>
       <form className="mt-6" onSubmit={handleAccountInfoChange}>
         <div className="md:flex justify-between">
           <div className="md:w-5/12">

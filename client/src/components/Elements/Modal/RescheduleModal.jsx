@@ -128,7 +128,7 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
           An email notification will be sent to your guest informing them of the
           rescheduling.
         </p>
-        <div className="flex justify-evenly w-[80%]">
+        <div className="w-[80%]">
           <div>
             <p>Guest name</p>
             <span className="text-primary break-all">
@@ -140,10 +140,12 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
             <p>Current date</p>
             <span className="text-primary">{formattedDate}</span>
           </div>
-          
+
           <div>
             <p>Current time</p>
-            <span className="text-primary">{appointmentStartTime} - {appointmentStartTime}</span>
+            <span className="text-primary">
+              {appointmentStartTime} - {appointmentEndTime}
+            </span>
           </div>
         </div>
 
