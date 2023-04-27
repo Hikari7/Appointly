@@ -91,7 +91,7 @@ const Signup = () => {
           <img src={SignupImg} alt="" className="w-full h-full object-cover" />
         </div>
 
-        <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
+        <div className="bg-white w-full mt-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Appointly
