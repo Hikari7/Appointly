@@ -66,12 +66,11 @@ const MyPage = () => {
           img={mypageImg}
           children={currentBooking()}
         />
+
         <div className="mt-14 overflow-scroll md:w-5/6 w-full">
           <UserAnimation>
-            <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
-              <p className="font-second text-center text-acc">
-                30 Minute Meeting
-              </p>
+            <div className="p-6 bg-[#F7EDD6]  rounded-lg shadow-md justify-center w-2/4 mx-auto">
+              <p className="font-second text-center">30 Minute Meeting</p>
               <p className="text-center text-sm">
                 Share the link with guests to get started!
               </p>
