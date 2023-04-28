@@ -47,13 +47,11 @@ const UserInfoChange = () => {
         email,
       });
 
-
       if (res.status === 200) {
         const newObj = {};
         newObj.username = res.data[0].username;
         newObj.email = res.data[0].email;
-        console.log(newObj.username);
-        console.log(user.username);
+        newObj.userId = res.data[0]._id;
 
         if (newObj.username !== user.username) {
           setSuccessUsername(true);
@@ -61,6 +59,7 @@ const UserInfoChange = () => {
         if (newObj.email !== user.email) {
           setSuccessEmail(true);
         }
+        console.log(newObj);
         dispatch(setUser(newObj));
       }
     } catch (err) {

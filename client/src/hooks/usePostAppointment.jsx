@@ -34,6 +34,8 @@ const usePostAppointment = (
     .add(30, "m")
     .format("HH:mm");
 
+  
+
   return useMutation(handleCreateAppointment, {
     onSuccess: (data) => {
       hostEmailUpdater(data.email);
