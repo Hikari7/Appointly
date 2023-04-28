@@ -74,7 +74,6 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
 
         setIsMtgRescheduleToast((prev) => ({ ...prev, success: true }));
 
-
         emailjs
           .send(
             import.meta.env.VITE_APP_SERVICE_ID_SECOND,
@@ -132,19 +131,19 @@ const RescheduleModal = ({ setIsRescheduleModal, eachAppointment }) => {
           rescheduling.
         </p>
         <div className="w-[80%] text-center py-1">
-          <div>
+          <div className="mt-2 w-full">
             <p className="font-second">Guest name</p>
             <span className="text-primary break-all">
               {eachAppointment.name}
             </span>
           </div>
 
-          <div>
+          <div className="mt-2 w-full">
             <p className="font-second">Current date</p>
             <span className="text-primary">{formattedDate}</span>
           </div>
 
-          <div>
+          <div className="mt-2 w-full">
             <p className="font-second">Current time</p>
             <span className="text-primary">
               {appointmentStartTime} - {appointmentEndTime}

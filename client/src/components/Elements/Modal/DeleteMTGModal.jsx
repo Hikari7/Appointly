@@ -106,20 +106,20 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
           cancellation.
         </p>
         <div className="flex-column justify-content my-6">
-          <div className="w-full">
+          <div className="mt-2 w-full">
             <p className="font-second">Guest name</p>
             <span className="text-primary break-all ">
               {eachAppointment.name}
             </span>
           </div>
 
-          <div className="w-full">
+          <div className="mt-2 w-full">
             <p className="font-second">Guest email</p>
             <span className="text-primary break-all">
               {eachAppointment.email}
             </span>
           </div>
-          <div className="w-full">
+          <div className="mt-2 w-full">
             <p className="font-second">Current schedule</p>
             <span className="text-primary mr-2">
               {formattedDate}
@@ -141,7 +141,7 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!isChecked}
-          className="btn btn-error disabled:btn-disabled normal-case font-bold py-1.5 w-28"
+          className="btn btn-error disabled:btn-disabled normal-case font-bold py-1.5 w-28 mt-3"
         >
           Cancel Meeting
         </button>

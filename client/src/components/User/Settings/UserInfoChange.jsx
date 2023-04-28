@@ -70,48 +70,53 @@ const UserInfoChange = () => {
 
   return (
     <>
-      <div className="text-xl md:text-2xl font-bold leading-tight  mt-10  text-center font-second text-accent">
-        Account information
-      </div>
-      <form className="mt-6" onSubmit={handleAccountInfoChange}>
-        <div className="md:flex justify-between">
-          <div className="md:w-5/12">
-            <label className="block text-gray-700 font-second">Username</label>
-            <input
-              defaultValue={user.username}
-              ref={userInput}
-              type="username"
-              name="password"
-              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            />
-
-            {usernameErr !== "" && (
-              <p className="text-xs text-red-600">{usernameErr}</p>
-            )}
-          </div>
-          <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2 md:mt-0 font-second">Email</label>
-            <input
-              defaultValue={user.email}
-              ref={emailInput}
-              type="username"
-              name="email"
-              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            />
-
-            {emailErr !== "" && (
-              <p className="text-xs text-red-600">{emailErr}</p>
-            )}
-          </div>
+      <div className="mb-24 md:mb-0">
+        <div className="text-xl md:text-2xl font-bold leading-tight mt-10  text-center font-second text-accent">
+          Account information
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
-        >
-          Save changes
-        </button>
-      </form>
+        <form className="mt-6" onSubmit={handleAccountInfoChange}>
+          <div className="md:flex justify-between">
+            <div className="md:w-5/12">
+              <label className="block text-gray-700 font-second">
+                Username
+              </label>
+              <input
+                defaultValue={user.username}
+                ref={userInput}
+                type="username"
+                name="password"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
 
+              {usernameErr !== "" && (
+                <p className="text-xs text-red-600">{usernameErr}</p>
+              )}
+            </div>
+            <div className="md:w-5/12">
+              <label className="block text-gray-700 mt-2 md:mt-0 font-second">
+                Email
+              </label>
+              <input
+                defaultValue={user.email}
+                ref={emailInput}
+                type="username"
+                name="email"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
+
+              {emailErr !== "" && (
+                <p className="text-xs text-red-600">{emailErr}</p>
+              )}
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
+          >
+            Save changes
+          </button>
+        </form>
+      </div>
       {successUsername && (
         <SuccessToast
           props={"Username Changed!"}

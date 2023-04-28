@@ -34,7 +34,7 @@ const Settings = () => {
           <UserAnimation>
             <div className="my-14 w-5/6 mx-auto">
               <div className="flex justify-evenly ">
-                <ul className="flex gap-10 list-none">
+                <ul className="flex gap-5 list-none">
                   <li
                     className={
                       openTab === 1
