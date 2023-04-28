@@ -70,7 +70,7 @@ const UserInfoChange = () => {
 
   return (
     <>
-      <div className="text-xl font-bold leading-tight  mt-10  text-center font-second text-accent">
+      <div className="text-xl md:text-2xl font-bold leading-tight  mt-10  text-center font-second text-accent">
         Account information
       </div>
       <form className="mt-6" onSubmit={handleAccountInfoChange}>

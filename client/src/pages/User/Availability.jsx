@@ -56,7 +56,7 @@ const Availability = () => {
                 </li>
               </ul>
 
-              <div className="flex items-center mt-3 md:border-b-0">
+              <div className="flex items-center my-3 md:border-b-0">
                 <h2 className="mx-1 my-3">
                   <BsGlobeAmericas />
                 </h2>

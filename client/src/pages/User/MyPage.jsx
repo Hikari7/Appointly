@@ -8,6 +8,7 @@ import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentC
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
 import UserAnimation from "../../utils/Animation/UserAnimation";
+import { BsGlobeAmericas } from "react-icons/bs";
 
 export const appointmentToast = createContext();
 
@@ -83,7 +84,9 @@ const MyPage = () => {
                     <span className="my-auto">
                       <FiCheck size={"24px"} color={"#95B9F4"} />
                     </span>
-                    <p className="ml-2 text-primary font-second">Copied Link!</p>
+                    <p className="ml-2 text-primary font-second">
+                      Copied Link!
+                    </p>
                   </>
                 ) : (
                   <>
@@ -127,6 +130,12 @@ const MyPage = () => {
                   </div>
                 ) : (
                   <div className="py-10 md:mt-12 ">
+                    <div className="flex items-center my-3 md:border-b-0 justify-center">
+                      <h2 className="mx-1 my-3">
+                        <BsGlobeAmericas />
+                      </h2>
+                      <h2 className="mx-1">Pacific Time - US / Canada</h2>
+                    </div>
                     {appointment.map((eachAppointment) => (
                       <appointmentToast.Provider
                         value={value}

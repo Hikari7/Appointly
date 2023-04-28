@@ -4,7 +4,6 @@ import settingImg from "../../assets/setting.svg";
 import UserInfoChange from "../../components/User/Settings/UserInfoChange";
 import PasswordChange from "../../components/User/Settings/PasswordChange";
 import UserAnimation from "../../utils/Animation/UserAnimation";
-import { motion } from "framer-motion";
 
 const Settings = () => {
   const [openTab, setOpenTab] = useState(1);
