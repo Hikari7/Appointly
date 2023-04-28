@@ -24,7 +24,7 @@ const Availability = () => {
           <div className="flex justify-center">
             <UserAnimation>
               <ul
-                className={`flex gap-5 list-none mt-[1rem] ${
+                className={`flex gap-10 list-none mt-[1rem] ${
                   isFetching && "md:absolute md:top-[15%]"
                 }`}
               >
