@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import TitleWrapper from "../../components/Elements/Wrapper/TitleWrapper";
 import DailyAvailability from "../../components/User/DailyAvailability";
 import WeeklyAvailability from "../../components/User/WeeklyAvailability";
@@ -7,6 +6,7 @@ import availabilityImg from "../../assets/availability.svg";
 import useAvailabilityData from "../../hooks/useAvailabilityData";
 import ToastError from "../../components/Elements/Toast/ToastError";
 import UserAnimation from "../../utils/Animation/UserAnimation";
+import { BsGlobeAmericas } from "react-icons/bs";
 
 const Availability = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -55,6 +55,13 @@ const Availability = () => {
                   </button>
                 </li>
               </ul>
+
+              <div className="flex items-center mt-3 md:border-b-0">
+                <h2 className="mx-1 my-3">
+                  <BsGlobeAmericas />
+                </h2>
+                <h2 className="mx-1">Pacific Time - US / Canada</h2>
+              </div>
             </UserAnimation>
           </div>
           {isFetching ? (

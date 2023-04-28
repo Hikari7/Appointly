@@ -66,7 +66,7 @@ const WeeklyAvailability = ({ isError: fetchFailed }) => {
 
   return (
     <div className="flex justify-center w-full ">
-      <form className="flex flex-col p-5 w-[90%] md:w-[60%] max-h-full">
+      <form className="flex flex-col  w-[90%] md:w-[60%] max-h-full">
         {availability &&
           availability.map((eachObj, objIndex) => (
             // Map out each day of week

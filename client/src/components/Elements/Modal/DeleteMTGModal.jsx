@@ -136,14 +136,14 @@ const DeleteMTGModal = ({ eachAppointment, setIsDeleteMTGModal }) => {
             checked={isChecked}
             onChange={() => setIsChecked(!isChecked)}
           />
-          confirm cancel
+          Confirm cancel
         </label>
         <button
           onClick={(e) => handleSubmit(e)}
           disabled={!isChecked}
           className="btn btn-error disabled:btn-disabled normal-case font-bold py-1.5 w-28"
         >
-          Cancel meeting
+          Cancel Meeting
         </button>
       </div>
       {isMtgDeleteToast.error && (
