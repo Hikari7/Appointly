@@ -70,13 +70,13 @@ const UserInfoChange = () => {
 
   return (
     <>
-      <div className="text-xl font-bold leading-tight  mt-10  text-center font-second text-accent">
+      <div className="text-xl md:text-2xl font-bold leading-tight  mt-10  text-center font-second text-accent">
         Account information
       </div>
       <form className="mt-6" onSubmit={handleAccountInfoChange}>
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
-            <label className="block text-gray-700">Username</label>
+            <label className="block text-gray-700 font-second">Username</label>
             <input
               defaultValue={user.username}
               ref={userInput}
@@ -90,7 +90,7 @@ const UserInfoChange = () => {
             )}
           </div>
           <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2 md:mt-0">Email</label>
+            <label className="block text-gray-700 mt-2 md:mt-0 font-second">Email</label>
             <input
               defaultValue={user.email}
               ref={emailInput}
@@ -106,7 +106,7 @@ const UserInfoChange = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7"
+          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
         >
           Save changes
         </button>

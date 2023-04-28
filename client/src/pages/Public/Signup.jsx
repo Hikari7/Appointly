@@ -170,7 +170,7 @@ const Signup = () => {
             <p className="mt-8"> Already have an account?</p>
             <Link
               to="/login"
-              className="text-blue-500 hover:opacity-70 border-b border-blue"
+              className="text-primary hover:opacity-70 border-b border-primary"
             >
               Login
             </Link>

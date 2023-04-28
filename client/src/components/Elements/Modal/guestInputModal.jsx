@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
-
 import moment from "moment";
-
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsGlobeAmericas } from "react-icons/bs";
 import comfirmed from "../../../assets/confirmed.svg";

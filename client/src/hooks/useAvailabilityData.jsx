@@ -12,9 +12,9 @@ const useAvailabilityData = () => {
     queryKey: ["availability"],
     queryFn: async () => {
       const { data } = await userAppointmentApi.getAvailability(user.userId);
-      if(data.length > 0){
+      if (data.length > 0) {
         const availabilityObj = {};
-        if(data[0].weekly.length === 0 && data[0].daily.length > 0){
+        if (data[0].weekly.length === 0 && data[0].daily.length > 0) {
           availabilityObj.weekly = [
             { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
             { Mon: false, time: [{ start: "", end: "" }], dow: 1 },
@@ -26,14 +26,14 @@ const useAvailabilityData = () => {
           ];
           availabilityObj.daily = data[0].daily;
           dispatch(setAvailability(availabilityObj));
-        }else{
+        } else {
           availabilityObj.weekly = data[0].weekly;
           availabilityObj.daily = data[0].daily;
           dispatch(setAvailability(availabilityObj));
         }
-      }      
+      }
 
-      if(data.length === 0){
+      if (data.length === 0) {
         const availabilityObj = {};
         availabilityObj.weekly = [
           { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
@@ -47,12 +47,11 @@ const useAvailabilityData = () => {
         availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
         dispatch(setAvailability(availabilityObj));
       }
-
     },
-    retry: false,    
+    retry: false,
   });
 
-  if(isError){
+  if (isError) {
     const availabilityObj = {};
     availabilityObj.weekly = [
       { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
@@ -66,9 +65,8 @@ const useAvailabilityData = () => {
     availabilityObj.daily = [{ date: "", time: [{ start: "", end: "" }] }];
     dispatch(setAvailability(availabilityObj));
   }
-  
 
-  return ({isFetching, isError})
+  return { isFetching, isError };
 };
 
 export default useAvailabilityData;

@@ -51,8 +51,8 @@ const PasswordChange = () => {
       });
       if (res.status === 200) {
         setSuccess(true);
-        passwordInput.current.value = ""
-        confirmPasswordInput.current.value = ""
+        passwordInput.current.value = "";
+        confirmPasswordInput.current.value = "";
 
         setTimeout(() => {
           setSuccess(false);
@@ -66,13 +66,15 @@ const PasswordChange = () => {
 
   return (
     <>
-      <div className="text-xl font-bold leading-tight mt-10 text-center font-second text-accent">
+      <div className="text-xl md:text-2xl font-bold leading-tight mt-10 text-center font-second text-accent">
         Password settings
       </div>
       <form className="mt-6" onSubmit={handlePasswordChange}>
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2">New Password</label>
+            <label className="block text-gray-700 mt-2 font-second">
+              New Password
+            </label>
             <input
               ref={passwordInput}
               type="password"
@@ -81,23 +83,29 @@ const PasswordChange = () => {
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
 
-            {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
+            {passwordErr !== "" && (
+              <p className="text-xs text-red-600">{passwordErr}</p>
+            )}
           </div>
           <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2">Confirm Password</label>
+            <label className="block text-gray-700 mt-2 font-second">
+              Confirm Password
+            </label>
             <input
               ref={confirmPasswordInput}
               type="password"
               name="confirm password"
-              placeholder="Enter Confirm password"
+              placeholder="Confirm password"
               className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             />
-            {confirmPasswordErr !== "" && <p className="text-xs text-red-600">{confirmPasswordErr}</p>}
+            {confirmPasswordErr !== "" && (
+              <p className="text-xs text-red-600">{confirmPasswordErr}</p>
+            )}
           </div>
         </div>
         <button
           type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
+          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
         >
           Save changes
         </button>

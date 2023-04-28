@@ -218,7 +218,7 @@ const TimeAvailability = ({ selectDate }) => {
       <div id="setBtn" className="flex justify-center">
         <button
           onClick={(e) => handleSubmit(e)}
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
+          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
         >
           Save Changes
         </button>

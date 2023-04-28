@@ -77,14 +77,14 @@ const AppointmentCollapse = ({ eachAppointment }) => {
       </HashLink>
       {isCollapseOpen && (
         <div id={eachAppointment._id} className="px-10 mx-auto w-full md:w-4/5">
-          <div className="md:flex justify-between w-full">
+          <div className="md:flex md:justify-between w-full">
             <div className="items-center w-full">
               <p className="basis-[50%]">Guest name</p>
               <span className="text-primary break-all ">
                 {eachAppointment.name}
               </span>
             </div>
-            <div className="items-center w-full">
+            <div className="items-center w-full mt-3 md:mt-0">
               <p className="basis-[50%]">Guest email</p>
               <span className="text-primary break-all ">
                 {eachAppointment.email}
@@ -122,16 +122,12 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         <RescheduleModal
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
-          // setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-          // isMtgRescheduleToast={isMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
         <DeleteMTGModal
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
-          // setIsMtgDeleteToast={setIsMtgDeleteToast}
-          // isMtgDeleteToast={isMtgDeleteToast}
         />
       )}
     </div>
