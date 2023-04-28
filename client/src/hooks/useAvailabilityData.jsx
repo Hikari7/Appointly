@@ -14,10 +14,24 @@ const useAvailabilityData = () => {
       const { data } = await userAppointmentApi.getAvailability(user.userId);
       if(data.length > 0){
         const availabilityObj = {};
-        availabilityObj.weekly = data[0].weekly;
-        availabilityObj.daily = data[0].daily;
-        dispatch(setAvailability(availabilityObj));
-      }
+        if(data[0].weekly.length === 0 && data[0].daily.length > 0){
+          availabilityObj.weekly = [
+            { Sun: false, time: [{ start: "", end: "" }], dow: 0 },
+            { Mon: false, time: [{ start: "", end: "" }], dow: 1 },
+            { Tue: false, time: [{ start: "", end: "" }], dow: 2 },
+            { Wed: false, time: [{ start: "", end: "" }], dow: 3 },
+            { Thu: false, time: [{ start: "", end: "" }], dow: 4 },
+            { Fri: false, time: [{ start: "", end: "" }], dow: 5 },
+            { Sat: false, time: [{ start: "", end: "" }], dow: 6 },
+          ];
+          availabilityObj.daily = data[0].daily;
+          dispatch(setAvailability(availabilityObj));
+        }else{
+          availabilityObj.weekly = data[0].weekly;
+          availabilityObj.daily = data[0].daily;
+          dispatch(setAvailability(availabilityObj));
+        }
+      }      
 
       if(data.length === 0){
         const availabilityObj = {};
