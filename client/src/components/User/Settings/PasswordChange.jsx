@@ -72,7 +72,7 @@ const PasswordChange = () => {
       <form className="mt-6" onSubmit={handlePasswordChange}>
         <div className="md:flex justify-between">
           <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2">New Password</label>
+            <label className="block text-gray-700 mt-2 font-second">New Password</label>
             <input
               ref={passwordInput}
               type="password"
@@ -84,7 +84,7 @@ const PasswordChange = () => {
             {passwordErr !== "" && <p className="text-xs text-red-600">{passwordErr}</p>}
           </div>
           <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2">Confirm Password</label>
+            <label className="block text-gray-700 mt-2 font-second">Confirm Password</label>
             <input
               ref={confirmPasswordInput}
               type="password"
@@ -97,7 +97,7 @@ const PasswordChange = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
+          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
         >
           Save changes
         </button>

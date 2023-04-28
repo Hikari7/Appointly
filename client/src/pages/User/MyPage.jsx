@@ -69,9 +69,9 @@ const MyPage = () => {
 
         <div className="mt-14 overflow-scroll md:w-5/6 w-full">
           <UserAnimation>
-            <div className="p-6 bg-[#F7EDD6]  rounded-lg shadow-md justify-center w-2/4 mx-auto">
+            <div className="p-6 bg-[#F7EDD6]  rounded-lg shadow-md justify-center w-3/4 mx-auto md:w-2/4">
               <p className="font-second text-center">30 Minute Meeting</p>
-              <p className="text-center text-sm">
+              <p className="text-center text-sm mt-2">
                 Share the link with guests to get started!
               </p>
               <div
@@ -83,7 +83,7 @@ const MyPage = () => {
                     <span className="my-auto">
                       <FiCheck size={"24px"} color={"#95B9F4"} />
                     </span>
-                    <p className="ml-2 text-primary">Copied Link!</p>
+                    <p className="ml-2 text-primary font-second">Copied Link!</p>
                   </>
                 ) : (
                   <>
@@ -91,7 +91,7 @@ const MyPage = () => {
                       <span className="my-auto">
                         <FiCopy size={"24px"} />
                       </span>
-                      <p className="ml-2">Copy Link</p>
+                      <p className="ml-2 font-second">Copy Link</p>
                     </span>
                   </>
                 )}

@@ -156,7 +156,7 @@ const WeeklyAvailability = ({ isError: fetchFailed }) => {
         <button
           disabled={fetchFailed}
           onClick={(e) => handleSubmit(e)}
-          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed font-second"
         >
           Save Changes
         </button>
