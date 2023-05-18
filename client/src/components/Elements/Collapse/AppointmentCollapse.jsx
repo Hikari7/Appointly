@@ -31,10 +31,10 @@ const AppointmentCollapse = ({ eachAppointment }) => {
   return (
     <div
       tabIndex={0}
-      onClick={() => setIsCollapseOpen(!isCollapseOpen)}
       className="border border-info bg-base-100 rounded-box w-[80%] md:w-4/6 mx-auto"
     >
       <HashLink
+        onClick={() => setIsCollapseOpen(!isCollapseOpen)}
         smooth
         to={`#${eachAppointment._id}`}
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
