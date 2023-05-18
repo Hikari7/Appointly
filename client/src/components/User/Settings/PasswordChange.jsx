@@ -22,8 +22,8 @@ const PasswordChange = () => {
     setPasswordErr("");
     setConfirmPasswordErr("");
     let error = false;
-    const password = passwordInput.current.value;
-    const confirmPassword = confirmPasswordInput.current.value;
+    let password = passwordInput.current.value;
+    let confirmPassword = confirmPasswordInput.current.value;
 
     const passwordHintValidate = validatePassword(password);
     setPasswordErr(passwordHintValidate ? passwordHintValidate : "");
@@ -51,6 +51,9 @@ const PasswordChange = () => {
       });
       if (res.status === 200) {
         setSuccess(true);
+        passwordInput.current.value = "";
+        confirmPasswordInput.current.value = "";
+
         setTimeout(() => {
           setSuccess(false);
         }, 3000);
@@ -63,51 +66,52 @@ const PasswordChange = () => {
 
   return (
     <>
-      <h3 className="text-xl font-bold leading-tight mt-10 text-center font-second text-accent">
-        Password settings
-      </h3>
-      <form className="mt-6" onSubmit={handlePasswordChange}>
-        <div className="md:flex justify-between">
-          <div className="md:w-5/12">
-            <label className="block text-gray-700">New Password</label>
-            <input
-              ref={passwordInput}
-              type="password"
-              name="password"
-              placeholder="New Password"
-              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            />
-
-            {passwordErr !== "" ? (
-              <p className="text-xs text-red-600">{passwordErr}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="md:w-5/12">
-            <label className="block text-gray-700 mt-2">Confirm Password</label>
-            <input
-              ref={confirmPasswordInput}
-              type="password"
-              name="confirm password"
-              placeholder="Enter Confirm password"
-              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            />
-            {confirmPasswordErr !== "" ? (
-              <p className="text-xs text-red-600">{confirmPasswordErr}</p>
-            ) : (
-              ""
-            )}
-          </div>
+      <div className="mb-24 md:mb-0">
+        <div className="text-xl md:text-2xl font-bold leading-tight mt-10 text-center font-second text-accent">
+          Password settings
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
-        >
-          Save changes
-        </button>
-      </form>
+        <form className="mt-6" onSubmit={handlePasswordChange}>
+          <div className="md:flex justify-between">
+            <div className="md:w-5/12">
+              <label className="block text-gray-700 mt-2 font-second">
+                New Password
+              </label>
+              <input
+                ref={passwordInput}
+                type="password"
+                name="password"
+                placeholder="New Password"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
 
+              {passwordErr !== "" && (
+                <p className="text-xs text-red-600">{passwordErr}</p>
+              )}
+            </div>
+            <div className="md:w-5/12">
+              <label className="block text-gray-700 mt-2 font-second">
+                Confirm Password
+              </label>
+              <input
+                ref={confirmPasswordInput}
+                type="password"
+                name="confirm password"
+                placeholder="Confirm password"
+                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              />
+              {confirmPasswordErr !== "" && (
+                <p className="text-xs text-red-600">{confirmPasswordErr}</p>
+              )}
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
+          >
+            Save changes
+          </button>
+        </form>
+      </div>
       {success && (
         <SuccessToast props={"Password changed!"} setFunction={setSuccess} />
       )}

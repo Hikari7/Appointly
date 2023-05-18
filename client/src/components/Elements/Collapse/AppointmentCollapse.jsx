@@ -31,15 +31,15 @@ const AppointmentCollapse = ({ eachAppointment }) => {
   return (
     <div
       tabIndex={0}
-      onClick={() => setIsCollapseOpen(!isCollapseOpen)}
-      className="border border-info bg-base-100 rounded-box w-4/6 mx-auto"
+      className="border border-info bg-base-100 rounded-box w-[80%] md:w-4/6 mx-auto"
     >
       <HashLink
+        onClick={() => setIsCollapseOpen(!isCollapseOpen)}
         smooth
         to={`#${eachAppointment._id}`}
         className="text-xl font-medium flex items-center w-full py-3 mx-auto justify-evenly font-second"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col w-[70%]">
           <p className="w-full text-lg break-all">{`${appointmentDow}, ${appointmentDate}`}</p>
           <p className="w-full text-lg break-all">{`${appointmentStartTime} - ${appointmentEndTime}`}</p>
         </div>
@@ -76,15 +76,15 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         )}
       </HashLink>
       {isCollapseOpen && (
-        <div id={eachAppointment._id} className="px-10 mx-auto">
-          <div className="md:flex justify-between w-full">
+        <div id={eachAppointment._id} className="px-10 mx-auto w-full md:w-4/5">
+          <div className="md:flex md:justify-between w-full">
             <div className="items-center w-full">
               <p className="basis-[50%]">Guest name</p>
               <span className="text-primary break-all ">
                 {eachAppointment.name}
               </span>
             </div>
-            <div className="items-center w-full">
+            <div className="items-center w-full mt-3 md:mt-0">
               <p className="basis-[50%]">Guest email</p>
               <span className="text-primary break-all ">
                 {eachAppointment.email}
@@ -122,16 +122,12 @@ const AppointmentCollapse = ({ eachAppointment }) => {
         <RescheduleModal
           setIsRescheduleModal={setIsRescheduleModal}
           eachAppointment={eachAppointment}
-          // setIsMtgRescheduleToast={setIsMtgRescheduleToast}
-          // isMtgRescheduleToast={isMtgRescheduleToast}
         />
       )}
       {isDeleteMTGModal && (
         <DeleteMTGModal
           setIsDeleteMTGModal={setIsDeleteMTGModal}
           eachAppointment={eachAppointment}
-          // setIsMtgDeleteToast={setIsMtgDeleteToast}
-          // isMtgDeleteToast={isMtgDeleteToast}
         />
       )}
     </div>

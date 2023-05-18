@@ -4,7 +4,6 @@ import settingImg from "../../assets/setting.svg";
 import UserInfoChange from "../../components/User/Settings/UserInfoChange";
 import PasswordChange from "../../components/User/Settings/PasswordChange";
 import UserAnimation from "../../utils/Animation/UserAnimation";
-import { useEffect } from "react";
 
 const Settings = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -35,7 +34,7 @@ const Settings = () => {
           <UserAnimation>
             <div className="my-14 w-5/6 mx-auto">
               <div className="flex justify-evenly ">
-                <ul className="flex gap-6 list-none">
+                <ul className="flex gap-5 list-none">
                   <li
                     className={
                       openTab === 1
@@ -66,14 +65,14 @@ const Settings = () => {
                 </ul>
               </div>
               {openTab === 1 && (
-                // <ToLeftAnimation>
-                <UserInfoChange />
-                // </ToLeftAnimation>
+                <UserAnimation>
+                  <UserInfoChange />
+                </UserAnimation>
               )}
               {openTab === 2 && (
-                // <ToRightAnimation>
-                <PasswordChange />
-                // </ToRightAnimation>
+                <UserAnimation>
+                  <PasswordChange />
+                </UserAnimation>
               )}
             </div>
           </UserAnimation>

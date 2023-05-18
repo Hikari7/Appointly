@@ -218,14 +218,12 @@ const TimeAvailability = ({ selectDate }) => {
       <div id="setBtn" className="flex justify-center">
         <button
           onClick={(e) => handleSubmit(e)}
-          className="btn btn-primary normal-case font-bold py-2 my-7 "
+          className="btn btn-primary normal-case font-bold py-2 my-7 font-second"
         >
-          Change Apply
+          Save Changes
         </button>
       </div>
-      {isSuccess && (
-        <ToastSuccess props={"Availability changed!"} />
-      )}
+      {isSuccess && <ToastSuccess props={"Availability changed!"} />}
       {isError && (
         <ToastError props={"Something went wrong... Please try again."} />
       )}

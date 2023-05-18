@@ -16,14 +16,14 @@ const Home = () => {
           <HomeAnimation>
             <div className="md:flex">
               <div className="w-full">
-                <h1 className="text-4xl font-second font-bold md:text-5xl text-slate-700">
+                <h1 className="text-4xl font-second font-bold md:text-5xl text-slate-700 ">
                   Stay connected anytime, anywhere.
                 </h1>
-                <h3 className="mt-6 md:text-lg text-info">
+                <p className="mt-6 md:text-lg text-info underline decoration-[#F7EDD6] decoration-2 md:decoration-4 underline-offset-4">
                   Appointly makes scheduling online chats with ease. <br />
                   Rather than spending time on scheduling, focus on connecting
                   more.
-                </h3>
+                </p>
                 <Link to="/login">
                   <button className="btn btn-primary normal-case  w-42 py-2 mt-8 text-xl font-second">
                     My Account

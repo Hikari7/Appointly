@@ -91,7 +91,7 @@ const Signup = () => {
           <img src={SignupImg} alt="" className="w-full h-full object-cover" />
         </div>
 
-        <div className="bg-white w-full my-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
+        <div className="bg-white w-full mt-4 md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
           <div className="w-full h-100">
             <div className="text-2xl font-extrabold text-center text-blue font-second text-primary">
               Appointly
@@ -99,9 +99,9 @@ const Signup = () => {
             <div className="text-md font-extrabold text-center text-blue font-second text-primary">
               Meeting Scheduling App
             </div>
-            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
+            <div className="text-xl font-bold leading-tight mt-6 text-center font-second text-accent">
               Sign up
-            </h3>
+            </div>
 
             <form className="mt-6" onSubmit={handleSubmit}>
               <label className="block text-gray-700">Username</label>
@@ -170,7 +170,7 @@ const Signup = () => {
             <p className="mt-8"> Already have an account?</p>
             <Link
               to="/login"
-              className="text-blue-500 hover:opacity-70 border-b border-blue"
+              className="text-primary hover:opacity-70 border-b border-primary"
             >
               Login
             </Link>

@@ -1,10 +1,10 @@
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 import { setUser } from "../redux/slicers/userSlice";
 import { setLoginToast } from "../redux/slicers/loginToastSlice";
 import authApi from "../api/authApi";
-import { useDispatch } from "react-redux";
 
 const handleLogin = async ({email, password}) => {
   const res = await authApi.login({email, password})

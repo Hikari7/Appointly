@@ -1,6 +1,6 @@
 export const validateUsername = (username, error) => {
-  if (username.trim().length < 8) {
-    return "Username requires minimum length of 8 characters";
+  if (username.trim().length < 4) {
+    return "Username requires minimum length of 4 characters";
   }
 };
 

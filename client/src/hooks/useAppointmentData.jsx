@@ -19,7 +19,7 @@ const useAppoinmentData = () => {
           const filteredDate = new Date(
             appointmentDate.appointmentDateTime.date
           );
-          if (today < filteredDate || today == filteredDate) {
+          if (today < filteredDate) {
             return filteredDate;
           } else {
             return;
@@ -31,6 +31,10 @@ const useAppoinmentData = () => {
           );
         });
         dispatch(setListAppointment(filteredAppointment));
+      }
+
+      if (data.length === 0) {
+        dispatch(setListAppointment([]));
       }
 
       if (isError) {

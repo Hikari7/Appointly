@@ -8,6 +8,7 @@ import AppointmentCollapse from "../../components/Elements/Collapse/AppointmentC
 import ToastSuccess from "../../components/Elements/Toast/ToastSuccess";
 import ToastError from "../../components/Elements/Toast/ToastError";
 import UserAnimation from "../../utils/Animation/UserAnimation";
+import { BsGlobeAmericas } from "react-icons/bs";
 
 export const appointmentToast = createContext();
 
@@ -44,7 +45,7 @@ const MyPage = () => {
     } else if (bookedNum === 1) {
       return <p>You have upcoming 1 meeting!</p>;
     } else {
-      return <h3>You have upcoming {bookedNum} meetings!</h3>;
+      return <p>You have upcoming {bookedNum} meetings!</p>;
     }
   }
 
@@ -66,13 +67,12 @@ const MyPage = () => {
           img={mypageImg}
           children={currentBooking()}
         />
+
         <div className="mt-14 overflow-scroll md:w-5/6 w-full">
           <UserAnimation>
-            <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-md justify-center w-2/4 mx-auto">
-              <p className="font-second text-center text-acc">
-                30 Minute Meeting
-              </p>
-              <p className="text-center text-sm">
+            <div className="p-6 bg-[#F7EDD6]  rounded-lg shadow-md justify-center w-3/4 mx-auto md:w-2/4">
+              <p className="font-second text-center">30 Minute Meeting</p>
+              <p className="text-center text-sm mt-2">
                 Share the link with guests to get started!
               </p>
               <div
@@ -84,7 +84,9 @@ const MyPage = () => {
                     <span className="my-auto">
                       <FiCheck size={"24px"} color={"#95B9F4"} />
                     </span>
-                    <p className="ml-2 text-primary">Copied Link!</p>
+                    <p className="ml-2 text-primary font-second">
+                      Copied Link!
+                    </p>
                   </>
                 ) : (
                   <>
@@ -92,7 +94,7 @@ const MyPage = () => {
                       <span className="my-auto">
                         <FiCopy size={"24px"} />
                       </span>
-                      <p className="ml-2">Copy Link</p>
+                      <p className="ml-2 font-second">Copy Link</p>
                     </span>
                   </>
                 )}
@@ -128,6 +130,12 @@ const MyPage = () => {
                   </div>
                 ) : (
                   <div className="py-10 md:mt-12 ">
+                    <div className="flex items-center my-3 md:border-b-0 justify-center">
+                      <h2 className="mx-1 my-3">
+                        <BsGlobeAmericas />
+                      </h2>
+                      <h2 className="mx-1">Pacific Time - US / Canada</h2>
+                    </div>
                     {appointment.map((eachAppointment) => (
                       <appointmentToast.Provider
                         value={value}

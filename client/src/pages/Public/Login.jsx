@@ -52,9 +52,9 @@ const Login = () => {
               Meeting Scheduling App
             </div>
 
-            <h3 className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
+            <div className="text-xl font-bold leading-tight mt-6 text-center font-5xl font-second text-accent">
               Log in
-            </h3>
+            </div>
 
             <form className="mt-6" onSubmit={handleSubmit}>
               <div className="mt-4">
@@ -101,7 +101,7 @@ const Login = () => {
             <p className="mt-8">You don't have an account yet?</p>
             <Link
               to="/signup"
-              className="text-blue-500 hover:opacity-70 border-b border-blue"
+              className="text-primary hover:opacity-70 border-b border-primary"
             >
               Create an account
             </Link>

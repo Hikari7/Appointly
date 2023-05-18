@@ -13,10 +13,10 @@ import AddCopyBtn from "./AddCopyBtn";
 import ToastSuccess from "../Elements/Toast/ToastSuccess";
 import ToastError from "../Elements/Toast/ToastError";
 
-const WeeklyAvailability = ({isError: fetchFailed}) => {
+const WeeklyAvailability = ({ isError: fetchFailed }) => {
   const availability = useSelector((state) => state.availability.weekly);
   const dispatch = useDispatch();
-  const param = useParams()
+  const param = useParams();
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -66,7 +66,7 @@ const WeeklyAvailability = ({isError: fetchFailed}) => {
 
   return (
     <div className="flex justify-center w-full ">
-      <form className="flex flex-col p-5 w-[90%] md:w-[60%] max-h-full">
+      <form className="flex flex-col  w-[90%] md:w-[60%] max-h-full">
         {availability &&
           availability.map((eachObj, objIndex) => (
             // Map out each day of week
@@ -156,9 +156,9 @@ const WeeklyAvailability = ({isError: fetchFailed}) => {
         <button
           disabled={fetchFailed}
           onClick={(e) => handleSubmit(e)}
-          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="btn btn-primary normal-case font-bold py-2 my-7 mx-auto w-2/6 disabled:bg-gray-400 disabled:cursor-not-allowed font-second"
         >
-          Change Apply
+          Save Changes
         </button>
       </form>
       {isSuccess && <ToastSuccess props={"Availability changed!"} />}
